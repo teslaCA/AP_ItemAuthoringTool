@@ -1,7 +1,10 @@
 /* tslint:disable:no-unused-variable */
 
 import { TestBed, async } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
+import { AlertModule, ButtonsModule, TabsModule } from 'ng2-bootstrap';
 
 describe('AppComponent', () => {
   beforeEach(() => {
@@ -9,6 +12,13 @@ describe('AppComponent', () => {
       declarations: [
         AppComponent
       ],
+      imports: [
+        FormsModule,
+        HttpModule,
+        AlertModule.forRoot(),
+        ButtonsModule.forRoot(),
+        TabsModule.forRoot()
+      ]
     });
     TestBed.compileComponents();
   });
