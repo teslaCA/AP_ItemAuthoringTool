@@ -27,12 +27,13 @@ The project was created with angular-cli **v1.0.0-beta.25.5**
 
 #### local dev
 
-If this is the first time you are running the app first run: ```npm install```
-
-This command might take awhile.
- 
 In a terminal window, navigate to the root of the project.
 
+It is common to start with: ```npm install```
+
+Each time you pull new features into your local environment you should execute ```npm install.```
+Doing this ensures you have the needed packages to build and run the project.
+ 
 Running the app: ```ng serve```
 
 Open in a browser ```http://localhost:4200```
