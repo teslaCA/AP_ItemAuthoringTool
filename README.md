@@ -39,7 +39,9 @@ Each time you pull new features or switch branches you should execute ```npm ins
  
 Doing this ensures you have the correct packages to build, test, and run.
  
-Running the app: ```ng serve```
+Running the app using the dev settings: ```ng serve```
+
+Running the app using the production settings: ```ng serve --prod```
 
 Open in a browser ```http://localhost:4200```
 
@@ -78,4 +80,13 @@ Run end-to-end tests: ```ng e2e```
 End to end tests require the app to be running (i.e. ```ng serve```).  then from a different
  terminal run the end-to-end tests.
 
+#### Builds
+
+Development Build: ```ng build```
+
+Production Build: ```ng build --prod```
+
+The build output is the **/dist** folder.
+
+All builds make use of bundling.  Using the **--prod** flag will also make use of uglifying and tree-shaking functionality.  
 
