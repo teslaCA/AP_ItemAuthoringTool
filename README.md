@@ -25,7 +25,7 @@ In a terminal window, from any directory run  ```npm install -g angular-cli```
 
 This installs the angular-cli globally.
 
-Once installed, run ```ng help``` to get a list of commands are their associated options.
+Once installed, run ```ng help``` to get a list of commands and their associated options.
 
 ### Development
 
@@ -39,18 +39,18 @@ Each time you pull new features or switch branches you should execute ```npm ins
  
 Doing this ensures you have the correct packages to build, test, and run.
  
-Running the app using the dev settings: ```ng serve```
+Running the app using dev settings: ```ng serve```
 
-Running the app using the production settings: ```ng serve --prod```
+Running the app using production settings: ```ng serve --prod```
 
 Open in a browser ```http://localhost:4200```
 
 **IDE**
 
-*Intellij* has good support for Typescript and is the recommended IDE.  With Ultimate Edition integrating the angular-cli with Intellij 
-is easy - [See Docs Here](https://www.jetbrains.com/help/idea/2016.3/using-angular-cli.html).
+Intellij has good support for Typescript and is the recommended IDE.  With Ultimate Edition integrating the angular-cli with Intellij 
+is easy - [See Docs](https://www.jetbrains.com/help/idea/2016.3/using-angular-cli.html).
 
-*Visual Code* is an alternate IDE.  It has good support for Typescript.
+Visual Studio Code is an alternate IDE.  It has good support for Typescript.
 
 #### Testing
 
