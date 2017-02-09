@@ -25,11 +25,9 @@ In a terminal window, from any directory run  ```npm install -g angular-cli```
 
 This installs the angular-cli globally.
 
-Once installed, run ```ng help``` to get a list of commands are their associated options.
+Once installed, run ```ng help``` to get a list of commands and their associated options.
 
 ### Development
-
-#### Setup
 
 In a terminal window, navigate to the root of the project.
 
@@ -39,20 +37,20 @@ Each time you pull new features or switch branches you should execute ```npm ins
  
 Doing this ensures you have the correct packages to build, test, and run.
  
-Running the app using the dev settings: ```ng serve```
+Run app using dev settings: ```ng serve```
 
-Running the app using the production settings: ```ng serve --prod```
+Run app using production settings: ```ng serve --prod```
 
 Open in a browser ```http://localhost:4200```
 
 **IDE**
 
-*Intellij* has good support for Typescript and is the recommended IDE.  With Ultimate Edition integrating the angular-cli with Intellij 
-is easy - [See Docs Here](https://www.jetbrains.com/help/idea/2016.3/using-angular-cli.html).
+Intellij has good support for Typescript and is the recommended IDE.  With Ultimate Edition integrating the angular-cli with Intellij 
+is easy - [See Docs](https://www.jetbrains.com/help/idea/2016.3/using-angular-cli.html).
 
-*Visual Code* is an alternate IDE.  It has good support for Typescript.
+Visual Studio Code is an alternate IDE.  It has good support for Typescript.
 
-#### Testing
+### Testing
 
 **Unit Testing**
 
@@ -80,7 +78,7 @@ Run end-to-end tests: ```ng e2e```
 End to end tests require the app to be running (i.e. ```ng serve```).  then from a different
  terminal run the end-to-end tests.
 
-#### Builds
+### Builds
 
 Development Build: ```ng build```
 
@@ -90,3 +88,13 @@ The build output is the **/dist** folder.
 
 All builds make use of bundling.  Using the **--prod** flag will also make use of uglifying and tree-shaking functionality.  
 
+
+### Docker
+
+**Prerequisite** Docker is required - https://docs.docker.com/engine/installation/
+
+There is a Dockerfile in the root of the application along with a script docker.sh.
+
+Build docker image: ```sh docker.sh```
+
+Run docker image: ```sh docker.sh run```
