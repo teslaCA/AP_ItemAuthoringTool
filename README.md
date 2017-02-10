@@ -98,3 +98,5 @@ There is a Dockerfile in the root of the application along with a script docker.
 Build docker image: ```sh docker.sh```
 
 Run docker image: ```sh docker.sh run```
+
+Navigate to:  http://localhost/  - the docker image expose the app on port 80.  
