@@ -100,5 +100,3 @@ Build docker image: ```sh docker.sh```
 Run docker image: ```sh docker.sh run```
 
 Navigate to:  http://localhost/  - the docker image expose the app on port 80.  
-
-Test changes
