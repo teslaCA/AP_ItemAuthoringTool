@@ -38,4 +38,11 @@
       </tabset>
     </div>
   </div>
+
+  <div class="row">
+    <h2>Basic Request</h2>
+    <button type="button" (click)="makeRequest()">Make Request</button>
+    <div *ngIf="loading">loading...</div>
+    <pre>{{data | json}}</pre>
+  </div>
 </div>

@@ -1,19 +1,25 @@
 #!/usr/bin/env bash
+# *************************************
+# Example:  ./docker.sh up
+# Example:  ./docker.sh down
+# *************************************
 
-#######################################
-# Build or run the Docker image.
-# Build:  sh docker.sh
-# Run: sh docker.sh run
-#######################################
+function buildApp {
+  ./gw dockerCopyFiles
+  cd build/docker
+}
 
-IMAGE_NAME="iat-frontend"
+ARG=$1
 
-if [ "$1" = "run" ]; then
-  echo "Running docker image $IMAGE_NAME"
-  docker run -p 80:80 -it $IMAGE_NAME
+if [ "$ARG" == "up" ]
+then
+  buildApp
+  docker-compose up --build
+elif [ "$ARG" == "down" ]
+then
+  cd build/docker
+  docker-compose down
 else
-  echo "Building docker image $IMAGE_NAME"
-  docker build -t iat-frontend .
+  echo "Usage: ./docker.sh [up|down]"
+  exit 1
 fi
-
-

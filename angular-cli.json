@@ -1,12 +1,12 @@
 {
   "project": {
-    "version": "1.0.0-beta.25.5",
+    "version": "1.0.0-beta.28.3",
     "name": "iat-frontend"
   },
   "apps": [
     {
       "root": "src",
-      "outDir": "dist",
+      "outDir": "src/main/resources/static/",
       "assets": [
         "assets",
         "favicon.ico"

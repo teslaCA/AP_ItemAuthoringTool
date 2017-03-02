@@ -91,12 +91,39 @@ All builds make use of bundling.  Using the **--prod** flag will also make use o
 
 ### Docker
 
-**Prerequisite** Docker is required - https://docs.docker.com/engine/installation/
+**Prerequisite** 
 
-There is a Dockerfile in the root of the application along with a script docker.sh.
+Docker is required - https://docs.docker.com/engine/installation/ - The installation should
+include docker compose which is also needed.
 
-Build docker image: ```sh docker.sh```
+**Build Tasks**
 
-Run docker image: ```sh docker.sh run```
+There are Gradle tasks for Docker commands.
 
-Navigate to:  http://localhost/  - the docker image expose the app on port 80.  
+Copy docker files: ```./gw dockerCopyFiles``` - copies and filters the files under ```src/main/docker```
+
+Build docker image: ```./gw dockerBuildImage``` - build a docker image using the Dockerfile in ```build/docker```
+
+Publish docker image: ```./gw dockerPushImage``` - publishes the image to docker hub.
+
+**Docker Compose**
+
+Docker Compose is used to stand up ap-iat with all the services it depends on, for example the config-server. 
+
+The project root has a file docker.sh.
+
+Run multiple containers: ```./docker.sh up``` - stand up all dependencies.  Uses the docker-compose.yml under ```build/docker```
+
+Stop docker image: ```./docker.sh down``` - stop all containers.
+
+**Docker Push Image**
+
+You could use docker directly to push the image to docker hub.  You can also use 
+the gradle tasks ```dockerPushImage```.  
+
+Using the gradle task requires credentials.  To achieve this create a file named ```gradle.properties```
+and save it to ```${HOME}/.gradle/```.  The file must contain three properties:
+
+* dockerHubUser =
+* dockerHubPass =
+* dockerHubEmail =
