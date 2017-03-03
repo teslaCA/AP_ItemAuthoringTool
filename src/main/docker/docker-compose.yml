@@ -16,11 +16,8 @@ services:
         logging:
             driver: json-file
     ap-ims:
-        container_name: ap-ims-dev
-        build:
-          context: .
+        container_name: ap-ims
         image: fwsbac/ap-ims
-        entrypoint: /docker-startup.sh
         environment:
             CONFIG_SERVICE_ENABLED: "true"
             CONFIG_SERVICE_URL: "http://config-server:8888"
@@ -33,15 +30,12 @@ services:
         depends_on:
             - config-server
         volumes:
-            - @USER_HOME@/smarter_app/sbac-config-repo:/tmp
+            - @USER_HOME@/smarter_app:/tmp
         logging:
             driver: json-file
     ap-iat:
-        container_name: ap-iat-dev
-        build:
-          context: .
+        container_name: ap-iat
         image: fwsbac/ap-iat
-        entrypoint: /docker-startup.sh
         environment:
             CONFIG_SERVICE_ENABLED: "true"
             CONFIG_SERVICE_URL: "http://config-server:8888"
