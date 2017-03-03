@@ -2,7 +2,7 @@ version: '2'
 services:
     config-server:
         container_name: config-server
-        image: fwsbac/configuration-service:latest
+        image: fwsbac/configuration-service
         environment:
           CONFIG_SERVICE_REPO: "file://tmp"
         expose:
@@ -15,11 +15,32 @@ services:
             - @USER_HOME@/smarter_app/sbac-config-repo:/tmp
         logging:
             driver: json-file
+    ap-ims:
+        container_name: ap-ims-dev
+        build:
+          context: .
+        image: fwsbac/ap-ims
+        entrypoint: /docker-startup.sh
+        environment:
+            CONFIG_SERVICE_ENABLED: "true"
+            CONFIG_SERVICE_URL: "http://config-server:8888"
+        ports:
+            - 8081:8080
+        networks:
+            - spring-cloud-network
+        links:
+            - config-server
+        depends_on:
+            - config-server
+        volumes:
+            - @USER_HOME@/smarter_app/sbac-config-repo:/tmp
+        logging:
+            driver: json-file
     ap-iat:
         container_name: ap-iat-dev
         build:
           context: .
-        image: fwsbac/ap-iat:latest
+        image: fwsbac/ap-iat
         entrypoint: /docker-startup.sh
         environment:
             CONFIG_SERVICE_ENABLED: "true"
@@ -32,9 +53,11 @@ services:
         networks:
             - spring-cloud-network
         links:
-            - config-server:config-server
+            - config-server
+            - ap-ims
         depends_on:
             - config-server
+            - ap-ims
         volumes:
             - @USER_HOME@/smarter_app:/tmp
         logging:
