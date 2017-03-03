@@ -1,0 +1,5 @@
+zuul:
+  routes:
+    ims-api:
+      path: /api/ims/**
+      url: http://localhost:8081/api

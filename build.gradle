@@ -21,7 +21,6 @@ plugins {
 }
 
 apply plugin: 'java'
-apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'com.bmuschko.docker-remote-api'
 
@@ -43,6 +42,8 @@ dependencies {
   compile 'org.springframework.boot:spring-boot-starter-security'
   compile 'org.springframework.boot:spring-boot-starter-web'
   compile 'org.springframework.cloud:spring-cloud-starter-config'
+  compile 'org.springframework.cloud:spring-cloud-starter-zuul'
+  compile 'org.springframework.boot:spring-boot-starter-thymeleaf'
 
   compile 'org.springframework.security.extensions:spring-security-saml2-core:1.0.2.RELEASE'
   compile 'com.google.guava:guava:21.0'
@@ -123,7 +124,7 @@ task dockerCopyFiles(type: Copy) {
   }
 
   from("build/libs/${jar.archiveName}") {
-    // drop the version from the jar name so it is just iat.jar
+    // drop version from artifact names
     rename { String fileName ->
       fileName.replace("-${project.version}", "")
     }

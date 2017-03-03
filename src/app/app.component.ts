@@ -7,7 +7,7 @@ import {Http, Response} from '@angular/http';
   styleUrls: ['./app.component.less']
 })
 export class AppComponent {
-  title = 'app works!';
+  title = 'App works!';
   singleModel = '1';
 
   data: Object;
@@ -20,7 +20,7 @@ export class AppComponent {
 
     this.loading = true;
 
-    this.http.request('/api/get')
+    this.http.request('/api/ims/ping')
       .subscribe((res: Response) => {
         this.data = res.text();
         this.loading = false;
