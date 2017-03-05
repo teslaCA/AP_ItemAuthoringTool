@@ -1,28 +1,20 @@
 #
-# The exposed port is 8080, it is the docker default.
+# The app runs on port 8080 unless configured
+# otherwise.
 #
-# The image should be run from docker-compose.  Running
-# the image standalone will result in an infinite loop
-# while the iat-startup.sh listens for http://config-server:8888
-#
-# netcat-openbsd is used in iat-startup.sh where
-# it loops until it detects the config-service
-# is available.  This is used when docker
-# compose stands up the app and its required
-# services.
+# The app can be enabled to pull its
+# coniguration from a Spring Cloud Config-Server.
 #
 FROM frolvlad/alpine-oraclejdk8:slim
 
 MAINTAINER Smarter Balanced "opentestsystem.org"
 
-RUN apk --no-cache add netcat-openbsd
-
 VOLUME ["/tmp"]
 
 COPY ap-iat.jar /
 
-COPY iat-startup.sh /
+RUN apk --no-cache add curl
 
-RUN chmod 755 /iat-startup.sh
+ENTRYPOINT ["/usr/bin/java"]
 
-ENTRYPOINT ["/iat-startup.sh"]
+CMD ["-jar", "/ap-iat.jar"]
