@@ -3,7 +3,7 @@
 # otherwise.
 #
 # The app can be enabled to pull its
-# coniguration from a Spring Cloud Config-Server.
+# configuration from a Spring Cloud Config-Server.
 #
 FROM frolvlad/alpine-oraclejdk8:slim
 
