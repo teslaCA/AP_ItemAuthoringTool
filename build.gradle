@@ -207,18 +207,6 @@ tasks.withType(FindBugs) {
 }
 
 /***************************
- * Jacoco
- ***************************/
-
-jacocoTestReport {
-  reports {
-    xml.enabled false
-    csv.enabled false
-    html.destination "${buildDir}/reports/jacoco"
-  }
-}
-
-/***************************
  * gradle wrapper
  ***************************/
 
@@ -227,8 +215,10 @@ task wrapper(type: Wrapper) {
 }
 
 /***************************
- * task dependencies
+ * Lifecycle enhancements
  ***************************/
+
+test.finalizedBy(jacocoTestReport)
 
 clean.dependsOn(ngCleanBuild)
 
