@@ -10,5 +10,5 @@ spring:
         initial-interval: ${CS_RETRY_INITIAL_INTERVAL:1000}
         max-attempts: ${CS_RETRY_MAX_ATTEMPTS:25}
         max-interval: ${CS_RETRY_MAX_INTERVAL:4000}
-        multiplier: ${CS_RETRY_MULTIPIER:1.2}
+        multiplier: ${CS_RETRY_MULTIPLIER:1.2}
 
