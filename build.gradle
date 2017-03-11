@@ -29,14 +29,6 @@ apply plugin: 'findbugs'
 apply plugin: "jacoco"
 
 
-group = appGroup
-version = appVersion
-
-jar {
-  baseName = appArtifact
-  version = appVersion
-}
-
 repositories {
   mavenCentral()
   maven { url "https://repo.spring.io/milestone" }
@@ -130,7 +122,11 @@ task dockerCopyFiles(type: Copy) {
   dependsOn 'bootRepackage'
 
   from ('src/main/docker/') {
-    filter(ReplaceTokens, tokens: [USER_HOME: System.env.HOME])
+    filter(ReplaceTokens, tokens: [USER_HOME: System.env.HOME,
+                                   configServerVersion: configServerVersion,
+                                   apIMSVersion: apIMSVersion,
+                                   version: version,
+                                   dockerTagBase: dockerTagBase])
   }
 
   from("build/libs/${jar.archiveName}") {
@@ -146,11 +142,11 @@ task dockerCopyFiles(type: Copy) {
 task dockerBuildImage(type: DockerBuildImage) {
   dependsOn 'dockerCopyFiles'
   inputDir = project.file('build/docker/')
-  tag = "${dockerTagBase}/${jar.baseName}"
+  tag = "${dockerTagBase}/${jar.baseName}:${version}"
 }
 
 task dockerPushImage(type: DockerPushImage) {
-  imageName = "${dockerTagBase}/${jar.baseName}"
+  imageName = "${dockerTagBase}/${jar.baseName}:${version}"
 }
 
 
