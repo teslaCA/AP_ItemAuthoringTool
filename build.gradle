@@ -21,17 +21,13 @@ plugins {
 }
 
 apply plugin: 'java'
-apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'com.bmuschko.docker-remote-api'
+apply plugin: 'checkstyle'
+apply plugin: 'pmd'
+apply plugin: 'findbugs'
+apply plugin: "jacoco"
 
-group = appGroup
-version = appVersion
-
-jar {
-  baseName = appArtifact
-  version = appVersion
-}
 
 repositories {
   mavenCentral()
@@ -42,9 +38,15 @@ dependencies {
   compile 'org.springframework.boot:spring-boot-starter-actuator'
   compile 'org.springframework.boot:spring-boot-starter-security'
   compile 'org.springframework.boot:spring-boot-starter-web'
+  compile 'org.springframework.boot:spring-boot-starter-thymeleaf'
+  compile 'org.springframework.boot:spring-boot-starter-aop'
+
   compile 'org.springframework.cloud:spring-cloud-starter-config'
+  compile 'org.springframework.cloud:spring-cloud-starter-zuul'
 
   compile 'org.springframework.security.extensions:spring-security-saml2-core:1.0.2.RELEASE'
+  compile 'org.springframework.retry:spring-retry'
+
   compile 'com.google.guava:guava:21.0'
 
   compileOnly 'org.projectlombok:lombok'
@@ -52,6 +54,7 @@ dependencies {
   runtime 'org.springframework.boot:spring-boot-devtools'
 
   testCompile 'org.springframework.boot:spring-boot-starter-test'
+  testCompile 'org.assertj:assertj-core:3.6.2'
 }
 
 dependencyManagement {
@@ -119,11 +122,15 @@ task dockerCopyFiles(type: Copy) {
   dependsOn 'bootRepackage'
 
   from ('src/main/docker/') {
-    filter(ReplaceTokens, tokens: [USER_HOME: System.env.HOME])
+    filter(ReplaceTokens, tokens: [USER_HOME: System.env.HOME,
+                                   configServerVersion: configServerVersion,
+                                   apIMSVersion: apIMSVersion,
+                                   version: version,
+                                   dockerTagBase: dockerTagBase])
   }
 
   from("build/libs/${jar.archiveName}") {
-    // drop the version from the jar name so it is just iat.jar
+    // drop version from artifact names
     rename { String fileName ->
       fileName.replace("-${project.version}", "")
     }
@@ -135,16 +142,83 @@ task dockerCopyFiles(type: Copy) {
 task dockerBuildImage(type: DockerBuildImage) {
   dependsOn 'dockerCopyFiles'
   inputDir = project.file('build/docker/')
-  tag = "${dockerTagBase}/${jar.baseName}"
+  tag = "${dockerTagBase}/${jar.baseName}:${version}"
 }
 
 task dockerPushImage(type: DockerPushImage) {
-  imageName = "${dockerTagBase}/${jar.baseName}"
+  imageName = "${dockerTagBase}/${jar.baseName}:${version}"
+}
+
+
+/***************************
+ * Checkstyle
+ ***************************/
+
+checkstyle {
+  ignoreFailures = true
 }
 
 /***************************
- * task dependencies
+ * PMD
  ***************************/
+
+pmd {
+  ignoreFailures = true
+
+  ruleSets = [
+    'java-basic',
+    'java-braces',
+    'java-clone',
+    'java-codesize',
+    'java-coupling',
+    'java-design',
+    'java-empty',
+    'java-finalizers',
+    'java-imports',
+    'java-j2ee',
+    'java-javabeans',
+    'java-junit',
+    'java-naming',
+    'java-optimizations',
+    'java-strictexception',
+    'java-strings',
+    'java-sunsecure',
+    'java-typeresolution',
+    'java-unnecessary',
+    'java-unusedcode'
+  ]
+}
+
+/***************************
+ * FindBugs
+ ***************************/
+
+findbugs {
+  ignoreFailures = true
+  reportLevel = "low"
+}
+
+tasks.withType(FindBugs) {
+  reports {
+    xml.enabled = false
+    html.enabled = true
+    html.stylesheet resources.text.fromFile('config/findbugs/findbugs-color.xsl')
+  }
+}
+
+/***************************
+ * gradle wrapper
+ ***************************/
+
+task wrapper(type: Wrapper) {
+  gradleVersion = '3.4.1'
+}
+
+/***************************
+ * Lifecycle enhancements
+ ***************************/
+
+test.finalizedBy(jacocoTestReport)
 
 clean.dependsOn(ngCleanBuild)
 
