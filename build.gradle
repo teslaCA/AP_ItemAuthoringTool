@@ -68,6 +68,31 @@ dependencyManagement {
 }
 
 /***************************
+ * frontend tasks
+ * maven publishing
+ ***************************/
+
+task ngCleanModules(type: Delete) {
+  delete "${rootDir}/node_modules"
+}
+
+task ngCleanBuild(type: Delete, description: "Deletes src/main/resources/static") {
+  delete "${rootDir}/src/main/resources/static"
+}
+
+task ngInstall(type: Exec) {
+  commandLine 'npm', 'install'
+}
+
+task ngBuild(type: Exec) {
+  if (project.hasProperty('production')) {
+    commandLine 'npm', 'run', 'ng-build-prod'
+  } else {
+    commandLine 'npm', 'run', 'ng-build'
+  }
+}
+
+/***************************
  * build information
  ***************************/
 
@@ -233,6 +258,12 @@ task wrapper(type: Wrapper) {
  * Lifecycle enhancements
  ***************************/
 
+clean.dependsOn(ngCleanBuild)
+
+processResources.dependsOn(ngBuild)
+
 tasks.artifactoryPublish.dependsOn 'build'
 
 test.finalizedBy(jacocoTestReport)
+
+
