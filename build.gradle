@@ -4,30 +4,34 @@ import org.apache.tools.ant.filters.ReplaceTokens
 
 buildscript {
   ext {
-    springBootVersion = '1.5.1.RELEASE'
+    springBootVersion = '1.5.2.RELEASE'
   }
   repositories {
     mavenCentral()
     jcenter()
   }
   dependencies {
-    classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
-    classpath "com.bmuschko:gradle-docker-plugin:3.0.5"
+    classpath 'io.github.robwin:jgitflow-gradle-plugin:0.5.0'
   }
 }
 
 plugins {
-  id "com.gorylenko.gradle-git-properties" version "1.4.16"
+  id 'java'
+  id 'checkstyle'
+  id 'pmd'
+  id 'findbugs'
+  id 'jacoco'
+  id 'maven-publish'
+  id 'org.springframework.boot'               version '1.5.2.RELEASE'
+  id 'com.jfrog.artifactory'                  version '4.4.14'
+  id 'com.bmuschko.docker-remote-api'         version '3.0.5'
 }
 
-apply plugin: 'java'
-apply plugin: 'org.springframework.boot'
-apply plugin: 'com.bmuschko.docker-remote-api'
-apply plugin: 'checkstyle'
-apply plugin: 'pmd'
-apply plugin: 'findbugs'
-apply plugin: "jacoco"
+apply plugin: 'io.github.robwin.jgitflow'
 
+/***************************
+ * dependency management
+ ***************************/
 
 repositories {
   mavenCentral()
@@ -54,7 +58,6 @@ dependencies {
   runtime 'org.springframework.boot:spring-boot-devtools'
 
   testCompile 'org.springframework.boot:spring-boot-starter-test'
-  testCompile 'org.assertj:assertj-core:3.6.2'
 }
 
 dependencyManagement {
@@ -67,13 +70,8 @@ dependencyManagement {
  * build information
  ***************************/
 
-springBoot  {
+springBoot {
   buildInfo()
-}
-
-gitProperties {
-  dateFormat = "yyyy-MM-dd'T'HH:mmZ"
-  dateFormatTimeZone = "PST"
 }
 
 processResources {
@@ -83,26 +81,43 @@ processResources {
 }
 
 /***************************
- * frontend tasks
+ * maven publishing
  ***************************/
 
-task ngCleanModules(type: Delete) {
-  delete "${rootDir}/node_modules"
+task sourceJar(type: Jar) {
+  from sourceSets.main.allJava
 }
 
-task ngCleanBuild(type: Delete, description: "Deletes src/main/resources/static") {
-  delete "${rootDir}/src/main/resources/static"
+publishing.publications {
+  mavenJava(MavenPublication) {
+    from components.java
+
+    artifact sourceJar {
+      classifier "sources"
+    }
+  }
 }
 
-task ngInstall(type: Exec) {
-  commandLine 'npm', 'install'
-}
+artifactory {
+  contextUrl = artifactoryUrl
 
-task ngBuild(type: Exec) {
-  if (project.hasProperty('production')) {
-    commandLine 'npm', 'run', 'ng-build-prod'
-  } else {
-    commandLine 'npm', 'run', 'ng-build'
+  publish {
+    repository {
+      repoKey  = project.version.toString().contains('-SNAPSHOT') ? artifactorySnapshotPublish : artifactoryReleasePublish
+      username = artifactoryUser
+      password = artifactoryPassword
+      maven	 = true
+    }
+    defaults {
+      publications ('mavenJava')
+    }
+  }
+
+  resolve {
+    repository {
+      repoKey = 'libs-releases'
+      maven	= true
+    }
   }
 }
 
@@ -113,7 +128,7 @@ task ngBuild(type: Exec) {
 docker {
   registryCredentials {
     username = dockerHubUser
-    password = dockerHubPass
+    password = dockerHubPassword
     email = dockerHubEmail
   }
 }
@@ -121,22 +136,21 @@ docker {
 task dockerCopyFiles(type: Copy) {
   dependsOn 'bootRepackage'
 
-  from ('src/main/docker/') {
-    filter(ReplaceTokens, tokens: [USER_HOME: System.env.HOME,
+  from('src/main/docker/') {
+    filter(ReplaceTokens, tokens: [USER_HOME:           System.env.HOME,
                                    configServerVersion: configServerVersion,
-                                   apIMSVersion: apIMSVersion,
-                                   version: version,
-                                   dockerTagBase: dockerTagBase])
+                                   version:             version.toString(),
+                                   dockerTagBase:       dockerTagBase])
   }
 
   from("build/libs/${jar.archiveName}") {
-    // drop version from artifact names
+    // drop version from artifact name
     rename { String fileName ->
-      fileName.replace("-${project.version}", "")
+      fileName.replace("-${project.version.toString()}", "")
     }
   }
 
-  into  'build/docker'
+  into 'build/docker'
 }
 
 task dockerBuildImage(type: DockerBuildImage) {
@@ -146,9 +160,9 @@ task dockerBuildImage(type: DockerBuildImage) {
 }
 
 task dockerPushImage(type: DockerPushImage) {
+  dependsOn 'dockerBuildImage'
   imageName = "${dockerTagBase}/${jar.baseName}:${version}"
 }
-
 
 /***************************
  * Checkstyle
@@ -195,7 +209,7 @@ pmd {
 
 findbugs {
   ignoreFailures = true
-  reportLevel = "low"
+  reportLevel = "medium"
 }
 
 tasks.withType(FindBugs) {
@@ -218,9 +232,6 @@ task wrapper(type: Wrapper) {
  * Lifecycle enhancements
  ***************************/
 
+tasks.artifactoryPublish.dependsOn 'build'
+
 test.finalizedBy(jacocoTestReport)
-
-clean.dependsOn(ngCleanBuild)
-
-processResources.dependsOn(ngBuild)
-
