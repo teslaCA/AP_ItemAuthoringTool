@@ -3,7 +3,7 @@ import { ROUTES } from './navbar-routes.config';
 import { MenuType } from './navbar.metadata';
 
 @Component({
-  selector: 'navbar',
+  selector: 'app-navbar',
   templateUrl: 'navbar.component.html',
   styleUrls: [ 'navbar.component.scss' ]
 })

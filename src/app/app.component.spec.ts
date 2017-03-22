@@ -1,14 +1,14 @@
 /* tslint:disable:no-unused-variable */
 
-import { ComponentFixture, TestBed, async } from '@angular/core/testing';
-import { APP_BASE_HREF }  from '@angular/common';
-import { FormsModule }    from '@angular/forms';
-import { HttpModule }     from '@angular/http';
-import { RouterModule }   from '@angular/router';
-import { HomeModule }     from './home';
-import { NavbarModule }   from './navbar';
-import { AppComponent }   from './app.component';
-import { AlertModule, ButtonsModule, TabsModule } from 'ng2-bootstrap';
+import {ComponentFixture, TestBed, async} from '@angular/core/testing';
+import {APP_BASE_HREF} from '@angular/common';
+import {FormsModule} from '@angular/forms';
+import {HttpModule} from '@angular/http';
+import {RouterModule} from '@angular/router';
+import {HomeModule} from './home';
+import {NavbarModule} from './navbar';
+import {AppComponent} from './app.component';
+import {AlertModule, ButtonsModule, TabsModule} from 'ng2-bootstrap';
 
 describe('AppComponent', () => {
   let component: AppComponent;
@@ -20,7 +20,7 @@ describe('AppComponent', () => {
         AppComponent
       ],
       providers: [
-        { provide: APP_BASE_HREF, useValue: '/' }
+        {provide: APP_BASE_HREF, useValue: '/'}
       ],
       imports: [
         FormsModule,
