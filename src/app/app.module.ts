@@ -4,7 +4,7 @@ import {FormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 import {RouterModule} from '@angular/router';
 import {HomeModule} from './home';
-import {NavbarModule} from './navbar';
+import {HeaderModule} from './header';
 
 import {AlertModule, ButtonsModule, TabsModule} from 'ng2-bootstrap';
 
@@ -19,7 +19,7 @@ import {AppComponent} from './app.component';
     FormsModule,
     HttpModule,
     HomeModule,
-    NavbarModule,
+    HeaderModule,
     AlertModule.forRoot(),
     ButtonsModule.forRoot(),
     TabsModule.forRoot(),

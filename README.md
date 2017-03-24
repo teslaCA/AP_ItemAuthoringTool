@@ -4,26 +4,88 @@ Web-based application for the creation and review of assessment items.  This rep
 
 Note, "AP" is short for Assessment Production which means the creation of assessment items (questions) and assessments (tests) for the purpose of administering those assessments to students.  All repos for libraries, services, and apps associated with assessment production are prefixed with AP.
 
-## Getting Started
+## Intro
 
-### Node and NPM
+The item authoring tool (ap-iat) is a Spring Boot backend and an Angular 2 frontend.
 
-Install the latest version of Node.  Installing Node installs Npm.  
+## Requires
 
-Npm is required for managing frontend libraries including the angular cli.  
+* JDK 8
+* NPM 
+* Angular CLI
 
-[Node Download](https://nodejs.org/en/download/)
+## Security
+
+The application is secured and requires a valid security configuration.  
+
+If the security configuration is not valid the application will not start.
+
+## Backend
+
+The application can be enabled to retrieve its configuration from a [Spring Cloud Config Server](https://cloud.spring.io/spring-cloud-config/spring-cloud-config.html).
+
+See ```src/main/resources/bootstrap.yml```
+
+#### Building with Gradle 
+
+Use the Gradle wrapper when developing - "gradlew"  
+
+The script "gw" is equivalent to "gradlew".
+
+"gw" is preferred over "gradlew" when developing.
+
+"gw" starts the gradle daemon and sets important env vars.  The env vars are required when running the app.
+
+**It is important to navigate into the project's root folder when executing build commands.**  
+
+Doing so means the working directory is the project's root which then means the application.yml in the project root is picked up 
+and takes precendence over src/main/resources/application.yml when the application is run.
+ 
+This only happens when developing and running the app locally.  The project's root application.yml is not packaged with the app.
+
+#### Development Profile
+
+The project's root appication.yml is effectively the development profile.
   
-[Mac Install Node with HomeBrew](http://blog.teamtreehouse.com/install-node-js-npm-mac) - see the "Prerequisites" section talking about XCode and HomeBrew.
+The development profile defines backend routes to other services.  
+
+See the section below describing docker compose.  It is the recommended way for 
+standing up the app dependencies.  
+
+The development profile routes are configured to match how docker compose stands 
+up the dependency.  
+
+Build ```./gw build```
+ 
+Run ```./gw bootRun```  
+
+# Frontend
+
+#### NVM
+
+Install the Node Version Manager (NVM).
+
+[NVM Home](https://github.com/creationix/nvm/blob/master/README.markdown)
+
+[Mac Install NVM with HomeBrew](http://dev.topheman.com/install-nvm-with-homebrew-to-use-multiple-versions-of-node-and-iojs-easily/)
+
+#### Node and NPM
+
+NPM is required for managing frontend libraries including the angular cli.  Installing Node installs NPM.
+
+Install version 7.7.4 of Node using NVM.
+
+```nvm install 7.7.4```
 
 
-### Angular-cli
+#### Angular-cli
 
 [Angular Cli Website](https://cli.angular.io/)
 
-In a terminal window, from any directory run  ```npm install -g angular-cli```
+Install the angular-cli globally.
 
-This installs the angular-cli globally.
+In a terminal window and from any directory run  ```npm install -g angular-cli```
+
 
 Once installed, run ```ng help``` to get a list of commands and their associated options.
 
@@ -37,9 +99,9 @@ Each time you pull new features or switch branches you should execute ```npm ins
  
 Doing this ensures you have the correct packages to build, test, and run.
  
-Run app using dev settings: ```ng serve```
+Run app using dev settings: ```npm start```
 
-Run app using production settings: ```ng serve --prod```
+Run app using production settings: ```npm run start-prod```
 
 Open in a browser ```http://localhost:4200```
 
@@ -108,7 +170,8 @@ Publish docker image: ```./gw dockerPushImage``` - publishes the image to docker
 
 **Docker Compose**
 
-Docker Compose is used to stand up ap-iat with all the services it depends on, for example the config-server. 
+Docker Compose is used to stand up all the services ap-iat depends on.  It is useful when
+developing.
 
 The project root has a file docker.sh.
 

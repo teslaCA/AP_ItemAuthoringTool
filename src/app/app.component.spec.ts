@@ -6,7 +6,7 @@ import {FormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 import {RouterModule} from '@angular/router';
 import {HomeModule} from './home';
-import {NavbarModule} from './navbar';
+import {NavbarModule} from './header';
 import {AppComponent} from './app.component';
 import {AlertModule, ButtonsModule, TabsModule} from 'ng2-bootstrap';
 
