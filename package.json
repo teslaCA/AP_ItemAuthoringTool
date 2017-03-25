@@ -9,7 +9,7 @@
     "start": "ng serve  --proxy-config proxy.conf.json",
     "start-prod": "ng serve --proxy-config proxy.conf.json --prod",
     "lint": "ng lint",
-    "lint-on-ci": "tslint --project src/tsconfig.app.json --type-check --formatters-dir node_modules/tslint-teamcity-reporter/ --format TSHintTeamcity file.ts",
+    "lint-on-ci": "tslint \"src/**/*.ts\" --project src/tsconfig.app.json --formatters-dir node_modules/tslint-teamcity-reporter/ --format TSHintTeamcity file.ts",
     "test": "ng test",
     "test-on-ci": "ng test -sr -cc --browsers PhantomJS",
     "code-coverage": "ng test --single-run --code-coverage",
