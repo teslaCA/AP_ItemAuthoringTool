@@ -1,31 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { ROUTES } from './header-routes.config';
-import { MenuType } from './header.metadata';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 
 @Component({
   selector: 'app-header',
+  encapsulation: ViewEncapsulation.None,
   templateUrl: 'header.component.html',
   styleUrls: [ 'header.component.scss' ]
 })
-export class HeaderComponent implements OnInit {
-  public menuItems: any[];
-  public brandMenu: any;
+export class HeaderComponent {
+
   isCollapsed = true;
 
   constructor() {}
-
-  ngOnInit() {
-    this.menuItems = ROUTES.filter(menuItem => menuItem.menuType !== MenuType.BRAND);
-    this.brandMenu = ROUTES.filter(menuItem => menuItem.menuType === MenuType.BRAND)[0];
-  }
-
-  public get menuIcon(): string {
-    return this.isCollapsed ? '☰' : '✖';
-  }
-
-  public getMenuItemClasses(menuItem: any) {
-    return {
-      'pull-xs-right': this.isCollapsed && menuItem.menuType === MenuType.RIGHT
-    };
-  }
 }

@@ -6,7 +6,7 @@ import {RouterModule} from '@angular/router';
 import {HomeModule} from './home';
 import {HeaderModule} from './header';
 
-import {AlertModule, ButtonsModule, TabsModule} from 'ng2-bootstrap';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import {AppComponent} from './app.component';
 
@@ -20,10 +20,8 @@ import {AppComponent} from './app.component';
     HttpModule,
     HomeModule,
     HeaderModule,
-    AlertModule.forRoot(),
-    ButtonsModule.forRoot(),
-    TabsModule.forRoot(),
-    RouterModule.forRoot([])
+    RouterModule.forRoot([]),
+    NgbModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

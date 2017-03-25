@@ -6,14 +6,11 @@ import {FormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 import {RouterModule} from '@angular/router';
 import {HomeModule} from './home';
-import {NavbarModule} from './header';
+import {HeaderModule} from './header/header.module';
 import {AppComponent} from './app.component';
-import {AlertModule, ButtonsModule, TabsModule} from 'ng2-bootstrap';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 describe('AppComponent', () => {
-  let component: AppComponent;
-  let fixture: ComponentFixture<AppComponent>;
-
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
@@ -26,36 +23,18 @@ describe('AppComponent', () => {
         FormsModule,
         HttpModule,
         HomeModule,
-        NavbarModule,
-        AlertModule.forRoot(),
-        ButtonsModule.forRoot(),
-        TabsModule.forRoot(),
-        RouterModule.forRoot([])
+        HeaderModule,
+        RouterModule.forRoot([]),
+        NgbModule.forRoot()
       ]
-    });
-    TestBed.compileComponents();
+    }).compileComponents();
   }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(AppComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
   it('should create the app', () => {
-    expect(component).toBeTruthy();
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.debugElement.componentInstance;
+    expect(app).toBeTruthy();
+    // expect(app).toBeFalsy();
   });
 
-  // it(`should have as title 'App works!'`, async(() => {
-  //   const fixture = TestBed.createComponent(AppComponent);
-  //   const app = fixture.debugElement.componentInstance;
-  //   expect(app.title).toEqual('App works!');
-  // }));
-
-  // it('should render title in a h1 tag', async(() => {
-  //   const fixture = TestBed.createComponent(AppComponent);
-  //   fixture.detectChanges();
-  //   const compiled = fixture.debugElement.nativeElement;
-  //   expect(compiled.querySelector('h1').textContent).toContain('App works!');
-  // }));
 });
