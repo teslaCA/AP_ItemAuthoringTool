@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, ViewEncapsulation} from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -8,7 +8,7 @@ import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 })
 export class HeaderComponent {
 
-  isCollapsed = true;
+  public isCollapsed = true;
 
   constructor() {}
 }

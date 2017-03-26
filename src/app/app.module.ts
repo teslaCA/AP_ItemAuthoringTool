@@ -3,11 +3,10 @@ import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 import {RouterModule} from '@angular/router';
-import {HomeModule} from './home';
-import {HeaderModule} from './header';
-
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
+import {HomeModule} from './home';
+import {HeaderModule} from './header';
 import {AppComponent} from './app.component';
 
 @NgModule({
