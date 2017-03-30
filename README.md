@@ -84,7 +84,7 @@ Install version 7.7.4 of Node using NVM.
 
 Install the angular-cli globally.
 
-In a terminal window and from any directory run  ```npm install -g angular-cli```
+In a terminal window and from any directory run  ```npm install -g @angular/cli```
 
 
 Once installed, run ```ng help``` to get a list of commands and their associated options.
