@@ -5,12 +5,27 @@
         <div class="container text-center" id="size-banner">
           <h2 class="display-2">Smarter Balanced</h2>
           <h3 class="banner-tag-line">Item Authoring Tool</h3>
-          <a href="https://github.com/SmarterApp/AP_ItemAuthoringTool" class="btn btn-primary-outline btn-banner">View on Github</a>
+          <a href="https://github.com/SmarterApp/AP_ItemAuthoringTool" class="btn btn-primary-outline btn-banner">View
+            on Github</a>
         </div>
       </div>
     </div>
   </div>
 </header>
+
+<section id="home-body" class="app-body">
+  <div class="container">
+    <div class="parallax text-center">
+      <div class="parallax-pattern-overlay">
+        <div class="container text-center">
+          <button type="button" (click)="makeRequest()">Ping Item Management Service</button>
+          <div *ngIf="loading">loading...</div>
+          <pre>{{data}}</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <section class="footer" id="footer">
   <div class="container-fluid">

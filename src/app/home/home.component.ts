@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component} from '@angular/core';
+import {Http, Response} from "@angular/http";
 
 @Component({
   selector: 'app-home',
@@ -7,6 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent {
 
-  constructor() { }
+  data: Object;
 
+  loading: boolean;
+
+  constructor(private http: Http) {
+  }
+
+  makeRequest(): void {
+    this.loading = true;
+
+    this.http.request('/api/ims/ping').subscribe((res: Response) => {
+      this.data = res.text()
+      this.loading = false;
+    });
+
+  }
 }
