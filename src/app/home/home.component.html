@@ -18,7 +18,7 @@
     <div class="parallax text-center">
       <div class="parallax-pattern-overlay">
         <div class="container text-center">
-          <button type="button" (click)="makeRequest()">Ping Item Management Service</button>
+          <button type="button" (click)="makeRequest()" class="btn btn-sm btn-secondary">Ping Item Management Service</button>
           <div *ngIf="loading">loading...</div>
           <pre>{{data}}</pre>
         </div>

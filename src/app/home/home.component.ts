@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {Http, Response} from "@angular/http";
+import {Http, Response} from '@angular/http';
 
 @Component({
   selector: 'app-home',
@@ -19,7 +19,7 @@ export class HomeComponent {
     this.loading = true;
 
     this.http.request('/api/ims/ping').subscribe((res: Response) => {
-      this.data = res.text()
+      this.data = res.text();
       this.loading = false;
     });
 
