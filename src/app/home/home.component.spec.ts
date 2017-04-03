@@ -1,5 +1,7 @@
 /* tslint:disable:no-unused-variable */
+import {BrowserModule} from '@angular/platform-browser';
 import { async, TestBed } from '@angular/core/testing';
+import {HttpModule} from '@angular/http';
 
 import { HomeComponent } from './home.component';
 
@@ -7,7 +9,8 @@ describe('HomeComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HomeComponent ]
+      declarations: [ HomeComponent ],
+      imports: [HttpModule]
     }).compileComponents();
   }));
 
