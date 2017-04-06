@@ -12,21 +12,17 @@
 
 import {Injectable, Inject} from '@angular/core';
 import {Http, Response} from '@angular/http';
+import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class UserService {
 
-  user: any;
+  private userResource = '/api/users';
 
-  constructor(private http: Http) {
-    this.http.request('/api/users/')
-      .subscribe((res: Response) => {
-        this.user = res.json();
-      });
-  }
+  constructor(private http: Http) { }
 
-  getUser(): any {
-    return this.user;
+  getUser(): Observable<any> {
+    return this.http.request(this.userResource);
   }
 
 }

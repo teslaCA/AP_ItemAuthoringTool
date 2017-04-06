@@ -12,13 +12,14 @@
 
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {Http, Response} from '@angular/http';
+import {UserService} from '../service/user.service';
 
 @Component({
   selector: 'app-header',
   encapsulation: ViewEncapsulation.None,
   templateUrl: 'header.component.html',
-  styleUrls: [ 'header.component.scss' ],
-  providers: []
+  styleUrls: ['header.component.scss'],
+  providers: [UserService]
 })
 export class HeaderComponent {
 
@@ -26,12 +27,13 @@ export class HeaderComponent {
 
   public user: any;
 
-  constructor(private http: Http) {
-    this.http.request('/api/users/')
+  private errorMessage: String;
+
+  constructor(private userService: UserService) {
+    this.userService.getUser()
       .subscribe((res: Response) => {
         this.user = res.json();
       });
   }
-
 
 }
