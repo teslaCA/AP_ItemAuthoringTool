@@ -1,7 +1,7 @@
 version: '2.1'
 services:
-    config-server:
-        container_name: config-server
+    configuration-service:
+        container_name: configuration-service
         image: @dockerTagBase@/configuration-service:@configServerVersion@
         healthcheck:
           test: ["CMD", "curl", "-f", "http://localhost:8888/health"]
@@ -20,8 +20,8 @@ services:
             - @USER_HOME@/smarter_app/sbac-config-repo:/tmp
         logging:
             driver: json-file
-    ap-ims:
-        container_name: ap-ims
+    ap-ims-service:
+        container_name: ap-ims-service
         image: @dockerTagBase@/ap-ims:@apIMSVersion@
         healthcheck:
           test: ["CMD", "curl", "-f", "http://localhost:8080/manage/health"]
@@ -30,45 +30,48 @@ services:
           retries: 3
         environment:
             CONFIG_SERVICE_ENABLED: "true"
-            CONFIG_SERVICE_URL: "http://config-server:8888"
+            CONFIG_SERVICE_URL: "http://configuration-service:8888"
         ports:
             - 8081:8080
         networks:
             - spring-cloud-network
         links:
-            - config-server
+            - configuration-service
         depends_on:
-          config-server:
+          configuration-service:
             condition: service_started
         volumes:
             - @USER_HOME@/smarter_app:/tmp
         logging:
             driver: json-file
-    ap-iat:
-        container_name: ap-iat
+    ap-iat-service:
+        container_name: ap-iat-service
         image: @dockerTagBase@/ap-iat:@version@
         healthcheck:
-          test: ["CMD", "curl", "-f", "http://localhost:8082/manage/health"]
+          test: ["CMD", "curl", "-f", "http://localhost:8080/manage/health"]
           interval: 30s
           timeout: 5s
           retries: 3
         environment:
             CONFIG_SERVICE_ENABLED: "true"
-            CONFIG_SERVICE_URL: "http://config-server:8888"
-            SPRING_CONFIG_LOCATION: "/tmp/security/ap-iat/ap-iat-security.yml"
-        expose:
-            - 8082
+            CONFIG_SERVICE_URL: "http://configuration-service:8888"
+            SAML_KS_FILE: "binary-http://configuration-service:8888/ap-iat/default/master/ap-iat-ui.jks"
+            SAML_KS_PASS: "@samlKeyStorePassword@"
+            SAML_PKE_ALIAS: "@samlPrivateKeyEntryAlias@"
+            SAML_PKE_PASS: "@samlPrivateKeyEntryPassword@"
+            SAML_IDP_URL: "@samlIdpMetadataUrl@"
+            SAML_SP_ENTITY_ID: "@samlSpEntityId@"
         ports:
-            - 8082:8082
+            - 8080:8080
         networks:
             - spring-cloud-network
         links:
-            - config-server
-            - ap-ims
+            - configuration-service
+            - ap-ims-service
         depends_on:
-            config-server:
+            configuration-service:
               condition: service_started
-            ap-ims:
+            ap-ims-service:
               condition: service_started
         volumes:
             - @USER_HOME@/smarter_app:/tmp
