@@ -1,4 +1,4 @@
-# Add a Service/Deployment for the AP_ItemManagementService
+# Add a Service/Deployment for the AP_ItemAuthoringTool
 apiVersion: v1
 kind: Service
 metadata:
