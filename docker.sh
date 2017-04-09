@@ -5,7 +5,7 @@
 # *************************************
 
 function buildApp {
-  ./gw dockerCopyFiles
+  ./gw dockerCopyFiles -x ngBuild
   cd build/docker
 }
 

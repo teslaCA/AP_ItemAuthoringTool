@@ -4,6 +4,7 @@ spring:
   cloud:
     config:
       uri: ${CONFIG_SERVICE_URL:http://localhost:8888}
+      label: ${CONFIG_SERVICE_LABEL:ap-iat,default,master}
       enabled: ${CONFIG_SERVICE_ENABLED:false}
       fail-fast: ${CONFIG_SERVICE_ENABLED:false}
       retry:

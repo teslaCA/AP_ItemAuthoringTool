@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
   ~ Copyright 2017 Regents of the University of California. Licensed under the Educational Community License, Version
   ~ 2.0 (the "license"); you may not use this file except in compliance with the License. You may obtain a copy of the
@@ -10,5 +11,7 @@
   ~ specific language governing permissions and limitations under the license.
   -->
 
-<app-header></app-header>
-<router-outlet></router-outlet>
+<configuration>
+  <include resource="org/springframework/boot/logging/logback/base.xml"/>
+  <logger name="org.springframework.web" level="INFO"/>
+</configuration>

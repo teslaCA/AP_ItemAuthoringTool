@@ -10,24 +10,19 @@
  * specific language governing permissions and limitations under the license.
  */
 
-package org.opentestsystem.ap.iat.rest;
+import {Injectable, Inject} from '@angular/core';
+import {Http, Response} from '@angular/http';
+import {Observable} from 'rxjs/Observable';
 
-import org.junit.Before;
-import org.junit.Test;
+@Injectable()
+export class UserService {
 
-import static org.assertj.core.api.Assertions.assertThat;
+  private userResource = '/api/users';
 
-public class PingApiTest {
+  constructor(private http: Http) { }
 
-    private PingApi api;
+  getUser(): Observable<any> {
+    return this.http.request(this.userResource);
+  }
 
-    @Before
-    public void setup() {
-        api = new PingApi();
-    }
-
-    @Test
-    public void shouldReturnPong() {
-        assertThat(api.get()).isEqualTo("pong");
-    }
 }
