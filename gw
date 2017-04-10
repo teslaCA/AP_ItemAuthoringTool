@@ -9,8 +9,6 @@
 # Make script executable: chmod +x gw
 #
 
-export SPRING_CONFIG_LOCATION=${HOME}/smarter_app/security/ap-iat/ap-iat-security.yml
-
-export SAML_KS_FILE=file:${HOME}/smarter_app/security/ap-iat/ap-iat-ui.jks
+export SPRING_CONFIG_LOCATION=${HOME}/smarter_app/security/ap-iat-security.yml
 
 ./gradlew --daemon $@
