@@ -17,7 +17,7 @@ import {Observable} from 'rxjs/Observable';
 @Injectable()
 export class UserService {
 
-  private userResource = '/api/users';
+  private userResource = '/api/users/principal';
 
   constructor(private http: Http) { }
 

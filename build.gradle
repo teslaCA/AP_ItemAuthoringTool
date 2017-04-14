@@ -67,8 +67,6 @@ dependencies {
 
     compile 'com.google.guava:guava:21.0'
 
-    compile 'io.jsonwebtoken:jjwt:0.7.0'
-
     compileOnly 'org.projectlombok:lombok'
 
     runtime 'org.springframework.boot:spring-boot-devtools'
