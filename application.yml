@@ -14,7 +14,7 @@
 # --------------------------------------------------------
 management:
   security:
-    enabled: false
+    enabled: "false"
 
 saml:
   keyStoreFile: "${SAML_KS_FILE}"
