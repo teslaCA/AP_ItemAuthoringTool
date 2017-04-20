@@ -1,8 +1,8 @@
 /*
  * Copyright 2017 Regents of the University of California.
  *
- * Licensed under the Educational Community License, Version 2.0 (the "license"); 
- * you may not use this file except in compliance with the License. You may 
+ * Licensed under the Educational Community License, Version 2.0 (the "license");
+ * you may not use this file except in compliance with the License. You may
  * obtain a copy of the license at
  *
  * https://opensource.org/licenses/ECL-2.0

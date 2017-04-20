@@ -34,7 +34,7 @@ export class HomeComponent {
   makeRequest(): void {
     this.loading = true;
 
-    this.http.post('/api/ims/items', "").subscribe((res: Response) => {
+    this.http.post('/api/ims/items', '').subscribe((res: Response) => {
       this.data = res.text();
       this.loading = false;
     });
