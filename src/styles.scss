@@ -21,28 +21,6 @@
 // All Bootstrap components
 @import "~bootstrap/scss/bootstrap";
 
-@media (min-width: 48em) {
-  #size-banner {
-    height: 500px;
-    padding-top: 150px;
-  }
-  header .display-2 {
-    font-size: 400%;
-  }
-  .banner-tag-line {
-    font-size: 180%;
-  }
-}
-
-
-html {
-  position: relative;
-  min-height: 100%;
-}
-body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
-}
 
 /*
 .active {

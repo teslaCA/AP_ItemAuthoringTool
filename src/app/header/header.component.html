@@ -18,7 +18,7 @@
 
     <div class="d-flex justify-content-between">
       <h1 class="navbar-brand">
-        <img src="/assets/images/brand_sbac-40.png" width="40px" height="40px" class="d-inline-block align-top" alt=""/>
+        <a href="/"><img src="/assets/images/brand_sbac-40.png" width="40px" height="40px" class="d-inline-block align-top" alt=""/></a>
       </h1>
       <span class="mt-auto mb-auto ml-auto">
         <button class="navbar-toggler" type="button" (click)="isCollapsed = !isCollapsed"
@@ -31,12 +31,6 @@
     <div [ngbCollapse]="isCollapsed" class="collapse navbar-collapse" id="collapsingNavbar">
       <ul class="nav navbar-nav mr-auto">
         <li class="nav-item">Smarter App - Item Authoring Tool</li>
-        <li>
-          &nbsp;&nbsp;
-          <a routerLink="/home" style="font-size: 12px;">Home</a>
-          &nbsp;&nbsp;
-          <a routerLink="/items" style="font-size: 12px;">Search Items</a>
-        </li>
       </ul>
       <ul class="nav navbar-nav">
         <li class="nav-item mb-2 mr-3">

@@ -6,7 +6,7 @@ import {ButtonBarComponent} from "./button-bar.component";
 
 
 export const MODULE_ROUTES: Route[] = [
-  {path: 'items', pathMatch: 'full', component: ButtonBarComponent}
+  {path: '', pathMatch: 'full', component: ButtonBarComponent}
 ];
 
 export const MODULE_COMPONENTS = [
