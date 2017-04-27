@@ -18,52 +18,125 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 
-//$navbar-light-color:                 !default;
+// All Bootstrap components
+@import "~bootstrap/scss/bootstrap";
 
-// Core variables and mixins
-@import "~bootstrap/scss/variables";
-@import "~bootstrap/scss/mixins";
+@media (min-width: 48em) {
+  #size-banner {
+    height: 500px;
+    padding-top: 150px;
+  }
+  header .display-2 {
+    font-size: 400%;
+  }
+  .banner-tag-line {
+    font-size: 180%;
+  }
+}
 
-// Reset and dependencies
-@import "~bootstrap/scss/normalize";
-@import "~bootstrap/scss/print";
 
-// Core CSS
-@import "~bootstrap/scss/reboot";
-@import "~bootstrap/scss/type";
-@import "~bootstrap/scss/images";
-@import "~bootstrap/scss/code";
-@import "~bootstrap/scss/grid";
-@import "~bootstrap/scss/tables";
-@import "~bootstrap/scss/forms";
-@import "~bootstrap/scss/buttons";
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+}
 
-// Components
-@import "~bootstrap/scss/transitions";
-@import "~bootstrap/scss/dropdown";
-@import "~bootstrap/scss/button-group";
-@import "~bootstrap/scss/input-group";
-@import "~bootstrap/scss/custom-forms";
-@import "~bootstrap/scss/nav";
-@import "~bootstrap/scss/navbar";
-@import "~bootstrap/scss/card";
-@import "~bootstrap/scss/breadcrumb";
-@import "~bootstrap/scss/pagination";
-@import "~bootstrap/scss/badge";
-@import "~bootstrap/scss/jumbotron";
-@import "~bootstrap/scss/alert";
-@import "~bootstrap/scss/progress";
-@import "~bootstrap/scss/media";
-@import "~bootstrap/scss/list-group";
-@import "~bootstrap/scss/responsive-embed";
-@import "~bootstrap/scss/close";
+/*
+.active {
+  color: #fff;
+}
 
-// Components w/ JavaScript
-@import "~bootstrap/scss/modal";
-@import "~bootstrap/scss/tooltip";
-@import "~bootstrap/scss/popover";
-@import "~bootstrap/scss/carousel";
+.jumbotron-fluid {
+  padding: 0;
+}
 
-// Utility classes
-@import "~bootstrap/scss/utilities";
+header {
+  margin-top: -15px;
+}
 
+img {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+}
+
+.card-img-top {
+  width: 100%;
+  height: auto;
+}
+
+#site-title {
+  max-width: 150px;
+}
+
+#size-banner {
+  height: 580px;
+  padding-top: 60px;
+}
+
+header .display-2 {
+  font-size: 350%;
+  line-height: 1;
+  font-weight: 300;
+}
+
+.banner-tag-line {
+  font-size: 150%;
+  line-height: 1.4;
+  font-weight: 300;
+}
+
+.btn-banner {
+  font-weight: 600;
+  color: #002157;
+  border-color: #002157;
+  margin-right: 10px;
+}
+
+/* ---------------------- PARALLAX --------------------------------------
+.parallax {
+  text-align: center;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 30%;
+  background-attachment: fixed !important;
+  overflow: hidden;
+}
+
+.parallax-pattern-overlay {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+/* ----------------------- FOOTER ---------------------------------------
+.footer {
+  background: #363636;
+  position: fixed;
+  left: 0px;
+  bottom: 0px;
+  width: 100%;
+  padding: 0px;
+}
+
+.footer .container {
+  padding-top: 10px;
+}
+
+.footer p {
+  color: #fff;
+  font-size: .9em;
+  line-height: 24px;
+  font-weight: 300;
+  text-align: center;
+  text-transform: uppercase;
+  margin-top: 30px;
+}
+
+/* -----------------------  ---------------------------------------
+
+.app-body {
+  padding-bottom: 100px;
+}
+*/
