@@ -3,8 +3,8 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-button-bar',
-  templateUrl: './button-bar.component.html',
-  styleUrls: ['./button-bar.component.scss']
+  templateUrl: './home-bar.component.html',
+  styleUrls: ['./home-bar.component.scss']
 })
 export class ButtonBarComponent implements OnInit {
 

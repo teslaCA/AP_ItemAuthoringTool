@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ButtonBarComponent } from './button-bar.component';
+import { ButtonBarComponent } from './home-bar.component';
 
 describe('ButtonBarComponent', () => {
   let component: ButtonBarComponent;

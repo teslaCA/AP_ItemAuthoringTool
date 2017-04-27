@@ -2,7 +2,7 @@
  * Created by alexponce on 4/26/17.
  */
 import {Route} from '@angular/router';
-import {ButtonBarComponent} from "./button-bar.component";
+import {ButtonBarComponent} from "./home-bar.component";
 
 
 export const MODULE_ROUTES: Route[] = [

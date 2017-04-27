@@ -23,7 +23,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import {HomeModule} from './home';
 import {HeaderModule} from './header';
-import {ButtonBarModule} from './button-bar';
+import {ButtonBarModule} from './home-bar';
 import {ItemSelectModule} from './item-select';
 
 import { AppComponent} from './app.component';
