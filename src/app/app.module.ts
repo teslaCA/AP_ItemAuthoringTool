@@ -24,8 +24,8 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import {AppRoutingModule} from './app.routing';
 
-import {HomeModule} from './home';
 import {AppComponent} from './app.component';
+import {HomeModule} from './home';
 import {HeaderComponent} from './header/header.component';
 import {LogOutComponent} from './header/log-out/logout.component';
 import {FooterComponent} from './footer/footer.component';
