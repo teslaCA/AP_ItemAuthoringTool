@@ -23,11 +23,16 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import {HomeModule} from './home';
 import {HeaderModule} from './header';
-import {AppComponent} from './app.component';
+import {HomeBarModule} from './home-bar';
+import {ItemSelectModule} from './item-select';
+
+import { AppComponent} from './app.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,
@@ -35,6 +40,8 @@ import {AppComponent} from './app.component';
     HttpModule,
     HomeModule,
     HeaderModule,
+    HomeBarModule,
+    ItemSelectModule,
     RouterModule.forRoot([]),
     NgbModule.forRoot()
   ],

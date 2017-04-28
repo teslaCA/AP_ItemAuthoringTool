@@ -8,6 +8,7 @@ ap-iat-security.zip
 /src/main/resources/static
 /dist
 /tmp
+/classes
 
 # dependencies
 /node_modules

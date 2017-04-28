@@ -14,18 +14,20 @@
   ~ limitations under the License.
   -->
 
-<nav class="navbar navbar-toggleable-md navbar-light navbar-static-top">
+<nav class="navbar navbar-toggleable-md">
+
     <div class="d-flex justify-content-between">
       <h1 class="navbar-brand">
-        <img src="/assets/images/brand_sbac.png" width="40px" height="40px" class="d-inline-block align-top" alt=""/>
+        <a routerLink="/"><img src="/assets/images/brand_sbac-40.png" width="40px" height="40px" class="d-inline-block align-top" alt=""/></a>
       </h1>
       <span class="mt-auto mb-auto ml-auto">
-        <button class="navbar-toggler " type="button" (click)="isCollapsed = !isCollapsed"
+        <button class="navbar-toggler" type="button" (click)="isCollapsed = !isCollapsed"
                 aria-controls="collapsingNavbar" aria-expanded="false" aria-label="Toggle navigation">
           &#9776;
         </button>
       </span>
     </div>
+
     <div [ngbCollapse]="isCollapsed" class="collapse navbar-collapse" id="collapsingNavbar">
       <ul class="nav navbar-nav mr-auto">
         <li class="nav-item">Smarter App - Item Authoring Tool</li>
@@ -38,5 +40,11 @@
           <app-logout></app-logout>
         </li>
       </ul>
+
     </div>
 </nav>
+<hr style="margin-top: 0em; margin-bottom: 0em;"/>
+
+<div>
+
+</div>

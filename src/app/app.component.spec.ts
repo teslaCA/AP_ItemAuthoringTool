@@ -24,13 +24,16 @@ import {RouterModule} from '@angular/router';
 import {HomeModule} from './home';
 import {HeaderModule} from './header/header.module';
 import {AppComponent} from './app.component';
+import {FooterComponent} from './footer/footer.component';
+
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        AppComponent
+        AppComponent,
+        FooterComponent
       ],
       providers: [
         {provide: APP_BASE_HREF, useValue: '/'}
