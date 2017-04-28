@@ -1,6 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpModule } from '@angular/http';
-import { RouterTestingModule } from '@angular/router/testing';
 import { ItemSelectComponent } from './item-select.component';
 
 describe('ItemSelectComponent', () => {
@@ -8,7 +7,7 @@ describe('ItemSelectComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ ItemSelectComponent ],
-      imports: [HttpModule, RouterTestingModule]
+      imports: [HttpModule]
     }).compileComponents();
   }));
 

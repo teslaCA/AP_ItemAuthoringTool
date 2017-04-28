@@ -14,3 +14,13 @@
  * limitations under the License.
  */
 
+html, body {
+  height: 100%;
+}
+
+.main-content {
+  min-height: 100%;
+  height: auto;
+  padding-bottom: 40px;
+  background-color: white;
+}
