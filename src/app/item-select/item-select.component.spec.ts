@@ -1,25 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { HttpModule } from '@angular/http';
+import { RouterTestingModule } from '@angular/router/testing';
 import { ItemSelectComponent } from './item-select.component';
 
 describe('ItemSelectComponent', () => {
-  let component: ItemSelectComponent;
-  let fixture: ComponentFixture<ItemSelectComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ItemSelectComponent ]
-    })
-    .compileComponents();
+      declarations: [ ItemSelectComponent ],
+      imports: [HttpModule, RouterTestingModule]
+    }).compileComponents();
   }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(ItemSelectComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
   it('should create', () => {
-    expect(component).toBeTruthy();
+    const fixture = TestBed.createComponent(ItemSelectComponent);
+    const app = fixture.debugElement.componentInstance;
+    expect(app).toBeTruthy();
   });
 });

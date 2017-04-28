@@ -11,5 +11,5 @@ import {MODULE_COMPONENTS, MODULE_ROUTES} from './home-bar.routes';
   imports: [BrowserModule, HttpModule, RouterModule.forChild(MODULE_ROUTES)],
   declarations: [MODULE_COMPONENTS]
 })
-export class ButtonBarModule {
+export class HomeBarModule {
 }

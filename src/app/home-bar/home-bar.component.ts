@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
   templateUrl: './home-bar.component.html',
   styleUrls: ['./home-bar.component.scss']
 })
-export class ButtonBarComponent implements OnInit {
+export class HomeBarComponent implements OnInit {
 
   constructor(
     private router: Router

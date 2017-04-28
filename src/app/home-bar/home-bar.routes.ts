@@ -2,13 +2,13 @@
  * Created by alexponce on 4/26/17.
  */
 import {Route} from '@angular/router';
-import {ButtonBarComponent} from "./home-bar.component";
+import {HomeBarComponent} from './home-bar.component';
 
 
 export const MODULE_ROUTES: Route[] = [
-  {path: '', pathMatch: 'full', component: ButtonBarComponent}
+  {path: '', pathMatch: 'full', component: HomeBarComponent}
 ];
 
 export const MODULE_COMPONENTS = [
-  ButtonBarComponent
+  HomeBarComponent
 ];

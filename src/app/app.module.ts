@@ -23,7 +23,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import {HomeModule} from './home';
 import {HeaderModule} from './header';
-import {ButtonBarModule} from './home-bar';
+import {HomeBarModule} from './home-bar';
 import {ItemSelectModule} from './item-select';
 
 import { AppComponent} from './app.component';
@@ -40,7 +40,7 @@ import { FooterComponent } from './footer/footer.component';
     HttpModule,
     HomeModule,
     HeaderModule,
-    ButtonBarModule,
+    HomeBarModule,
     ItemSelectModule,
     RouterModule.forRoot([]),
     NgbModule.forRoot()

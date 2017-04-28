@@ -1,25 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {HttpModule} from '@angular/http';
+import { RouterTestingModule } from '@angular/router/testing';
+import { HomeBarComponent } from './home-bar.component';
 
-import { ButtonBarComponent } from './home-bar.component';
-
-describe('ButtonBarComponent', () => {
-  let component: ButtonBarComponent;
-  let fixture: ComponentFixture<ButtonBarComponent>;
+describe('HomeBarComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ButtonBarComponent ]
-    })
-    .compileComponents();
+      declarations: [ HomeBarComponent ],
+      imports: [HttpModule, RouterTestingModule]
+    }).compileComponents();
   }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(ButtonBarComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
   it('should create', () => {
-    expect(component).toBeTruthy();
+    const fixture = TestBed.createComponent(HomeBarComponent);
+    const app = fixture.debugElement.componentInstance;
+    expect(app).toBeTruthy();
   });
 });
