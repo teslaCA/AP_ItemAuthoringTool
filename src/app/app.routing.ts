@@ -1,10 +1,10 @@
 /**
  * Created by alexponce on 4/28/17.
  */
-import { NgModule }             from '@angular/core';
+import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeBarComponent } from './home-bar/home-bar.component';
-import { ItemSelectComponent }  from './item-select/item-select.component';
+import { ItemSelectComponent } from './item-select/item-select.component';
 
 const routes: Routes = [
   { path: '', component: HomeBarComponent},
