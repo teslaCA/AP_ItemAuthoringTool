@@ -22,7 +22,6 @@ import {FormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 import {RouterModule} from '@angular/router';
 import {HomeModule} from './home';
-import {HeaderModule} from './header/header.module';
 import {AppComponent} from './app.component';
 import {FooterComponent} from './footer/footer.component';
 
@@ -42,7 +41,6 @@ describe('AppComponent', () => {
         FormsModule,
         HttpModule,
         HomeModule,
-        HeaderModule,
         RouterModule.forRoot([]),
         NgbModule.forRoot()
       ]

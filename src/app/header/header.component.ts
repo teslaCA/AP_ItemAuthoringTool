@@ -20,7 +20,6 @@ import {UserService} from '../service/user.service';
 
 @Component({
   selector: 'app-header',
-  encapsulation: ViewEncapsulation.None,
   templateUrl: 'header.component.html',
   styleUrls: ['header.component.scss'],
   providers: [UserService]

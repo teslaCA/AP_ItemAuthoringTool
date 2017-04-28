@@ -21,27 +21,32 @@ import {HttpModule} from '@angular/http';
 import {RouterModule} from '@angular/router';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
-import {HomeModule} from './home';
-import {HeaderModule} from './header';
-import {HomeBarModule} from './home-bar';
-import {ItemSelectModule} from './item-select';
 
-import { AppComponent} from './app.component';
-import { FooterComponent } from './footer/footer.component';
+import {AppRoutingModule} from './app.routing';
+
+import {HomeModule} from './home';
+import {AppComponent} from './app.component';
+import {HeaderComponent} from './header/header.component';
+import {LogOutComponent} from './header/log-out/logout.component';
+import {FooterComponent} from './footer/footer.component';
+import {ItemSelectComponent} from './item-select/item-select.component';
+import {HomeBarComponent} from './home-bar/home-bar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    HeaderComponent,
     FooterComponent,
+    LogOutComponent,
+    HomeBarComponent,
+    ItemSelectComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
     HomeModule,
-    HeaderModule,
-    HomeBarModule,
-    ItemSelectModule,
+    AppRoutingModule,
     RouterModule.forRoot([]),
     NgbModule.forRoot()
   ],
