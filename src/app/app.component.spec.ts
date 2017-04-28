@@ -23,8 +23,6 @@ import {HttpModule} from '@angular/http';
 import {RouterModule} from '@angular/router';
 
 import {AppComponent} from './app.component';
-
-import {HomeModule} from './home';
 import {HeaderComponent} from './header/header.component';
 import {LogOutComponent} from './header/log-out/logout.component';
 import {FooterComponent} from './footer/footer.component';
@@ -50,7 +48,6 @@ describe('AppComponent', () => {
       imports: [
         FormsModule,
         HttpModule,
-        HomeModule,
         RouterModule.forRoot([]),
         NgbModule.forRoot()
       ]

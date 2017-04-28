@@ -15,23 +15,29 @@
  */
 
 /* tslint:disable:no-unused-variable */
-import {BrowserModule} from '@angular/platform-browser';
-import { async, TestBed } from '@angular/core/testing';
-import {HttpModule} from '@angular/http';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { HttpModule } from '@angular/http';
+import { HeaderComponent } from './header.component';
+import {LogOutComponent} from './log-out/logout.component';
 
-import { HomeComponent } from './home.component';
-
-describe('HomeComponent', () => {
+describe('HeaderComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HomeComponent ],
-      imports: [HttpModule]
+      declarations: [
+        HeaderComponent,
+        LogOutComponent
+      ],
+      imports: [
+        HttpModule,
+        NgbModule.forRoot()
+      ]
     }).compileComponents();
   }));
 
   it('should create', () => {
-    const fixture = TestBed.createComponent(HomeComponent);
+    const fixture = TestBed.createComponent(HeaderComponent);
     const app = fixture.debugElement.componentInstance;
     expect(app).toBeTruthy();
   });

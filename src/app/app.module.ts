@@ -25,7 +25,6 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {AppRoutingModule} from './app.routing';
 
 import {AppComponent} from './app.component';
-import {HomeModule} from './home';
 import {HeaderComponent} from './header/header.component';
 import {LogOutComponent} from './header/log-out/logout.component';
 import {FooterComponent} from './footer/footer.component';
@@ -45,7 +44,6 @@ import {HomeBarComponent} from './home-bar/home-bar.component';
     BrowserModule,
     FormsModule,
     HttpModule,
-    HomeModule,
     AppRoutingModule,
     RouterModule.forRoot([]),
     NgbModule.forRoot()
