@@ -18,18 +18,17 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
-import {RouterModule} from '@angular/router';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 
-import {AppRoutingModule} from './app.routing';
-
-import {AppComponent} from './app.component';
-import {HeaderComponent} from './header/header.component';
-import {LogOutComponent} from './header/log-out/logout.component';
-import {FooterComponent} from './footer/footer.component';
-import {ItemSelectComponent} from './item-select/item-select.component';
-import {HomeBarComponent} from './home-bar/home-bar.component';
+import { AppRoutingModule } from './app.routing';
+import { AppComponent } from './app.component';
+import { HeaderComponent } from './header/header.component';
+import { LogOutComponent } from './header/log-out/logout.component';
+import { FooterComponent } from './footer/footer.component';
+import { ItemSelectComponent } from './item-select/item-select.component';
+import { HomeBarComponent } from './home-bar/home-bar.component';
+import { ItemCreateComponent } from './item-create/item-create.component';
 
 @NgModule({
   declarations: [
@@ -38,14 +37,14 @@ import {HomeBarComponent} from './home-bar/home-bar.component';
     FooterComponent,
     LogOutComponent,
     HomeBarComponent,
-    ItemSelectComponent
+    ItemSelectComponent,
+    ItemCreateComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
     AppRoutingModule,
-    RouterModule.forRoot([]),
     NgbModule.forRoot()
   ],
   providers: [],
