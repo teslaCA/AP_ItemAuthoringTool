@@ -5,6 +5,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 
 import { Item } from './item';
+import { ItemResponse } from './item-response';
 
 @Injectable()
 export class ItemService {
@@ -15,7 +16,7 @@ export class ItemService {
     private http: Http
   ) { }
 
-  createItem(type : string) : Observable<Item> {
+  createItem(type : string) : Observable<ItemResponse> {
 
       let headers = new Headers({ 'Content-Type': 'application/json'});
       let options = new RequestOptions({ headers : headers });
@@ -27,8 +28,9 @@ export class ItemService {
   }
 
   private extractData(res: Response) {
-    let body = res.json();
-    return body.data || { };
+    // let body = res.json();
+    // return body.data || { };
+    return res.json();
   }
 
   private handleError (error: Response | any) {

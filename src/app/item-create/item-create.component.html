@@ -4,7 +4,8 @@
         <div class="col-lg-3 pull-left">
 
           <div class="float-left" style="white-space: normal;">
-            Create Item {{this.currentItem.id}} | {{this.currentItem.name}}
+            Create Item {{id}} | {{name}} | {{type}}
+            <p class="error" *ngIf="errorMessage">{{errorMessage}}</p>
           </div>
 
         </div>

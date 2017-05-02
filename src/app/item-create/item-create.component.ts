@@ -4,6 +4,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { LookupService } from '../service/lookup.service';
 import { ItemService } from '../service/item.service';
 import { Item } from '../service/item';
+import { ItemResponse} from '../service/item-response';
 
 @Component({
   selector: 'app-item-create',
@@ -17,8 +18,14 @@ import { Item } from '../service/item';
 
 export class ItemCreateComponent implements OnInit {
 
-  currentItem = {} as Item;
-  errorMessage : string;
+  private currentItem = new ItemResponse();
+
+  private id: number;
+  private name : string;
+  private type : string;
+
+  private errorMessage : string;
+
 
   constructor(
     private route: ActivatedRoute,
@@ -29,20 +36,22 @@ export class ItemCreateComponent implements OnInit {
   ngOnInit() {
     this.route.params
       .subscribe( params => {
-        this.currentItem.type = params['type'];
+        this.type = params['type'];
     } );
 
-    this.currentItem.name = this.lookupService.getItemName(this.currentItem.type);
+    this.name =
+      this.lookupService.getItemName(this.type);
 
+    this.currentItem.type = this.type;
 
-    this.itemService.createItem(this.currentItem.type)
+    this.itemService.createItem(this.type)
                       .subscribe(
-                        item => this.currentItem = item,
-                        error => this.errorMessage = <any>error);
+                        item => this.id = item.id,
+                        error => this.errorMessage = <any>error,
+                        () => console.log("completed")
+                      );
 
-
-
-
+    this.id = this.currentItem.id;
   }
 
 }

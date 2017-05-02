@@ -1,8 +1,6 @@
-export class Item {
+export class ItemResponse {
   public id : number;
   public type : string;
-  public name : string;
-  public icon : string;
 
   constructor () {}
 }
