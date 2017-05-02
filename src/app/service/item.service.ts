@@ -5,7 +5,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 
 import { Item } from './item';
-import { ItemResponse } from './item-response';
+
 
 @Injectable()
 export class ItemService {
@@ -16,7 +16,7 @@ export class ItemService {
     private http: Http
   ) { }
 
-  createItem(type : string) : Observable<ItemResponse> {
+  createItem(type : string) : Observable<Item> {
 
       let headers = new Headers({ 'Content-Type': 'application/json'});
       let options = new RequestOptions({ headers : headers });

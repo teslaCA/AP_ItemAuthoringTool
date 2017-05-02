@@ -1,10 +1,9 @@
 import 'rxjs/add/operator/switchMap';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { LookupService } from '../service/lookup.service';
 import { ItemService } from '../service/item.service';
 import { Item } from '../service/item';
-import { ItemResponse} from '../service/item-response';
 
 @Component({
   selector: 'app-item-create',
@@ -18,12 +17,7 @@ import { ItemResponse} from '../service/item-response';
 
 export class ItemCreateComponent implements OnInit {
 
-  private currentItem = new ItemResponse();
-
-  private id: number;
-  private name : string;
-  private type : string;
-
+  private currentItem = new Item();
   private errorMessage : string;
 
 
@@ -35,23 +29,24 @@ export class ItemCreateComponent implements OnInit {
 
   ngOnInit() {
     this.route.params
-      .subscribe( params => {
-        this.type = params['type'];
-    } );
+      .subscribe(params => {
+        this.currentItem.type = params['type'];
+      });
 
-    this.name =
-      this.lookupService.getItemName(this.type);
+    this.itemService.createItem(this.currentItem.type)
+      .subscribe(
+        item => this.loadResponseItem(item),
+        error => this.errorMessage = <any>error,
+        () => console.log("item-create component completed")
+      );
+  }
 
-    this.currentItem.type = this.type;
+  private loadResponseItem(item) : void {
+    this.currentItem = item;
 
-    this.itemService.createItem(this.type)
-                      .subscribe(
-                        item => this.id = item.id,
-                        error => this.errorMessage = <any>error,
-                        () => console.log("completed")
-                      );
+    this.currentItem.name =
+      this.lookupService.getItemName(this.currentItem.type);
 
-    this.id = this.currentItem.id;
   }
 
 }

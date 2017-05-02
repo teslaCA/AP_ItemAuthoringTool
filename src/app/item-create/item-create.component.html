@@ -1,25 +1,25 @@
     <nav class="navbar navbar-light bg-faded">
 
       <div class="row">
-        <div class="col-lg-3 pull-left">
+        <div class="col">
 
           <div class="float-left" style="white-space: normal;">
-            Create Item {{id}} | {{name}} | {{type}}
-            <p class="error" *ngIf="errorMessage">{{errorMessage}}</p>
+            Create Item {{currentItem.id}} | {{currentItem.name}}
           </div>
-
+          <p class="" *ngIf="errorMessage">{{errorMessage}}</p>
         </div>
 
-        <div class="col-lg-3 justify-content-center">
-
+        <div class="col">
+          <div class="text-center" style="white-space: normal;">
             <button class="btn btn-secondary" routerLink="/">Preview</button>
-
+          </div>
         </div>
 
-        <div class="col-lg-3 pull-right">
-
-            <i class="fa fa-check-circle"></i>&nbsp;Saved!
-
+        <div class="col">
+          <div class="float-right" style="white-space: normal;">
+            <i class="fa fa-check-circle" style="color: green;"></i>&nbsp;
+            <span class="text-success">Saved!</span>
+          </div>
         </div>
 
       </div>
@@ -32,7 +32,8 @@
       <div class="row">
         <div class="col-lg">
           <div class="container">
-            Item Creation Screens go here
+            <span *ngIf="currentItem.type=='sa'">SA Creation Screens go here</span>
+
           </div>
         </div>
       </div>
