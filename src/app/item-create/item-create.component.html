@@ -1,0 +1,52 @@
+    <nav class="navbar navbar-light bg-faded">
+
+      <div class="row">
+        <div class="col">
+
+          <div class="float-left" style="white-space: normal;">
+            Create Item {{currentItem.id}} | {{currentItem.name}}
+          </div>
+          <p class="" *ngIf="errorMessage">{{errorMessage}}</p>
+        </div>
+
+        <div class="col">
+          <div class="text-center" style="white-space: normal;">
+            <button class="btn btn-secondary" routerLink="/">Preview</button>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="float-right" style="white-space: normal;">
+            <i class="fa fa-check-circle" style="color: green;"></i>&nbsp;
+            <span class="text-success">Saved!</span>
+          </div>
+        </div>
+
+      </div>
+
+    </nav>
+
+
+
+    <div class="container">
+      <div class="row">
+        <div class="col-lg">
+          <div class="container">
+            <span *ngIf="currentItem.type=='sa'">SA Creation Screens go here</span>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <nav class="navbar navbar-light bg-faded">
+      <div class="row">
+        <div class="col-lg-3 pull-left">
+            <button class="btn btn-secondary" routerLink="/item-select">Create item</button>
+
+            <button class="btn btn-secondary" routerLink="/item-select">Cancel</button>
+          </div>
+
+      </div>
+    </nav>

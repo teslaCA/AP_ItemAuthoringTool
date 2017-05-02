@@ -21,10 +21,13 @@ import {APP_BASE_HREF} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 import {RouterModule} from '@angular/router';
-import {HomeModule} from './home';
-import {HeaderModule} from './header/header.module';
+
 import {AppComponent} from './app.component';
+import {HeaderComponent} from './header/header.component';
+import {LogOutComponent} from './header/log-out/logout.component';
 import {FooterComponent} from './footer/footer.component';
+import {ItemSelectComponent} from './item-select/item-select.component';
+import {HomeBarComponent} from './home-bar/home-bar.component';
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
@@ -33,7 +36,11 @@ describe('AppComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         AppComponent,
-        FooterComponent
+        HeaderComponent,
+        FooterComponent,
+        LogOutComponent,
+        HomeBarComponent,
+        ItemSelectComponent
       ],
       providers: [
         {provide: APP_BASE_HREF, useValue: '/'}
@@ -41,8 +48,6 @@ describe('AppComponent', () => {
       imports: [
         FormsModule,
         HttpModule,
-        HomeModule,
-        HeaderModule,
         RouterModule.forRoot([]),
         NgbModule.forRoot()
       ]

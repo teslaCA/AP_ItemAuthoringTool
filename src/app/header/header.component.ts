@@ -20,24 +20,24 @@ import {UserService} from '../service/user.service';
 
 @Component({
   selector: 'app-header',
-  encapsulation: ViewEncapsulation.None,
   templateUrl: 'header.component.html',
   styleUrls: ['header.component.scss'],
   providers: [UserService]
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
 
   public isCollapsed = true;
 
   public user: any;
-
-  private errorMessage: String;
 
   constructor(private userService: UserService) {
     this.userService.getUser()
       .subscribe((res: Response) => {
         this.user = res.json();
       });
+  }
+
+  ngOnInit() {
   }
 
 }
