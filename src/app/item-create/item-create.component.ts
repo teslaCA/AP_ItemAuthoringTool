@@ -18,13 +18,13 @@ import { Item } from '../service/item';
 export class ItemCreateComponent implements OnInit {
 
   private currentItem = new Item();
-  private errorMessage : string;
+  private errorMessage: string;
 
 
   constructor(
     private route: ActivatedRoute,
-    private lookupService : LookupService,
-    private itemService : ItemService
+    private lookupService: LookupService,
+    private itemService: ItemService
   ) { }
 
   ngOnInit() {
@@ -37,11 +37,11 @@ export class ItemCreateComponent implements OnInit {
       .subscribe(
         item => this.loadResponseItem(item),
         error => this.errorMessage = <any>error,
-        () => console.log("item-create component completed")
+        () => console.log('item-create component completed')
       );
   }
 
-  private loadResponseItem(item) : void {
+  private loadResponseItem(item): void {
     this.currentItem = item;
 
     this.currentItem.name =

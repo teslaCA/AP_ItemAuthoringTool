@@ -10,11 +10,11 @@ import { Item } from '../service/item';
 })
 export class ItemSelectComponent implements OnInit {
 
-  items : Item[];
-  other : Item[];
+  items: Item[];
+  other: Item[];
 
   constructor(
-      private lookupService : LookupService
+      private lookupService: LookupService
   ) { }
 
   ngOnInit() {

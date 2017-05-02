@@ -15,7 +15,7 @@ const MAIN_ITEMS: Item[] = [
   { id: 20, type: 'wer', name: 'Writing Extended Responses (WER)', icon: 'fa-comments'}
 ];
 
-const OTHER_ITEMS : Item[] = [
+const OTHER_ITEMS: Item[] = [
   { id: 30, type: 'stim', name: 'Stimulus (STIM)', icon: 'fa-commenting-o'},
   { id: 31, type: 'tut', name: 'Tutorial (TUT)', icon: 'fa-question-circle '},
 ];
@@ -33,19 +33,21 @@ export class LookupService {
     return OTHER_ITEMS;
   }
 
-  getItemName(itemType : string): string {
+  getItemName(itemType: string): string {
 
     let selectItem = MAIN_ITEMS.filter(item => item.type === itemType);
 
-    if (selectItem != null)
+    if (selectItem != null) {
       return selectItem[0].name;
+    }
 
     selectItem = OTHER_ITEMS.filter(item => item.type === itemType);
 
-    if (selectItem != null)
+    if (selectItem != null) {
       return selectItem[0].name;
-    else
-      return "";
+    }
+
+    return '';
 
   }
 

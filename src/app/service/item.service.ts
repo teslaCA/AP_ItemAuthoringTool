@@ -16,12 +16,12 @@ export class ItemService {
     private http: Http
   ) { }
 
-  createItem(type : string) : Observable<Item> {
+  createItem(type: string): Observable<Item> {
 
-      let headers = new Headers({ 'Content-Type': 'application/json'});
-      let options = new RequestOptions({ headers : headers });
+      const headers = new Headers({ 'Content-Type': 'application/json'});
+      const options = new RequestOptions({ headers : headers });
 
-      return this.http.post(this.serviceUrl,{ type }, options)
+      return this.http.post(this.serviceUrl, { type }, options)
                       .map(this.extractData)
                       .catch(this.handleError);
 
