@@ -29,6 +29,7 @@ import { FooterComponent } from './footer/footer.component';
 import { ItemSelectComponent } from './item-select/item-select.component';
 import { HomeBarComponent } from './home-bar/home-bar.component';
 import { ItemCreateComponent } from './item-create/item-create.component';
+import { ItemCreateSaComponent } from './item-create-sa/item-create-sa.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { ItemCreateComponent } from './item-create/item-create.component';
     LogOutComponent,
     HomeBarComponent,
     ItemSelectComponent,
-    ItemCreateComponent
+    ItemCreateComponent,
+    ItemCreateSaComponent
   ],
   imports: [
     BrowserModule,
