@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-item-create-sa',
@@ -7,7 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ItemCreateSaComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    router: Router
+  ) {
+
+    router.events.subscribe((event) => {
+      console.log(event);
+      // if(event.url) {
+      //   console.log(event.url);
+      // }
+    });
+
+  }
 
   ngOnInit() {
   }

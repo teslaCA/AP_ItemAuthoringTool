@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { RouterTestingModule} from '@angular/router/testing';
 import { ItemCreateSaComponent } from './item-create-sa.component';
 
 describe('ItemCreateSaComponent', () => {
@@ -8,7 +8,12 @@ describe('ItemCreateSaComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ItemCreateSaComponent ]
+      imports: [
+        RouterTestingModule
+      ],
+      declarations: [
+        ItemCreateSaComponent
+      ]
     })
     .compileComponents();
   }));

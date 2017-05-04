@@ -20,6 +20,7 @@ export class ItemCreateComponent implements OnInit {
   private currentItem = new Item();
   private errorMessage: string;
 
+  private navBarMessage: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -28,6 +29,8 @@ export class ItemCreateComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.navBarMessage = 'Processing...';
+
     this.route.params
       .subscribe(params => {
         this.currentItem.type = params['type'];
@@ -35,17 +38,20 @@ export class ItemCreateComponent implements OnInit {
 
     this.itemService.createItem(this.currentItem.type)
       .subscribe(
-        item => this.loadResponseItem(item),
+        item => this.processSuccess(item),
         error => this.errorMessage = <any>error,
         () => console.log('item-create component completed')
       );
   }
 
-  private loadResponseItem(item): void {
+  private processSuccess(item): void {
     this.currentItem = item;
 
     this.currentItem.name =
       this.lookupService.getItemName(this.currentItem.type);
+
+    this.navBarMessage = 'Create Item ' + this.currentItem.id
+      + ' | ' + this.currentItem.name;
 
   }
 

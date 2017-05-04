@@ -4,6 +4,7 @@ import { RouterTestingModule} from '@angular/router/testing';
 import { LookupService } from '../service/lookup.service';
 import { ItemService } from '../service/item.service';
 import { ItemCreateComponent } from './item-create.component';
+import { ItemCreateSaComponent} from '../item-create-sa/item-create-sa.component';
 
 describe('ItemCreateComponent', () => {
   let component: ItemCreateComponent;
@@ -16,7 +17,8 @@ describe('ItemCreateComponent', () => {
         RouterTestingModule
       ],
       declarations: [
-        ItemCreateComponent
+        ItemCreateComponent,
+        ItemCreateSaComponent
       ],
       providers: [
         LookupService,

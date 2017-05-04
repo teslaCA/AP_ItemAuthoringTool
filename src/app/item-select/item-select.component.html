@@ -7,7 +7,7 @@
     <h1 class="navbar-brand mb-0 font-italic">Item types</h1>
   </nav>
 
-  <div class="container">
+  <div class="container-fluid">
     <div class="row" style="padding-top: 10px;padding-bottom: 10px">
       <div
         *ngFor="let item of items"
@@ -24,16 +24,16 @@
       </div>
     </div>
   </div>
-
+<!--
   <nav class="navbar navbar-light bg-faded">
     <h1 class="navbar-brand mb-0 font-italic">Other resources</h1>
   </nav>
 
-  <div class="container">
+  <div class="container-fluid">
     <div class="row" style="padding-top: 10px;padding-bottom: 10px">
       <div
         *ngFor="let item of other"
-        class="col btn-group btn-block">
+        class="btn-group btn-block">
 
         <a class="btn btn-lg btn-outline-primary"
            style="width: 13rem;height: 10rem; white-space: normal;border-radius: 0px"
@@ -46,5 +46,6 @@
       </div>
     </div>
   </div>
+-->
 
   <button class="btn btn-secondary" routerLink="/">Cancel</button>
