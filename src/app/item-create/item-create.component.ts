@@ -17,10 +17,9 @@ import { Item } from '../service/item';
 
 export class ItemCreateComponent implements OnInit {
 
-  private currentItem = new Item();
-  private errorMessage: string;
-
-  private navBarMessage: string;
+  public currentItem = new Item();
+  public errorMessage: string;
+  public navBarMessage: string;
 
   constructor(
     private route: ActivatedRoute,
