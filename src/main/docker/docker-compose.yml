@@ -1,0 +1,105 @@
+version: '2.1'
+services:
+    redis-server:
+        container_name: redis-server
+        image: healthcheck/redis
+        networks:
+            - spring-cloud-network
+        ports:
+            - 6379:6379
+        logging:
+            driver: json-file
+    configuration-service:
+        container_name: configuration-service
+        image: @dockerTagBase@/configuration-service:@configServerVersion@
+        healthcheck:
+          test: ["CMD", "curl", "-f", "http://localhost:8888/health"]
+          interval: 30s
+          timeout: 5s
+          retries: 3
+        environment:
+          CONFIG_SERVICE_REPO: "file://tmp"
+        expose:
+            - 8888
+        ports:
+            - 8888:8888
+        networks:
+            - spring-cloud-network
+        volumes:
+            - @USER_HOME@/smarter_app/sbac-config-repo:/tmp
+        logging:
+            driver: json-file
+        links:
+            - redis-server
+        depends_on:
+          redis-server:
+            condition: service_healthy
+    ap-ims-service:
+        container_name: ap-ims-service
+        image: @dockerTagBase@/ap-ims:@apIMSVersion@
+        healthcheck:
+          test: ["CMD", "curl", "-f", "http://localhost:8080/manage/health"]
+          interval: 30s
+          timeout: 5s
+          retries: 3
+        environment:
+            CONFIG_SERVICE_ENABLED: "true"
+            CONFIG_SERVICE_URL: "http://configuration-service:8888"
+            SPRING_PROFILES_ACTIVE: "localcompose"
+        ports:
+            - 8081:8080
+        networks:
+            - spring-cloud-network
+        links:
+            - configuration-service
+            - redis-server
+        depends_on:
+          configuration-service:
+            condition: service_started
+          redis-server:
+            condition: service_healthy
+        volumes:
+            - @USER_HOME@/smarter_app:/tmp
+        logging:
+            driver: json-file
+#    ap-iat-service:
+#        container_name: ap-iat-service
+#        image: @dockerTagBase@/ap-iat:@version@
+#        healthcheck:
+#          test: ["CMD", "curl", "-f", "http://localhost:8080/manage/health"]
+#          interval: 30s
+#          timeout: 5s
+#          retries: 3
+#        environment:
+#            CONFIG_SERVICE_ENABLED: "true"
+#            CONFIG_SERVICE_URL: "http://configuration-service:8888"
+#            SPRING_PROFILES_ACTIVE: "localcompose"
+#            SAML_KS_FILE: "binary-http://configuration-service:8888/ap-iat/default/master/ap-iat-ui.jks"
+#            SAML_KS_PASS: "@samlKeyStorePassword@"
+#            SAML_PKE_ALIAS: "@samlPrivateKeyEntryAlias@"
+#            SAML_PKE_PASS: "@samlPrivateKeyEntryPassword@"
+#            SAML_IDP_URL: "@samlIdpMetadataUrl@"
+#            SAML_SP_ENTITY_ID: "@samlSpEntityId@"
+#        ports:
+#            - 8080:8080
+#        networks:
+#            - spring-cloud-network
+#        links:
+#            - configuration-service
+#            - ap-ims-service
+#            - redis-server
+#        depends_on:
+#            configuration-service:
+#              condition: service_started
+#            ap-ims-service:
+#              condition: service_started
+#            redis-server:
+#              condition: service_healthy
+#        volumes:
+#            - @USER_HOME@/smarter_app:/tmp
+#        logging:
+#            driver: json-file
+networks:
+    spring-cloud-network:
+        driver: bridge
+

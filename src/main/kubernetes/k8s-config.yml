@@ -1,0 +1,71 @@
+# Add a Service/Deployment for the AP_ItemAuthoringTool
+apiVersion: v1
+kind: Service
+metadata:
+  name: ap-iat-service
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: 8080
+  selector:
+    app: ap-iat
+    tier: backend
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: ap-iat-deployment
+spec:
+  revisionHistoryLimit: 3
+  replicas: 2
+  strategy:
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 50%
+  template:
+    metadata:
+      labels:
+        app: ap-iat
+        tier: backend
+    spec:
+      containers:
+      - name: ap-iat
+        image: @dockerTagBase@/ap-iat:@version@
+        readinessProbe:
+          httpGet:
+            path: /manage/health.json
+            port: 8080
+            scheme: HTTP
+          periodSeconds: 30
+          timeoutSeconds: 10
+        resources:
+          requests:
+            cpu: 100m
+            memory: 512M
+          limits:
+            cpu: 200m
+            memory: 1024M
+        env:
+        - name: GET_HOSTS_FROM
+          value: dns
+        - name: CONFIG_SERVICE_URL
+          value: "http://configuration-service"
+        - name: CONFIG_SERVICE_ENABLED
+          value: "true"
+        - name: SAML_KS_FILE
+          value: "binary-http://configuration-service/ap-iat/default/master/ap-iat-ui.jks"
+        - name: SAML_KS_PASS
+          value: "@samlKeyStorePassword@"
+        - name: SAML_PKE_ALIAS
+          value: "@samlPrivateKeyEntryAlias@"
+        - name: SAML_PKE_PASS
+          value: "@samlPrivateKeyEntryPassword@"
+        - name: SAML_IDP_URL
+          value: "@samlIdpMetadataUrl@"
+        - name: SAML_SP_ENTITY_ID
+          value: "@samlSpEntityId@"
+        - name: JAVA_OPTS
+          value: "-Xmx256m"
+        ports:
+        - containerPort: 8080
