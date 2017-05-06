@@ -1,13 +1,26 @@
 import { Component, OnInit } from '@angular/core';
+import { LookupService } from '../service/lookup.service';
 
 @Component({
   selector: 'app-footer',
   templateUrl: './footer.component.html',
-  styleUrls: ['./footer.component.scss']
+  styleUrls: ['./footer.component.scss'],
+  providers: [LookupService]
 })
 export class FooterComponent implements OnInit {
 
-  constructor() { }
+  private _buildInfo: any;
+
+  get buildInfo(): any {
+    return this._buildInfo;
+  }
+
+  constructor(private lookupService: LookupService) {
+    this.lookupService.getBuildInfo()
+      .subscribe((res: Response) => {
+        this._buildInfo = res.json();
+      });
+  }
 
   ngOnInit() {
   }

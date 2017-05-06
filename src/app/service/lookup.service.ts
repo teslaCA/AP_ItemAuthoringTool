@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Item } from './item';
+import {Http} from '@angular/http';
+import {Observable} from 'rxjs/Observable';
 
 const MAIN_ITEMS: Item[] = [
 /*
@@ -26,7 +28,18 @@ const OTHER_ITEMS: Item[] = [
 @Injectable()
 export class LookupService {
 
-  constructor() { }
+  private userResource = '/api/users/principal';
+  private buildInfoResource = '/manage/info';
+
+  constructor(private http: Http) { }
+
+  getUser(): Observable<any> {
+    return this.http.request(this.userResource);
+  }
+
+  getBuildInfo(): Observable<any> {
+    return this.http.request(this.buildInfoResource);
+  }
 
   getMainItemTypes(): Item[] {
     return MAIN_ITEMS;
