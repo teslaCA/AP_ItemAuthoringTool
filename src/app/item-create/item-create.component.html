@@ -40,8 +40,12 @@
         <div class="col-lg-3 pull-left">
             <button class="btn btn-secondary" routerLink="/item-select">Create item</button>
 
-            <button class="btn btn-secondary" routerLink="/item-select">Cancel</button>
+            <button class="btn btn-secondary" (click)="confirmCancel()">Cancel</button>
           </div>
 
       </div>
     </nav>
+
+    <ng-template confirm>
+      <app-confirm-modal-component></app-confirm-modal-component>
+    </ng-template>

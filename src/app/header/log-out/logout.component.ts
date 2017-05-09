@@ -15,35 +15,26 @@
  */
 
 import {Component} from '@angular/core';
-
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import { ConfirmService } from '../.././confirm-modal/confirm-modal';
 
 @Component({
   selector: 'app-logout',
   templateUrl: 'logout.component.html'
 })
 export class LogOutComponent {
-  closeResult: string;
 
-  constructor(private modalService: NgbModal) {
-  }
+  constructor(
+    private confirmService: ConfirmService
+  ) { }
 
-  open(content) {
-    this.modalService.open(content).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-      window.location.href = '/saml/logout';
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
-  }
-
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
-    }
+  logOut() {
+    this.confirmService.confirm({ title: 'Log out?', message: 'Are you sure you want to log out?' }).then(
+      () => {
+        console.log('logging out...');
+        window.location.href = '/saml/logout';
+      },
+      () => {
+        console.log('not deleting...');
+      });
   }
 }

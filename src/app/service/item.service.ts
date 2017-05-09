@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 
-import { Item } from './item';
+import { Item } from '../model/item';
 
 
 @Injectable()
