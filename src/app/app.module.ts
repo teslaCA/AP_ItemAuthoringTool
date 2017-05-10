@@ -26,12 +26,13 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { LogOutComponent } from './header/log-out/logout.component';
 import { FooterComponent } from './footer/footer.component';
-import { ItemSelectComponent } from './item-select/item-select.component';
+import { ItemSelectTypeComponent } from './item/item-create/item-select-type/item-select-type.component';
 import { HomeComponent } from './home/home.component';
-import { ItemCreateComponent } from './item-create/item-create.component';
-import { ItemCreateSaComponent } from './item-create-sa/item-create-sa.component';
+import { ItemCreateComponent } from './item/item-create/item-create.component';
+import { ItemLoadSaComponent } from './item/item-load-sa/item-load-sa.component';
 import { ConfirmModalComponent, ConfirmService,
          ConfirmState, ConfirmTemplateDirective } from './confirm-modal/confirm-modal';
+import { ItemLoadComponent } from './item/item-load/item-load.component';
 
 @NgModule({
   declarations: [
@@ -40,11 +41,12 @@ import { ConfirmModalComponent, ConfirmService,
     FooterComponent,
     LogOutComponent,
     HomeComponent,
-    ItemSelectComponent,
+    ItemSelectTypeComponent,
     ItemCreateComponent,
-    ItemCreateSaComponent,
+    ItemLoadSaComponent,
     ConfirmModalComponent,
-    ConfirmTemplateDirective
+    ConfirmTemplateDirective,
+    ItemLoadComponent
   ],
   imports: [
     BrowserModule,

@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Item } from '../model/item';
+import { ItemType } from '../model/item-type';
 import {Http} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 
-const MAIN_ITEMS: Item[] = [
+const MAIN_ITEMS: ItemType[] = [
 /*
   { id: 10, type: 'ebsr', name: 'Evidence-Based Select Response (EBSR)', icon: 'fa-list'},
   { id: 11, type: 'eq', name: 'Equation (EQ)', icon: 'fa-superscript'},
@@ -13,16 +14,16 @@ const MAIN_ITEMS: Item[] = [
   { id: 16, type: 'ms', name: 'Multiple Select (MS)', icon: 'fa-th-list'},
   { id: 17, type: 'mi', name: 'Match Interaction (MI)', icon: 'fa-list-ul'},
 */
-  { id: 18, type: 'sa', name: 'Short Answer (SA)', icon: 'fa-font'},
+  { type: 'sa', name: 'Short Answer (SA)', icon: 'fa-font'},
 /*
   { id: 19, type: 'ti', name: 'Table Interaction (TI)', icon: 'fa-table'},
   { id: 20, type: 'wer', name: 'Writing Extended Responses (WER)', icon: 'fa-comments'}
 */
 ];
 
-const OTHER_ITEMS: Item[] = [
-  { id: 30, type: 'stim', name: 'Stimulus (STIM)', icon: 'fa-commenting-o'},
-  { id: 31, type: 'tut', name: 'Tutorial (TUT)', icon: 'fa-question-circle '},
+const OTHER_ITEMS: ItemType[] = [
+  { type: 'stim', name: 'Stimulus (STIM)', icon: 'fa-commenting-o'},
+  { type: 'tut', name: 'Tutorial (TUT)', icon: 'fa-question-circle '},
 ];
 
 @Injectable()
@@ -41,11 +42,11 @@ export class LookupService {
     return this.http.request(this.buildInfoResource);
   }
 
-  getMainItemTypes(): Item[] {
+  getMainItemTypes(): ItemType[] {
     return MAIN_ITEMS;
   }
 
-  getOtherItemTypes(): Item[] {
+  getOtherItemTypes(): ItemType[] {
     return OTHER_ITEMS;
   }
 

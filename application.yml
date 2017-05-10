@@ -34,4 +34,4 @@ zuul:
 
 server:
   session:
-    timeout: 240
+    timeout: 600
