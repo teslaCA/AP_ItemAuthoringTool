@@ -27,7 +27,11 @@ import {HeaderComponent} from './header/header.component';
 import {LogOutComponent} from './header/log-out/logout.component';
 import {FooterComponent} from './footer/footer.component';
 import {ItemSelectComponent} from './item-select/item-select.component';
-import {HomeBarComponent} from './home-bar/home-bar.component';
+import { HomeComponent } from './home/home.component';
+import { ItemCreateComponent } from './item-create/item-create.component';
+import { ItemCreateSaComponent } from './item-create-sa/item-create-sa.component';
+import { ConfirmModalComponent, ConfirmService,
+  ConfirmState, ConfirmTemplateDirective } from './confirm-modal/confirm-modal';
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
@@ -39,11 +43,17 @@ describe('AppComponent', () => {
         HeaderComponent,
         FooterComponent,
         LogOutComponent,
-        HomeBarComponent,
-        ItemSelectComponent
+        HomeComponent,
+        ItemSelectComponent,
+        ItemCreateComponent,
+        ItemCreateSaComponent,
+        ConfirmModalComponent,
+        ConfirmTemplateDirective
       ],
       providers: [
-        {provide: APP_BASE_HREF, useValue: '/'}
+        {provide: APP_BASE_HREF, useValue: '/'},
+        ConfirmService,
+        ConfirmState
       ],
       imports: [
         FormsModule,

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LookupService} from '../service/lookup.service';
-import { Item } from '../service/item';
+import { Item } from '../model/item';
 
 @Component({
   selector: 'app-item-select',

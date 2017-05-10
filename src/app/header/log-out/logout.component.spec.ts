@@ -16,16 +16,24 @@
 
 /* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { LogOutComponent } from './logout.component';
+import { ConfirmService, ConfirmState, ConfirmModalComponent } from '../.././confirm-modal/confirm-modal';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 describe('LogOutComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LogOutComponent ],
+      declarations: [
+        LogOutComponent,
+        ConfirmModalComponent
+      ],
       imports: [
         NgbModule.forRoot()
+      ],
+      providers: [
+        ConfirmService,
+        ConfirmState
       ]
     }).compileComponents();
   }));
