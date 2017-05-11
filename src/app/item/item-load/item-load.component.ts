@@ -35,8 +35,6 @@ export class ItemLoadComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
-
     this.route.params
       .subscribe(params => {
         this._currentItem.id = params['id'];
@@ -56,20 +54,15 @@ export class ItemLoadComponent implements OnInit {
   }
 
   createItem(): void {
-    try {
+    console.log('saving item with id: ' + this.currentItem.id);
+    this.currentItem.contents.ENU.stem = 'Test Prompt - Stem';
+    this.itemService.saveItem(this.currentItem);
 
-      console.log('saving item with id: ' + this.currentItem.id);
-      this.currentItem.contents.ENU.stem = "Test Prompt - Stem";
-      this.itemService.saveItem(this.currentItem);
+    console.log('creating item with id:' + this.currentItem.id);
+    this.itemService.createItem(this.currentItem.id);
 
-      console.log('creating item with id:' + this.currentItem.id);
-      this.itemService.createItem(this.currentItem.id);
+    this.router.navigateByUrl('/');
 
-      this.router.navigateByUrl('/');
-    }
-    catch (e) {
-      console.log(e);
-    }
   }
 
 
@@ -77,16 +70,10 @@ export class ItemLoadComponent implements OnInit {
     this.confirmService.confirm({ title: 'Confirm cancel', message: 'Are you sure you want to cancel creating this item?' })
       .then(
       () => {
-        console.log('user selected to cancel item...');
+        console.log('deleting item with id:' + this.currentItem.id);
+        this.itemService.deleteItem(this.currentItem.id);
 
-        try {
-          this.itemService.deleteItem(this.currentItem.id);
-
-          this.router.navigateByUrl('/');
-        }
-        catch (e) {
-          console.log(e);
-        }
+        this.router.navigateByUrl('/');
 
       },
       () => {

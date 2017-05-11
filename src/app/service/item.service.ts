@@ -5,8 +5,6 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 
 import { Item } from '../model/item';
-import {serializeSummaries} from "@angular/compiler/src/aot/summary_serializer";
-
 
 @Injectable()
 export class ItemService {
@@ -46,7 +44,7 @@ export class ItemService {
   createItem(id: number): void {
     const createUrl = this.serviceUrl + '/' + id + '/commit';
 
-    console.log('createUrl: ' + createUrl)
+    console.log('createUrl: ' + createUrl);
 
     this.http.put(createUrl, {}, this.getRequestOptions())
       .subscribe(
@@ -74,8 +72,8 @@ export class ItemService {
 
 
   private extractData(res: Response) {
-    let body = res.json();
-    return body || {};;
+    const body = res.json();
+    return body || {};
   }
 
   private handleError (error: Response | any) {

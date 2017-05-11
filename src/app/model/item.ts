@@ -23,9 +23,7 @@ export class LanguageData {
   public stem: string;
   public rubrics: Rubrics[];
 
-  constructor() {
-    //this.rubrics = new [] Rubrics();
-  }
+  constructor() { }
 
 }
 
@@ -37,6 +35,8 @@ export class Rubrics {
   public maxVal: any;
 
   public samples: Samples[];
+
+  constructor() { }
 }
 
 export class Samples {
@@ -44,4 +44,6 @@ export class Samples {
   public sampleContent: string;
   public purpose: string;
   public scorepoint: any;
+
+  constructor() { }
 }
