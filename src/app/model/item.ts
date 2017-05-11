@@ -1,7 +1,47 @@
 export class Item {
   public id: number;
   public type: string;
-  public name: string;
+  public description: string;
 
-  constructor () {}
+  public contents: Contents;
+
+  constructor () {
+    this.contents = new Contents();
+  }
+}
+
+export class Contents  {
+  public ENU: LanguageData;
+
+  constructor() {
+    this.ENU = new LanguageData();
+  }
+}
+
+export class LanguageData {
+  public language: string;
+  public stem: string;
+  public rubrics: Rubrics[];
+
+  constructor() {
+    //this.rubrics = new [] Rubrics();
+  }
+
+}
+
+export class Rubrics {
+  public name: string;
+  public val: any;
+  public scorepoint: any;
+  public minVal: any;
+  public maxVal: any;
+
+  public samples: Samples[];
+}
+
+export class Samples {
+  public name: string;
+  public sampleContent: string;
+  public purpose: string;
+  public scorepoint: any;
 }

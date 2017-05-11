@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Item } from '../model/item';
 import { ItemType } from '../model/item-type';
-import {Http} from '@angular/http';
-import {Observable} from 'rxjs/Observable';
+import { Http } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
 
 const MAIN_ITEMS: ItemType[] = [
 /*
@@ -14,7 +13,7 @@ const MAIN_ITEMS: ItemType[] = [
   { id: 16, type: 'ms', name: 'Multiple Select (MS)', icon: 'fa-th-list'},
   { id: 17, type: 'mi', name: 'Match Interaction (MI)', icon: 'fa-list-ul'},
 */
-  { type: 'sa', name: 'Short Answer (SA)', icon: 'fa-font'},
+  { type: 'sa', description: 'Short Answer (SA)', icon: 'fa-font'},
 /*
   { id: 19, type: 'ti', name: 'Table Interaction (TI)', icon: 'fa-table'},
   { id: 20, type: 'wer', name: 'Writing Extended Responses (WER)', icon: 'fa-comments'}
@@ -22,8 +21,8 @@ const MAIN_ITEMS: ItemType[] = [
 ];
 
 const OTHER_ITEMS: ItemType[] = [
-  { type: 'stim', name: 'Stimulus (STIM)', icon: 'fa-commenting-o'},
-  { type: 'tut', name: 'Tutorial (TUT)', icon: 'fa-question-circle '},
+  { type: 'stim', description: 'Stimulus (STIM)', icon: 'fa-commenting-o'},
+  { type: 'tut', description: 'Tutorial (TUT)', icon: 'fa-question-circle '},
 ];
 
 @Injectable()
@@ -32,7 +31,9 @@ export class LookupService {
   private userResource = '/api/users/principal';
   private buildInfoResource = '/manage/info';
 
-  constructor(private http: Http) { }
+  constructor(
+    private http: Http
+  ) { }
 
   getUser(): Observable<any> {
     return this.http.request(this.userResource);
@@ -50,18 +51,18 @@ export class LookupService {
     return OTHER_ITEMS;
   }
 
-  getItemName(itemType: string): string {
+  getItemDescription(itemType: string): string {
 
     let selectItem = MAIN_ITEMS.filter(item => item.type === itemType);
 
     if (selectItem != null) {
-      return selectItem[0].name;
+      return selectItem[0].description;
     }
 
     selectItem = OTHER_ITEMS.filter(item => item.type === itemType);
 
     if (selectItem != null) {
-      return selectItem[0].name;
+      return selectItem[0].description;
     }
 
     return '';

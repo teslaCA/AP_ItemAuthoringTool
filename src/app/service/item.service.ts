@@ -26,6 +26,23 @@ export class ItemService {
 
   }
 
+  saveItem(item: Item): void {
+    const saveUrl = this.serviceUrl + '/' + item.id;
+
+    console.log('item payload: '  + JSON.stringify(item));
+
+    this.http.put(saveUrl, JSON.stringify(item), this.getRequestOptions())
+      .subscribe(
+        (response: Response) => {
+          console.log('put operation successful');
+        },
+        e => {
+          this.handleError(e);
+        });
+
+  }
+
+
   createItem(id: number): void {
     const createUrl = this.serviceUrl + '/' + id + '/commit';
 

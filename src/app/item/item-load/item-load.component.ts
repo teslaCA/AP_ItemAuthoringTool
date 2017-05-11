@@ -35,6 +35,8 @@ export class ItemLoadComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
+
     this.route.params
       .subscribe(params => {
         this._currentItem.id = params['id'];
@@ -46,25 +48,30 @@ export class ItemLoadComponent implements OnInit {
 
     this._currentItem.type = 'sa';
 
-    this._currentItem.name =
-      this.lookupService.getItemName(this._currentItem.type);
+    this._currentItem.description =
+      this.lookupService.getItemDescription(this._currentItem.type);
 
     this._navBarMessage = 'Create Item ' + this._currentItem.id
-       + ' | ' + this._currentItem.name;
+       + ' | ' + this._currentItem.description;
   }
 
   createItem(): void {
-    console.log('creating item with id:' + this.currentItem.id);
-
     try {
+
+      console.log('saving item with id: ' + this.currentItem.id);
+      this.currentItem.contents.ENU.stem = "Test Prompt - Stem";
+      this.itemService.saveItem(this.currentItem);
+
+      console.log('creating item with id:' + this.currentItem.id);
       this.itemService.createItem(this.currentItem.id);
 
-      this.router.navigateByUrl('/item/' + this.currentItem.id);
+      this.router.navigateByUrl('/');
     }
     catch (e) {
-
+      console.log(e);
     }
   }
+
 
   cancelItem(): void {
     this.confirmService.confirm({ title: 'Confirm cancel', message: 'Are you sure you want to cancel creating this item?' })
@@ -78,7 +85,7 @@ export class ItemLoadComponent implements OnInit {
           this.router.navigateByUrl('/');
         }
         catch (e) {
-
+          console.log(e);
         }
 
       },
