@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { ExemplarResponse } from '../model/exemplar-response';
-import { ConfirmService } from '../confirm-modal/confirm-modal';
+import { ExemplarResponse } from '../../model/exemplar-response';
+import { ConfirmService } from '../../confirm-modal/confirm-modal';
 
 @Component({
-  selector: 'app-item-create-sa',
-  templateUrl: './item-create-sa.component.html',
-  styleUrls: ['./item-create-sa.component.scss']
+  selector: 'app-item-load-sa',
+  templateUrl: './item-load-sa.component.html',
+  styleUrls: ['./item-load-sa.component.scss']
 })
-export class ItemCreateSaComponent implements OnInit {
+export class ItemLoadSaComponent implements OnInit {
 
   responses: ExemplarResponse[];
 
