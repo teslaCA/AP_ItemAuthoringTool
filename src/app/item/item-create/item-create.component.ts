@@ -30,11 +30,11 @@ export class ItemCreateComponent implements OnInit {
         this._itemType = params['type'];
       });
 
-    this.itemService.createItem(this._itemType)
+    this.itemService.createScratchPad(this._itemType)
       .subscribe(
         item => this.processSuccess(item),
         error => this.processError(error),
-        () => console.log('item-create component completed')
+        () => console.log('item-create component loaded')
       );
   }
 
@@ -49,6 +49,5 @@ export class ItemCreateComponent implements OnInit {
   private processError(error): void {
     this._errorMessage = error;
   }
-
 
 }

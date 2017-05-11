@@ -5,6 +5,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 
 import { Item } from '../model/item';
+import {serializeSummaries} from "@angular/compiler/src/aot/summary_serializer";
 
 
 @Injectable()
@@ -16,21 +17,48 @@ export class ItemService {
     private http: Http
   ) { }
 
-  createItem(type: string): Observable<Item> {
+  createScratchPad(type: string): Observable<Item> {
+      const scratchURL = this.serviceUrl;
 
-      const headers = new Headers({ 'Content-Type': 'application/json'});
-      const options = new RequestOptions({ headers : headers });
-
-      return this.http.post(this.serviceUrl, { type }, options)
+      return this.http.post(scratchURL, { type }, this.getRequestOptions())
                       .map(this.extractData)
                       .catch(this.handleError);
 
   }
 
+  createItem(id: number): void {
+    const createUrl = this.serviceUrl + '/' + id + '/commit';
+
+    console.log('createUrl: ' + createUrl)
+
+    this.http.put(createUrl, {}, this.getRequestOptions())
+      .subscribe(
+        (response: Response) => {
+          console.log('put operation successful');
+          },
+        e => {
+          this.handleError(e);
+        });
+  }
+
+  deleteItem(id: number): void {
+
+    const deleteUrl = this.serviceUrl + '/' + id;
+
+    this.http.delete(deleteUrl, this.getRequestOptions())
+      .subscribe(
+        (response: Response) => {
+          console.log('delete operation successful');
+        },
+        e => {
+          this.handleError(e);
+        });
+  }
+
+
   private extractData(res: Response) {
-    // let body = res.json();
-    // return body.data || { };
-    return res.json();
+    let body = res.json();
+    return body || {};;
   }
 
   private handleError (error: Response | any) {
@@ -44,5 +72,10 @@ export class ItemService {
     }
     console.error(errMsg);
     return Observable.throw(errMsg);
+  }
+
+  private getRequestOptions(): any {
+    const headers = new Headers({ 'Content-Type': 'application/json'});
+    return new RequestOptions({ headers : headers });
   }
 }

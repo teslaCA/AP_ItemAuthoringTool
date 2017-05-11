@@ -34,13 +34,11 @@
 <app-item-load-sa *ngIf="currentItem.type=='sa'"></app-item-load-sa>
 
 
-
 <nav class="navbar navbar-light bg-faded">
   <div class="row">
     <div class="col-lg-3 pull-left">
-      <button class="btn btn-secondary" routerLink="/item-select">Create item</button>
-
-      <button class="btn btn-secondary" (click)="confirmCancel()">Cancel</button>
+      <button class="btn btn-secondary" (click)="createItem()">Create item</button>
+      <button class="btn btn-secondary" (click)="cancelItem()">Cancel</button>
     </div>
 
   </div>

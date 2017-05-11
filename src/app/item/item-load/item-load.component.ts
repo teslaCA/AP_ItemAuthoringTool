@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ConfirmService } from '../../confirm-modal/confirm-modal';
 import { LookupService } from '../../service/lookup.service';
 import { Item } from '../../model/item';
+import { ItemService } from '../../service/item.service';
 
 @Component({
   selector: 'app-item-load',
@@ -10,7 +11,8 @@ import { Item } from '../../model/item';
   styleUrls: ['./item-load.component.scss'],
   providers: [
     LookupService,
-    ConfirmService
+    ConfirmService,
+    ItemService
   ]
 })
 export class ItemLoadComponent implements OnInit {
@@ -28,7 +30,8 @@ export class ItemLoadComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private lookupService: LookupService,
-    private confirmService: ConfirmService
+    private confirmService: ConfirmService,
+    private itemService: ItemService
   ) { }
 
   ngOnInit() {
@@ -50,18 +53,38 @@ export class ItemLoadComponent implements OnInit {
        + ' | ' + this._currentItem.name;
   }
 
+  createItem(): void {
+    console.log('creating item with id:' + this.currentItem.id);
 
+    try {
+      this.itemService.createItem(this.currentItem.id);
 
-  confirmCancel(): void {
-    this.confirmService.confirm({ title: 'Confirm cancel', message: 'Are you sure you want to cancel creating this item?' }).then(
+      this.router.navigateByUrl('/item/' + this.currentItem.id);
+    }
+    catch (e) {
+
+    }
+  }
+
+  cancelItem(): void {
+    this.confirmService.confirm({ title: 'Confirm cancel', message: 'Are you sure you want to cancel creating this item?' })
+      .then(
       () => {
-        console.log('deleting...');
-        // TODO: Call IMS API
-        this.router.navigateByUrl('/');
+        console.log('user selected to cancel item...');
+
+        try {
+          this.itemService.deleteItem(this.currentItem.id);
+
+          this.router.navigateByUrl('/');
+        }
+        catch (e) {
+
+        }
 
       },
       () => {
-        console.log('not deleting...');
+        console.log('user delected not to cancel item...');
       });
   }
+
 }
