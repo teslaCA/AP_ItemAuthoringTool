@@ -2,10 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ConfirmService } from '../../confirm-modal/confirm-modal';
 import { LookupService } from '../../service/lookup.service';
-import {Contents, Item} from '../../model/item';
+import { Contents, Item } from '../../model/item';
 import { ItemService } from '../../service/item.service';
-import {getNonAotTestConfig} from "@angular/cli/models/webpack-configs";
-import {checkAndUpdateTextDynamic} from "@angular/core/src/view/text";
 
 @Component({
   selector: 'app-item-load',
@@ -55,7 +53,7 @@ export class ItemLoadComponent implements OnInit {
   createItem(): void {
     console.log('saving item with id: {}', this.currentItem.id);
 
-    let testContent = new Contents();
+    const testContent = new Contents();
     testContent.language = 'ENU';
     testContent.stem = 'Test Prompt - Stem';
 

@@ -74,7 +74,7 @@ export class ItemService {
 
     console.log('getting item: {}', id);
 
-    return this.http.get(getUrl,this.getRequestOptions())
+    return this.http.get(getUrl, this.getRequestOptions())
       .map(response => response.json() as Item)
       .catch(this.handleError);
   }
