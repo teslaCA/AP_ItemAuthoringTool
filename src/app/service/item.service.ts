@@ -24,27 +24,8 @@ export class ItemService {
 
   }
 
-  saveItem(item: Item): void {
-    const saveUrl = this.serviceUrl + '/' + item.id;
-
-    console.log('item payload: '  + JSON.stringify(item));
-
-    this.http.put(saveUrl, JSON.stringify(item), this.getRequestOptions())
-      .subscribe(
-        (response: Response) => {
-          console.log('put operation successful');
-        },
-        e => {
-          this.handleError(e);
-        });
-
-  }
-
-
   createItem(id: number): void {
     const createUrl = this.serviceUrl + '/' + id + '/commit';
-
-    console.log('createUrl: ' + createUrl);
 
     this.http.put(createUrl, {}, this.getRequestOptions())
       .subscribe(
@@ -70,6 +51,33 @@ export class ItemService {
         });
   }
 
+  saveItem(item: Item): void {
+    const saveUrl = this.serviceUrl + '/' + item.id;
+
+    console.log('item payload: {}', JSON.stringify(item));
+
+    this.http.put(saveUrl, JSON.stringify(item), this.getRequestOptions())
+      .subscribe(
+        (response: Response) => {
+          console.log('put operation successful');
+        },
+        e => {
+          this.handleError(e);
+        });
+
+  }
+
+  getItem(id: number): Observable<Item> {
+    const item = new Item();
+
+    const getUrl = this.serviceUrl + '/' + id;
+
+    console.log('getting item: {}', id);
+
+    return this.http.get(getUrl,this.getRequestOptions())
+      .map(response => response.json() as Item)
+      .catch(this.handleError);
+  }
 
   private extractData(res: Response) {
     const body = res.json();

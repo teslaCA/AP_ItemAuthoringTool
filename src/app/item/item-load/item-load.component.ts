@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ConfirmService } from '../../confirm-modal/confirm-modal';
 import { LookupService } from '../../service/lookup.service';
-import { Item } from '../../model/item';
+import {Contents, Item} from '../../model/item';
 import { ItemService } from '../../service/item.service';
+import {getNonAotTestConfig} from "@angular/cli/models/webpack-configs";
+import {checkAndUpdateTextDynamic} from "@angular/core/src/view/text";
 
 @Component({
   selector: 'app-item-load',
@@ -16,6 +18,7 @@ import { ItemService } from '../../service/item.service';
   ]
 })
 export class ItemLoadComponent implements OnInit {
+  private _currentItemId: number;
   private _currentItem = new Item();
   private _navBarMessage: string;
 
@@ -37,48 +40,67 @@ export class ItemLoadComponent implements OnInit {
   ngOnInit() {
     this.route.params
       .subscribe(params => {
-        this._currentItem.id = params['id'];
+        this._currentItemId = params['id'];
       });
 
-    // TODO: retrieve Item from ItemBank via REST Call.
-    // This will provide details on the state of the Item
-    // and will determine which view to render
+    this.itemService.getItem(this._currentItemId)
+      .subscribe(
+        item => this.processSuccess(item),
+        error => this.processError(error),
+        () => console.log('item-load component finalized')
+      );
 
-    this._currentItem.type = 'sa';
-
-    this._currentItem.description =
-      this.lookupService.getItemDescription(this._currentItem.type);
-
-    this._navBarMessage = 'Create Item ' + this._currentItem.id
-       + ' | ' + this._currentItem.description;
   }
 
   createItem(): void {
-    console.log('saving item with id: ' + this.currentItem.id);
-    this.currentItem.contents.ENU.stem = 'Test Prompt - Stem';
+    console.log('saving item with id: {}', this.currentItem.id);
+
+    let testContent = new Contents();
+    testContent.language = 'ENU';
+    testContent.stem = 'Test Prompt - Stem';
+
+    // Temporarily setting value to test save operation
+    this._currentItem.contents.push(testContent);
+
     this.itemService.saveItem(this.currentItem);
 
-    console.log('creating item with id:' + this.currentItem.id);
+    console.log('creating item with id: {}', this.currentItem.id);
     this.itemService.createItem(this.currentItem.id);
 
     this.router.navigateByUrl('/');
 
   }
 
-
   cancelItem(): void {
     this.confirmService.confirm({ title: 'Confirm cancel', message: 'Are you sure you want to cancel creating this item?' })
       .then(
       () => {
-        console.log('deleting item with id:' + this.currentItem.id);
+        console.log('deleting item with id: {}', this.currentItem.id);
         this.itemService.deleteItem(this.currentItem.id);
 
         this.router.navigateByUrl('/');
 
       },
       () => {
-        console.log('user delected not to cancel item...');
+        console.log('item will not be cancelled...');
       });
+  }
+
+
+  private processSuccess(item): void {
+    console.log('retrieved item: {}', JSON.stringify(item));
+
+    this._currentItem = item;
+
+    this._currentItem.description =
+      this.lookupService.getItemDescription(this._currentItem.type);
+
+    this._navBarMessage = 'Create Item ' + this._currentItem.id
+      + ' | ' + this._currentItem.description;
+  }
+
+  private processError(error): void {
+    console.log(error);
   }
 
 }
