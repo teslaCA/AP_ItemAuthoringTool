@@ -33,6 +33,7 @@ import { ItemLoadSaComponent } from './item/item-load-sa/item-load-sa.component'
 import { ConfirmModalComponent, ConfirmService,
          ConfirmState, ConfirmTemplateDirective } from './confirm-modal/confirm-modal';
 import { ItemLoadComponent } from './item/item-load/item-load.component';
+import { ItemRedirectComponent } from './item/item-redirect/item-redirect.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { ItemLoadComponent } from './item/item-load/item-load.component';
     ItemLoadSaComponent,
     ConfirmModalComponent,
     ConfirmTemplateDirective,
-    ItemLoadComponent
+    ItemLoadComponent,
+    ItemRedirectComponent
   ],
   imports: [
     BrowserModule,

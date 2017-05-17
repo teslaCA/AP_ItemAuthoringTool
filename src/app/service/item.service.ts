@@ -15,71 +15,124 @@ export class ItemService {
     private http: Http
   ) { }
 
-  createScratchPad(type: string): Observable<Item> {
-      const scratchURL = this.serviceUrl;
-
-      return this.http.post(scratchURL, { type }, this.getRequestOptions())
-                      .map(this.extractData)
-                      .catch(this.handleError);
-
-  }
-
-  createItem(id: number): void {
-    const createUrl = this.serviceUrl + '/' + id + '/commit';
-
-    this.http.put(createUrl, {}, this.getRequestOptions())
-      .subscribe(
-        (response: Response) => {
-          console.log('put operation successful');
-          },
-        e => {
-          this.handleError(e);
-        });
-  }
-
-  deleteItem(id: number): void {
-
-    const deleteUrl = this.serviceUrl + '/' + id;
-
-    this.http.delete(deleteUrl, this.getRequestOptions())
-      .subscribe(
-        (response: Response) => {
-          console.log('delete operation successful');
-        },
-        e => {
-          this.handleError(e);
-        });
-  }
-
-  saveItem(item: Item): void {
-    const saveUrl = this.serviceUrl + '/' + item.id;
-
-    console.log('item payload: {}', JSON.stringify(item));
-
-    this.http.put(saveUrl, JSON.stringify(item), this.getRequestOptions())
-      .subscribe(
-        (response: Response) => {
-          console.log('put operation successful');
-        },
-        e => {
-          this.handleError(e);
-        });
-
-  }
 
   getItem(id: number): Observable<Item> {
     const item = new Item();
 
     const getUrl = this.serviceUrl + '/' + id;
 
-    console.log('getting item: {}', id);
+    console.log('getting item: ', id);
 
-    return this.http.get(getUrl, this.getRequestOptions())
-      .map(response => response.json() as Item)
+    return this.http
+      .get(getUrl, this.getRequestOptions())
+      .map(this.extractJson)
       .catch(this.handleError);
   }
 
-  private extractData(res: Response) {
+  /**
+   * POST Operations used when Item is in 'Create' mode
+   */
+  createItem(id: number): void {
+    const createUrl = this.serviceUrl + '/' + id + '/commit';
+
+    this.http
+      .post(createUrl, null, this.getRequestOptions())
+      .subscribe(
+        (response: Response) => {
+          console.log('post ' + createUrl + ' operation successful');
+        },
+        e => {
+          this.handleError(e);
+        });
+  }
+
+  createScratchPad(type: string): Observable<Item> {
+      const scratchURL = this.serviceUrl + '/begin';
+
+      return this.http
+        .post(scratchURL, { type }, this.getRequestOptions())
+        .map(this.extractJson)
+        .catch(this.handleError);
+
+  }
+
+  deleteScratchPad(id: number): void {
+    const deleteUrl = this.serviceUrl + '/' + id + '/rollback';
+
+    this.http
+      .post(deleteUrl, null, this.getRequestOptions())
+      .subscribe(
+        (response: Response) => {
+          console.log('delete ' + deleteUrl + ' operation successful');
+        },
+        e => {
+          this.handleError(e);
+        });
+  }
+
+  saveScratchPad(item: Item): void {
+    const saveUrl = this.serviceUrl + '/' + item.id + '/save';
+
+    console.log('item payload: {}', JSON.stringify(item));
+
+    this.http
+      .post(saveUrl, JSON.stringify(item), this.getRequestOptions())
+      .subscribe(
+        (response: Response) => {
+          console.log('post ' + saveUrl + ' operation successful');
+        },
+        e => {
+          this.handleError(e);
+        });
+
+  }
+
+  /**
+   * PUT Operations used when Item is
+   * @param id
+   */
+  editItem(id: number): Observable<boolean> {
+    const editUrl = this.serviceUrl + '/' + id + '/begin';
+
+    return this.http
+      .put(editUrl, null, this.getRequestOptions())
+      .map(() => {
+          return new Observable<boolean>();
+      })
+      .catch(this.handleError)
+
+  }
+
+  deleteEdit(id: number): void {
+    const deleteUrl = this.serviceUrl + '/' + id + '/rollback';
+
+    this.http
+      .put(deleteUrl, null, this.getRequestOptions())
+      .subscribe(
+        (response: Response) => {
+          console.log('put ' + deleteUrl + ' operation successful');
+        },
+        e => {
+          this.handleError(e);
+        });
+  }
+
+  commitItem(id: number, message: string): void {
+    const createUrl = this.serviceUrl + '/' + id + '/commit';
+
+    this.http
+      .put(createUrl, {message}, this.getRequestOptions())
+      .subscribe(
+        (response: Response) => {
+          console.log('put ' + createUrl + ' operation successful');
+        },
+        e => {
+          this.handleError(e);
+        });
+  }
+
+
+  private extractJson(res: Response) {
     const body = res.json();
     return body || {};
   }
