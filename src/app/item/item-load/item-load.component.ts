@@ -24,8 +24,8 @@ export class ItemLoadComponent implements OnInit {
   private _navBarMessage: string;
   private _user: any;
   private _loading: boolean;
-  private _param: any;
-  private _paramId: number;
+  private _serviceError: boolean;
+  private _errorMessage: string;
 
   @ViewChild(ItemLoadSaComponent) saComponent;
 
@@ -44,6 +44,14 @@ export class ItemLoadComponent implements OnInit {
     return this._loading;
   }
 
+  get serviceError(): boolean {
+    return this._serviceError;
+  }
+
+  get errorMessage(): string {
+    return this._errorMessage;
+  }
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -55,6 +63,7 @@ export class ItemLoadComponent implements OnInit {
 
   ngOnInit() {
     this._loading = true;
+    this._serviceError = false;
 
     this.route.params
       .subscribe(params => {
@@ -150,7 +159,8 @@ export class ItemLoadComponent implements OnInit {
 
   public isCreate(): boolean {
     if (this.user && this.currentItem) {
-      if (this.user.username === this.currentItem.beingCreatedBy) {
+      if (this.user.username === this.currentItem.beingCreatedBy
+        && this.currentItem.beingEditedBy === null) {
         return true;
       }
     }
@@ -159,7 +169,8 @@ export class ItemLoadComponent implements OnInit {
 
   public isView(): boolean {
     if (this.currentItem) {
-      if (this.currentItem.beingCreatedBy === null && this.currentItem.beingEditedBy === null) {
+      if (this.currentItem.beingCreatedBy === null
+        && this.currentItem.beingEditedBy === null) {
         return true;
       }
     }
@@ -168,7 +179,18 @@ export class ItemLoadComponent implements OnInit {
 
   public isEdit(): boolean {
     if (this.user && this.currentItem) {
-      if (this.user.username === this.currentItem.beingEditedBy) {
+      if (this.user.username === this.currentItem.beingEditedBy
+         && this.currentItem.beingEditedBy === null) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public isNotEditable(): boolean {
+    if (this.user && this.currentItem) {
+      if (this.currentItem.beingCreatedBy === null
+        && this.user.username != this.currentItem.beingEditedBy) {
         return true;
       }
     }
@@ -205,7 +227,20 @@ export class ItemLoadComponent implements OnInit {
   }
 
   private onError(error): void {
+    this._loading = false;
+    this._serviceError = true;
+
     console.log(error);
+
+    const body = error.json() || '';
+    const objMessages = JSON.parse(JSON.stringify(body));
+
+    for (let objMsg in objMessages) {
+      this._errorMessage = objMessages[0].message;
+    }
+
+
+
   }
 
 }
