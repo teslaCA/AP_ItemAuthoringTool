@@ -99,7 +99,7 @@ export class ItemService {
       .map(() => {
           return new Observable<boolean>();
       })
-      .catch(this.handleError)
+      .catch(this.handleError);
 
   }
 

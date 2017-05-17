@@ -12,7 +12,7 @@ import { ItemRedirectComponent } from './item/item-redirect/item-redirect.compon
 const routes: Routes = [
   { path: '',                         component: HomeComponent },
   { path: 'item/:id',                 component: ItemLoadComponent} ,
-  { path: 'item-redirect/:id',        component:ItemRedirectComponent},
+  { path: 'item-redirect/:id',        component: ItemRedirectComponent},
   { path: 'item/create/select-type',  component: ItemSelectTypeComponent },
   { path: 'item/create/:type',        component: ItemCreateComponent }
 

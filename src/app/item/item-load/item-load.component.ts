@@ -23,7 +23,7 @@ export class ItemLoadComponent implements OnInit {
   private _currentItem = new Item();
   private _navBarMessage: string;
   private _user: any;
-  private _loading: boolean = true;
+  private _loading: boolean;
   private _param: any;
   private _paramId: number;
 
@@ -116,9 +116,7 @@ export class ItemLoadComponent implements OnInit {
         () => {
           this.router.navigateByUrl('/item-redirect/' + this._currentItemId);
         },
-        () => {
-          error => this.onError(error)
-        }
+        error => this.onError(error)
       );
   }
 
@@ -152,7 +150,7 @@ export class ItemLoadComponent implements OnInit {
 
   public isCreate(): boolean {
     if (this.user && this.currentItem) {
-      if (this.user.username == this.currentItem.beingCreatedBy) {
+      if (this.user.username === this.currentItem.beingCreatedBy) {
         return true;
       }
     }
@@ -161,7 +159,7 @@ export class ItemLoadComponent implements OnInit {
 
   public isView(): boolean {
     if (this.currentItem) {
-      if (this.currentItem.beingCreatedBy == null && this.currentItem.beingEditedBy == null) {
+      if (this.currentItem.beingCreatedBy === null && this.currentItem.beingEditedBy === null) {
         return true;
       }
     }
@@ -170,7 +168,7 @@ export class ItemLoadComponent implements OnInit {
 
   public isEdit(): boolean {
     if (this.user && this.currentItem) {
-      if (this.user.username == this.currentItem.beingEditedBy) {
+      if (this.user.username === this.currentItem.beingEditedBy) {
         return true;
       }
     }
@@ -192,7 +190,7 @@ export class ItemLoadComponent implements OnInit {
       this.lookupService.getItemDescription(this._currentItem.type);
 
     if (this.isCreate()) {
-      //Item is currently being created by logged in user
+      // Item is currently being created by logged in user
       navBarMsgPrefix = 'Create';
     }
     if (this.isView()) {

@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { RouterTestingModule} from '@angular/router/testing';
 import { ItemRedirectComponent } from './item-redirect.component';
 
 describe('ItemRedirectComponent', () => {
@@ -8,7 +8,8 @@ describe('ItemRedirectComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ItemRedirectComponent ]
+      declarations: [ ItemRedirectComponent ],
+      imports: [RouterTestingModule]
     })
     .compileComponents();
   }));
