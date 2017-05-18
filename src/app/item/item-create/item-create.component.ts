@@ -34,7 +34,7 @@ export class ItemCreateComponent implements OnInit {
       .subscribe(
         item => this.processSuccess(item),
         error => this.processError(error),
-        () => console.log('item-create component loaded')
+        () => console.log('scratchpad item created successfully')
       );
   }
 

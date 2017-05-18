@@ -2,29 +2,31 @@ export class Item {
   public id: number;
   public type: string;
   public description: string;
+  public version: number;
+  public beingCreatedBy: any;
+  public beingEditedBy: any;
 
-  public contents: Contents;
+  public attributes: Attributes[];
+  public contents: Contents[];
 
-  constructor () {
-    this.contents = new Contents();
-  }
+  constructor() { }
 }
 
-export class Contents  {
-  public ENU: LanguageData;
+export class Attributes {
+  public attid: string;
+  public name: string;
+  public val: number;
+  public desc: string;
 
-  constructor() {
-    this.ENU = new LanguageData();
-  }
+  constructor() { }
 }
 
-export class LanguageData {
+export class Contents {
   public language: string;
   public stem: string;
   public rubrics: Rubrics[];
 
   constructor() { }
-
 }
 
 export class Rubrics {
