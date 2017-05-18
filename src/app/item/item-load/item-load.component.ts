@@ -180,7 +180,7 @@ export class ItemLoadComponent implements OnInit {
   public isEdit(): boolean {
     if (this.user && this.currentItem) {
       if (this.user.username === this.currentItem.beingEditedBy
-         && this.currentItem.beingEditedBy === null) {
+         && this.currentItem.beingCreatedBy === null) {
         return true;
       }
     }
@@ -190,7 +190,8 @@ export class ItemLoadComponent implements OnInit {
   public isNotEditable(): boolean {
     if (this.user && this.currentItem) {
       if (this.currentItem.beingCreatedBy === null
-        && this.user.username != this.currentItem.beingEditedBy) {
+          && this.currentItem.beingEditedBy != null
+          && this.user.username !== this.currentItem.beingEditedBy) {
         return true;
       }
     }
@@ -235,9 +236,9 @@ export class ItemLoadComponent implements OnInit {
     const body = error.json() || '';
     const objMessages = JSON.parse(JSON.stringify(body));
 
-    for (let objMsg in objMessages) {
-      this._errorMessage = objMessages[0].message;
-    }
+    // TODO: Retrieve multiple errors
+    this._errorMessage = objMessages[0].message;
+
 
 
 
