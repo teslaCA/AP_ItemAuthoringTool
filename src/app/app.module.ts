@@ -34,6 +34,7 @@ import { ConfirmModalComponent, ConfirmService,
          ConfirmState, ConfirmTemplateDirective } from './confirm-modal/confirm-modal';
 import { ItemLoadComponent } from './item/item-load/item-load.component';
 import { ItemRedirectComponent } from './item/item-redirect/item-redirect.component';
+import { NoRouteComponent } from './no-route/no-route.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { ItemRedirectComponent } from './item/item-redirect/item-redirect.compon
     ConfirmModalComponent,
     ConfirmTemplateDirective,
     ItemLoadComponent,
-    ItemRedirectComponent
+    ItemRedirectComponent,
+    NoRouteComponent
   ],
   imports: [
     BrowserModule,

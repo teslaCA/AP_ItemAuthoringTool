@@ -1,3 +1,4 @@
+import { isNumeric } from "rxjs/util/isNumeric";
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
@@ -6,6 +7,7 @@ import { LookupService } from '../../service/lookup.service';
 import { Contents, Item } from '../../model/item';
 import { ItemService } from '../../service/item.service';
 import { ItemLoadSaComponent } from '../item-load-sa/item-load-sa.component';
+
 
 @Component({
   selector: 'app-item-load',
@@ -70,21 +72,30 @@ export class ItemLoadComponent implements OnInit {
         this._currentItemId = params['id'];
       });
 
-    this.lookupService.getUser()
-      .subscribe((res: Response) => {
-        this._user = res.json();
-      },
-      error => console.log(error),
-      () => {
-        this.itemService.getItem(this._currentItemId)
-          .subscribe(
-            item => this.onSuccess(item),
-            error => this.onError(error),
-            () => {
-              this._loading = false;
-            }
-          );
-      });
+    console.log('id: ' + this._currentItemId);
+
+    if ( isNumeric(this._currentItemId) ) {
+      this.lookupService.getUser()
+        .subscribe(
+          (res: Response) => {
+            this._user = res.json();
+          },
+          error => console.log(error),
+          () => {
+            this.itemService.getItem(this._currentItemId)
+              .subscribe(
+                item => this.onSuccess(item),
+                error => this.onError(error),
+                () => {
+                  this._loading = false;
+                }
+              );
+          });
+    }
+    else {
+      this._loading = false;
+      this.router.navigateByUrl('/unavailable');
+    }
   }
 
   public createItem(): void {
@@ -237,11 +248,15 @@ export class ItemLoadComponent implements OnInit {
     const objMessages = JSON.parse(JSON.stringify(body));
 
     // TODO: Retrieve multiple errors
-    this._errorMessage = objMessages[0].message;
-
-
-
+    if (error.status == 404) {
+      this._errorMessage = objMessages[0].message;
+    }
+    else if (error.status == 500) {
+      this._errorMessage = 'Internal server error';
+    }
+    else {
+      this._errorMessage = 'Unknown error';
+    }
 
   }
-
 }
