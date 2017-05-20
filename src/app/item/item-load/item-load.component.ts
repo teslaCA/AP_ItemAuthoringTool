@@ -2,7 +2,6 @@ import { isNumeric } from "rxjs/util/isNumeric";
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { ConfirmService } from '../../confirm-modal/confirm-modal';
 import { LookupService } from '../../service/lookup.service';
 import { Contents, Item } from '../../model/item';
 import { ItemService } from '../../service/item.service';
@@ -12,10 +11,9 @@ import { ItemLoadSaComponent } from '../item-load-sa/item-load-sa.component';
 @Component({
   selector: 'app-item-load',
   templateUrl: './item-load.component.html',
-  styleUrls: ['./item-load.component.scss'],
+  styleUrls: ['./item-load.component.less'],
   providers: [
     LookupService,
-    ConfirmService,
     ItemService
   ]
 })
@@ -58,7 +56,6 @@ export class ItemLoadComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private lookupService: LookupService,
-    private confirmService: ConfirmService,
     private itemService: ItemService,
     private location: Location
   ) { }
@@ -116,18 +113,18 @@ export class ItemLoadComponent implements OnInit {
   }
 
   public cancelCreate(): void {
-    this.confirmService.confirm({ title: 'Confirm cancel', message: 'Are you sure you want to cancel creating this item?' })
-      .then(
-      () => {
-        console.log('deleting item with id: ', this.currentItem.id);
-        this.itemService.deleteScratchPad(this.currentItem.id);
-
-        this.router.navigateByUrl('/');
-
-      },
-      () => {
-        console.log('item will not be cancelled...');
-      });
+    // this.confirmService.confirm({ title: 'Confirm cancel', message: 'Are you sure you want to cancel creating this item?' })
+    //   .then(
+    //   () => {
+    //     console.log('deleting item with id: ', this.currentItem.id);
+    //     this.itemService.deleteScratchPad(this.currentItem.id);
+    //
+    //     this.router.navigateByUrl('/');
+    //
+    //   },
+    //   () => {
+    //     console.log('item will not be cancelled...');
+    //   });
   }
 
   public editItem(): void {
@@ -141,31 +138,31 @@ export class ItemLoadComponent implements OnInit {
   }
 
   public cancelEdit(): void {
-    this.confirmService.confirm({ title: 'Confirm cancel', message: 'Are you sure you want to discard all changes you\'ve made since you\'ve started editing?' })
-      .then(
-        () => {
-          console.log('deleting item with id: ', this.currentItem.id);
-          this.itemService.deleteEdit(this.currentItem.id);
-
-          this.router.navigateByUrl('/');
-        },
-        () => {
-          console.log('item will not be cancelled...');
-        });
+    // this.confirmService.confirm({ title: 'Confirm cancel', message: 'Are you sure you want to discard all changes you\'ve made since you\'ve started editing?' })
+    //   .then(
+    //     () => {
+    //       console.log('deleting item with id: ', this.currentItem.id);
+    //       this.itemService.deleteEdit(this.currentItem.id);
+    //
+    //       this.router.navigateByUrl('/');
+    //     },
+    //     () => {
+    //       console.log('item will not be cancelled...');
+    //     });
   }
 
   public commitItem(): void {
-    this.confirmService.confirm({ title: 'Confirm cancel', message: 'Reason for changes:' })
-      .then(
-        () => {
-          console.log('committing item with id: ', this.currentItem.id);
-          this.itemService.commitItem(this.currentItem.id, 'IAT generated commit');
-
-          this.router.navigateByUrl('/');
-        },
-        () => {
-          console.log('item will not be cancelled...');
-        });
+    // this.confirmService.confirm({ title: 'Confirm cancel', message: 'Reason for changes:' })
+    //   .then(
+    //     () => {
+    //       console.log('committing item with id: ', this.currentItem.id);
+    //       this.itemService.commitItem(this.currentItem.id, 'IAT generated commit');
+    //
+    //       this.router.navigateByUrl('/');
+    //     },
+    //     () => {
+    //       console.log('item will not be cancelled...');
+    //     });
   }
 
   public isCreate(): boolean {

@@ -33,7 +33,7 @@ import { ItemLoadSaComponent } from './item/item-load-sa/item-load-sa.component'
 import { ConfirmModalComponent, ConfirmService,
   ConfirmState, ConfirmTemplateDirective } from './confirm-modal/confirm-modal';
 
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {ModalDirective} from 'ngx-bootstrap/ng2-bootstrap';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {

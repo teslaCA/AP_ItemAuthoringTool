@@ -6,7 +6,7 @@ import { ItemService } from '../../service/item.service';
 @Component({
   selector: 'app-item-create',
   templateUrl: './item-create.component.html',
-  styleUrls: ['./item-create.component.scss'],
+  styleUrls: ['./item-create.component.less'],
   providers: [
     ItemService
   ]

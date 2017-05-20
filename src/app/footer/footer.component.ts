@@ -4,7 +4,7 @@ import { LookupService } from '../service/lookup.service';
 @Component({
   selector: 'app-footer',
   templateUrl: './footer.component.html',
-  styleUrls: ['./footer.component.scss'],
+  styleUrls: ['./footer.component.less'],
   providers: [LookupService]
 })
 export class FooterComponent implements OnInit {

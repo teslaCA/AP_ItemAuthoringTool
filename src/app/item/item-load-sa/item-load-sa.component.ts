@@ -1,19 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { ExemplarResponse } from '../../model/exemplar-response';
-import { ConfirmService } from '../../confirm-modal/confirm-modal';
 
 @Component({
   selector: 'app-item-load-sa',
   templateUrl: './item-load-sa.component.html',
-  styleUrls: ['./item-load-sa.component.scss']
+  styleUrls: ['./item-load-sa.component.less']
 })
 export class ItemLoadSaComponent implements OnInit {
 
   responses: ExemplarResponse[];
 
-  constructor(
-    private confirmService: ConfirmService
-  ) {
+  constructor() {
     this.responses = [];
 
     const newId = this.responses.length + 1;
@@ -39,15 +36,15 @@ export class ItemLoadSaComponent implements OnInit {
 
   removeResponse(id: number): void {
 
-    this.confirmService.confirm({ title: 'Confirm deletion', message: 'Are you sure you want to delete this response?' }).then(
-      () => {
-        console.log('deleting...');
-        // TODO: Call IMS API
-        this.responses = this.responses.filter(response => response.id !== id);
-      },
-      () => {
-        console.log('not deleting...');
-      });
+    // this.confirmService.confirm({ title: 'Confirm deletion', message: 'Are you sure you want to delete this response?' }).then(
+    //   () => {
+    //     console.log('deleting...');
+    //     // TODO: Call IMS API
+    //     this.responses = this.responses.filter(response => response.id !== id);
+    //   },
+    //   () => {
+    //     console.log('not deleting...');
+    //   });
 
   }
 }

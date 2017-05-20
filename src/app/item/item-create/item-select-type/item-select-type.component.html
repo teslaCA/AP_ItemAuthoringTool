@@ -1,27 +1,58 @@
-  <h4 class="font-italic">
-  Create item or stimulus
-  </h4>
+<div class="row">
+  <div class="col-lg-12">
+    <div class="bs-component">
 
-  <nav class="navbar navbar-light bg-faded">
-    <h1 class="navbar-brand mb-0 font-italic">Item types</h1>
-  </nav>
+      <p class="lead" style="padding-top: 20px">
+        <em>Create item or stimulus</em>
+      </p>
 
-  <div class="container-fluid">
-    <div class="row" style="padding-top: 10px;padding-bottom: 10px">
-      <div
-        *ngFor="let item of items"
-        class="col btn-group btn-block">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <em>Item types</em>
+        </div>
+      </div>
 
-        <a class="btn btn-lg btn-outline-primary"
-                style="width: 13rem;height: 10rem; white-space: normal; border-radius: 0px"
-                routerLink="/item/create/{{item.type}}">
-          <span class="text-sm-center align-text-top" style="">{{item.name}}</span>
-          <br/><br/>
-          <i class="fa {{item.icon}} fa-2x"></i>
-        </a>
+      <div *ngFor="let item of items" class="col btn-group btn-block">
+        <div class="row">
+          <div class="col-lg-2">
+            <div class="bs-component">
+              <div class="well" style="text-align: center">
+                <a class="" routerLink="/item/create/{{item.type}}">
+                  <p>{{item.name}}</p>
+                  <p>({{item.abbreviation}})</p>
+                  <p><i class="fa {{item.icon}} fa-2x"></i></p>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
+      <button class="btn btn-default" (click)="staticModal.show()">Cancel</button>
+
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" bsModal #staticModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="staticModal.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">Confirm cancel</h4>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to cancel?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="confirmCancel()">Yes</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="staticModal.hide()">No</button>
       </div>
     </div>
   </div>
-
-  <button class="btn btn-secondary" (click)="confirmCancel()">Cancel</button>
+</div>

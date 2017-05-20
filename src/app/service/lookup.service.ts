@@ -13,7 +13,7 @@ const MAIN_ITEMS: ItemType[] = [
   { id: 16, type: 'ms', name: 'Multiple Select (MS)', icon: 'fa-th-list'},
   { id: 17, type: 'mi', name: 'Match Interaction (MI)', icon: 'fa-list-ul'},
 */
-  { type: 'sa', description: 'Short Answer (SA)', icon: 'fa-font'},
+  { type: 'sa', description: 'Short Answer (SA)', icon: 'fa-font', name: 'Short Answer', abbreviation: 'SA'},
 /*
   { id: 19, type: 'ti', name: 'Table Interaction (TI)', icon: 'fa-table'},
   { id: 20, type: 'wer', name: 'Writing Extended Responses (WER)', icon: 'fa-comments'}
@@ -21,8 +21,8 @@ const MAIN_ITEMS: ItemType[] = [
 ];
 
 const OTHER_ITEMS: ItemType[] = [
-  { type: 'stim', description: 'Stimulus (STIM)', icon: 'fa-commenting-o'},
-  { type: 'tut', description: 'Tutorial (TUT)', icon: 'fa-question-circle '},
+  // { type: 'stim', description: 'Stimulus (STIM)', icon: 'fa-commenting-o', name: 'Stimulus', abbreviation: 'STIM'},
+  { type: 'tut', description: 'Tutorial (TUT)', icon: 'fa-question-circle', name: 'Tutorial', abbreviation: 'TUT'}
 ];
 
 @Injectable()

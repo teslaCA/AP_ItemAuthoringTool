@@ -18,20 +18,18 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 import { AppRoutingModule } from './app.routing';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
-import { LogOutComponent } from './header/log-out/logout.component';
 import { FooterComponent } from './footer/footer.component';
 import { ItemSelectTypeComponent } from './item/item-create/item-select-type/item-select-type.component';
 import { HomeComponent } from './home/home.component';
 import { ItemCreateComponent } from './item/item-create/item-create.component';
 import { ItemLoadSaComponent } from './item/item-load-sa/item-load-sa.component';
-import { ConfirmModalComponent, ConfirmService,
-         ConfirmState, ConfirmTemplateDirective } from './confirm-modal/confirm-modal';
 import { ItemLoadComponent } from './item/item-load/item-load.component';
 import { ItemRedirectComponent } from './item/item-redirect/item-redirect.component';
 import { NoRouteComponent } from './no-route/no-route.component';
@@ -41,13 +39,10 @@ import { NoRouteComponent } from './no-route/no-route.component';
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    LogOutComponent,
     HomeComponent,
     ItemSelectTypeComponent,
     ItemCreateComponent,
     ItemLoadSaComponent,
-    ConfirmModalComponent,
-    ConfirmTemplateDirective,
     ItemLoadComponent,
     ItemRedirectComponent,
     NoRouteComponent
@@ -57,11 +52,10 @@ import { NoRouteComponent } from './no-route/no-route.component';
     FormsModule,
     HttpModule,
     AppRoutingModule,
-    NgbModule.forRoot()
+    BsDropdownModule.forRoot(),
+    ModalModule.forRoot()
   ],
   providers: [
-    ConfirmService,
-    ConfirmState
   ],
   bootstrap: [AppComponent]
 })

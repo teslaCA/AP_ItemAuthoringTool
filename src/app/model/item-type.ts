@@ -5,6 +5,8 @@ export class ItemType {
   public type: string;
   public description: string;
   public icon: string;
+  public name: string;
+  public abbreviation: string;
 
   constructor () {}
 }
