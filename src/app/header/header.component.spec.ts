@@ -16,27 +16,22 @@
 
 /* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpModule } from '@angular/http';
 import { HeaderComponent } from './header.component';
-import { LogOutComponent } from './log-out/logout.component';
-import { ConfirmService, ConfirmState, ConfirmModalComponent } from '../confirm-modal/confirm-modal';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { ModalModule } from 'ngx-bootstrap/modal';
+
 describe('HeaderComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        HeaderComponent,
-        LogOutComponent,
-        ConfirmModalComponent
+        HeaderComponent
       ],
       imports: [
         HttpModule,
-        NgbModule.forRoot()
-      ],
-      providers: [
-        ConfirmService,
-        ConfirmState
+        BsDropdownModule.forRoot(),
+        ModalModule.forRoot()
       ]
     }).compileComponents();
   }));

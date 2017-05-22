@@ -1,10 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpModule } from '@angular/http';
 import { RouterTestingModule} from '@angular/router/testing';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { ConfirmService, ConfirmState, ConfirmModalComponent } from '../../confirm-modal/confirm-modal';
-import { ItemLoadSaComponent} from '../item-load-sa/item-load-sa.component';
 
+import { AlertModule } from 'ngx-bootstrap/alert';
+import { ModalModule } from 'ngx-bootstrap/modal';
+
+import { ItemLoadSaComponent} from '../item-load-sa/item-load-sa.component';
 import { ItemLoadComponent } from './item-load.component';
 
 describe('ItemLoadComponent', () => {
@@ -16,16 +17,12 @@ describe('ItemLoadComponent', () => {
       imports: [
         HttpModule,
         RouterTestingModule,
-        NgbModule.forRoot()
+        ModalModule.forRoot(),
+        AlertModule.forRoot()
       ],
       declarations: [
         ItemLoadComponent,
-        ItemLoadSaComponent,
-        ConfirmModalComponent
-      ],
-      providers: [
-        ConfirmService,
-        ConfirmState
+        ItemLoadSaComponent
       ]
     })
     .compileComponents();

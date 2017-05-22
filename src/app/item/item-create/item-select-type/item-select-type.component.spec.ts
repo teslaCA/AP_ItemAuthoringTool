@@ -3,8 +3,6 @@ import { HttpModule } from '@angular/http';
 import { ItemSelectTypeComponent } from './item-select-type.component';
 import { LookupService} from '../../../service/lookup.service';
 import { RouterTestingModule} from '@angular/router/testing';
-import { ConfirmService, ConfirmState } from '../../../confirm-modal/confirm-modal';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 describe('ItemSelectTypeComponent', () => {
 
@@ -15,13 +13,10 @@ describe('ItemSelectTypeComponent', () => {
       ],
       imports: [
         HttpModule,
-        RouterTestingModule,
-        NgbModule.forRoot()
+        RouterTestingModule
       ],
       providers: [
-        LookupService,
-        ConfirmService,
-        ConfirmState
+        LookupService
       ]
     }).compileComponents();
   }));
