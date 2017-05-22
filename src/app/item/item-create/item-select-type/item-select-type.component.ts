@@ -15,7 +15,7 @@ export class ItemSelectTypeComponent implements OnInit {
   other: ItemType[];
 
   constructor(private router: Router,
-              private lookupService: LookupService,) {
+              private lookupService: LookupService) {
   }
 
   ngOnInit() {

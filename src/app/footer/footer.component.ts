@@ -21,7 +21,7 @@ export class FooterComponent implements OnInit {
         this._buildInfo = res.json();
       },
       () => {
-        this._buildInfo
+        this._buildInfo = '';
       });
   }
 

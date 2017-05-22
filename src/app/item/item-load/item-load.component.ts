@@ -1,4 +1,4 @@
-import {isNumeric} from "rxjs/util/isNumeric";
+import {isNumeric} from 'rxjs/util/isNumeric';
 import {
   Component,
   ViewChild,
@@ -67,8 +67,7 @@ export class ItemLoadComponent implements OnInit {
                 }
               );
           });
-    }
-    else {
+    } else {
       this._loading = false;
       this.router.navigateByUrl('/unavailable');
     }
@@ -203,13 +202,11 @@ export class ItemLoadComponent implements OnInit {
     const objMessages = JSON.parse(JSON.stringify(body));
 
     // TODO: Retrieve multiple errors
-    if (error.status == 404) {
+    if (error.status === 404) {
       this._errorMessage = objMessages[0].message;
-    }
-    else if (error.status == 500) {
+    } else if (error.status === 500) {
       this._errorMessage = 'Internal server error';
-    }
-    else {
+    } else {
       this._errorMessage = 'Unknown error';
     }
   }
