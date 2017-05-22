@@ -21,6 +21,7 @@ import {HttpModule} from '@angular/http';
 
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { AlertModule } from 'ngx-bootstrap/alert';
 
 import { AppRoutingModule } from './app.routing';
 import { AppComponent } from './app.component';
@@ -53,7 +54,8 @@ import { NoRouteComponent } from './no-route/no-route.component';
     HttpModule,
     AppRoutingModule,
     BsDropdownModule.forRoot(),
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    AlertModule.forRoot()
   ],
   providers: [
   ],

@@ -19,9 +19,6 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "../node_modules/bootstrap/less/bootstrap.less",
-        "../node_modules/font-awesome/less/font-awesome.less",
-        "../node_modules/sb-ui-kit/less/main.less",
         "styles.less"
       ],
       "scripts": [],

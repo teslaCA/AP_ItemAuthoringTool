@@ -1,11 +1,16 @@
-import { isNumeric } from "rxjs/util/isNumeric";
-import { Component, ViewChild, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
-import { LookupService } from '../../service/lookup.service';
-import { Contents, Item } from '../../model/item';
-import { ItemService } from '../../service/item.service';
-import { ItemLoadSaComponent } from '../item-load-sa/item-load-sa.component';
+import {isNumeric} from "rxjs/util/isNumeric";
+import {
+  Component,
+  ViewChild,
+  OnInit,
+  AfterViewInit,
+  ComponentFactoryResolver,
+} from '@angular/core';
+import {Router, ActivatedRoute} from '@angular/router';
+import {Location} from '@angular/common';
+import {LookupService} from '../../service/lookup.service';
+import {Contents, Item} from '../../model/item';
+import {ItemService} from '../../service/item.service';
 
 
 @Component({
@@ -27,38 +32,12 @@ export class ItemLoadComponent implements OnInit {
   private _serviceError: boolean;
   private _errorMessage: string;
 
-  @ViewChild(ItemLoadSaComponent) saComponent;
-
-  get currentItem(): Item {
-    return this._currentItem;
+  constructor(private router: Router,
+              private route: ActivatedRoute,
+              private lookupService: LookupService,
+              private itemService: ItemService,
+              private location: Location) {
   }
-  get navBarMessage(): string {
-    return this._navBarMessage;
-  }
-
-  get user(): any {
-    return this._user;
-  }
-
-  get loading(): boolean {
-    return this._loading;
-  }
-
-  get serviceError(): boolean {
-    return this._serviceError;
-  }
-
-  get errorMessage(): string {
-    return this._errorMessage;
-  }
-
-  constructor(
-    private router: Router,
-    private route: ActivatedRoute,
-    private lookupService: LookupService,
-    private itemService: ItemService,
-    private location: Location
-  ) { }
 
   ngOnInit() {
     this._loading = true;
@@ -71,7 +50,7 @@ export class ItemLoadComponent implements OnInit {
 
     console.log('id: ' + this._currentItemId);
 
-    if ( isNumeric(this._currentItemId) ) {
+    if (isNumeric(this._currentItemId)) {
       this.lookupService.getUser()
         .subscribe(
           (res: Response) => {
@@ -113,18 +92,7 @@ export class ItemLoadComponent implements OnInit {
   }
 
   public cancelCreate(): void {
-    // this.confirmService.confirm({ title: 'Confirm cancel', message: 'Are you sure you want to cancel creating this item?' })
-    //   .then(
-    //   () => {
-    //     console.log('deleting item with id: ', this.currentItem.id);
-    //     this.itemService.deleteScratchPad(this.currentItem.id);
-    //
-    //     this.router.navigateByUrl('/');
-    //
-    //   },
-    //   () => {
-    //     console.log('item will not be cancelled...');
-    //   });
+    this.router.navigateByUrl('/');
   }
 
   public editItem(): void {
@@ -138,17 +106,7 @@ export class ItemLoadComponent implements OnInit {
   }
 
   public cancelEdit(): void {
-    // this.confirmService.confirm({ title: 'Confirm cancel', message: 'Are you sure you want to discard all changes you\'ve made since you\'ve started editing?' })
-    //   .then(
-    //     () => {
-    //       console.log('deleting item with id: ', this.currentItem.id);
-    //       this.itemService.deleteEdit(this.currentItem.id);
-    //
-    //       this.router.navigateByUrl('/');
-    //     },
-    //     () => {
-    //       console.log('item will not be cancelled...');
-    //     });
+    this.router.navigateByUrl('/');
   }
 
   public commitItem(): void {
@@ -166,43 +124,44 @@ export class ItemLoadComponent implements OnInit {
   }
 
   public isCreate(): boolean {
-    if (this.user && this.currentItem) {
-      if (this.user.username === this.currentItem.beingCreatedBy
-        && this.currentItem.beingEditedBy === null) {
-        return true;
-      }
-    }
-    return false;
+    return true;
+    // if (this.user && this.currentItem) {
+    //   if (this.user.username === this.currentItem.beingCreatedBy
+    //     && this.currentItem.beingEditedBy === null) {
+    //     return true;
+    //   }
+    // }
+    // return false;
   }
 
   public isView(): boolean {
-    if (this.currentItem) {
-      if (this.currentItem.beingCreatedBy === null
-        && this.currentItem.beingEditedBy === null) {
-        return true;
-      }
-    }
+    // if (this.currentItem) {
+    //   if (this.currentItem.beingCreatedBy === null
+    //     && this.currentItem.beingEditedBy === null) {
+    //     return true;
+    //   }
+    // }
     return false;
   }
 
   public isEdit(): boolean {
-    if (this.user && this.currentItem) {
-      if (this.user.username === this.currentItem.beingEditedBy
-         && this.currentItem.beingCreatedBy === null) {
-        return true;
-      }
-    }
+    // if (this.user && this.currentItem) {
+    //   if (this.user.username === this.currentItem.beingEditedBy
+    //      && this.currentItem.beingCreatedBy === null) {
+    //     return true;
+    //   }
+    // }
     return false;
   }
 
   public isNotEditable(): boolean {
-    if (this.user && this.currentItem) {
-      if (this.currentItem.beingCreatedBy === null
-          && this.currentItem.beingEditedBy != null
-          && this.user.username !== this.currentItem.beingEditedBy) {
-        return true;
-      }
-    }
+    // if (this.user && this.currentItem) {
+    //   if (this.currentItem.beingCreatedBy === null
+    //       && this.currentItem.beingEditedBy != null
+    //       && this.user.username !== this.currentItem.beingEditedBy) {
+    //     return true;
+    //   }
+    // }
     return false;
   }
 
@@ -210,15 +169,13 @@ export class ItemLoadComponent implements OnInit {
     this.location.back();
   }
 
-
-
-
   private onSuccess(item): void {
     console.log('retrieved item: ', JSON.stringify(item));
+
     let navBarMsgPrefix: string;
+
     this._currentItem = item;
-    this._currentItem.description =
-      this.lookupService.getItemDescription(this._currentItem.type);
+    this._currentItem.description = this.lookupService.getItemDescription(this._currentItem.type);
 
     if (this.isCreate()) {
       // Item is currently being created by logged in user
@@ -233,6 +190,7 @@ export class ItemLoadComponent implements OnInit {
 
     this._navBarMessage = navBarMsgPrefix + ' Item ' + this._currentItem.id
       + ' | ' + this._currentItem.description;
+
   }
 
   private onError(error): void {
@@ -254,6 +212,31 @@ export class ItemLoadComponent implements OnInit {
     else {
       this._errorMessage = 'Unknown error';
     }
+  }
 
+  // ------------------------------------------------------
+
+  get currentItem(): Item {
+    return this._currentItem;
+  }
+
+  get navBarMessage(): string {
+    return this._navBarMessage;
+  }
+
+  get user(): any {
+    return this._user;
+  }
+
+  get loading(): boolean {
+    return this._loading;
+  }
+
+  get serviceError(): boolean {
+    return this._serviceError;
+  }
+
+  get errorMessage(): string {
+    return this._errorMessage;
   }
 }
