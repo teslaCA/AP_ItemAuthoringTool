@@ -1,56 +1,79 @@
-<!--<div class="row" style="padding-top: 1em;padding-bottom: 1em">-->
+<div class="col-md-6">
 
-  <!--<div class="col-6" style="border: 1px solid rgba(86,61,124,.2);">-->
-    <!---->
+    <div class="panel gray-lighter">
+        <div class="panel-heading">
+            <span>Prompt / Stem</span>
+        </div>
+        <!--
+        TODO: Rich Text editor goes here
+        -->
+        <div class="panel-body" style="padding-top: 0px">
+            <textarea id="prompt-stem" class="form-control" rows="10" style="color:black"></textarea>
+        </div>
+    </div>
+
+
+    <div class="panel gray-lighter">
+        <div class="panel-heading">
+            <span>Exemplar responses</span>
+        </div>
+        <!--
+        TODO: Rich Text editor goes here
+        -->
+        <div class="panel-body" style="padding-top: 0px">
+            <div class="col-md-11" style="padding-left: 0px">
+                <textarea id="" class="form-control" rows="5" style="color:black"></textarea>
+            </div>
+            <div class="col-md-1" style="padding-left: 0px">
+                <a (click)="removeResponse(response.id)"><i class="fa fa-trash"></i></a>
+            </div>
+        </div>
+        <div class="panel-body" style="padding-top: 0px">
+            <div class="col-md-11" style="padding-left: 0px">
+                <textarea id="" class="form-control" rows="5" style="color:black"></textarea>
+            </div>
+            <div class="col-md-1" style="padding-left: 0px">
+                <a (click)="removeResponse(response.id)"><i class="fa fa-trash"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!--<div class="row">-->
     <!--<div class="col">-->
-      <!--<span>Prompt / Stem</span>-->
+    <!--<span>Exemplar responses</span>-->
     <!--</div>-->
-    <!--&lt;!&ndash;-->
-    <!--TODO: Rich Text editor goes here-->
-    <!--&ndash;&gt;-->
-    <!--<div class="row">-->
-      <!--<div class="col">-->
-        <!--<textarea id="prompt-stem" class="form-control" rows="15" style="min-width: 100%"></textarea>-->
-      <!--</div>-->
     <!--</div>-->
 
     <!--<div class="row">-->
-      <!--<div class="col">-->
-        <!--<span>Exemplar responses</span>-->
-      <!--</div>-->
+    <!--<div class="col">-->
+
+    <!--<div class="row" *ngFor="let response of responses">-->
+    <!--<div class="col-11">-->
+    <!--<textarea id="response-{{response.id}}" class="form-control" rows="3" style="min-width: 100%">{{response.text}}</textarea>-->
+    <!--</div>-->
+    <!--<div class="col-1">-->
+    <!--<a (click)="removeResponse(response.id)"><i class="fa fa-trash"></i></a>-->
+    <!--</div>-->
+    <!--</div>-->
+
+    <!--</div>-->
     <!--</div>-->
 
     <!--<div class="row">-->
-      <!--<div class="col">-->
-
-        <!--<div class="row" *ngFor="let response of responses">-->
-          <!--<div class="col-11">-->
-            <!--<textarea id="response-{{response.id}}" class="form-control" rows="3" style="min-width: 100%">{{response.text}}</textarea>-->
-          <!--</div>-->
-          <!--<div class="col-1">-->
-            <!--<a (click)="removeResponse(response.id)"><i class="fa fa-trash"></i></a>-->
-          <!--</div>-->
-        <!--</div>-->
-
-      <!--</div>-->
+    <!--<div class="col">-->
+    <!--<button class="btn btn-secondary" (click)="addResponse()">Add exemplar response</button>-->
+    <!--</div>-->
     <!--</div>-->
 
-    <!--<div class="row">-->
-      <!--<div class="col">-->
-        <!--<button class="btn btn-secondary" (click)="addResponse()">Add exemplar response</button>-->
-      <!--</div>-->
     <!--</div>-->
 
-  <!--</div>-->
-
-  <!--<div class="col-6" style="border: 1px solid rgba(86,61,124,.2);">-->
+    <!--<div class="col-6" style="border: 1px solid rgba(86,61,124,.2);">-->
     <!--&nbsp;-->
     <!--&lt;!&ndash;-->
     <!--TODO: Item details Tabs go here-->
     <!--&ndash;&gt;-->
-  <!--</div>-->
-
-<!--</div>-->
+    <!--</div>-->
+</div>
 
 <!--<ng-template confirm>-->
 <!--<app-confirm-modal-component></app-confirm-modal-component>-->
