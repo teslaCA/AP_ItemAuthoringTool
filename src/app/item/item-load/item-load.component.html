@@ -1,82 +1,93 @@
-<div *ngIf="loading">
-    <div class="row" style="padding-top: 10px">
-        <div class="col-md-12">
-            <alert type="info">Loading new item data...<i class="fa fa-refresh fa-spin fa-2x fa-fw"></i></alert>
+<div class="container-fluid" style="padding-bottom: 125px;">
+    <div *ngIf="loading">
+        <div class="row" style="padding-top: 10px">
+            <div class="col-md-12">
+                <alert type="info">Loading new item data...<i class="fa fa-refresh fa-spin fa-2x fa-fw"></i></alert>
+            </div>
+
+        </div>
+    </div>
+
+    <div *ngIf="!loading">
+
+        <div *ngIf="serviceError">
+            <div class="row" style="padding-top: 10px">
+                <div class="col-md-12">
+                    <alert type="danger">{{errorMessage}}</alert>
+                </div>
+            </div>
         </div>
 
+        <div *ngIf="!serviceError">
+
+            <div *ngIf="isNotEditable()">
+                <div class="col-md-12">
+                    <alert type="warning">Item is currently being edited by another user.</alert>
+                </div>
+            </div>
+
+            <div *ngIf="!isNotEditable()">
+
+                <div *ngIf="isCreate() || isEdit() || isView()">
+
+                    <div class="row" style="padding-top: 1px">
+                        <nav class="navbar navbar-default" role="navigation">
+                            <div class="col-md-12">
+                                <h4 style="margin-bottom: 0px; padding-bottom: 0px">
+                                    <em>{{navBarMessage}}</em>
+                                </h4>
+                            </div>
+                        </nav>
+                    </div>
+
+                    <!--
+                    <div class="text-center" style="white-space: normal;">
+                      <button class="btn btn-secondary" routerLink="/">Preview</button>
+                    </div>
+                    -->
+                    <!--
+                    <div class="float-right" style="white-space: normal;">
+                      <i class="fa fa-check-circle" style="color: green;"></i>&nbsp;
+                      <span class="text-success">Saved!</span>
+                    </div>
+                    -->
+                    <div class="row">
+                        <app-item-load-sa *ngIf="currentItem.type=='sa'" [item]="currentItem"></app-item-load-sa>
+                    </div>
+
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
 <div *ngIf="!loading">
-
-    <div *ngIf="serviceError">
-        <div class="row" style="padding-top: 10px">
+    <footer class="footer" style="position: fixed; padding-bottom: 3px; padding-top: 8px; bottom: 3px;
+            margin-bottom: 0px; width: 100%; margin-left: 0px; height: 80px;">
+        <div id="footerError" class="container" style="margin-left: 5px">
             <div class="col-md-12">
-                <alert type="danger">{{errorMessage}}</alert>
-            </div>
-        </div>
-    </div>
-
-    <div *ngIf="!serviceError">
-
-        <div *ngIf="isNotEditable()">
-            <div class="col-md-12">
-                <alert type="warning">Item is currently being edited by another user.</alert>
-            </div>
-        </div>
-
-        <div *ngIf="!isNotEditable()">
-
-            <div *ngIf="isCreate() || isEdit() || isView()">
-
-                <div class="row" style="padding-top: 1px">
-                    <nav class="navbar navbar-default" role="navigation">
-                        <div class="col-md-12">
-                            <h4 style="margin-bottom: 0px; padding-bottom: 0px">
-                                <em>{{navBarMessage}}</em>
-                            </h4>
-                        </div>
-                    </nav>
-                </div>
-
-                <!--
-                <div class="text-center" style="white-space: normal;">
-                  <button class="btn btn-secondary" routerLink="/">Preview</button>
-                </div>
-                -->
-                <!--
-                <div class="float-right" style="white-space: normal;">
-                  <i class="fa fa-check-circle" style="color: green;"></i>&nbsp;
-                  <span class="text-success">Saved!</span>
-                </div>
-                -->
-
-                <app-item-load-sa *ngIf="currentItem.type=='sa'"></app-item-load-sa>
-
-                <div class="row" style="padding-bottom: 100px; margin-left: 5px">
-                    <div class="col-md-12">
-
-                        <div *ngIf="isCreate()">
-                            <button class="btn btn-default" (click)="createItem()">Create item</button>
-                            <button class="btn btn-default" (click)="cancelModal.show()">Cancel</button>
-                        </div>
-
-                        <div *ngIf="isView()">
-                            <button class="btn btn-default" (click)="goBack()">Done</button>
-                            <button class="btn btn-default" (click)="editItem()">Edit</button>
-                        </div>
-
-                        <div *ngIf="isEdit()">
-                            <button class="btn btn-default" (click)="commitItem()">Commit Changes</button>
-                            <button class="btn btn-default" (click)="cancelModal.show()">Discard Changes</button>
-                        </div>
+                <div *ngIf="!serviceError">
+                    <div *ngIf="isCreate()" style="text-align: left">
+                        <button class="btn btn-default btn-small"  (click)="createItem()">Create item</button>
+                        <button class="btn btn-default btn-small" (click)="cancelModal.show()">Cancel</button>
+                    </div>
+                    <div *ngIf="isView()">
+                        <button class="btn btn-default btn-small" (click)="goBack()">Done</button>
+                        <button class="btn btn-default btn-small" (click)="editItem()">Edit</button>
+                    </div>
+                    <div *ngIf="isEdit()">
+                        <button class="btn btn-default btn-small" (click)="commitItem()">Commit Changes</button>
+                        <button class="btn btn-default btn-small" (click)="cancelModal.show()">Discard Changes
+                        </button>
                     </div>
                 </div>
+                <div *ngIf="serviceError">
+                    <button class="btn btn-default btn-small" routerLink="/">Back</button>
+                </div>
             </div>
         </div>
-    </div>
+    </footer>
 </div>
-
 
 <!-- Modal -->
 <div id="cancelModal" class="modal fade" bsModal #cancelModal="bs-modal" [config]="{backdrop: 'static'}"
@@ -96,8 +107,8 @@
                 <span *ngIf="isEdit()">Are you sure you want to discard all changes you've made since you've started editing?</span>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" (click)="cancelCreate()">Yes</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal" (click)="cancelModal.hide()">
+                <button type="button" class="btn btn-primary btn-small" (click)="cancelCreate()">Yes</button>
+                <button type="button" class="btn btn-default btn-small" data-dismiss="modal" (click)="cancelModal.hide()">
                     No
                 </button>
             </div>

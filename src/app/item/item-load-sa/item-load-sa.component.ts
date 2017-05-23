@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ExemplarResponse } from '../../model/exemplar-response';
 
 @Component({
@@ -7,6 +7,9 @@ import { ExemplarResponse } from '../../model/exemplar-response';
   styleUrls: ['./item-load-sa.component.less']
 })
 export class ItemLoadSaComponent implements OnInit {
+
+  @Input()
+  item: any;
 
   responses: ExemplarResponse[];
 
@@ -18,7 +21,6 @@ export class ItemLoadSaComponent implements OnInit {
     resp.text = 'Sample Response';
 
     this.responses.push(resp);
-
   }
 
   ngOnInit() {
@@ -35,12 +37,12 @@ export class ItemLoadSaComponent implements OnInit {
   }
 
   removeResponse(id: number): void {
+    this.responses = this.responses.filter(response => response.id !== id);
 
     // this.confirmService.confirm({ title: 'Confirm deletion', message: 'Are you sure you want to delete this response?' }).then(
     //   () => {
     //     console.log('deleting...');
     //     // TODO: Call IMS API
-    //     this.responses = this.responses.filter(response => response.id !== id);
     //   },
     //   () => {
     //     console.log('not deleting...');

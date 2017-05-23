@@ -20,61 +20,54 @@
         <!--
         TODO: Rich Text editor goes here
         -->
-        <div class="panel-body" style="padding-top: 0px">
-            <div class="col-md-11" style="padding-left: 0px">
-                <textarea id="" class="form-control" rows="5" style="color:black"></textarea>
-            </div>
-            <div class="col-md-1" style="padding-left: 0px">
-                <a (click)="removeResponse(response.id)"><i class="fa fa-trash"></i></a>
-            </div>
-        </div>
-        <div class="panel-body" style="padding-top: 0px">
-            <div class="col-md-11" style="padding-left: 0px">
-                <textarea id="" class="form-control" rows="5" style="color:black"></textarea>
-            </div>
-            <div class="col-md-1" style="padding-left: 0px">
-                <a (click)="removeResponse(response.id)"><i class="fa fa-trash"></i></a>
+        <div *ngFor="let response of responses">
+            <div class="panel-body" style="padding-top: 0px">
+                <div class="col-md-11" style="padding-left: 0px">
+                    <textarea id="er2" class="form-control" rows="5" style="color:black"></textarea>
+                </div>
+                <div class="col-md-1" style="padding-left: 0px">
+                    <a (click)="deleteExemplarResponse.show()"><i class="fa fa-trash"></i></a>
+                </div>
             </div>
         </div>
     </div>
 
-    <!--<div class="row">-->
-    <!--<div class="col">-->
-    <!--<span>Exemplar responses</span>-->
-    <!--</div>-->
-    <!--</div>-->
-
-    <!--<div class="row">-->
-    <!--<div class="col">-->
-
-    <!--<div class="row" *ngFor="let response of responses">-->
-    <!--<div class="col-11">-->
-    <!--<textarea id="response-{{response.id}}" class="form-control" rows="3" style="min-width: 100%">{{response.text}}</textarea>-->
-    <!--</div>-->
-    <!--<div class="col-1">-->
-    <!--<a (click)="removeResponse(response.id)"><i class="fa fa-trash"></i></a>-->
-    <!--</div>-->
-    <!--</div>-->
-
-    <!--</div>-->
-    <!--</div>-->
-
-    <!--<div class="row">-->
-    <!--<div class="col">-->
-    <!--<button class="btn btn-secondary" (click)="addResponse()">Add exemplar response</button>-->
-    <!--</div>-->
-    <!--</div>-->
-
-    <!--</div>-->
-
-    <!--<div class="col-6" style="border: 1px solid rgba(86,61,124,.2);">-->
-    <!--&nbsp;-->
-    <!--&lt;!&ndash;-->
-    <!--TODO: Item details Tabs go here-->
-    <!--&ndash;&gt;-->
-    <!--</div>-->
+    <div class="row">
+        <div class="col-md-12">
+            <button class="btn btn-default btn-small" (click)="addResponse()">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+                Add exemplar response
+            </button>
+        </div>
+    </div>
 </div>
 
-<!--<ng-template confirm>-->
-<!--<app-confirm-modal-component></app-confirm-modal-component>-->
-<!--</ng-template>-->
+<!-- Modal -->
+<div id="deleteExemplarResponse" class="modal fade" bsModal #deleteExemplarResponse="bs-modal"
+     [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="deleteExemplarResponseLabel">
+
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                        (click)="deleteExemplarResponse.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="deleteExemplarResponseLabel">Delete exemplar response?</h4>
+            </div>
+            <div class="modal-body">
+                <span>Are you sure you want to delete the exemplar response?</span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-small"
+                        (click)="removeResponse(1); deleteExemplarResponse.hide()">Yes
+                </button>
+                <button type="button" class="btn btn-default btn-small" data-dismiss="modal"
+                        (click)="deleteExemplarResponse.hide()">No
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
