@@ -11,7 +11,7 @@ export class ItemLoadSaComponent implements OnInit {
 
   private _item = new Item();
   private _itemContent = new Content();
-  private _itemResponses: Sample[];
+  private _itemResponses: Sample[] = [];
 
   @Input()
   set item(item) {
@@ -37,6 +37,7 @@ export class ItemLoadSaComponent implements OnInit {
           if (exemplarRubrics.length > 0) {
             this._itemResponses = exemplarRubrics[0].samples;
           }
+        } else {
 
         }
       }
