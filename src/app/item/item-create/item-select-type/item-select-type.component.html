@@ -1,25 +1,21 @@
-<div class="row">
-    <div class="col-md-12">
-        <div class="bs-component">
-            <h4>
-                <em>Create item or stimulus</em>
-            </h4>
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <em>Item types</em>
-                </div>
-            </div>
+<section>
+    <div class="container">
+        <div class="well">
+            <h1>
+                Create item or stimulus
+            </h1>
+            <h2>
+                Item types
+            </h2>
             <div *ngFor="let item of items" class="col btn-group btn-block">
                 <div class="row">
                     <div class="col-md-2">
-                        <div class="bs-component">
-                            <div class="well" style="text-align: center">
-                                <a class="" routerLink="/item/create/{{item.type}}">
-                                    <p>{{item.name}}</p>
-                                    <p>({{item.abbreviation}})</p>
-                                    <p><i class="fa {{item.icon}} fa-2x"></i></p>
-                                </a>
-                            </div>
+                        <div class="well">
+                            <a routerLink="/item/create/{{item.type}}">
+                                <p>{{item.name}}</p>
+                                <p>({{item.abbreviation}})</p>
+                                <p><i class="fa {{item.icon}} fa-2x"></i></p>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -27,4 +23,4 @@
             <button class="btn btn-default" [routerLink]="['/']">Cancel</button>
         </div>
     </div>
-</div>
+</section>

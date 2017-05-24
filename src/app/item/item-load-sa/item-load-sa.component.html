@@ -1,49 +1,51 @@
-<div class="col-md-6">
-
-    <div class="panel gray-lighter">
-        <div class="panel-heading">
-            <span>Prompt / Stem</span>
-        </div>
-        <!--
-        TODO: Rich Text editor goes here
-        -->
-        <div class="panel-body">
-            <textarea id="prompt-stem" class="form-control" rows="6" style="color:black"></textarea>
-        </div>
-    </div>
-
-
-    <div class="panel gray-lighter">
-        <div class="panel-heading">
-            <span>Exemplar responses</span>
-        </div>
-        <!--
-        TODO: Rich Text editor goes here
-        -->
-        <div *ngFor="let response of responses">
-            <div class="panel-body">
-                <div class="col-md-11">
-                    <textarea id="er" class="form-control" rows="3"></textarea>
+<div class="well">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel gray-lighter">
+                <div class="panel-heading">
+                    <span>Prompt / Stem</span>
                 </div>
-                <div class="col-md-1">
+                <!--
+                TODO: Rich Text editor goes here
+                -->
+                <div class="panel-body">
+                    <textarea id="prompt-stem" class="form-control" rows="6"></textarea>
+                </div>
+            </div>
+
+
+            <div class="panel gray-lighter">
+                <div class="panel-heading">
+                    <span>Exemplar responses</span>
+                </div>
+                <!--
+                TODO: Rich Text editor goes here
+                -->
+                <div *ngFor="let response of responses">
+                    <div class="panel-body">
+                        <div class="col-md-11">
+                            <textarea id="er" class="form-control" rows="3"></textarea>
+                        </div>
+                        <div class="col-md-1">
                     <span class="pull-right">
                         <a (click)="deleteExemplarResponse.show()"><i class="fa fa-trash"></i></a>
                     </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <button class="btn btn-primary" (click)="addResponse()">
+                        <i class="fa fa-plus" aria-hidden="true"></i>
+                        Add exemplar response
+                    </button>
                 </div>
             </div>
         </div>
     </div>
-
-    <div class="row">
-        <div class="col-md-12">
-            <button class="btn btn-default btn-small" (click)="addResponse()">
-                <i class="fa fa-plus" aria-hidden="true"></i>
-                Add exemplar response
-            </button>
-        </div>
-    </div>
 </div>
-
 <!-- Modal -->
 <div id="deleteExemplarResponse" class="modal fade" bsModal #deleteExemplarResponse="bs-modal"
      [config]="{backdrop: 'static'}"
