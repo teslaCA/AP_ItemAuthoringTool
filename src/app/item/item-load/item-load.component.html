@@ -10,7 +10,7 @@
   </div>
 
   <div class="w-100 h-100" *ngIf="isNotEditable()">
-    <p>Item is currently being edited by {{currentItem.beingEditedBy}}</p>
+    <p>Item is currently being edited by {{currentItem?.beingEditedBy}}</p>
     <p><a routerLink="/">Return home</a></p>
   </div>
 
