@@ -19,9 +19,6 @@ export class FooterComponent implements OnInit {
     this.lookupService.getBuildInfo()
       .subscribe((res: Response) => {
         this._buildInfo = res.json();
-      },
-      () => {
-        this._buildInfo
       });
   }
 
