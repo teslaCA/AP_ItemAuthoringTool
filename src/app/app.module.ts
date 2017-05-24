@@ -19,47 +19,48 @@ import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { ModalModule } from 'ngx-bootstrap/modal';
-import { AlertModule } from 'ngx-bootstrap/alert';
+import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
+import {ModalModule} from 'ngx-bootstrap/modal';
+import {AlertModule} from 'ngx-bootstrap/alert';
+import {CollapseDirective} from 'ngx-bootstrap/collapse';
 
-import { AppRoutingModule } from './app.routing';
-import { AppComponent } from './app.component';
-import { HeaderComponent } from './header/header.component';
-import { FooterComponent } from './footer/footer.component';
-import { ItemSelectTypeComponent } from './item/item-create/item-select-type/item-select-type.component';
-import { HomeComponent } from './home/home.component';
-import { ItemCreateComponent } from './item/item-create/item-create.component';
-import { ItemLoadSaComponent } from './item/item-load-sa/item-load-sa.component';
-import { ItemLoadComponent } from './item/item-load/item-load.component';
-import { ItemRedirectComponent } from './item/item-redirect/item-redirect.component';
-import { NoRouteComponent } from './no-route/no-route.component';
+import {AppRoutingModule} from './app.routing';
+import {AppComponent} from './app.component';
+import {HeaderComponent} from './header/header.component';
+import {FooterComponent} from './footer/footer.component';
+import {ItemSelectTypeComponent} from './item/item-create/item-select-type/item-select-type.component';
+import {HomeComponent} from './home/home.component';
+import {ItemCreateComponent} from './item/item-create/item-create.component';
+import {ItemLoadSaComponent} from './item/item-load-sa/item-load-sa.component';
+import {ItemLoadComponent} from './item/item-load/item-load.component';
+import {ItemRedirectComponent} from './item/item-redirect/item-redirect.component';
+import {NoRouteComponent} from './no-route/no-route.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HeaderComponent,
-    FooterComponent,
-    HomeComponent,
-    ItemSelectTypeComponent,
-    ItemCreateComponent,
-    ItemLoadSaComponent,
-    ItemLoadComponent,
-    ItemRedirectComponent,
-    NoRouteComponent
-  ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    HttpModule,
-    AppRoutingModule,
-    BsDropdownModule.forRoot(),
-    ModalModule.forRoot(),
-    AlertModule.forRoot()
-  ],
-  providers: [
-  ],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        CollapseDirective,
+        FooterComponent,
+        HeaderComponent,
+        HomeComponent,
+        ItemSelectTypeComponent,
+        ItemCreateComponent,
+        ItemLoadSaComponent,
+        ItemLoadComponent,
+        ItemRedirectComponent,
+        NoRouteComponent
+    ],
+    imports: [
+        BrowserModule,
+        FormsModule,
+        HttpModule,
+        AppRoutingModule,
+        BsDropdownModule.forRoot(),
+        ModalModule.forRoot(),
+        AlertModule.forRoot()
+    ],
+    providers: [],
+    bootstrap: [AppComponent]
 })
 export class AppModule {
 }

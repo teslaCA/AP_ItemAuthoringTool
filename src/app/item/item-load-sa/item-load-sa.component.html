@@ -7,8 +7,8 @@
         <!--
         TODO: Rich Text editor goes here
         -->
-        <div class="panel-body" style="padding-top: 0px">
-            <textarea id="prompt-stem" class="form-control" rows="10" style="color:black"></textarea>
+        <div class="panel-body">
+            <textarea id="prompt-stem" class="form-control" rows="6" style="color:black"></textarea>
         </div>
     </div>
 
@@ -21,12 +21,14 @@
         TODO: Rich Text editor goes here
         -->
         <div *ngFor="let response of responses">
-            <div class="panel-body" style="padding-top: 0px">
-                <div class="col-md-11" style="padding-left: 0px">
-                    <textarea id="er2" class="form-control" rows="5" style="color:black"></textarea>
+            <div class="panel-body">
+                <div class="col-md-11">
+                    <textarea id="er" class="form-control" rows="3"></textarea>
                 </div>
-                <div class="col-md-1" style="padding-left: 0px">
-                    <a (click)="deleteExemplarResponse.show()"><i class="fa fa-trash"></i></a>
+                <div class="col-md-1">
+                    <span class="pull-right">
+                        <a (click)="deleteExemplarResponse.show()"><i class="fa fa-trash"></i></a>
+                    </span>
                 </div>
             </div>
         </div>

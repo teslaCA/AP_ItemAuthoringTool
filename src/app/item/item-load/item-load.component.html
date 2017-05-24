@@ -1,95 +1,116 @@
-<div class="container-fluid" style="padding-bottom: 125px;">
-    <div *ngIf="loading">
+<div *ngIf="loading">
+    <div class="row">
+        <div class="col-md-12">
+            <alert type="info">Loading new item data...<i class="fa fa-refresh fa-spin fa-2x fa-fw"></i></alert>
+        </div>
+
+    </div>
+</div>
+
+<div *ngIf="!loading">
+
+    <div *ngIf="serviceError">
         <div class="row" style="padding-top: 10px">
             <div class="col-md-12">
-                <alert type="info">Loading new item data...<i class="fa fa-refresh fa-spin fa-2x fa-fw"></i></alert>
+                <alert type="danger">{{errorMessage}}</alert>
             </div>
-
         </div>
     </div>
 
-    <div *ngIf="!loading">
+    <div *ngIf="!serviceError">
 
-        <div *ngIf="serviceError">
-            <div class="row" style="padding-top: 10px">
-                <div class="col-md-12">
-                    <alert type="danger">{{errorMessage}}</alert>
-                </div>
+        <div *ngIf="isNotEditable()">
+            <div class="col-md-12">
+                <alert type="warning">Item is currently being edited by another user.</alert>
             </div>
         </div>
 
-        <div *ngIf="!serviceError">
+        <div *ngIf="!isNotEditable()">
 
-            <div *ngIf="isNotEditable()">
-                <div class="col-md-12">
-                    <alert type="warning">Item is currently being edited by another user.</alert>
+            <div *ngIf="isCreate() || isEdit() || isView()">
+
+                <div class="row">
+                    <nav class="navbar navbar-default" role="navigation">
+                        <div class="col-md-12">
+                            <h4 style="margin-bottom: 0px; padding-bottom: 0px">
+                                <em>{{navBarMessage}}</em>
+                            </h4>
+                        </div>
+                    </nav>
                 </div>
-            </div>
 
-            <div *ngIf="!isNotEditable()">
-
-                <div *ngIf="isCreate() || isEdit() || isView()">
-
-                    <div class="row" style="padding-top: 1px">
-                        <nav class="navbar navbar-default" role="navigation">
-                            <div class="col-md-12">
-                                <h4 style="margin-bottom: 0px; padding-bottom: 0px">
-                                    <em>{{navBarMessage}}</em>
-                                </h4>
-                            </div>
-                        </nav>
-                    </div>
-
-                    <!--
-                    <div class="text-center" style="white-space: normal;">
-                      <button class="btn btn-secondary" routerLink="/">Preview</button>
-                    </div>
-                    -->
-                    <!--
-                    <div class="float-right" style="white-space: normal;">
-                      <i class="fa fa-check-circle" style="color: green;"></i>&nbsp;
-                      <span class="text-success">Saved!</span>
-                    </div>
-                    -->
-                    <div class="row">
-                        <app-item-load-sa *ngIf="currentItem.type=='sa'" [item]="currentItem"></app-item-load-sa>
-                    </div>
-
+                <!--
+                <div class="text-center" style="white-space: normal;">
+                  <button class="btn btn-secondary" routerLink="/">Preview</button>
                 </div>
+                -->
+                <!--
+                <div class="float-right" style="white-space: normal;">
+                  <i class="fa fa-check-circle" style="color: green;"></i>&nbsp;
+                  <span class="text-success">Saved!</span>
+                </div>
+                -->
+                <div class="row">
+                    <app-item-load-sa *ngIf="currentItem.type=='sa'" [item]="currentItem"></app-item-load-sa>
+                </div>
+
             </div>
         </div>
     </div>
 </div>
 
 <div *ngIf="!loading">
-    <footer class="footer" style="position: fixed; padding-bottom: 3px; padding-top: 8px; bottom: 3px;
-            margin-bottom: 0px; width: 100%; margin-left: 0px; height: 80px;">
-        <div id="footerError" class="container" style="margin-left: 5px">
-            <div class="col-md-12">
-                <div *ngIf="!serviceError">
-                    <div *ngIf="isCreate()" style="text-align: left">
-                        <button class="btn btn-default btn-small"  (click)="createItem()">Create item</button>
-                        <button class="btn btn-default btn-small" (click)="cancelModal.show()">Cancel</button>
-                    </div>
-                    <div *ngIf="isView()">
-                        <button class="btn btn-default btn-small" (click)="goBack()">Done</button>
-                        <button class="btn btn-default btn-small" (click)="editItem()">Edit</button>
-                    </div>
-                    <div *ngIf="isEdit()">
-                        <button class="btn btn-default btn-small" (click)="commitItem()">Commit Changes</button>
-                        <button class="btn btn-default btn-small" (click)="cancelModal.show()">Discard Changes
-                        </button>
-                    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div *ngIf="!serviceError">
+                <div *ngIf="isCreate()">
+                    <button class="btn btn-default btn-small" (click)="commitModal.show()">Create item</button>
+                    <button class="btn btn-default btn-small" (click)="cancelModal.show()">Cancel</button>
                 </div>
-                <div *ngIf="serviceError">
-                    <button class="btn btn-default btn-small" routerLink="/">Back</button>
+                <div *ngIf="isView()">
+                    <button class="btn btn-default btn-small" (click)="goBack()">Done</button>
+                    <button class="btn btn-default btn-small" (click)="editItem()">Edit</button>
+                </div>
+                <div *ngIf="isEdit()">
+                    <button class="btn btn-default btn-small" (click)="commitModal.show()">Commit Changes</button>
+                    <button class="btn btn-default btn-small" (click)="cancelModal.show()">Discard Changes
+                    </button>
                 </div>
             </div>
+            <div *ngIf="serviceError">
+                <button class="btn btn-default btn-small" routerLink="/">Back</button>
+            </div>
         </div>
-    </footer>
+    </div>
 </div>
 
 <!-- Modal -->
+<div id="commitModal" class="modal fade" bsModal #commitModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="commitModalLabel">
+
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                        (click)="commitModal.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="commitModalLabel">Confirm commit</h4>
+            </div>
+            <div class="modal-body">
+                <span>Are you sure you want to commit your changes?</span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-small" (click)="commitItem()">Yes</button>
+                <button type="button" class="btn btn-default btn-small" data-dismiss="modal"
+                        (click)="commitModal.hide()">
+                    No
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div id="cancelModal" class="modal fade" bsModal #cancelModal="bs-modal" [config]="{backdrop: 'static'}"
      tabindex="-1" role="dialog" aria-labelledby="cancelModalLabel">
 
@@ -103,12 +124,13 @@
                 <h4 class="modal-title" id="cancelModalLabel">Confirm cancel</h4>
             </div>
             <div class="modal-body">
-                <span *ngIf="isCreate()">Are you sure you want to discard all changes you've made since you've started editing?</span>
+                <span *ngIf="isCreate()">Are you sure you want to discard all changes and delete the new item?</span>
                 <span *ngIf="isEdit()">Are you sure you want to discard all changes you've made since you've started editing?</span>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary btn-small" (click)="cancelCreate()">Yes</button>
-                <button type="button" class="btn btn-default btn-small" data-dismiss="modal" (click)="cancelModal.hide()">
+                <button type="button" class="btn btn-default btn-small" data-dismiss="modal"
+                        (click)="cancelModal.hide()">
                     No
                 </button>
             </div>

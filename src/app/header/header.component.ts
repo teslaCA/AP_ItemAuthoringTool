@@ -19,26 +19,30 @@ import {Response} from '@angular/http';
 import {LookupService} from '../service/lookup.service';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: 'header.component.html',
-  styleUrls: ['./header.component.less'],
-  providers: [LookupService]
+    selector: 'app-header',
+    templateUrl: 'header.component.html',
+    styleUrls: ['./header.component.less'],
+    providers: [LookupService]
 })
+export class HeaderComponent {
 
-export class HeaderComponent  {
-  public isCollapsed = true;
+    isCollapsed = true;
 
-  public user: any;
+    user: any;
 
-  constructor(private lookupService: LookupService) {
-    this.lookupService.getUser()
-      .subscribe((res: Response) => {
-        this.user = res.json();
-      });
-  }
+    constructor(private lookupService: LookupService) {
+        this.lookupService.getUser()
+            .subscribe((res: Response) => {
+                this.user = res.json();
+            });
+    }
 
-  logOut() {
-    console.log('logging out...');
-    window.location.href = '/saml/logout';
-  }
+    logOut() {
+        console.log('logging out...');
+        window.location.href = '/saml/logout';
+    }
+
+    // ------------------------------------------------------------------------
+
+
 }

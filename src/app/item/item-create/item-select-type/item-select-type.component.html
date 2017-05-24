@@ -1,37 +1,30 @@
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="bs-component">
-
-                <p class="lead" style="padding-top: 20px">
-                    <em>Create item or stimulus</em>
-                </p>
-
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <em>Item types</em>
-                    </div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="bs-component">
+            <h4>
+                <em>Create item or stimulus</em>
+            </h4>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <em>Item types</em>
                 </div>
-
-                <div *ngFor="let item of items" class="col btn-group btn-block">
-                    <div class="row">
-                        <div class="col-lg-2">
-                            <div class="bs-component">
-                                <div class="well" style="text-align: center">
-                                    <a class="" routerLink="/item/create/{{item.type}}">
-                                        <p>{{item.name}}</p>
-                                        <p>({{item.abbreviation}})</p>
-                                        <p><i class="fa {{item.icon}} fa-2x"></i></p>
-                                    </a>
-                                </div>
+            </div>
+            <div *ngFor="let item of items" class="col btn-group btn-block">
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="bs-component">
+                            <div class="well" style="text-align: center">
+                                <a class="" routerLink="/item/create/{{item.type}}">
+                                    <p>{{item.name}}</p>
+                                    <p>({{item.abbreviation}})</p>
+                                    <p><i class="fa {{item.icon}} fa-2x"></i></p>
+                                </a>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <button class="btn btn-default" [routerLink]="['/']">Cancel</button>
-
             </div>
+            <button class="btn btn-default" [routerLink]="['/']">Cancel</button>
         </div>
     </div>
 </div>
