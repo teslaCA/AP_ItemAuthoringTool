@@ -12,7 +12,8 @@
             -->
             <div class="row">
               <div class="col">
-                <textarea id="prompt-stem" class="form-control" rows="15" style="min-width: 100%"></textarea>
+                <textarea id="attributes" hidden type="text">{{itemAttributes}}</textarea>
+                <textarea id="prompt-stem" class="form-control" rows="15" style="min-width: 100%">{{itemContent.stem}}</textarea>
               </div>
             </div>
 
@@ -25,12 +26,12 @@
             <div class="row">
               <div class="col">
 
-                <div class="row" *ngFor="let response of responses">
+                <div class="row" *ngFor="let resp of itemResponses; let i = index;" style="padding-bottom: 10px">
                   <div class="col-11">
-                    <textarea id="response-{{response.id}}" class="form-control" rows="3" style="min-width: 100%">{{response.text}}</textarea>
+                    <textarea id="response-{{i}}" class="form-control" rows="3" style="min-width: 100%">{{resp.samplecontent}}</textarea>
                   </div>
                   <div class="col-1">
-                    <a (click)="removeResponse(response.id)"><i class="fa fa-trash"></i></a>
+                    <a (click)="removeResponse(resp.samplecontent)"><i class="fa fa-trash"></i></a>
                   </div>
                 </div>
 
