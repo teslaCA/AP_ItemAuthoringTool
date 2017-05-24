@@ -29,7 +29,7 @@ export class ItemLoadSaComponent implements OnInit {
       // Retrieve Exemplar Responses
       if (this.itemContent) {
         if (this.itemContent.rubrics.length > 0) {
-          let exemplarRubrics = this.itemContent.rubrics.filter(
+          const exemplarRubrics = this.itemContent.rubrics.filter(
             rubric => rubric.name === 'ExemplarResponse'
           );
 
