@@ -1,5 +1,7 @@
 <section class="main">
+
     <div class="container">
+
         <div *ngIf="loading">
             <alert type="info">Loading new item data&hellip;<i class="fa fa-refresh fa-spin fa-2x fa-fw"></i></alert>
         </div>
@@ -7,11 +9,13 @@
         <div *ngIf="!loading">
 
             <div *ngIf="serviceError">
-                <div class="row" style="padding-top: 10px">
-                    <div class="col-md-12">
-                        <alert type="danger">{{errorMessage}}</alert>
-                    </div>
-                </div>
+                <alert type="danger">{{errorMessage}}</alert>
+                <p><a routerLink="/">Return home</a></p>
+            </div>
+
+            <div *ngIf="isNotEditable()">
+                <alert type="danger">Item is currently being edited by {{currentItem?.beingEditedBy}}</alert>
+                <p><a routerLink="/">Return home</a></p>
             </div>
 
             <div *ngIf="!serviceError">
@@ -75,7 +79,6 @@
         </div>
     </div>
 </section>
-
 
 <!-- Modal -->
 <div id="commitModal" class="modal fade" bsModal #commitModal="bs-modal" [config]="{backdrop: 'static'}"

@@ -1,17 +1,10 @@
 import {isNumeric} from 'rxjs/util/isNumeric';
-import {
-    Component,
-    ViewChild,
-    OnInit,
-    AfterViewInit,
-    ComponentFactoryResolver,
-} from '@angular/core';
+import {Component, OnInit } from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 import {Location} from '@angular/common';
 import {LookupService} from '../../service/lookup.service';
-import {Contents, Item} from '../../model/item';
+import {Content, Item} from '../../model/item';
 import {ItemService} from '../../service/item.service';
-
 
 @Component({
     selector: 'app-item-load',
@@ -71,12 +64,12 @@ export class ItemLoadComponent implements OnInit {
             this._loading = false;
             this.router.navigateByUrl('/unavailable');
         }
-    }
+  }
 
     public createItem(): void {
-        console.log('creating item with id: ', this.currentItem.id);
+        console.log('creating item with id: ', this._currentItem.id);
 
-        const testContent = new Contents();
+        const testContent = new Content();
         testContent.language = 'ENU';
         testContent.stem = 'System Generated Stem - Prompt';
 
@@ -85,13 +78,13 @@ export class ItemLoadComponent implements OnInit {
         //
         // this.itemService.saveScratchPad(this.currentItem);
 
-        this.itemService.createItem(this.currentItem.id);
+        this.itemService.createItem(this._currentItem.id);
 
         this.router.navigateByUrl('/');
     }
 
     public cancelCreate(): void {
-        this.itemService.deleteScratchPad(this._currentItemId);
+        this.itemService.deleteScratchPad(this.currentItem.id);
         this.router.navigateByUrl('/');
     }
 
@@ -106,18 +99,19 @@ export class ItemLoadComponent implements OnInit {
     }
 
     public cancelEdit(): void {
+        this.itemService.deleteEdit(this.currentItem.id);
         this.router.navigateByUrl('/');
     }
 
     public commitItem(): void {
-        this.itemService.commitItem(this.currentItem.id, 'IAT generated commit');
+        this.itemService.commitItem(this._currentItem.id, 'IAT generated commit');
         this.router.navigateByUrl('/');
     }
 
     public isCreate(): boolean {
-        if (this.user && this.currentItem) {
-            if (this.user.username === this.currentItem.beingCreatedBy
-                && this.currentItem.beingEditedBy === null) {
+        if (this._user && this._currentItem) {
+            if (this._user.username === this._currentItem.beingCreatedBy
+                && this._currentItem.beingEditedBy === null) {
                 return true;
             }
         }
@@ -125,9 +119,9 @@ export class ItemLoadComponent implements OnInit {
     }
 
     public isView(): boolean {
-        if (this.currentItem) {
-            if (this.currentItem.beingCreatedBy === null
-                && this.currentItem.beingEditedBy === null) {
+        if (this._currentItem) {
+            if (this._currentItem.beingCreatedBy === null
+                && this._currentItem.beingEditedBy === null) {
                 return true;
             }
         }
@@ -135,9 +129,9 @@ export class ItemLoadComponent implements OnInit {
     }
 
     public isEdit(): boolean {
-        if (this.user && this.currentItem) {
-            if (this.user.username === this.currentItem.beingEditedBy
-                && this.currentItem.beingCreatedBy === null) {
+        if (this._user && this._currentItem) {
+            if (this._user.username === this._currentItem.beingEditedBy
+                && this._currentItem.beingCreatedBy === null) {
                 return true;
             }
         }
@@ -145,10 +139,10 @@ export class ItemLoadComponent implements OnInit {
     }
 
     public isNotEditable(): boolean {
-        if (this.user && this.currentItem) {
-            if (this.currentItem.beingCreatedBy === null
-                && this.currentItem.beingEditedBy != null
-                && this.user.username !== this.currentItem.beingEditedBy) {
+        if (this._user && this._currentItem) {
+            if (this._currentItem.beingCreatedBy === null
+                && this._currentItem.beingEditedBy != null
+                && this._user.username !== this._currentItem.beingEditedBy) {
                 return true;
             }
         }
@@ -161,9 +155,7 @@ export class ItemLoadComponent implements OnInit {
 
     private onSuccess(item): void {
         console.log('retrieved item: ', JSON.stringify(item));
-
         let navBarMsgPrefix: string;
-
         this._currentItem = item;
         this._currentItem.description = this.lookupService.getItemDescription(this._currentItem.type);
 
@@ -206,7 +198,6 @@ export class ItemLoadComponent implements OnInit {
     get currentItem(): Item {
         return this._currentItem;
     }
-
     get navBarMessage(): string {
         return this._navBarMessage;
     }

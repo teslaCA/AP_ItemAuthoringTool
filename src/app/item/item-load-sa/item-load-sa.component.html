@@ -9,7 +9,7 @@
                 TODO: Rich Text editor goes here
                 -->
                 <div class="panel-body">
-                    <textarea id="prompt-stem" class="form-control" rows="6"></textarea>
+                    <textarea id="prompt-stem" class="form-control" rows="6">{{itemContent.stem}}</textarea>
                 </div>
             </div>
 
@@ -21,10 +21,10 @@
                 <!--
                 TODO: Rich Text editor goes here
                 -->
-                <div *ngFor="let response of responses">
+                <div *ngFor="let response of itemResponses">
                     <div class="panel-body">
                         <div class="col-md-11">
-                            <textarea id="er" class="form-control" rows="3"></textarea>
+                            <textarea id="response-{{response.id}}" class="form-control" rows="3">{{response.samplecontent}}</textarea>
                         </div>
                         <div class="col-md-1">
                     <span class="pull-right">
