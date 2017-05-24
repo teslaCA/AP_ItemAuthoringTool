@@ -22,7 +22,7 @@ import {HttpModule} from '@angular/http';
 import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
 import {ModalModule} from 'ngx-bootstrap/modal';
 import {AlertModule} from 'ngx-bootstrap/alert';
-import {CollapseDirective} from 'ngx-bootstrap/collapse';
+import {Ng2BootstrapModule} from 'ngx-bootstrap/ng2-bootstrap';
 
 import {AppRoutingModule} from './app.routing';
 import {AppComponent} from './app.component';
@@ -39,7 +39,6 @@ import {NoRouteComponent} from './no-route/no-route.component';
 @NgModule({
     declarations: [
         AppComponent,
-        CollapseDirective,
         FooterComponent,
         HeaderComponent,
         HomeComponent,
@@ -57,7 +56,8 @@ import {NoRouteComponent} from './no-route/no-route.component';
         AppRoutingModule,
         BsDropdownModule.forRoot(),
         ModalModule.forRoot(),
-        AlertModule.forRoot()
+        AlertModule.forRoot(),
+        Ng2BootstrapModule.forRoot()
     ],
     providers: [],
     bootstrap: [AppComponent]
