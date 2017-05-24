@@ -6,6 +6,7 @@
 
   <div class="w-100 h-100" *ngIf="serviceError">
     <p>{{errorMessage}}</p>
+    <p><a routerLink="/">Return home</a></p>
   </div>
 
   <div class="w-100 h-100" *ngIf="isNotEditable()">
