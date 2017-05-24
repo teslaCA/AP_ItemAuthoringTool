@@ -6,44 +6,46 @@ export class Item {
   public beingCreatedBy: any;
   public beingEditedBy: any;
 
-  public attributes: Attributes[];
-  public contents: Contents[];
+  public attributes: Attribute[];
+  public contents: Content[];
 
   constructor() { }
+
 }
 
-export class Attributes {
+export class Attribute {
   public attid: string;
   public name: string;
   public val: number;
-  public desc: string;
+  private _desc: string;
 
   constructor() { }
+
 }
 
-export class Contents {
+export class Content {
   public language: string;
   public stem: string;
-  public rubrics: Rubrics[];
+  public rubrics: Rubric[];
 
   constructor() { }
 }
 
-export class Rubrics {
+export class Rubric {
   public name: string;
   public val: any;
   public scorepoint: any;
   public minVal: any;
   public maxVal: any;
 
-  public samples: Samples[];
+  public samples: Sample[];
 
   constructor() { }
 }
 
-export class Samples {
+export class Sample {
   public name: string;
-  public sampleContent: string;
+  public samplecontent: string;
   public purpose: string;
   public scorepoint: any;
 

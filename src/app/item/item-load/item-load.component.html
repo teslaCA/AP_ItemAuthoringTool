@@ -41,7 +41,7 @@
       </div>
     </nav>
 
-    <app-item-load-sa *ngIf="currentItem.type=='sa'"></app-item-load-sa>
+    <app-item-load-sa [item]="currentItem" *ngIf="currentItem.type=='sa'"></app-item-load-sa>
 
     <nav class="navbar navbar-light bg-faded">
       <div class="row">
