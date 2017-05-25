@@ -4,7 +4,7 @@ import { LookupService } from '../service/lookup.service';
 @Component({
   selector: 'app-footer',
   templateUrl: './footer.component.html',
-  styleUrls: ['./footer.component.scss'],
+  styleUrls: ['./footer.component.less'],
   providers: [LookupService]
 })
 export class FooterComponent implements OnInit {
@@ -19,6 +19,9 @@ export class FooterComponent implements OnInit {
     this.lookupService.getBuildInfo()
       .subscribe((res: Response) => {
         this._buildInfo = res.json();
+      },
+      () => {
+        this._buildInfo = '';
       });
   }
 

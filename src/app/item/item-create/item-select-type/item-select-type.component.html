@@ -1,27 +1,26 @@
-  <h4 class="font-italic">
-  Create item or stimulus
-  </h4>
-
-  <nav class="navbar navbar-light bg-faded">
-    <h1 class="navbar-brand mb-0 font-italic">Item types</h1>
-  </nav>
-
-  <div class="container-fluid">
-    <div class="row" style="padding-top: 10px;padding-bottom: 10px">
-      <div
-        *ngFor="let item of items"
-        class="col btn-group btn-block">
-
-        <a class="btn btn-lg btn-outline-primary"
-                style="width: 13rem;height: 10rem; white-space: normal; border-radius: 0px"
-                routerLink="/item/create/{{item.type}}">
-          <span class="text-sm-center align-text-top" style="">{{item.name}}</span>
-          <br/><br/>
-          <i class="fa {{item.icon}} fa-2x"></i>
-        </a>
-
-      </div>
+<section class="main">
+    <div class="container">
+        <div class="well">
+            <h1>
+                Create item or stimulus
+            </h1>
+            <h2>
+                Item types
+            </h2>
+            <div *ngFor="let item of items" class="col btn-group btn-block">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="well" style="text-align: center">
+                            <a routerLink="/item/create/{{item.type}}">
+                                <p>{{item.name}}</p>
+                                <p>({{item.abbreviation}})</p>
+                                <p><i class="fa {{item.icon}} fa-2x"></i></p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-primary" [routerLink]="['/']">Cancel</button>
+        </div>
     </div>
-  </div>
-
-  <button class="btn btn-secondary" (click)="confirmCancel()">Cancel</button>
+</section>

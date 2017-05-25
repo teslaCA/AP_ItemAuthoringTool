@@ -1,27 +1,25 @@
 import 'rxjs/add/operator/switchMap';
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ItemService } from '../../service/item.service';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {ItemService} from '../../service/item.service';
 
 @Component({
   selector: 'app-item-create',
   templateUrl: './item-create.component.html',
-  styleUrls: ['./item-create.component.scss'],
+  styleUrls: ['./item-create.component.less'],
   providers: [
     ItemService
   ]
 })
-
 export class ItemCreateComponent implements OnInit {
 
   private _itemType: string;
   private _errorMessage: string;
 
-  constructor(
-    private router: Router,
-    private route: ActivatedRoute,
-    private itemService: ItemService
-  ) { }
+  constructor(private router: Router,
+              private route: ActivatedRoute,
+              private itemService: ItemService) {
+  }
 
   ngOnInit() {
 
@@ -29,6 +27,7 @@ export class ItemCreateComponent implements OnInit {
       .subscribe(params => {
         this._itemType = params['type'];
       });
+
 
     this.itemService.createScratchPad(this._itemType)
       .subscribe(
@@ -43,7 +42,6 @@ export class ItemCreateComponent implements OnInit {
     const itemId = item.id;
 
     this.router.navigateByUrl('/item/' + itemId);
-
   }
 
   private processError(error): void {
@@ -51,3 +49,4 @@ export class ItemCreateComponent implements OnInit {
   }
 
 }
+

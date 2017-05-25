@@ -1,8 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule} from '@angular/router/testing';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { ItemLoadSaComponent } from './item-load-sa.component';
-import { ConfirmService, ConfirmState, ConfirmModalComponent } from '../../confirm-modal/confirm-modal';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 describe('ItemCreateSaComponent', () => {
   let component: ItemLoadSaComponent;
@@ -12,15 +11,10 @@ describe('ItemCreateSaComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
-        NgbModule.forRoot()
+        ModalModule.forRoot()
       ],
       declarations: [
-        ItemLoadSaComponent,
-        ConfirmModalComponent
-      ],
-      providers: [
-        ConfirmService,
-        ConfirmState
+        ItemLoadSaComponent
       ]
     })
     .compileComponents();

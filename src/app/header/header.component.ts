@@ -14,30 +14,35 @@
  * limitations under the License.
  */
 
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
-import {Http, Response} from '@angular/http';
+import {Component, OnInit} from '@angular/core';
+import {Response} from '@angular/http';
 import {LookupService} from '../service/lookup.service';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: 'header.component.html',
-  styleUrls: ['header.component.scss'],
-  providers: [LookupService]
+    selector: 'app-header',
+    templateUrl: 'header.component.html',
+    styleUrls: ['./header.component.less'],
+    providers: [LookupService]
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
 
-  public isCollapsed = true;
+    isCollapsed = true;
 
-  public user: any;
+    user: any;
 
-  constructor(private lookupService: LookupService) {
-    this.lookupService.getUser()
-      .subscribe((res: Response) => {
-        this.user = res.json();
-      });
-  }
+    constructor(private lookupService: LookupService) {
+        this.lookupService.getUser()
+            .subscribe((res: Response) => {
+                this.user = res.json();
+            });
+    }
 
-  ngOnInit() {
-  }
+    logOut() {
+        console.log('logging out...');
+        window.location.href = '/saml/logout';
+    }
+
+    // ------------------------------------------------------------------------
+
 
 }

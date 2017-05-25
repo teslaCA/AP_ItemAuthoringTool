@@ -1,11 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ConfirmService } from '../../confirm-modal/confirm-modal';
 import { Content, Item, Sample } from '../../model/item';
 
 @Component({
   selector: 'app-item-load-sa',
   templateUrl: './item-load-sa.component.html',
-  styleUrls: ['./item-load-sa.component.scss']
+  styleUrls: ['./item-load-sa.component.less']
 })
 export class ItemLoadSaComponent implements OnInit {
 
@@ -59,9 +58,7 @@ export class ItemLoadSaComponent implements OnInit {
     return JSON.stringify(this.item.attributes);
   }
 
-  constructor(
-    private confirmService: ConfirmService
-  ) {
+  constructor() {
 
   }
 
@@ -83,17 +80,8 @@ export class ItemLoadSaComponent implements OnInit {
   }
 
   removeResponse(value: string): void {
-
-    this.confirmService.confirm({ title: 'Confirm deletion', message: 'Are you sure you want to delete this response?' }).then(
-      () => {
-        console.log('deleting...');
-        this._itemResponses = this.itemResponses.filter(
-          response => response.samplecontent !== value
-        );
-      },
-      () => {
-        console.log('not deleting...');
-      });
-
+    this._itemResponses = this.itemResponses.filter(
+        response => response.samplecontent !== value
+    );
   }
 }

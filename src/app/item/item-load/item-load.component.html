@@ -1,68 +1,135 @@
-<div class="w-100 h-100" *ngIf="loading">
-  <p>Loading new item data... <i class="fa fa-refresh fa-spin fa-2x fa-fw"></i></p>
+<section class="main">
+
+    <div class="container">
+
+        <div *ngIf="loading">
+            <alert type="info">Loading new item data&hellip;<i class="fa fa-refresh fa-spin fa-2x fa-fw"></i></alert>
+        </div>
+
+        <div *ngIf="!loading">
+
+            <div *ngIf="serviceError">
+                <alert type="danger">{{errorMessage}}</alert>
+                <p><a routerLink="/">Return home</a></p>
+            </div>
+
+            <div *ngIf="isNotEditable()">
+                <alert type="danger">Item is currently being edited by {{currentItem?.beingEditedBy}}</alert>
+                <p><a routerLink="/">Return home</a></p>
+            </div>
+
+            <div *ngIf="!serviceError">
+
+                <div *ngIf="isNotEditable()">
+                    <div class="col-md-12">
+                        <alert type="warning">Item is currently being edited by another user.</alert>
+                    </div>
+                </div>
+
+                <div *ngIf="!isNotEditable()">
+
+                    <div *ngIf="isCreate() || isEdit() || isView()">
+                        <h1>
+                            {{navBarMessage}}
+                        </h1>
+
+                        <!--
+                        <div class="text-center" style="white-space: normal;">
+                          <button class="btn btn-secondary" routerLink="/">Preview</button>
+                        </div>
+                        -->
+                        <!--
+                        <div class="float-right" style="white-space: normal;">
+                          <i class="fa fa-check-circle" style="color: green;"></i>&nbsp;
+                          <span class="text-success">Saved!</span>
+                        </div>
+                        -->
+
+                        <app-item-load-sa *ngIf="currentItem.type=='sa'" [item]="currentItem"></app-item-load-sa>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="!loading">
+            <div class="row">
+                <div class="col-md-12">
+                    <div *ngIf="!serviceError">
+                        <div *ngIf="isCreate()">
+                            <button class="btn btn-primary" (click)="commitModal.show()">Create item</button>
+                            <button class="btn btn-primary" (click)="cancelModal.show()">Cancel</button>
+                        </div>
+                        <div *ngIf="isView()">
+                            <button class="btn btn-default btn-small" (click)="goBack()">Done</button>
+                            <button class="btn btn-default btn-small" (click)="editItem()">Edit</button>
+                        </div>
+                        <div *ngIf="isEdit()">
+                            <button class="btn btn-default btn-small" (click)="commitModal.show()">Commit Changes
+                            </button>
+                            <button class="btn btn-default btn-small" (click)="cancelModal.show()">Discard Changes
+                            </button>
+                        </div>
+                    </div>
+                    <div *ngIf="serviceError">
+                        <button class="btn btn-default btn-small" routerLink="/">Back</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Modal -->
+<div id="commitModal" class="modal fade" bsModal #commitModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="commitModalLabel">
+
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                        (click)="commitModal.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="commitModalLabel">Confirm commit</h4>
+            </div>
+            <div class="modal-body">
+                <span>Are you sure you want to commit your changes?</span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-small" (click)="commitItem()">Yes</button>
+                <button type="button" class="btn btn-default btn-small" data-dismiss="modal"
+                        (click)="commitModal.hide()">
+                    No
+                </button>
+            </div>
+        </div>
+    </div>
 </div>
 
-<div class="w-100 h-100" *ngIf="!loading">
+<div id="cancelModal" class="modal fade" bsModal #cancelModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="cancelModalLabel">
 
-  <div class="w-100 h-100" *ngIf="serviceError">
-    <p>{{errorMessage}}</p>
-    <p><a routerLink="/">Return home</a></p>
-  </div>
-
-  <div class="w-100 h-100" *ngIf="isNotEditable()">
-    <p>Item is currently being edited by {{currentItem?.beingEditedBy}}</p>
-    <p><a routerLink="/">Return home</a></p>
-  </div>
-
-  <div class="w-100 h-100" *ngIf="isCreate() || isEdit() || isView()">
-    <nav class="navbar navbar-light bg-faded">
-      <div class="row">
-        <div class="col-6">
-          <div class="float-left" style="white-space: normal;">
-            {{navBarMessage}}
-          </div>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                        (click)="cancelModal.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="cancelModalLabel">Confirm cancel</h4>
+            </div>
+            <div class="modal-body">
+                <span *ngIf="isCreate()">Are you sure you want to discard all changes and delete the new item?</span>
+                <span *ngIf="isEdit()">Are you sure you want to discard all changes you've made since you've started editing?</span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-small" (click)="cancelCreate()">Yes</button>
+                <button type="button" class="btn btn-default btn-small" data-dismiss="modal"
+                        (click)="cancelModal.hide()">
+                    No
+                </button>
+            </div>
         </div>
-
-        <div class="col-4">
-          <!--
-          <div class="text-center" style="white-space: normal;">
-            <button class="btn btn-secondary" routerLink="/">Preview</button>
-          </div>
-          -->
-        </div>
-
-        <div class="col-2">
-          <!--
-          <div class="float-right" style="white-space: normal;">
-            <i class="fa fa-check-circle" style="color: green;"></i>&nbsp;
-            <span class="text-success">Saved!</span>
-          </div>
-          -->
-        </div>
-
-      </div>
-    </nav>
-
-    <app-item-load-sa [item]="currentItem" *ngIf="currentItem.type=='sa'"></app-item-load-sa>
-
-    <nav class="navbar navbar-light bg-faded">
-      <div class="row">
-        <div class="col-lg-12 pull-left">
-          <button *ngIf="isCreate()" class="btn btn-secondary" (click)="createItem()">Create item</button>
-          <button *ngIf="isCreate()" class="btn btn-secondary" (click)="cancelCreate()">Cancel</button>
-
-          <button *ngIf="isView()" class="btn btn-secondary" (click)="goBack()">Done</button>
-          <button *ngIf="isView()" class="btn btn-secondary" (click)="editItem()">Edit</button>
-
-          <button *ngIf="isEdit()" class="btn btn-secondary" (click)="commitItem()">Commit Changes</button>
-          <button *ngIf="isEdit()" class="btn btn-secondary" (click)="cancelEdit()">Discard Changes</button>
-        </div>
-      </div>
-    </nav>
-  </div>
-
+    </div>
 </div>
-
-<ng-template confirm>
-  <app-confirm-modal-component></app-confirm-modal-component>
-</ng-template>

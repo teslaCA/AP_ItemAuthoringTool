@@ -4,7 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-item-redirect',
   templateUrl: './item-redirect.component.html',
-  styleUrls: ['./item-redirect.component.scss']
+  styleUrls: ['./item-redirect.component.less']
 })
 export class ItemRedirectComponent implements OnInit {
   private _itemId: number;
