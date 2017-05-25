@@ -9,8 +9,8 @@
             </h2>
             <div *ngFor="let item of items" class="col btn-group btn-block">
                 <div class="row">
-                    <div class="col-md-2">
-                        <div class="well">
+                    <div class="col-md-3">
+                        <div class="well" style="text-align: center">
                             <a routerLink="/item/create/{{item.type}}">
                                 <p>{{item.name}}</p>
                                 <p>({{item.abbreviation}})</p>
@@ -20,7 +20,7 @@
                     </div>
                 </div>
             </div>
-            <button class="btn btn-default" [routerLink]="['/']">Cancel</button>
+            <button class="btn btn-primary" [routerLink]="['/']">Cancel</button>
         </div>
     </div>
 </section>
