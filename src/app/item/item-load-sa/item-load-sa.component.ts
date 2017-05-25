@@ -1,3 +1,4 @@
+import {isNumeric} from 'rxjs/util/isNumeric';
 import { Component, OnInit, Input } from '@angular/core';
 import { Content, Item, Sample } from '../../model/item';
 
@@ -11,6 +12,8 @@ export class ItemLoadSaComponent implements OnInit {
   private _item = new Item();
   private _itemContent = new Content();
   private _itemResponses: Sample[] = [];
+  private _nextResponseId: number;
+  private _deleteResponseId: number;
 
   @Input()
   set item(item) {
@@ -35,6 +38,13 @@ export class ItemLoadSaComponent implements OnInit {
 
           if (exemplarRubrics.length > 0) {
             this._itemResponses = exemplarRubrics[0].samples;
+
+            if (this.itemResponses instanceof Array) {
+              for (const response of this.itemResponses) {
+                this._nextResponseId ++;
+                response.id = this._nextResponseId;
+              }
+            }
           }
         }
       }
@@ -58,30 +68,44 @@ export class ItemLoadSaComponent implements OnInit {
     return JSON.stringify(this.item.attributes);
   }
 
-  constructor() {
+  get deleteResponseId(): number {
+    return this._deleteResponseId;
+  }
 
+  public setDeleteResponseId(id: number): void {
+    if ( isNumeric(id) ) {
+      this._deleteResponseId = id;
+    }
+  }
+
+  constructor() {
   }
 
   ngOnInit() {
+    this._deleteResponseId = 0;
   }
 
   addResponse(): void {
-    // TODO: Call IMS API to create the exemplar response
-    // TODO: newId will be populated by unique value provided by API
+    this._nextResponseId ++;
 
     const resp = new Sample();
+    resp.id = this._nextResponseId;
     resp.name = 'Exemplar';
     resp.purpose = 'Exemplar';
     resp.samplecontent = '';
     resp.scorepoint = null;
 
     this.itemResponses.push(resp);
-
   }
 
-  removeResponse(value: string): void {
-    this._itemResponses = this.itemResponses.filter(
-        response => response.samplecontent !== value
-    );
+  removeResponse(): void {
+    // console.log('item to delete: ' + this.deleteResponseId)
+    if (this.deleteResponseId !== 0) {
+      this._itemResponses = this.itemResponses.filter(
+        response => response.id !== this.deleteResponseId
+      );
+      this.setDeleteResponseId(0);
+    }
+    // console.log('current delete Id: ' + this.deleteResponseId)
   }
 }

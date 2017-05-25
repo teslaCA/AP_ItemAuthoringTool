@@ -149,8 +149,8 @@ export class ItemLoadComponent implements OnInit {
         return false;
     }
 
-    public goBack(): void {
-        this.location.back();
+    public goHome(): void {
+      this.router.navigateByUrl('/');
     }
 
     private onSuccess(item): void {
@@ -178,19 +178,38 @@ export class ItemLoadComponent implements OnInit {
         this._loading = false;
         this._serviceError = true;
 
-        console.log(error);
+        console.log('Error Status: ' + error.status);
+        // console.log('Error Object: ' + error);
 
-        const body = error.json() || '';
-        const objMessages = JSON.parse(JSON.stringify(body));
-
-        // TODO: Retrieve multiple errors
-        if (error.status === 404) {
-            this._errorMessage = objMessages[0].message;
-        } else if (error.status === 500) {
-            this._errorMessage = 'Internal server error';
-        } else {
-            this._errorMessage = 'Unknown error';
+        switch (error.status) {
+          case 400:
+          case 404: {
+            this._errorMessage = this.getErrorMessages(error);
+            break;
+          }
+          case 500: {
+            this._errorMessage = 'Internal Server Error';
+            break;
+          }
+          default: {
+            this._errorMessage = 'Unknown Error';
+          }
         }
+    }
+
+    private getErrorMessages(error: any): string {
+      const body = error.json() || '';
+      const objMessages = JSON.parse(JSON.stringify(body));
+
+      let msgs: string;
+
+      if (objMessages instanceof Array) {
+        for (const msg of objMessages) {
+          msgs += msg.message;
+        }
+      }
+
+      return msgs;
     }
 
     // ------------------------------------------------------
