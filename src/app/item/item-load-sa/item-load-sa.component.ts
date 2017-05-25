@@ -37,8 +37,6 @@ export class ItemLoadSaComponent implements OnInit {
           if (exemplarRubrics.length > 0) {
             this._itemResponses = exemplarRubrics[0].samples;
           }
-        } else {
-
         }
       }
 
