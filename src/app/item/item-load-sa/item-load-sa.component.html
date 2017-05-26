@@ -21,14 +21,14 @@
                 <!--
                 TODO: Rich Text editor goes here
                 -->
-                <div *ngFor="let response of itemResponses">
+                <div *ngFor="let resp of itemResponses">
                     <div class="panel-body">
                         <div class="col-md-11">
-                            <textarea id="response-{{response.id}}" class="form-control" rows="3">{{response.samplecontent}}</textarea>
+                            <textarea id="response-{{resp.id}}" class="form-control" rows="3">{{resp.samplecontent}}</textarea>
                         </div>
                         <div class="col-md-1">
                     <span class="pull-right">
-                        <a (click)="deleteExemplarResponse.show()"><i class="fa fa-trash"></i></a>
+                        <a (click)="setDeleteResponseId(resp.id); deleteExemplarResponse.show()"><i class="fa fa-trash"></i></a>
                     </span>
                         </div>
                     </div>
@@ -61,11 +61,11 @@
                 <h4 class="modal-title" id="deleteExemplarResponseLabel">Delete exemplar response?</h4>
             </div>
             <div class="modal-body">
-                <span>Are you sure you want to delete the exemplar response?</span>
+                <span>Are you sure you want to delete this exemplar response?</span>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary btn-small"
-                        (click)="removeResponse(''); deleteExemplarResponse.hide()">Yes
+                        (click)="removeResponse(); deleteExemplarResponse.hide()">Yes
                 </button>
                 <button type="button" class="btn btn-default btn-small" data-dismiss="modal"
                         (click)="deleteExemplarResponse.hide()">No
