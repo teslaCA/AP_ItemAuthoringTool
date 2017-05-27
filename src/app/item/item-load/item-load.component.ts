@@ -72,7 +72,7 @@ export class ItemLoadComponent implements OnInit, AfterViewInit {
 
     public createItem(): void {
       console.log('creating item: ' + JSON.stringify(this.saItemComponent.getUpdatedItem()));
-      this.itemService.createItem(this.saItemComponent.getUpdatedItem())
+      this.itemService.createItem(this.saItemComponent.getUpdatedItem());
       this.router.navigateByUrl('/');
     }
 

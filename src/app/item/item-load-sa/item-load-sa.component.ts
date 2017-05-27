@@ -1,7 +1,7 @@
 import {isNumeric} from 'rxjs/util/isNumeric';
 import { Component, OnInit, Input } from '@angular/core';
-import {Content, Item, Rubric, Sample} from '../../model/item';
-import {FormArray, FormControl, FormGroup, FormBuilder} from "@angular/forms";
+import { Content, Item, Rubric, Sample} from '../../model/item';
+import { FormArray, FormControl, FormGroup, FormBuilder, ReactiveFormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-item-load-sa',
@@ -109,14 +109,14 @@ export class ItemLoadSaComponent implements OnInit {
     enuRubric.minVal = null;
     enuRubric.name = 'ExemplarResponse';
 
-    for (let content of this.item.contents) {
+    for (const content of this.item.contents) {
       if (content.language === 'ENU') {
         content.stem = this.stemForm.get('promptStem').value;
-        //content.rubrics.push(enuRubric);
+        // content.rubrics.push(enuRubric);
       }
     }
 
-    //console.log('controls: ' + this.stemForm.contains("responses"));
+    // console.log('controls: ' + this.stemForm.contains("responses"));
 
     return this.item;
   }
