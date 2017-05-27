@@ -1,6 +1,7 @@
 import {isNumeric} from 'rxjs/util/isNumeric';
 import { Component, OnInit, Input } from '@angular/core';
-import { Content, Item, Sample } from '../../model/item';
+import {Content, Item, Rubric, Sample} from '../../model/item';
+import {FormArray, FormControl, FormGroup, FormBuilder} from "@angular/forms";
 
 @Component({
   selector: 'app-item-load-sa',
@@ -14,6 +15,7 @@ export class ItemLoadSaComponent implements OnInit {
   private _itemResponses: Sample[] = [];
   private _nextResponseId: number;
   private _deleteResponseId: number;
+  public stemForm: FormGroup;
 
   @Input()
   set item(item) {
@@ -52,6 +54,7 @@ export class ItemLoadSaComponent implements OnInit {
     }
   }
 
+
   get item() {
     return this._item;
   }
@@ -60,7 +63,7 @@ export class ItemLoadSaComponent implements OnInit {
     return this._itemContent;
   }
 
-  get itemResponses(): Sample[] {
+  get itemResponses(): any[] {
     return this._itemResponses;
   }
 
@@ -72,17 +75,50 @@ export class ItemLoadSaComponent implements OnInit {
     return this._deleteResponseId;
   }
 
+
+
+  constructor() {
+    // this.stemForm = new FormGroup(
+    //   {
+    //     promptStem: new FormControl()
+    //   }
+    // );
+  }
+
+  ngOnInit() {
+    this._deleteResponseId = 0;
+    this._nextResponseId = 0;
+
+    this.stemForm = new FormGroup(
+      {
+        promptStem: new FormControl()
+      }
+    );
+  }
+
   public setDeleteResponseId(id: number): void {
     if ( isNumeric(id) ) {
       this._deleteResponseId = id;
     }
   }
 
-  constructor() {
-  }
+  public getUpdatedItem(): Item {
 
-  ngOnInit() {
-    this._deleteResponseId = 0;
+    const enuRubric = new Rubric();
+    enuRubric.maxVal = null;
+    enuRubric.minVal = null;
+    enuRubric.name = 'ExemplarResponse';
+
+    for (let content of this.item.contents) {
+      if (content.language === 'ENU') {
+        content.stem = this.stemForm.get('promptStem').value;
+        //content.rubrics.push(enuRubric);
+      }
+    }
+
+    //console.log('controls: ' + this.stemForm.contains("responses"));
+
+    return this.item;
   }
 
   addResponse(): void {
@@ -95,7 +131,10 @@ export class ItemLoadSaComponent implements OnInit {
     resp.samplecontent = '';
     resp.scorepoint = null;
 
+    console.log('new id: ' + resp.id);
+
     this.itemResponses.push(resp);
+
   }
 
   removeResponse(): void {

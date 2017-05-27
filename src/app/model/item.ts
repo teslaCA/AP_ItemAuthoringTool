@@ -6,8 +6,8 @@ export class Item {
   public beingCreatedBy: any;
   public beingEditedBy: any;
 
-  public attributes: Attribute[];
-  public contents: Content[];
+  public attributes: Attribute[] = [];
+  public contents: Content[] = [];
 
   constructor() { }
 
@@ -26,7 +26,7 @@ export class Attribute {
 export class Content {
   public language: string;
   public stem: string;
-  public rubrics: Rubric[];
+  public rubrics: Rubric[] = [];
 
   constructor() { }
 }
@@ -38,7 +38,7 @@ export class Rubric {
   public minVal: any;
   public maxVal: any;
 
-  public samples: Sample[];
+  public samples: Sample[] = [];
 
   constructor() { }
 }

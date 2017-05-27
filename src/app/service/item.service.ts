@@ -33,11 +33,11 @@ export class ItemService {
   /**
    * POST Operations used when Item is in 'Create' mode
    */
-  createItem(id: number): void {
-    const createUrl = this.serviceUrl + '/' + id + '/commit';
+  createItem(item: Item): void {
+    const createUrl = this.serviceUrl + '/' + item.id + '/commit';
 
     this.http
-      .post(createUrl, null, this.getRequestOptions())
+      .post(createUrl, {item: item}, this.getRequestOptions())
       .subscribe(
         (response: Response) => {
           console.log('post ' + createUrl + ' operation successful');
@@ -118,11 +118,14 @@ export class ItemService {
         });
   }
 
-  commitItem(id: number, message: string): void {
-    const createUrl = this.serviceUrl + '/' + id + '/commit';
+  commitItem(item: Item, message: string): void {
+    const createUrl = this.serviceUrl + '/' + item.id + '/commit';
 
     this.http
-      .put(createUrl, {message}, this.getRequestOptions())
+      .put(createUrl, {
+        item: item,
+        message: message
+      }, this.getRequestOptions())
       .subscribe(
         (response: Response) => {
           console.log('put ' + createUrl + ' operation successful');

@@ -1,6 +1,7 @@
 <div class="well">
     <div class="row">
         <div class="col-md-6">
+          <form [formGroup]="stemForm">
             <div class="panel gray-lighter">
                 <div class="panel-heading">
                     <span>Prompt / Stem</span>
@@ -9,10 +10,11 @@
                 TODO: Rich Text editor goes here
                 -->
                 <div class="panel-body">
-                    <textarea id="prompt-stem" class="form-control" rows="6">{{itemContent.stem}}</textarea>
+                    <textarea [formControl]="stemForm.controls['promptStem']"
+                              class="form-control"
+                              rows="6">{{itemContent.stem}}</textarea>
                 </div>
             </div>
-
 
             <div class="panel gray-lighter">
                 <div class="panel-heading">
@@ -24,25 +26,29 @@
                 <div *ngFor="let resp of itemResponses">
                     <div class="panel-body">
                         <div class="col-md-11">
-                            <textarea id="response-{{resp.id}}" class="form-control" rows="3">{{resp.samplecontent}}</textarea>
+                            <textarea id="response-{{resp.id}}"
+                                      class="form-control"
+                                      rows="3">{{resp.samplecontent}}</textarea>
                         </div>
                         <div class="col-md-1">
-                    <span class="pull-right">
-                        <a (click)="setDeleteResponseId(resp.id); deleteExemplarResponse.show()"><i class="fa fa-trash"></i></a>
-                    </span>
+                            <span class="pull-right">
+                                <a (click)="setDeleteResponseId(resp.id); deleteExemplarResponse.show()">
+                                  <i class="fa fa-trash"></i></a>
+                            </span>
                         </div>
                     </div>
                 </div>
             </div>
+          </form>
 
-            <div class="row">
-                <div class="col-md-12">
-                    <button class="btn btn-primary" (click)="addResponse()">
-                        <i class="fa fa-plus" aria-hidden="true"></i>
-                        Add exemplar response
-                    </button>
-                </div>
-            </div>
+          <div class="row">
+              <div class="col-md-12">
+                  <button class="btn btn-primary" (click)="addResponse()">
+                      <i class="fa fa-plus" aria-hidden="true"></i>
+                      Add exemplar response
+                  </button>
+              </div>
+          </div>
         </div>
     </div>
 </div>
