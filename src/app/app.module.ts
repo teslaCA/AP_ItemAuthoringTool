@@ -16,7 +16,7 @@
 
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 
 import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
@@ -52,6 +52,7 @@ import {NoRouteComponent} from './no-route/no-route.component';
     imports: [
         BrowserModule,
         FormsModule,
+        ReactiveFormsModule,
         HttpModule,
         AppRoutingModule,
         BsDropdownModule.forRoot(),

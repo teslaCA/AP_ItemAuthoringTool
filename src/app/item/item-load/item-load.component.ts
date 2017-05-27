@@ -1,10 +1,10 @@
-import {isNumeric} from 'rxjs/util/isNumeric';
-import {Component, OnInit } from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
-import {Location} from '@angular/common';
-import {LookupService} from '../../service/lookup.service';
-import {Content, Item} from '../../model/item';
-import {ItemService} from '../../service/item.service';
+import { isNumeric } from 'rxjs/util/isNumeric';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { LookupService } from '../../service/lookup.service';
+import { Item } from '../../model/item';
+import { ItemService } from '../../service/item.service';
+import { ItemLoadSaComponent } from '../item-load-sa/item-load-sa.component';
 
 @Component({
     selector: 'app-item-load',
@@ -16,7 +16,7 @@ import {ItemService} from '../../service/item.service';
     ]
 })
 
-export class ItemLoadComponent implements OnInit {
+export class ItemLoadComponent implements OnInit, AfterViewInit {
     private _currentItemId: number;
     private _currentItem = new Item();
     private _navBarMessage: string;
@@ -25,11 +25,12 @@ export class ItemLoadComponent implements OnInit {
     private _serviceError: boolean;
     private _errorMessage: string;
 
+    @ViewChild(ItemLoadSaComponent) saItemComponent;
+
     constructor(private router: Router,
                 private route: ActivatedRoute,
                 private lookupService: LookupService,
-                private itemService: ItemService,
-                private location: Location) {
+                private itemService: ItemService) {
     }
 
     ngOnInit() {
@@ -64,23 +65,15 @@ export class ItemLoadComponent implements OnInit {
             this._loading = false;
             this.router.navigateByUrl('/unavailable');
         }
-  }
+    }
+
+    ngAfterViewInit() {}
+
 
     public createItem(): void {
-        console.log('creating item with id: ', this._currentItem.id);
-
-        const testContent = new Content();
-        testContent.language = 'ENU';
-        testContent.stem = 'System Generated Stem - Prompt';
-
-        // Temporarily setting value to test save operation
-        // this._currentItem.contents.push(testContent);
-        //
-        // this.itemService.saveScratchPad(this.currentItem);
-
-        this.itemService.createItem(this._currentItem.id);
-
-        this.router.navigateByUrl('/');
+      console.log('creating item: ' + JSON.stringify(this.saItemComponent.getUpdatedItem()));
+      this.itemService.createItem(this.saItemComponent.getUpdatedItem());
+      this.router.navigateByUrl('/');
     }
 
     public cancelCreate(): void {
@@ -104,8 +97,9 @@ export class ItemLoadComponent implements OnInit {
     }
 
     public commitItem(): void {
-        this.itemService.commitItem(this._currentItem.id, 'IAT generated commit');
-        this.router.navigateByUrl('/');
+      console.log('committing item: ' + JSON.stringify(this.saItemComponent.getUpdatedItem()));
+      this.itemService.commitItem(this.saItemComponent.getUpdatedItem(), 'IAT generated commit');
+      this.router.navigateByUrl('/');
     }
 
     public isCreate(): boolean {

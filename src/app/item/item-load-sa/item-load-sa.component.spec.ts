@@ -1,5 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule} from '@angular/router/testing';
+import { ReactiveFormsModule} from '@angular/forms';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { ItemLoadSaComponent } from './item-load-sa.component';
 
@@ -11,6 +12,7 @@ describe('ItemCreateSaComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
+        ReactiveFormsModule,
         ModalModule.forRoot()
       ],
       declarations: [
