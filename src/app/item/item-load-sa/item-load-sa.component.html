@@ -11,6 +11,7 @@
                 -->
                 <div class="panel-body">
                     <textarea [formControl]="stemForm.controls['promptStem']"
+                              ngModel="{{itemContent.stem}}"
                               class="form-control"
                               rows="6">{{itemContent.stem}}</textarea>
                 </div>
