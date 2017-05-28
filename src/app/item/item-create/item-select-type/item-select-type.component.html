@@ -1,16 +1,16 @@
 <section class="main">
     <div class="container">
-        <div class="well">
-            <h1>
+        <div class="well well-top">
+            <h1 class="h3">
                 Create item or stimulus
             </h1>
-            <h2>
+            <h2 class="h3" style="background-color: #E6E6E6">
                 Item types
             </h2>
             <div *ngFor="let item of items" class="col btn-group btn-block">
                 <div class="row">
-                    <div class="col-md-3">
-                        <div class="well" style="text-align: center">
+                    <div class="col-lg-2">
+                        <div class="well well-center">
                             <a routerLink="/item/create/{{item.type}}">
                                 <p>{{item.name}}</p>
                                 <p>({{item.abbreviation}})</p>
