@@ -11,7 +11,7 @@
                 <form [formGroup]="stemForm">
                   <div class="panel-body">
                       <textarea formControlName="promptStem"
-                                ngModel="{{itemContent.stem}}"
+                                ngModel="{{itemStem}}"
                                 class="form-control"
                                 rows="6"></textarea>
                   </div>
@@ -41,7 +41,7 @@
 
                                <div class="col-md-1">
                                    <span class="pull-right">
-                                       <a (click)="setDeleteResponseId(resp.id); deleteExemplarResponse.show()">
+                                       <a (click)="setDeleteResponseId(i); deleteExemplarResponse.show()">
                                          <i class="fa fa-trash"></i></a>
                                    </span>
                                </div>
@@ -54,7 +54,7 @@
 
           <div class="row">
               <div class="col-md-12">
-                  <button class="btn btn-primary" (click)="addResponse()">
+                  <button class="btn btn-primary" (click)="addResponse('')">
                       <i class="fa fa-plus" aria-hidden="true"></i>
                       Add exemplar response
                   </button>

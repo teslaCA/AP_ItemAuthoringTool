@@ -11,10 +11,8 @@ import { FormArray, FormControl, FormGroup, FormBuilder, ReactiveFormsModule} fr
 export class ItemLoadSaComponent implements OnInit {
 
   private _item = new Item();
-  private _itemContent = new Content();  // TODO: Does this field refer to a sub-object in _item? Remove this field and use sub-object in _item instead; confusing to track parts of item in separate fields
-  private _itemResponses: Sample[] = []; // TODO: Does this field refer to a sub-object in _item? Remove this field and use sub-object in _item instead; confusing to track parts of item in separate fields
   private _nextResponseId: number;       // TODO: Is this needed?  Why not use _itemResponses count instead? Remove this field if possible
-  private _deleteResponseId: number;     // TODO:
+  private _deleteResponseIndex: number;     // TODO:
   public stemForm: FormGroup;
   public responseForm: FormGroup;
 
@@ -28,26 +26,21 @@ export class ItemLoadSaComponent implements OnInit {
       const enuContents = this.item.contents.filter(
         content => content.language === 'ENU'
       );
-      if (enuContents.length > 0) {
-        this._itemContent = enuContents[0];
-      }
 
-      // Retrieve Exemplar Responses
-      if (this.itemContent) {
-        if (this.itemContent.rubrics.length > 0) {
-          const exemplarRubrics = this.itemContent.rubrics.filter(
+      if (enuContents.length > 0) {
+
+        if (enuContents[0].rubrics.length > 0) {
+          const exemplarRubrics = enuContents[0].rubrics.filter(
             rubric => rubric.name === 'ExemplarResponse'
           );
 
           if (exemplarRubrics.length > 0) {
-            this._itemResponses = exemplarRubrics[0].samples;
+            const samples = exemplarRubrics[0].samples
 
-            if (this.itemResponses instanceof Array) {
-              for (const response of this.itemResponses) {
-                this._nextResponseId ++;
-                response.id = this._nextResponseId;
-              }
+            for (const sample of samples) {
+              this.addResponse(sample.samplecontent);
             }
+
           }
         }
       }
@@ -60,20 +53,28 @@ export class ItemLoadSaComponent implements OnInit {
     return this._item;
   }
 
-  get itemContent(): Content {
-    return this._itemContent;
+  // get itemContent(): Content {
+  //   return this._itemContent;
+  // }
+
+  // get itemAttributes(): string {
+  //   return JSON.stringify(this.item.attributes);
+  // }
+
+  get itemStem(): string {
+    if (this.item != null) {
+      const enuContents = this.item.contents.filter(
+        content => content.language === 'ENU'
+      );
+      if (enuContents.length > 0) {
+        return enuContents[0].stem;
+      }
+    }
+    return '';
   }
 
-  get itemResponses(): any[] {
-    return this._itemResponses;
-  }
-
-  get itemAttributes(): string {
-    return JSON.stringify(this.item.attributes);
-  }
-
-  get deleteResponseId(): number {
-    return this._deleteResponseId;
+  get deleteResponseIndex(): number {
+    return this._deleteResponseIndex;
   }
 
   get responses(): FormArray {
@@ -87,20 +88,20 @@ export class ItemLoadSaComponent implements OnInit {
     });
 
     this.responseForm = this.fb.group({
-      responses: this.fb.array([
-        //new FormControl(new Sample())
-      ])
+      responses: this.fb.array([])
     });
   }
 
   ngOnInit() {
-    this._deleteResponseId = 0;
+    this._deleteResponseIndex = 0;
     this._nextResponseId = 0;
+
+    console.log(this.item);
   }
 
   public setDeleteResponseId(id: number): void {
     if ( isNumeric(id) ) {  // TODO: Why is this check necessary? Remove if possible
-      this._deleteResponseId = id;
+      this._deleteResponseIndex = id;
     }
   }
 
@@ -121,7 +122,7 @@ export class ItemLoadSaComponent implements OnInit {
     return this.item;
   }
 
-  addResponse(): void {
+  addResponse(value: string): void {
     // this._nextResponseId ++;
     //
     // const resp = new Sample();
@@ -135,17 +136,21 @@ export class ItemLoadSaComponent implements OnInit {
     //
     // this.itemResponses.push(resp);
 
-    this.responses.push(this.fb.group({samplecontent: ''}));
+    this.responses.push(this.fb.group({samplecontent: value}));
   }
 
   removeResponse(): void {
-    // console.log('item to delete: ' + this.deleteResponseId)
-    if (this.deleteResponseId !== 0) {
-      this._itemResponses = this.itemResponses.filter(
-        response => response.id !== this.deleteResponseId
-      );
+    console.log('item to delete: ' + this.deleteResponseIndex)
+
+    if (this.deleteResponseIndex !== 0) {
+
+      this.responses.removeAt(this.deleteResponseIndex);
+      // this._itemResponses = this.itemResponses.filter(
+      //   response => response.id !== this.deleteResponseIndex
+      // );
       this.setDeleteResponseId(0);
     }
-    // console.log('current delete Id: ' + this.deleteResponseId)
+
+    console.log('current delete Id: ' + this.deleteResponseIndex)
   }
 }
