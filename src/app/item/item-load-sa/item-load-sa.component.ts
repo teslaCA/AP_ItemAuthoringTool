@@ -16,6 +16,7 @@ export class ItemLoadSaComponent implements OnInit {
   private _nextResponseId: number;       // TODO: Is this needed?  Why not use _itemResponses count instead? Remove this field if possible
   private _deleteResponseId: number;     // TODO:
   public stemForm: FormGroup;
+  public responseForm: FormGroup;
 
   @Input()
   set item(item) {
@@ -75,25 +76,26 @@ export class ItemLoadSaComponent implements OnInit {
     return this._deleteResponseId;
   }
 
+  get responses(): FormArray {
+    return this.responseForm.get('responses') as FormArray;
+  };
 
 
-  constructor() {
-    // this.stemForm = new FormGroup(
-    //   {
-    //     promptStem: new FormControl()
-    //   }
-    // );
+  constructor(public fb: FormBuilder) {
+    this.stemForm = this.fb.group({
+      promptStem: ''
+    });
+
+    this.responseForm = this.fb.group({
+      responses: this.fb.array([
+        //new FormControl(new Sample())
+      ])
+    });
   }
 
   ngOnInit() {
     this._deleteResponseId = 0;
     this._nextResponseId = 0;
-
-    this.stemForm = new FormGroup(
-      {
-        promptStem: new FormControl()
-      }
-    );
   }
 
   public setDeleteResponseId(id: number): void {
@@ -120,19 +122,20 @@ export class ItemLoadSaComponent implements OnInit {
   }
 
   addResponse(): void {
-    this._nextResponseId ++;
+    // this._nextResponseId ++;
+    //
+    // const resp = new Sample();
+    // resp.id = this._nextResponseId;
+    // resp.name = 'Exemplar';
+    // resp.purpose = 'Exemplar';
+    // resp.samplecontent = '';
+    // resp.scorepoint = null;
+    //
+    // console.log('new id: ' + resp.id);
+    //
+    // this.itemResponses.push(resp);
 
-    const resp = new Sample();
-    resp.id = this._nextResponseId;
-    resp.name = 'Exemplar';
-    resp.purpose = 'Exemplar';
-    resp.samplecontent = '';
-    resp.scorepoint = null;
-
-    console.log('new id: ' + resp.id);
-
-    this.itemResponses.push(resp);
-
+    this.responses.push(this.fb.group({samplecontent: ''}));
   }
 
   removeResponse(): void {

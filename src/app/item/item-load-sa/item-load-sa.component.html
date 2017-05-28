@@ -1,7 +1,6 @@
 <div class="well">
     <div class="row">
         <div class="col-md-6">
-          <form [formGroup]="stemForm">
             <div class="panel gray-lighter">
                 <div class="panel-heading">
                     <span>Prompt / Stem</span>
@@ -9,12 +8,14 @@
                 <!--
                 TODO: Rich Text editor goes here
                 -->
-                <div class="panel-body">
-                    <textarea [formControl]="stemForm.controls['promptStem']"
-                              ngModel="{{itemContent.stem}}"
-                              class="form-control"
-                              rows="6">{{itemContent.stem}}</textarea>
-                </div>
+                <form [formGroup]="stemForm">
+                  <div class="panel-body">
+                      <textarea formControlName="promptStem"
+                                ngModel="{{itemContent.stem}}"
+                                class="form-control"
+                                rows="6"></textarea>
+                  </div>
+                </form>
             </div>
 
             <div class="panel gray-lighter">
@@ -24,23 +25,32 @@
                 <!--
                 TODO: Rich Text editor goes here
                 -->
-                <div *ngFor="let resp of itemResponses">
-                    <div class="panel-body">
-                        <div class="col-md-11">
-                            <textarea id="response-{{resp.id}}"
-                                      class="form-control"
-                                      rows="3">{{resp.samplecontent}}</textarea>
-                        </div>
-                        <div class="col-md-1">
-                            <span class="pull-right">
-                                <a (click)="setDeleteResponseId(resp.id); deleteExemplarResponse.show()">
-                                  <i class="fa fa-trash"></i></a>
-                            </span>
-                        </div>
-                    </div>
-                </div>
+
+                   <form [formGroup]="responseForm">
+
+                     <div formArrayName="responses">
+
+                       <div *ngFor="let sample of responses.controls; let i=index" [formGroupName]="i">
+                           <div class="panel-body">
+                               <div class="col-md-11">
+
+                                   <textarea formControlName="samplecontent"
+                                             class="form-control"
+                                             rows="3"></textarea>
+                                 </div>
+
+                               <div class="col-md-1">
+                                   <span class="pull-right">
+                                       <a (click)="setDeleteResponseId(resp.id); deleteExemplarResponse.show()">
+                                         <i class="fa fa-trash"></i></a>
+                                   </span>
+                               </div>
+                           </div>
+                       </div>
+
+                     </div>
+                </form>
             </div>
-          </form>
 
           <div class="row">
               <div class="col-md-12">

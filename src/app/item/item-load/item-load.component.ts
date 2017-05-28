@@ -204,7 +204,7 @@ export class ItemLoadComponent implements OnInit, AfterViewInit {
       const body = error.json() || '';
       const objMessages = JSON.parse(JSON.stringify(body));
 
-      let msgs: string;
+      let msgs = '';
 
       if (objMessages instanceof Array) {
         for (const msg of objMessages) {
