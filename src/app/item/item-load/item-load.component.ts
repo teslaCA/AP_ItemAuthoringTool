@@ -6,6 +6,10 @@ import { Item } from '../../model/item';
 import { ItemService } from '../../service/item.service';
 import { ItemLoadSaComponent } from '../item-load-sa/item-load-sa.component';
 
+// TODO: Move stem-related code into separate component (called StemComponent)
+// TODO: Move exemplar response-related code into separate component (called ExemplarResponsesComponent)
+// TODO: Move nav bar message-related code into separate component (called ItemHeaderComponent)
+
 @Component({
     selector: 'app-item-load',
     templateUrl: './item-load.component.html',
@@ -15,12 +19,12 @@ import { ItemLoadSaComponent } from '../item-load-sa/item-load-sa.component';
         ItemService
     ]
 })
-
+// TODO: Does this need to implement AfterViewInit?  Implementation of that method does nothing (see later)
 export class ItemLoadComponent implements OnInit, AfterViewInit {
     private _currentItemId: number;
     private _currentItem = new Item();
     private _navBarMessage: string;
-    private _user: any;
+    private _user: any; // TODO: Strongly type (looks like you only use username so consider changing this field to a non-nullable string "_currentUsername")
     private _loading: boolean;
     private _serviceError: boolean;
     private _errorMessage: string;
@@ -52,7 +56,7 @@ export class ItemLoadComponent implements OnInit, AfterViewInit {
                     },
                     error => console.log(error),
                     () => {
-                        this.itemService.getItem(this._currentItemId)
+                        this.itemService.findItem(this._currentItemId)
                             .subscribe(
                                 item => this.onSuccess(item),
                                 error => this.onError(error),
@@ -67,22 +71,24 @@ export class ItemLoadComponent implements OnInit, AfterViewInit {
         }
     }
 
+    // TODO: Is this needed?  If not remove
     ngAfterViewInit() {}
-
 
     public createItem(): void {
       console.log('creating item: ' + JSON.stringify(this.saItemComponent.getUpdatedItem()));
-      this.itemService.createItem(this.saItemComponent.getUpdatedItem());
+      // TODO: What if this fails?  Need to not redirect to / on failure
+      this.itemService.commitItemCreate(this.saItemComponent.getUpdatedItem());
       this.router.navigateByUrl('/');
     }
 
     public cancelCreate(): void {
-        this.itemService.deleteScratchPad(this.currentItem.id);
+      // TODO: What if this fails?  Need to not redirect to / on failure
+        this.itemService.rollbackItemCreate(this.currentItem.id);
         this.router.navigateByUrl('/');
     }
 
     public editItem(): void {
-        this.itemService.editItem(this._currentItemId)
+        this.itemService.beginItemEdit(this._currentItemId)
             .subscribe(
                 () => {
                     this.router.navigateByUrl('/item-redirect/' + this._currentItemId);
@@ -92,13 +98,15 @@ export class ItemLoadComponent implements OnInit, AfterViewInit {
     }
 
     public cancelEdit(): void {
-        this.itemService.deleteEdit(this.currentItem.id);
+      // TODO: What if this fails?  Need to not redirect to / on failure
+        this.itemService.rollbackItemEdit(this.currentItem.id);
         this.router.navigateByUrl('/');
     }
 
     public commitItem(): void {
       console.log('committing item: ' + JSON.stringify(this.saItemComponent.getUpdatedItem()));
-      this.itemService.commitItem(this.saItemComponent.getUpdatedItem(), 'IAT generated commit');
+      // TODO: What if this fails?  Need to not redirect to / on failure
+      this.itemService.commitItemEdit(this.saItemComponent.getUpdatedItem(), 'IAT generated commit');
       this.router.navigateByUrl('/');
     }
 
@@ -132,6 +140,7 @@ export class ItemLoadComponent implements OnInit, AfterViewInit {
         return false;
     }
 
+    // TODO: Why isn't this the negation of isEdit?
     public isNotEditable(): boolean {
         if (this._user && this._currentItem) {
             if (this._currentItem.beingCreatedBy === null
@@ -211,22 +220,28 @@ export class ItemLoadComponent implements OnInit, AfterViewInit {
     get currentItem(): Item {
         return this._currentItem;
     }
+
+    // TODO: Is this used?  If not remove
     get navBarMessage(): string {
         return this._navBarMessage;
     }
 
+    // TODO: Strongly type
     get user(): any {
         return this._user;
     }
 
+  // TODO: Is this used?  If not remove
     get loading(): boolean {
         return this._loading;
     }
 
+  // TODO: Is this used?  If not remove
     get serviceError(): boolean {
         return this._serviceError;
     }
 
+  // TODO: Is this used?  If not remove
     get errorMessage(): string {
         return this._errorMessage;
     }

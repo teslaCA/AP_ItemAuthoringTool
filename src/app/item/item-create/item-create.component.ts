@@ -29,7 +29,7 @@ export class ItemCreateComponent implements OnInit {
       });
 
 
-    this.itemService.createScratchPad(this._itemType)
+    this.itemService.beginItemCreate(this._itemType)
       .subscribe(
         item => this.processSuccess(item),
         error => this.processError(error),

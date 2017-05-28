@@ -11,10 +11,10 @@ import { FormArray, FormControl, FormGroup, FormBuilder, ReactiveFormsModule} fr
 export class ItemLoadSaComponent implements OnInit {
 
   private _item = new Item();
-  private _itemContent = new Content();
-  private _itemResponses: Sample[] = [];
-  private _nextResponseId: number;
-  private _deleteResponseId: number;
+  private _itemContent = new Content();  // TODO: Does this field refer to a sub-object in _item? Remove this field and use sub-object in _item instead; confusing to track parts of item in separate fields
+  private _itemResponses: Sample[] = []; // TODO: Does this field refer to a sub-object in _item? Remove this field and use sub-object in _item instead; confusing to track parts of item in separate fields
+  private _nextResponseId: number;       // TODO: Is this needed?  Why not use _itemResponses count instead? Remove this field if possible
+  private _deleteResponseId: number;     // TODO:
   public stemForm: FormGroup;
 
   @Input()
@@ -97,7 +97,7 @@ export class ItemLoadSaComponent implements OnInit {
   }
 
   public setDeleteResponseId(id: number): void {
-    if ( isNumeric(id) ) {
+    if ( isNumeric(id) ) {  // TODO: Why is this check necessary? Remove if possible
       this._deleteResponseId = id;
     }
   }
@@ -105,8 +105,6 @@ export class ItemLoadSaComponent implements OnInit {
   public getUpdatedItem(): Item {
 
     const enuRubric = new Rubric();
-    enuRubric.maxVal = null;
-    enuRubric.minVal = null;
     enuRubric.name = 'ExemplarResponse';
 
     for (const content of this.item.contents) {
