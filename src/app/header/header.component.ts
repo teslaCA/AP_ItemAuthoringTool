@@ -25,6 +25,7 @@ import {Logger} from "../utility/logger";
   providers: [LookupService]
 })
 export class HeaderComponent {
+  public isCollapsed = true; // TODO: confirm if this value is needed
   private _user: any;  // TODO: Strongly type
   get user(): any {
     return this._user;
