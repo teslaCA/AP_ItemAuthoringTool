@@ -25,20 +25,24 @@ import {Logger} from "../../utility/logger";
 })
 export class ItemLoadSaComponent implements OnInit {
   stemForm: FormGroup;
+
   responseForm: FormGroup;
+
   private _item = new Item();
+
   get item() {
     return this._item;
-  }
-
-  private _isView: boolean;
-  get isView() {
-    return this._isView;
   }
 
   @Input()
   set item(item) {
     this._item = item;
+  }
+
+  private _isView: boolean;
+
+  get isView() {
+    return this._isView;
   }
 
   @Input()
@@ -60,6 +64,7 @@ export class ItemLoadSaComponent implements OnInit {
   }
 
   private _deleteResponseIndex: number;
+
   get deleteResponseIndex(): number {
     return this._deleteResponseIndex;
   }
@@ -77,7 +82,7 @@ export class ItemLoadSaComponent implements OnInit {
     for (let i = 0; i < this.responses.length; i++) {
        const sample = new Sample();
        sample.name = 'Exemplar ' + i;
-       sample.purpose = 'Exemplar ' + i;
+       sample.purpose = 'Exemplar';
        sample.samplecontent = this.responses.at(i).get('samplecontent').value;
        sample.scorepoint = null;
        samples.push(sample);
