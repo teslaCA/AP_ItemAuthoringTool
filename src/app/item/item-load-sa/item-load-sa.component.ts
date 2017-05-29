@@ -1,7 +1,22 @@
-import {isNumeric} from 'rxjs/util/isNumeric';
-import { Component, OnInit, Input } from '@angular/core';
-import { Content, Item, Rubric, Sample} from '../../model/item';
-import { FormArray, FormControl, FormGroup, FormBuilder, ReactiveFormsModule} from '@angular/forms';
+/*
+ * Copyright 2017 Regents of the University of California.
+ *
+ * Licensed under the Educational Community License, Version 2.0 (the "license");
+ * you may not use this file except in compliance with the License. You may
+ * obtain a copy of the license at
+ *
+ * https://opensource.org/licenses/ECL-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+import {Component, Input, OnInit} from "@angular/core";
+import {Content, Item, Rubric, Sample} from "../../model/item";
+import {FormArray, FormControl, FormGroup, FormBuilder, ReactiveFormsModule} from '@angular/forms';
+import {Logger} from "../../utility/logger";
 
 @Component({
   selector: 'app-item-load-sa',
@@ -9,58 +24,29 @@ import { FormArray, FormControl, FormGroup, FormBuilder, ReactiveFormsModule} fr
   styleUrls: ['./item-load-sa.component.less']
 })
 export class ItemLoadSaComponent implements OnInit {
-
+  stemForm: FormGroup;
+  responseForm: FormGroup;
   private _item = new Item();
-  private _nextResponseId: number;       // TODO: Is this needed?  Why not use _itemResponses count instead? Remove this field if possible
-  private _deleteResponseIndex: number;     // TODO:
-  public stemForm: FormGroup;
-  public responseForm: FormGroup;
-
-  @Input()
-  set item(item) {
-    this._item = item;
-
-    if (this.item != null) {
-      // Filter ENU content
-      // TODO: retrieve default language via configuration
-      const enuContents = this.item.contents.filter(
-        content => content.language === 'ENU'
-      );
-
-      if (enuContents.length > 0) {
-
-        if (enuContents[0].rubrics.length > 0) {
-          const exemplarRubrics = enuContents[0].rubrics.filter(
-            rubric => rubric.name === 'ExemplarResponse'
-          );
-
-          if (exemplarRubrics.length > 0) {
-            const samples = exemplarRubrics[0].samples;
-
-            for (const sample of samples) {
-              this.addResponse(sample.samplecontent);
-            }
-
-          }
-        }
-      }
-
-    }
-  }
-
-
   get item() {
     return this._item;
   }
 
-  // get itemContent(): Content {
-  //   return this._itemContent;
-  // }
+  private _isView: boolean;
+  get isView() {
+    return this._isView;
+  }
 
-  // get itemAttributes(): string {
-  //   return JSON.stringify(this.item.attributes);
-  // }
+  @Input()
+  set item(item) {
+    this._item = item;
+  }
 
+  @Input()
+  set isView(value) {
+    this._isView = value;
+  }
+
+  // TODO: Move to Item object
   get itemStem(): string {
     if (this.item != null) {
       const enuContents = this.item.contents.filter(
@@ -73,20 +59,61 @@ export class ItemLoadSaComponent implements OnInit {
     return '';
   }
 
+  private _deleteResponseIndex: number;
   get deleteResponseIndex(): number {
     return this._deleteResponseIndex;
+  }
+  set deleteResponseIndex(value: number) {
+    this._deleteResponseIndex = value;
   }
 
   get responses(): FormArray {
     return this.responseForm.get('responses') as FormArray;
   };
 
+  public currentItem(): Item {
+    const samples: Sample[] = [];
+    // Get UI Responses into Samples model objects
+    for (let i = 0; i < this.responses.length; i++) {
+       const sample = new Sample();
+       sample.name = 'Exemplar ' + i;
+       sample.purpose = 'Exemplar ' + i;
+       sample.samplecontent = this.responses.at(i).get('samplecontent').value;
+       sample.scorepoint = null;
+       samples.push(sample);
+    }
 
-  constructor(public fb: FormBuilder) {
+    for (const content of this.item.contents) {
+      if (content.language === 'ENU') {
+        content.stem = this.stemForm.get('promptStem').value;
+        if (content.rubrics.length === 0) {
+          const enuRubric = new Rubric();
+          enuRubric.name = 'ExemplarResponse';
+          if (samples.length > 0) {
+            enuRubric.samples = samples;
+          }
+          content.rubrics.push(enuRubric);
+        } else {
+          for (const rubric of content.rubrics) {
+            if (rubric.name === 'ExemplarResponse') {
+              if (rubric.samples.length > 0) {
+                rubric.samples = null;
+              }
+              rubric.samples = samples;
+            }
+          }
+        }
+      }
+    }
+    return this.item;
+  }
+
+  constructor(private logger: Logger,
+              public fb: FormBuilder) {
     this.stemForm = this.fb.group({
-      promptStem: ''
+      promptStem: '',
+      disabled: true
     });
-
     this.responseForm = this.fb.group({
       responses: this.fb.array([])
     });
@@ -94,63 +121,41 @@ export class ItemLoadSaComponent implements OnInit {
 
   ngOnInit() {
     this._deleteResponseIndex = 0;
-    this._nextResponseId = 0;
-
-    console.log(this.item);
-  }
-
-  public setDeleteResponseId(id: number): void {
-    if ( isNumeric(id) ) {  // TODO: Why is this check necessary? Remove if possible
-      this._deleteResponseIndex = id;
-    }
-  }
-
-  public getUpdatedItem(): Item {
-
-    const enuRubric = new Rubric();
-    enuRubric.name = 'ExemplarResponse';
-
-    for (const content of this.item.contents) {
-      if (content.language === 'ENU') {
-        content.stem = this.stemForm.get('promptStem').value;
-        // content.rubrics.push(enuRubric);
+    if (this.item != null) {
+      // Filter ENU content
+      // TODO: retrieve default language via configuration
+      const enuContents = this.item.contents.filter(
+        content => content.language === 'ENU'
+      );
+      if (enuContents.length > 0) {
+        if (enuContents[0].rubrics.length > 0) {
+          const exemplarRubrics = enuContents[0].rubrics.filter(
+            rubric => rubric.name === 'ExemplarResponse'
+          );
+          if (exemplarRubrics.length > 0) {
+            const samples = exemplarRubrics[0].samples;
+            for (const sample of samples) {
+              this.addResponse(sample.samplecontent);
+            }
+          }
+        }
       }
     }
-
-    // console.log('controls: ' + this.stemForm.contains("responses"));
-
-    return this.item;
+    this.logger.debug('isView: ' + this.isView);
+    if (this.isView) {
+      this.stemForm.disable();
+      this.responseForm.disable();
+    }
   }
 
   addResponse(value: string): void {
-    // this._nextResponseId ++;
-    //
-    // const resp = new Sample();
-    // resp.id = this._nextResponseId;
-    // resp.name = 'Exemplar';
-    // resp.purpose = 'Exemplar';
-    // resp.samplecontent = '';
-    // resp.scorepoint = null;
-    //
-    // console.log('new id: ' + resp.id);
-    //
-    // this.itemResponses.push(resp);
-
     this.responses.push(this.fb.group({samplecontent: value}));
   }
 
   removeResponse(): void {
-    console.log('item to delete: ' + this.deleteResponseIndex);
-
     if (this.deleteResponseIndex !== 0) {
-
       this.responses.removeAt(this.deleteResponseIndex);
-      // this._itemResponses = this.itemResponses.filter(
-      //   response => response.id !== this.deleteResponseIndex
-      // );
-      this.setDeleteResponseId(0);
+      this.deleteResponseIndex = 0;
     }
-
-    console.log('current delete Id: ' + this.deleteResponseIndex);
   }
 }

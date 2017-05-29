@@ -13,36 +13,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-import {Component, OnInit} from '@angular/core';
-import {Response} from '@angular/http';
-import {LookupService} from '../service/lookup.service';
+import {Component} from "@angular/core";
+import {Response} from "@angular/http";
+import {LookupService} from "../service/lookup.service";
+import {Logger} from "../utility/logger";
 
 @Component({
-    selector: 'app-header',
-    templateUrl: 'header.component.html',
-    styleUrls: ['./header.component.less'],
-    providers: [LookupService]
+  selector: 'app-header',
+  templateUrl: 'header.component.html',
+  styleUrls: ['./header.component.less'],
+  providers: [LookupService]
 })
 export class HeaderComponent {
+  public isCollapsed = true; // TODO: confirm if this value is needed
+  private _user: any;  // TODO: Strongly type
+  get user(): any {
+    return this._user;
+  }
 
-    isCollapsed = true;
+  constructor(private logger: Logger,
+              private lookupService: LookupService) {
+    this.lookupService.getUser()
+      .subscribe((res: Response) => {
+        this._user = res.json();
+      });
+  }
 
-    user: any;
-
-    constructor(private lookupService: LookupService) {
-        this.lookupService.getUser()
-            .subscribe((res: Response) => {
-                this.user = res.json();
-            });
-    }
-
-    logOut() {
-        console.log('logging out...');
-        window.location.href = '/saml/logout';
-    }
-
-    // ------------------------------------------------------------------------
-
-
+  logOut(): void {
+    this.logger.debug('logging out...');
+    window.location.href = '/saml/logout';
+  }
 }

@@ -1,6 +1,7 @@
 import { TestBed, inject } from '@angular/core/testing';
 import { HttpModule } from '@angular/http';
 import { ItemService } from './item.service';
+import {Logger} from "../utility/logger";
 
 describe('ItemService', () => {
   beforeEach(() => {
@@ -9,7 +10,8 @@ describe('ItemService', () => {
         HttpModule
       ],
       providers: [
-        ItemService
+        ItemService,
+        Logger
       ]
     });
   });

@@ -13,7 +13,8 @@
                       <textarea formControlName="promptStem"
                                 ngModel="{{itemStem}}"
                                 class="form-control"
-                                rows="6"></textarea>
+                                rows="6">
+                      </textarea>
                   </div>
                 </form>
             </div>
@@ -41,7 +42,7 @@
 
                                <div class="col-md-1">
                                    <span class="pull-right">
-                                       <a (click)="setDeleteResponseId(i); deleteExemplarResponse.show()">
+                                       <a *ngIf="!isView" (click)="setDeleteResponseId(i); deleteExemplarResponse.show()">
                                          <i class="fa fa-trash"></i></a>
                                    </span>
                                </div>
@@ -54,7 +55,7 @@
 
           <div class="row">
               <div class="col-md-12">
-                  <button class="btn btn-primary" (click)="addResponse('')">
+                  <button *ngIf="!isView" class="btn btn-primary" (click)="addResponse('')">
                       <i class="fa fa-plus" aria-hidden="true"></i>
                       Add exemplar response
                   </button>
@@ -63,6 +64,7 @@
         </div>
     </div>
 </div>
+<!-- TODO: Move dialog to separate component: DialogComponent -->
 <!-- Modal -->
 <div id="deleteExemplarResponse" class="modal fade" bsModal #deleteExemplarResponse="bs-modal"
      [config]="{backdrop: 'static'}"

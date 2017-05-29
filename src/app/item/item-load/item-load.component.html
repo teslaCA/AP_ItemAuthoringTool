@@ -28,7 +28,9 @@
                           <span class="text-success">Saved!</span>
                         </div>
                         -->
-                        <app-item-load-sa *ngIf="currentItem.type=='sa'" [item]="currentItem"></app-item-load-sa>
+                        <app-item-load-sa *ngIf="item.type=='sa'"
+                                          [item]="item" [isView]="isView()">
+                        </app-item-load-sa>
 
                     </div>
                 </div>
@@ -46,7 +48,7 @@
                   </div>
 
                   <div *ngIf="isNotEditable()">
-                    <alert type="danger">Item is currently being edited by {{currentItem?.beingEditedBy}}</alert>
+                    <alert type="danger">Item is currently being edited by {{item?.beingEditedBy}}</alert>
                     <p><button class="btn btn-default btn-small" routerLink="/">Return home</button></p>
                   </div>
 
