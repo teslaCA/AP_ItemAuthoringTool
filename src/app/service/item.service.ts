@@ -6,6 +6,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
 
 import { Item } from '../model/item';
+import {Logger} from "../utility/logger";
 
 @Injectable()
 export class ItemService {
@@ -13,7 +14,10 @@ export class ItemService {
   private static serviceUrl = '/api/ims/v1/items';
   private static requestOptions = new RequestOptions({ headers : new Headers({ 'Content-Type': 'application/json'}) });
 
-  constructor(private http: Http) { }
+  constructor(
+    private logger: Logger,
+    private http: Http
+  ) { }
 
   //---------------------------------------------------------------------------
   // Item lookup
@@ -22,12 +26,12 @@ export class ItemService {
   findItem(itemId: number): Observable<Item> {
     const url = ItemService.serviceUrl + '/' + itemId;
 
-    console.log(`Finding item with ID ${itemId}: ${url}`);
+    this.logger.debug(`Finding item with ID ${itemId}: ${url}`);
 
     return this.http
       .get(ItemService.serviceUrl + '/' + itemId, ItemService.requestOptions)
       .map(ItemService.extractJson)
-      .catch(ItemService.handleError);
+      .catch(this.handleError);
   }
 
   //---------------------------------------------------------------------------
@@ -37,12 +41,12 @@ export class ItemService {
   beginItemCreate(itemType: string): Observable<Item> {
     const url = ItemService.serviceUrl + '/begin';
 
-    console.log(`Beginning creation of item type ${itemType}: ${url}`);
+    this.logger.debug(`Beginning creation of item type ${itemType}: ${url}`);
 
     return this.http
       .post(url, { 'type': itemType }, ItemService.requestOptions)
       .map(ItemService.extractJson)
-      .catch(ItemService.handleError);
+      .catch(this.handleError);
   }
 
   // Commit the creation of the item (the item will become available in the system)
@@ -50,13 +54,13 @@ export class ItemService {
   commitItemCreate(item: Item): void {
     const url = ItemService.serviceUrl + '/' + item.id + '/commit';
 
-    console.log(`Committing creation of item ${JSON.stringify(item)}: ${url}`);
+    this.logger.debug(`Committing creation of item ${JSON.stringify(item)}: ${url}`);
 
     this.http
       .post(url, { item: item }, ItemService.requestOptions)
       .subscribe(
-        (response: Response) => { console.log('post ' + url + ' operation successful'); },
-        e => { ItemService.handleError(e); });
+        (response: Response) => { this.logger.debug('post ' + url + ' operation successful'); },
+        e => { this.handleError(e); });
   }
 
   // Rollback the creation of the item (the item will be removed entirely)
@@ -64,13 +68,13 @@ export class ItemService {
   rollbackItemCreate(itemId: number): void {
     const url = ItemService.serviceUrl + '/' + itemId + '/rollback';
 
-    console.log(`Rolling back creation of item with ID ${itemId}: ${url}`);
+    this.logger.debug(`Rolling back creation of item with ID ${itemId}: ${url}`);
 
     this.http
       .post(url, null, ItemService.requestOptions)
       .subscribe(
-        (response: Response) => { console.log('delete ' + url + ' operation successful'); },
-        e => { ItemService.handleError(e); });
+        (response: Response) => { this.logger.debug('delete ' + url + ' operation successful'); },
+        e => { this.handleError(e); });
   }
 
   //---------------------------------------------------------------------------
@@ -80,12 +84,12 @@ export class ItemService {
   beginItemEdit(itemId: number): Observable<boolean> {
     const url = ItemService.serviceUrl + '/' + itemId + '/begin';
 
-    console.log(`Beginning edit of item with ID ${itemId}: ${url}`);
+    this.logger.debug(`Beginning edit of item with ID ${itemId}: ${url}`);
 
     return this.http
       .put(url, null, ItemService.requestOptions)
       .map(() => { return new Observable<boolean>(); })
-      .catch(ItemService.handleError);
+      .catch(this.handleError);
   }
 
   // Commit the editing of the item (the changes to the item will become available in the system)
@@ -93,13 +97,13 @@ export class ItemService {
   commitItemEdit(item: Item, commitMessage: string): void {
     const url = ItemService.serviceUrl + '/' + item.id + '/commit';
 
-    console.log(`Committing edit of item ${JSON.stringify(item)}: ${url}`);
+    this.logger.debug(`Committing edit of item ${JSON.stringify(item)}: ${url}`);
 
     this.http
       .put(url, { item: item, message: commitMessage }, ItemService.requestOptions)
       .subscribe(
-        (response: Response) => { console.log('put ' + url + ' operation successful'); },
-        e => { ItemService.handleError(e); });
+        (response: Response) => { this.logger.debug('put ' + url + ' operation successful'); },
+        e => { this.handleError(e); });
   }
 
   // Rollback the editing of the item (the changes made to the item since editing began will be removed)
@@ -107,13 +111,13 @@ export class ItemService {
   rollbackItemEdit(itemId: number): void {
     const url = ItemService.serviceUrl + '/' + itemId + '/rollback';
 
-    console.log(`Rolling back edit of item with ID ${itemId}: ${url}`);
+    this.logger.debug(`Rolling back edit of item with ID ${itemId}: ${url}`);
 
     this.http
       .put(url, null, ItemService.requestOptions)
       .subscribe(
-        (response: Response) => { console.log('put ' + url + ' operation successful'); },
-        e => { ItemService.handleError(e); });
+        (response: Response) => { this.logger.debug('put ' + url + ' operation successful'); },
+        e => { this.handleError(e); });
   }
 
   //---------------------------------------------------------------------------
@@ -121,16 +125,16 @@ export class ItemService {
   //---------------------------------------------------------------------------
   // Save changes to the item (update the scratchpad)
   // TODO: Change to return Observable so caller can decide what to do on success/failure
-  saveItem(item: Item): void {
+  saveChanges(item: Item): void {
     const url = ItemService.serviceUrl + '/' + item.id + '/save';
 
-    console.log(`Saving item ${JSON.stringify(item)}: ${url}`);
+    this.logger.debug(`Saving item ${JSON.stringify(item)}: ${url}`);
 
     this.http
       .post(url, JSON.stringify(item), ItemService.requestOptions)
       .subscribe(
-        (response: Response) => { console.log('post ' + url + ' operation successful'); },
-        e => { ItemService.handleError(e); });
+        (response: Response) => { this.logger.debug('post ' + url + ' operation successful'); },
+        e => { this.handleError(e); });
   }
 
   //---------------------------------------------------------------------------
@@ -141,16 +145,16 @@ export class ItemService {
   }
 
   // TODO: Can this be removed once all public methods return Observables instead of handling errors internally?
-  private static handleError(error: Response | any): any {
-    let errMsg: string;
+  private handleError(error: Response | any): any {
+    let message: string;
     if (error instanceof Response) {
       const body = error.json() || '';
       const err = body.error || JSON.stringify(body);
-      errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
+      message = `${error.status} - ${error.statusText || ''} ${err}`;
     } else {
-      errMsg = error.message ? error.message : error.toString();
+      message = error.message ? error.message : error.toString();
     }
-    console.error('Item Service: ' + errMsg);
+    this.logger.error('Item Service: ' + message);
     return Observable.throw(error);
   }
 }

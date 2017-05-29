@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LookupService } from '../service/lookup.service';
+import {Logger} from "../utility/logger";
 
 @Component({
   selector: 'app-footer',
@@ -15,7 +16,10 @@ export class FooterComponent implements OnInit {
     return this._buildInfo;
   }
 
-  constructor(private lookupService: LookupService) {
+  constructor(
+    private logger: Logger,
+    private lookupService: LookupService
+  ) {
     this.lookupService.getBuildInfo()
       .subscribe((res: Response) => {
         this._buildInfo = res.json();
@@ -27,5 +31,4 @@ export class FooterComponent implements OnInit {
 
   ngOnInit() {
   }
-
 }

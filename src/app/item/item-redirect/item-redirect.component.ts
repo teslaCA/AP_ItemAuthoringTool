@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import {Logger} from "../../utility/logger";
 
 @Component({
   selector: 'app-item-redirect',
@@ -10,6 +11,7 @@ export class ItemRedirectComponent implements OnInit {
   private _itemId: number;
 
   constructor(
+    private logger: Logger,
     private router: Router,
     private route: ActivatedRoute
   ) { }

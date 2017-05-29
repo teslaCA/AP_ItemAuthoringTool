@@ -2,6 +2,7 @@ import 'rxjs/add/operator/switchMap';
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ItemService} from '../../service/item.service';
+import {Logger} from "../../utility/logger";
 
 @Component({
   selector: 'app-item-create',
@@ -16,10 +17,12 @@ export class ItemCreateComponent implements OnInit {
   private _itemType: string;
   private _errorMessage: string;
 
-  constructor(private router: Router,
-              private route: ActivatedRoute,
-              private itemService: ItemService) {
-  }
+  constructor(
+    private logger: Logger,
+    private router: Router,
+    private route: ActivatedRoute,
+    private itemService: ItemService
+  ) { }
 
   ngOnInit() {
 
@@ -33,7 +36,7 @@ export class ItemCreateComponent implements OnInit {
       .subscribe(
         item => this.processSuccess(item),
         error => this.processError(error),
-        () => console.log('scratchpad item created successfully')
+        () => this.logger.debug('scratchpad item created successfully')
       );
   }
 

@@ -17,6 +17,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Response} from '@angular/http';
 import {LookupService} from '../service/lookup.service';
+import {Logger} from "../utility/logger";
 
 @Component({
     selector: 'app-header',
@@ -30,7 +31,10 @@ export class HeaderComponent {
 
     user: any;
 
-    constructor(private lookupService: LookupService) {
+    constructor(
+      private logger: Logger,
+      private lookupService: LookupService
+    ) {
         this.lookupService.getUser()
             .subscribe((res: Response) => {
                 this.user = res.json();
@@ -38,11 +42,7 @@ export class HeaderComponent {
     }
 
     logOut() {
-        console.log('logging out...');
+        this.logger.debug('logging out...');
         window.location.href = '/saml/logout';
     }
-
-    // ------------------------------------------------------------------------
-
-
 }

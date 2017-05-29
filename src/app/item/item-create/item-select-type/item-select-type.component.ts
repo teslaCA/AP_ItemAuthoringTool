@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {LookupService} from '../../../service/lookup.service';
 import {ItemType} from '../../../model/item-type';
+import {Logger} from "../../../utility/logger";
 
 @Component({
   selector: 'app-item-select-type',
@@ -14,9 +15,11 @@ export class ItemSelectTypeComponent implements OnInit {
   items: ItemType[];
   other: ItemType[];
 
-  constructor(private router: Router,
-              private lookupService: LookupService) {
-  }
+  constructor(
+    private logger: Logger,
+    private router: Router,
+    private lookupService: LookupService
+  ) { }
 
   ngOnInit() {
     this.items = this.lookupService.getMainItemTypes();
@@ -24,7 +27,7 @@ export class ItemSelectTypeComponent implements OnInit {
   }
 
   confirmCancel(): void {
-      console.log('cancel item select type...');
+      this.logger.debug('cancel item select type...');
       this.router.navigateByUrl('/');
   }
 }

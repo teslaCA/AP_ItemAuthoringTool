@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { ItemType } from '../model/item-type';
 import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+import {Logger} from "../utility/logger";
 
 const MAIN_ITEMS: ItemType[] = [
 /*
@@ -32,6 +33,7 @@ export class LookupService {
   private buildInfoResource = '/manage/info';
 
   constructor(
+    private logger: Logger,
     private http: Http
   ) { }
 
@@ -52,7 +54,6 @@ export class LookupService {
   }
 
   getItemDescription(itemType: string): string {
-
     let selectItem = MAIN_ITEMS.filter(item => item.type === itemType);
 
     if (selectItem != null) {
@@ -66,8 +67,5 @@ export class LookupService {
     }
 
     return '';
-
   }
-
-
 }

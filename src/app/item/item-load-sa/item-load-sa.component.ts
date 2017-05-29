@@ -2,6 +2,7 @@ import {isNumeric} from 'rxjs/util/isNumeric';
 import { Component, OnInit, Input } from '@angular/core';
 import { Content, Item, Rubric, Sample} from '../../model/item';
 import { FormArray, FormControl, FormGroup, FormBuilder, ReactiveFormsModule} from '@angular/forms';
+import {Logger} from "../../utility/logger";
 
 @Component({
   selector: 'app-item-load-sa',
@@ -16,6 +17,16 @@ export class ItemLoadSaComponent implements OnInit {
   private _nextResponseId: number;       // TODO: Is this needed?  Why not use _itemResponses count instead? Remove this field if possible
   private _deleteResponseId: number;     // TODO:
   public stemForm: FormGroup;
+
+  constructor(
+    private logger: Logger
+  ) {
+    // this.stemForm = new FormGroup(
+    //   {
+    //     promptStem: new FormControl()
+    //   }
+    // );
+  }
 
   @Input()
   set item(item) {
@@ -50,10 +61,8 @@ export class ItemLoadSaComponent implements OnInit {
           }
         }
       }
-
     }
   }
-
 
   get item() {
     return this._item;
@@ -73,16 +82,6 @@ export class ItemLoadSaComponent implements OnInit {
 
   get deleteResponseId(): number {
     return this._deleteResponseId;
-  }
-
-
-
-  constructor() {
-    // this.stemForm = new FormGroup(
-    //   {
-    //     promptStem: new FormControl()
-    //   }
-    // );
   }
 
   ngOnInit() {
@@ -114,8 +113,6 @@ export class ItemLoadSaComponent implements OnInit {
       }
     }
 
-    // console.log('controls: ' + this.stemForm.contains("responses"));
-
     return this.item;
   }
 
@@ -129,20 +126,18 @@ export class ItemLoadSaComponent implements OnInit {
     resp.samplecontent = '';
     resp.scorepoint = null;
 
-    console.log('new id: ' + resp.id);
+    this.logger.debug('new id: ' + resp.id);
 
     this.itemResponses.push(resp);
 
   }
 
   removeResponse(): void {
-    // console.log('item to delete: ' + this.deleteResponseId)
     if (this.deleteResponseId !== 0) {
       this._itemResponses = this.itemResponses.filter(
         response => response.id !== this.deleteResponseId
       );
       this.setDeleteResponseId(0);
     }
-    // console.log('current delete Id: ' + this.deleteResponseId)
   }
 }

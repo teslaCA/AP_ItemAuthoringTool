@@ -35,6 +35,7 @@ import {ItemLoadSaComponent} from './item/item-load-sa/item-load-sa.component';
 import {ItemLoadComponent} from './item/item-load/item-load.component';
 import {ItemRedirectComponent} from './item/item-redirect/item-redirect.component';
 import {NoRouteComponent} from './no-route/no-route.component';
+import {Logger} from "./utility/logger";
 
 @NgModule({
     declarations: [
@@ -60,8 +61,12 @@ import {NoRouteComponent} from './no-route/no-route.component';
         AlertModule.forRoot(),
         Ng2BootstrapModule.forRoot()
     ],
-    providers: [],
-    bootstrap: [AppComponent]
+    providers: [
+      Logger
+    ],
+    bootstrap: [
+      AppComponent
+    ]
 })
 export class AppModule {
 }

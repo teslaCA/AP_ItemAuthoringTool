@@ -5,6 +5,7 @@ import { LookupService } from '../../service/lookup.service';
 import { Item } from '../../model/item';
 import { ItemService } from '../../service/item.service';
 import { ItemLoadSaComponent } from '../item-load-sa/item-load-sa.component';
+import {Logger} from "../../utility/logger";
 
 // TODO: Move stem-related code into separate component (called StemComponent)
 // TODO: Move exemplar response-related code into separate component (called ExemplarResponsesComponent)
@@ -31,11 +32,13 @@ export class ItemLoadComponent implements OnInit, AfterViewInit {
 
     @ViewChild(ItemLoadSaComponent) saItemComponent;
 
-    constructor(private router: Router,
-                private route: ActivatedRoute,
-                private lookupService: LookupService,
-                private itemService: ItemService) {
-    }
+    constructor(
+      private logger: Logger,
+      private router: Router,
+      private route: ActivatedRoute,
+      private lookupService: LookupService,
+      private itemService: ItemService
+    ) { }
 
     ngOnInit() {
         this._loading = true;
@@ -46,7 +49,7 @@ export class ItemLoadComponent implements OnInit, AfterViewInit {
                 this._currentItemId = params['id'];
             });
 
-        console.log('id: ' + this._currentItemId);
+        this.logger.debug('id: ' + this._currentItemId);
 
         if (isNumeric(this._currentItemId)) {
             this.lookupService.getUser()
@@ -54,7 +57,7 @@ export class ItemLoadComponent implements OnInit, AfterViewInit {
                     (res: Response) => {
                         this._user = res.json();
                     },
-                    error => console.log(error),
+                    error => this.logger.error(error),
                     () => {
                         this.itemService.findItem(this._currentItemId)
                             .subscribe(
@@ -75,7 +78,7 @@ export class ItemLoadComponent implements OnInit, AfterViewInit {
     ngAfterViewInit() {}
 
     public createItem(): void {
-      console.log('creating item: ' + JSON.stringify(this.saItemComponent.getUpdatedItem()));
+      this.logger.debug('creating item: ' + JSON.stringify(this.saItemComponent.getUpdatedItem()));
       // TODO: What if this fails?  Need to not redirect to / on failure
       this.itemService.commitItemCreate(this.saItemComponent.getUpdatedItem());
       this.router.navigateByUrl('/');
@@ -104,7 +107,7 @@ export class ItemLoadComponent implements OnInit, AfterViewInit {
     }
 
     public commitItem(): void {
-      console.log('committing item: ' + JSON.stringify(this.saItemComponent.getUpdatedItem()));
+      this.logger.debug('committing item: ' + JSON.stringify(this.saItemComponent.getUpdatedItem()));
       // TODO: What if this fails?  Need to not redirect to / on failure
       this.itemService.commitItemEdit(this.saItemComponent.getUpdatedItem(), 'IAT generated commit');
       this.router.navigateByUrl('/');
@@ -157,7 +160,7 @@ export class ItemLoadComponent implements OnInit, AfterViewInit {
     }
 
     private onSuccess(item): void {
-        console.log('retrieved item: ', JSON.stringify(item));
+        this.logger.debug('retrieved item: ' + JSON.stringify(item));
         let navBarMsgPrefix: string;
         this._currentItem = item;
         this._currentItem.description = this.lookupService.getItemDescription(this._currentItem.type);
@@ -181,8 +184,7 @@ export class ItemLoadComponent implements OnInit, AfterViewInit {
         this._loading = false;
         this._serviceError = true;
 
-        console.log('Error Status: ' + error.status);
-        // console.log('Error Object: ' + error);
+        this.logger.error('Error Status: ' + error.status);
 
         switch (error.status) {
           case 400:
