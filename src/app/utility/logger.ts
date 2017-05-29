@@ -13,27 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import {Component, OnInit} from "@angular/core";
-import {ActivatedRoute, Router} from "@angular/router";
+import {Injectable} from "@angular/core";
 
-@Component({
-  selector: 'app-item-redirect',
-  templateUrl: './item-redirect.component.html',
-  styleUrls: ['./item-redirect.component.less']
-})
-export class ItemRedirectComponent implements OnInit {
-  private itemId: number;
+/**
+ * Logger to be used throughout the app instead of directly sending messages to console.
+ */
+@Injectable()
+export class Logger {
+  // TODO: Integrate with JavaScript error tracking solution such as Sentry (https://sentry.io/for/javascript/)
 
-  constructor(private router: Router,
-              private route: ActivatedRoute) {
+  debug(message: string): void {
+    console.debug(message);
   }
 
-  ngOnInit() {
-    this.route.params
-      .subscribe(params => {
-        this.itemId = params['id'];
-      });
+  info(message: string): void {
+    console.info(message);
+  }
 
-    this.router.navigateByUrl('/item/' + this.itemId);
+  warn(message: string): void {
+    console.warn(message);
+  }
+
+  error(message: string): void {
+    console.error(message);
   }
 }
