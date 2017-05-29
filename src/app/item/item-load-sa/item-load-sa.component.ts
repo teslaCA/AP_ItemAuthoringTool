@@ -35,7 +35,7 @@ export class ItemLoadSaComponent implements OnInit {
           );
 
           if (exemplarRubrics.length > 0) {
-            const samples = exemplarRubrics[0].samples
+            const samples = exemplarRubrics[0].samples;
 
             for (const sample of samples) {
               this.addResponse(sample.samplecontent);
@@ -140,7 +140,7 @@ export class ItemLoadSaComponent implements OnInit {
   }
 
   removeResponse(): void {
-    console.log('item to delete: ' + this.deleteResponseIndex)
+    console.log('item to delete: ' + this.deleteResponseIndex);
 
     if (this.deleteResponseIndex !== 0) {
 
@@ -151,6 +151,6 @@ export class ItemLoadSaComponent implements OnInit {
       this.setDeleteResponseId(0);
     }
 
-    console.log('current delete Id: ' + this.deleteResponseIndex)
+    console.log('current delete Id: ' + this.deleteResponseIndex);
   }
 }
