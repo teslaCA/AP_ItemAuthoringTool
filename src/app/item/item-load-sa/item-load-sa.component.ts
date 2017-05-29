@@ -1,7 +1,22 @@
-import {isNumeric} from 'rxjs/util/isNumeric';
-import { Component, OnInit, Input } from '@angular/core';
-import { Content, Item, Rubric, Sample} from '../../model/item';
-import { FormArray, FormControl, FormGroup, FormBuilder, ReactiveFormsModule} from '@angular/forms';
+/*
+ * Copyright 2017 Regents of the University of California.
+ *
+ * Licensed under the Educational Community License, Version 2.0 (the "license");
+ * you may not use this file except in compliance with the License. You may
+ * obtain a copy of the license at
+ *
+ * https://opensource.org/licenses/ECL-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+import {isNumeric} from "rxjs/util/isNumeric";
+import {Component, Input, OnInit} from "@angular/core";
+import {Content, Item, Rubric, Sample} from "../../model/item";
+import {FormControl, FormGroup} from "@angular/forms";
 import {Logger} from "../../utility/logger";
 
 @Component({
@@ -10,24 +25,11 @@ import {Logger} from "../../utility/logger";
   styleUrls: ['./item-load-sa.component.less']
 })
 export class ItemLoadSaComponent implements OnInit {
-
+  // TODO: Nasty logic in the set function.  Move this to the Item constructor and add the necessary properties to Item to expose the data being populated in this set function.
   private _item = new Item();
-  private _itemContent = new Content();  // TODO: Does this field refer to a sub-object in _item? Remove this field and use sub-object in _item instead; confusing to track parts of item in separate fields
-  private _itemResponses: Sample[] = []; // TODO: Does this field refer to a sub-object in _item? Remove this field and use sub-object in _item instead; confusing to track parts of item in separate fields
-  private _nextResponseId: number;       // TODO: Is this needed?  Why not use _itemResponses count instead? Remove this field if possible
-  private _deleteResponseId: number;     // TODO:
-  public stemForm: FormGroup;
-
-  constructor(
-    private logger: Logger
-  ) {
-    // this.stemForm = new FormGroup(
-    //   {
-    //     promptStem: new FormControl()
-    //   }
-    // );
+  get item() {
+    return this._item;
   }
-
   @Input()
   set item(item) {
     this._item = item;
@@ -54,8 +56,8 @@ export class ItemLoadSaComponent implements OnInit {
 
             if (this.itemResponses instanceof Array) {
               for (const response of this.itemResponses) {
-                this._nextResponseId ++;
-                response.id = this._nextResponseId;
+                this.nextResponseId++;
+                response.id = this.nextResponseId;
               }
             }
           }
@@ -64,29 +66,40 @@ export class ItemLoadSaComponent implements OnInit {
     }
   }
 
-  get item() {
-    return this._item;
-  }
-
+  // TODO: Does this field refer to a sub-object in _item? Remove this field and use sub-object in _item instead; confusing to track parts of item in separate fields
+  private _itemContent = new Content();
   get itemContent(): Content {
     return this._itemContent;
   }
 
+  // TODO: Does this field refer to a sub-object in _item? Remove this field and use sub-object in _item instead; confusing to track parts of item in separate fields
+  private _itemResponses: Sample[] = [];
   get itemResponses(): any[] {
     return this._itemResponses;
   }
 
+  // TODO: Move this to be a method on the Item type
   get itemAttributes(): string {
     return JSON.stringify(this.item.attributes);
   }
 
+  private _deleteResponseId: number;
   get deleteResponseId(): number {
     return this._deleteResponseId;
   }
 
+  // TODO: This field shouldn't be needed. Why not use _itemResponses count instead? Remove this field if possible.
+  private nextResponseId: number;
+
+  // TODO: Make this private and add public get method
+  stemForm: FormGroup;
+
+  constructor(private logger: Logger) {
+  }
+
   ngOnInit() {
     this._deleteResponseId = 0;
-    this._nextResponseId = 0;
+    this.nextResponseId = 0;
 
     this.stemForm = new FormGroup(
       {
@@ -95,14 +108,15 @@ export class ItemLoadSaComponent implements OnInit {
     );
   }
 
-  public setDeleteResponseId(id: number): void {
-    if ( isNumeric(id) ) {  // TODO: Why is this check necessary? Remove if possible
+  // TODO: Function named with "set" prefix should be a property setter instead of a regular function
+  setDeleteResponseId(id: number): void {
+    if (isNumeric(id)) {  // TODO: Why is this check necessary? Remove if possible
       this._deleteResponseId = id;
     }
   }
 
-  public getUpdatedItem(): Item {
-
+  // TODO: Function named with "get" prefix should be a property getter instead of a regular function
+  getUpdatedItem(): Item {
     const enuRubric = new Rubric();
     enuRubric.name = 'ExemplarResponse';
 
@@ -117,10 +131,10 @@ export class ItemLoadSaComponent implements OnInit {
   }
 
   addResponse(): void {
-    this._nextResponseId ++;
+    this.nextResponseId++;
 
     const resp = new Sample();
-    resp.id = this._nextResponseId;
+    resp.id = this.nextResponseId;
     resp.name = 'Exemplar';
     resp.purpose = 'Exemplar';
     resp.samplecontent = '';
