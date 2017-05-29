@@ -13,10 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import {isNumeric} from "rxjs/util/isNumeric";
 import {Component, Input, OnInit} from "@angular/core";
 import {Content, Item, Rubric, Sample} from "../../model/item";
-import {FormControl, FormGroup} from "@angular/forms";
+import {FormArray, FormControl, FormGroup, FormBuilder, ReactiveFormsModule} from '@angular/forms';
 import {Logger} from "../../utility/logger";
 
 @Component({
@@ -25,15 +24,108 @@ import {Logger} from "../../utility/logger";
   styleUrls: ['./item-load-sa.component.less']
 })
 export class ItemLoadSaComponent implements OnInit {
-  // TODO: Nasty logic in the set function.  Move this to the Item constructor and add the necessary properties to Item to expose the data being populated in this set function.
+  stemForm: FormGroup;
+
+  responseForm: FormGroup;
+
   private _item = new Item();
+
   get item() {
     return this._item;
   }
+
   @Input()
   set item(item) {
     this._item = item;
+  }
 
+  private _isView: boolean;
+
+  get isView() {
+    return this._isView;
+  }
+
+  @Input()
+  set isView(value) {
+    this._isView = value;
+  }
+
+  // TODO: Move to Item object
+  get itemStem(): string {
+    if (this.item != null) {
+      const enuContents = this.item.contents.filter(
+        content => content.language === 'ENU'
+      );
+      if (enuContents.length > 0) {
+        return enuContents[0].stem;
+      }
+    }
+    return '';
+  }
+
+  private _deleteResponseIndex: number;
+
+  get deleteResponseIndex(): number {
+    return this._deleteResponseIndex;
+  }
+  set deleteResponseIndex(value: number) {
+    this._deleteResponseIndex = value;
+  }
+
+  get responses(): FormArray {
+    return this.responseForm.get('responses') as FormArray;
+  };
+
+  public currentItem(): Item {
+    const samples: Sample[] = [];
+    // Get UI Responses into Samples model objects
+    for (let i = 0; i < this.responses.length; i++) {
+       const sample = new Sample();
+       sample.name = 'Exemplar ' + i;
+       sample.purpose = 'Exemplar';
+       sample.samplecontent = this.responses.at(i).get('samplecontent').value;
+       sample.scorepoint = null;
+       samples.push(sample);
+    }
+
+    for (const content of this.item.contents) {
+      if (content.language === 'ENU') {
+        content.stem = this.stemForm.get('promptStem').value;
+        if (content.rubrics.length === 0) {
+          const enuRubric = new Rubric();
+          enuRubric.name = 'ExemplarResponse';
+          if (samples.length > 0) {
+            enuRubric.samples = samples;
+          }
+          content.rubrics.push(enuRubric);
+        } else {
+          for (const rubric of content.rubrics) {
+            if (rubric.name === 'ExemplarResponse') {
+              if (rubric.samples.length > 0) {
+                rubric.samples = null;
+              }
+              rubric.samples = samples;
+            }
+          }
+        }
+      }
+    }
+    return this.item;
+  }
+
+  constructor(private logger: Logger,
+              public fb: FormBuilder) {
+    this.stemForm = this.fb.group({
+      promptStem: '',
+      disabled: true
+    });
+    this.responseForm = this.fb.group({
+      responses: this.fb.array([])
+    });
+  }
+
+  ngOnInit() {
+    this._deleteResponseIndex = 0;
     if (this.item != null) {
       // Filter ENU content
       // TODO: retrieve default language via configuration
@@ -41,117 +133,34 @@ export class ItemLoadSaComponent implements OnInit {
         content => content.language === 'ENU'
       );
       if (enuContents.length > 0) {
-        this._itemContent = enuContents[0];
-      }
-
-      // Retrieve Exemplar Responses
-      if (this.itemContent) {
-        if (this.itemContent.rubrics.length > 0) {
-          const exemplarRubrics = this.itemContent.rubrics.filter(
+        if (enuContents[0].rubrics.length > 0) {
+          const exemplarRubrics = enuContents[0].rubrics.filter(
             rubric => rubric.name === 'ExemplarResponse'
           );
-
           if (exemplarRubrics.length > 0) {
-            this._itemResponses = exemplarRubrics[0].samples;
-
-            if (this.itemResponses instanceof Array) {
-              for (const response of this.itemResponses) {
-                this.nextResponseId++;
-                response.id = this.nextResponseId;
-              }
+            const samples = exemplarRubrics[0].samples;
+            for (const sample of samples) {
+              this.addResponse(sample.samplecontent);
             }
           }
         }
       }
     }
-  }
-
-  // TODO: Does this field refer to a sub-object in _item? Remove this field and use sub-object in _item instead; confusing to track parts of item in separate fields
-  private _itemContent = new Content();
-  get itemContent(): Content {
-    return this._itemContent;
-  }
-
-  // TODO: Does this field refer to a sub-object in _item? Remove this field and use sub-object in _item instead; confusing to track parts of item in separate fields
-  private _itemResponses: Sample[] = [];
-  get itemResponses(): any[] {
-    return this._itemResponses;
-  }
-
-  // TODO: Move this to be a method on the Item type
-  get itemAttributes(): string {
-    return JSON.stringify(this.item.attributes);
-  }
-
-  private _deleteResponseId: number;
-  get deleteResponseId(): number {
-    return this._deleteResponseId;
-  }
-
-  // TODO: This field shouldn't be needed. Why not use _itemResponses count instead? Remove this field if possible.
-  private nextResponseId: number;
-
-  // TODO: Make this private and add public get method
-  stemForm: FormGroup;
-
-  constructor(private logger: Logger) {
-  }
-
-  ngOnInit() {
-    this._deleteResponseId = 0;
-    this.nextResponseId = 0;
-
-    this.stemForm = new FormGroup(
-      {
-        promptStem: new FormControl()
-      }
-    );
-  }
-
-  // TODO: Function named with "set" prefix should be a property setter instead of a regular function
-  setDeleteResponseId(id: number): void {
-    if (isNumeric(id)) {  // TODO: Why is this check necessary? Remove if possible
-      this._deleteResponseId = id;
+    this.logger.debug('isView: ' + this.isView);
+    if (this.isView) {
+      this.stemForm.disable();
+      this.responseForm.disable();
     }
   }
 
-  // TODO: Function named with "get" prefix should be a property getter instead of a regular function
-  getUpdatedItem(): Item {
-    const enuRubric = new Rubric();
-    enuRubric.name = 'ExemplarResponse';
-
-    for (const content of this.item.contents) {
-      if (content.language === 'ENU') {
-        content.stem = this.stemForm.get('promptStem').value;
-        // content.rubrics.push(enuRubric);
-      }
-    }
-
-    return this.item;
-  }
-
-  addResponse(): void {
-    this.nextResponseId++;
-
-    const resp = new Sample();
-    resp.id = this.nextResponseId;
-    resp.name = 'Exemplar';
-    resp.purpose = 'Exemplar';
-    resp.samplecontent = '';
-    resp.scorepoint = null;
-
-    this.logger.debug('new id: ' + resp.id);
-
-    this.itemResponses.push(resp);
-
+  addResponse(value: string): void {
+    this.responses.push(this.fb.group({samplecontent: value}));
   }
 
   removeResponse(): void {
-    if (this.deleteResponseId !== 0) {
-      this._itemResponses = this.itemResponses.filter(
-        response => response.id !== this.deleteResponseId
-      );
-      this.setDeleteResponseId(0);
+    if (this.deleteResponseIndex !== 0) {
+      this.responses.removeAt(this.deleteResponseIndex);
+      this.deleteResponseIndex = 0;
     }
   }
 }

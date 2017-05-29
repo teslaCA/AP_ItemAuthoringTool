@@ -40,7 +40,7 @@ export class ItemLoadComponent implements OnInit {
   private currentItemId: number;
 
   private _currentItem = new Item();
-  get currentItem(): Item {
+  get item(): Item {
     return this._currentItem;
   }
 
@@ -113,15 +113,27 @@ export class ItemLoadComponent implements OnInit {
   }
 
   createItem(): void {
-    this.logger.debug('creating item: ' + JSON.stringify(this.saItemComponent.getUpdatedItem()));
+    let itemCommit = new Item();
+
+    switch (this.item.type) {
+      case 'sa' : {
+        itemCommit = this.saItemComponent.currentItem();
+        break;
+      }
+    }
+    this.logger.debug('committing item: ' + JSON.stringify(itemCommit));
     // TODO: What if this fails?  Need to not redirect to / on failure
-    this.itemService.commitItemCreate(this.saItemComponent.getUpdatedItem());
+    if (itemCommit.id !== undefined) {
+      this.itemService.commitItemCreate(itemCommit);
+    } else {
+      this.logger.error('Item was not properly loaded from subcomponent. Generate error');
+    }
     this.router.navigateByUrl('/');
   }
 
   cancelCreate(): void {
     // TODO: What if this fails?  Need to not redirect to / on failure
-    this.itemService.rollbackItemCreate(this.currentItem.id);
+    this.itemService.rollbackItemCreate(this.item.id);
     this.router.navigateByUrl('/');
   }
 
@@ -137,21 +149,32 @@ export class ItemLoadComponent implements OnInit {
 
   cancelEdit(): void {
     // TODO: What if this fails?  Need to not redirect to / on failure
-    this.itemService.rollbackItemEdit(this.currentItem.id);
+    this.itemService.rollbackItemEdit(this.item.id);
     this.router.navigateByUrl('/');
   }
 
   commitItem(): void {
-    this.logger.debug('committing item: ' + JSON.stringify(this.saItemComponent.getUpdatedItem()));
+    let itemCommit = new Item();
+    switch (this.item.type) {
+      case 'sa' : {
+        itemCommit = this.saItemComponent.currentItem();
+        break;
+      }
+    }
+    this.logger.debug('committing item: ' + JSON.stringify(itemCommit));
     // TODO: What if this fails?  Need to not redirect to / on failure
-    this.itemService.commitItemEdit(this.saItemComponent.getUpdatedItem(), 'IAT generated commit');
+    if (itemCommit.id !== undefined) {
+      this.itemService.commitItemEdit(itemCommit, 'IAT generated commit');
+    } else {
+      this.logger.error('Item was not properly loaded from subcomponent. Generate error');
+    }
     this.router.navigateByUrl('/');
   }
 
   isCreate(): boolean {
-    if (this._user && this._currentItem) {
-      if (this._user.username === this._currentItem.beingCreatedBy
-        && this._currentItem.beingEditedBy === null) {
+    if (this._user && this.item) {
+      if (this._user.username === this.item.beingCreatedBy
+        && this.item.beingEditedBy === null) {
         return true;
       }
     }
@@ -159,9 +182,9 @@ export class ItemLoadComponent implements OnInit {
   }
 
   isView(): boolean {
-    if (this._currentItem) {
-      if (this._currentItem.beingCreatedBy === null
-        && this._currentItem.beingEditedBy === null) {
+    if (this.item) {
+      if (this.item.beingCreatedBy === null
+        && this.item.beingEditedBy === null) {
         return true;
       }
     }
@@ -169,9 +192,9 @@ export class ItemLoadComponent implements OnInit {
   }
 
   isEdit(): boolean {
-    if (this._user && this._currentItem) {
-      if (this._user.username === this._currentItem.beingEditedBy
-        && this._currentItem.beingCreatedBy === null) {
+    if (this._user && this.item) {
+      if (this._user.username === this.item.beingEditedBy
+        && this.item.beingCreatedBy === null) {
         return true;
       }
     }
@@ -180,10 +203,10 @@ export class ItemLoadComponent implements OnInit {
 
   // TODO: Why isn't this the negation of isEdit?
   isNotEditable(): boolean {
-    if (this._user && this._currentItem) {
-      if (this._currentItem.beingCreatedBy === null
-        && this._currentItem.beingEditedBy != null
-        && this._user.username !== this._currentItem.beingEditedBy) {
+    if (this._user && this.item) {
+      if (this.item.beingCreatedBy === null
+        && this.item.beingEditedBy != null
+        && this._user.username !== this.item.beingEditedBy) {
         return true;
       }
     }
@@ -198,7 +221,7 @@ export class ItemLoadComponent implements OnInit {
     this.logger.debug('retrieved item: ' + JSON.stringify(item));
     let navBarMsgPrefix: string;
     this._currentItem = item;
-    this._currentItem.description = this.lookupService.getItemDescription(this._currentItem.type);
+    this._currentItem.description = this.lookupService.getItemDescription(this.item.type);
 
     if (this.isCreate()) {
       // Item is currently being created by logged in user
@@ -211,7 +234,7 @@ export class ItemLoadComponent implements OnInit {
       navBarMsgPrefix = 'Edit';
     }
 
-    this._navBarMessage = navBarMsgPrefix + ' Item ' + this._currentItem.id
+    this._navBarMessage = navBarMsgPrefix + ' Item ' + this.item.id
       + ' | ' + this._currentItem.description;
   }
 
@@ -242,7 +265,7 @@ export class ItemLoadComponent implements OnInit {
     const body = error.json() || '';
     const objMessages = JSON.parse(JSON.stringify(body));
 
-    let msgs: string;
+    let msgs = '';
 
     if (objMessages instanceof Array) {
       for (const msg of objMessages) {

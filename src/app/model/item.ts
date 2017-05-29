@@ -66,8 +66,6 @@ export class Rubric {
 }
 
 export class Sample {
-  id: number;
-
   name: string;
 
   purpose: string;
