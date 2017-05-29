@@ -47,16 +47,18 @@
     </div>
 </form>
 
-<div class="row">
-    <div class="col-lg-12">
-        <button class="btn btn-primary" (click)="addResponse()">
-            <i class="fa fa-plus" aria-hidden="true"></i>
-            Add exemplar response
-        </button>
+          <div class="row">
+              <div class="col-md-12">
+                  <button class="btn btn-primary" (click)="addResponse()">
+                      <i class="fa fa-plus" aria-hidden="true"></i>
+                      Add exemplar response
+                  </button>
+              </div>
+          </div>
+        </div>
     </div>
 </div>
-<!--</div>-->
-
+<!-- TODO: Move dialog to separate component: DialogComponent -->
 <!-- Modal -->
 <div id="deleteExemplarResponse" class="modal fade" bsModal #deleteExemplarResponse="bs-modal"
      [config]="{backdrop: 'static'}"
