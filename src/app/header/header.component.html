@@ -15,73 +15,65 @@
   -->
 
 <header>
-    <div class="container">
+  <div class="container">
 
-        <div class="row">
-            <div class="col-md-12">
-                <nav class="navbar navbar-default" role="navigation">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                                data-target=".navbar-collapse"
-                                aria-expanded="false" (click)="isCollapsed = !isCollapsed">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <a class="navbar-brand hidden-xs" routerLink="/" title="Reporting System Dashboard"><img
-                                src="/assets/images/SmarterBalanced-Logo.png"
-                                alt="Smarter Balanced Assessment Consortium"></a>
-                        <span class="application-title">Item Authoring Tool</span>
-                    </div>
-                    <div class="navbar-collapse collapse" [collapse]="isCollapsed">
-                        <ul class="nav navbar-nav navbar-right">
-                            <li class="dropdown" dropdown>
-                                <a href="#" (click)="false" dropdownToggle class="dropdown-toggle btn-sm" data-toggle="dropdown"
-                                   role="button"
-                                   aria-haspopup="true"
-                                   aria-expanded="false">
-                                    <i class="fa fa-user-circle"></i>
-                                    <span *ngIf="user">{{user.fullName}}</span>
-                                    <span class="caret"></span>
-                                </a>
-                                <ul *dropdownMenu class="dropdown-menu" role="menu">
-                                    <!--<li role="menuitem"><a href="#">Action</a></li>-->
-                                    <!--<li role="menuitem"><a href="#">Another action</a></li>-->
-                                    <!--<li role="menuitem"><a href="#">Something else here</a></li>-->
-                                    <!--<li role="separator" class="divider"></li>-->
-                                    <li role="menuitem"><a href="#" (click)="staticModal.show()">Log out</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
-            </div>
-        </div>
+    <div class="row">
+      <div class="col-lg-12">
+        <nav class="navbar navbar-default" role="navigation">
+          <div class="navbar-header">
+            <a class="navbar-brand" routerLink="/" title="Reporting System Dashboard"><img
+                src="/assets/images/SmarterBalanced-Logo.png"
+                alt="Smarter Balanced Assessment Consortium"></a>
+            <span class="application-title">Item Authoring Tool</span>
+          </div>
+          <div>
+            <ul class="nav navbar-nav navbar-right">
+              <li class="dropdown" dropdown>
+                <a href="#" (click)="false" dropdownToggle class="dropdown-toggle btn-sm" data-toggle="dropdown"
+                   role="button"
+                   aria-haspopup="true"
+                   aria-expanded="false">
+                  <i class="fa fa-user-circle"></i>
+                  <span *ngIf="user">{{user.fullName}}</span>
+                  <span class="caret"></span>
+                </a>
+                <ul *dropdownMenu class="dropdown-menu" role="menu">
+                  <!--<li role="menuitem"><a href="#">Action</a></li>-->
+                  <!--<li role="menuitem"><a href="#">Another action</a></li>-->
+                  <!--<li role="menuitem"><a href="#">Something else here</a></li>-->
+                  <!--<li role="separator" class="divider"></li>-->
+                  <li role="menuitem"><a href="#" (click)="staticModal.show()">Log out</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
     </div>
+  </div>
 </header>
 
 <!-- Modal -->
 <div id="myModal" class="modal fade" bsModal #staticModal="bs-modal" [config]="{backdrop: 'static'}"
      tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"
-                        (click)="staticModal.hide()">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <h4 class="modal-title" id="myModalLabel">Log out?</h4>
-            </div>
-            <div class="modal-body">
-                Are you sure you want to log out?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" (click)="logOut()">Log out</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal" (click)="staticModal.hide()">Cancel
-                </button>
-            </div>
-        </div>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                (click)="staticModal.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">Log out?</h4>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to log out?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="logOut()">Log out</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="staticModal.hide()">Cancel
+        </button>
+      </div>
     </div>
+  </div>
 </div>
