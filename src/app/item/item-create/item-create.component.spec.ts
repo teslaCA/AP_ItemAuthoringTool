@@ -5,6 +5,7 @@ import {AlertModule} from 'ngx-bootstrap/alert';
 import {LookupService} from '../../service/lookup.service';
 import {ItemService} from '../../service/item.service';
 import {ItemCreateComponent} from './item-create.component';
+import {Logger} from "../../utility/logger";
 
 describe('ItemCreateComponent', () => {
     let component: ItemCreateComponent;
@@ -22,7 +23,8 @@ describe('ItemCreateComponent', () => {
             ],
             providers: [
                 LookupService,
-                ItemService
+                ItemService,
+                Logger
             ]
         })
             .compileComponents();

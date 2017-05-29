@@ -3,6 +3,7 @@ import { HttpModule } from '@angular/http';
 import { ItemSelectTypeComponent } from './item-select-type.component';
 import { LookupService} from '../../../service/lookup.service';
 import { RouterTestingModule} from '@angular/router/testing';
+import {Logger} from "../../../utility/logger";
 
 describe('ItemSelectTypeComponent', () => {
 
@@ -16,7 +17,8 @@ describe('ItemSelectTypeComponent', () => {
         RouterTestingModule
       ],
       providers: [
-        LookupService
+        LookupService,
+        Logger
       ]
     }).compileComponents();
   }));
