@@ -3,7 +3,7 @@
   <div class="container">
 
     <div *ngIf="loading">
-      <alert type="info">Loading item data&hellip;&nbsp;&nbsp;<i class="fa fa-refresh fa-spin fa-2x fa-fw"></i></alert>
+      <alert type="info"><i class="fa fa-refresh fa-spin fa-fw"></i> Loading item data&hellip;</alert>
     </div>
 
     <!-- Content Logic -->
@@ -14,7 +14,7 @@
         <div *ngIf="!isNotEditable()">
 
           <div *ngIf="isCreate() || isEdit() || isView()">
-            <h1 class="h3">
+            <h1>
               {{navBarMessage}}
             </h1>
             <!--
@@ -36,7 +36,7 @@
               <div class="col-lg-6">
                 <div *ngIf="isCreate()">
                   <button class="btn btn-primary" (click)="commitModal.show()">Create item</button>
-                  <button class="btn btn-primary" (click)="cancelModal.show()">Cancel</button>
+                  <button class="btn btn-link" (click)="cancelModal.show()">Cancel</button>
                 </div>
                 <div *ngIf="isView()">
                   <button class="btn btn-primary" (click)="goHome()">Done</button>
@@ -45,7 +45,7 @@
                 <div *ngIf="isEdit()">
                   <button class="btn btn-primary" (click)="commitModal.show()">Commit Changes
                   </button>
-                  <button class="btn btn-primary" (click)="cancelModal.show()">Discard Changes
+                  <button class="btn btn-link" (click)="cancelModal.show()">Discard Changes
                   </button>
                 </div>
               </div>
@@ -92,7 +92,7 @@
                 (click)="commitModal.hide()">
           <span aria-hidden="true">&times;</span>
         </button>
-        <h4 class="modal-title" id="commitModalLabel">Confirm commit</h4>
+        <h3 class="modal-title" id="commitModalLabel">Confirm commit</h3>
       </div>
       <div class="modal-body">
         <span *ngIf="isCreate()">Are you sure you want to create this new item?</span>
@@ -122,7 +122,7 @@
                 (click)="cancelModal.hide()">
           <span aria-hidden="true">&times;</span>
         </button>
-        <h4 class="modal-title" id="cancelModalLabel">Confirm cancel</h4>
+        <h3 class="modal-title" id="cancelModalLabel">Confirm cancel</h3>
       </div>
       <div class="modal-body">
         <span
@@ -131,12 +131,11 @@
             *ngIf="isEdit()">Are you sure you want to discard all changes you've made since you've started editing?</span>
       </div>
       <div class="modal-footer">
-        <button *ngIf="isCreate()" type="button" class="btn btn-primary btn-small" (click)="cancelCreate()">
-          Yes
+        <button *ngIf="isCreate()" type="button" class="btn btn-primary btn-small" (click)="cancelCreate()">Yes
         </button>
         <button *ngIf="isEdit()" type="button" class="btn btn-primary btn-small" (click)="cancelEdit()">Yes
         </button>
-        <button type="button" class="btn btn-default btn-small"
+        <button type="button" class="btn btn-link btn-small"
                 data-dismiss="modal" (click)="cancelModal.hide()">No
         </button>
       </div>
