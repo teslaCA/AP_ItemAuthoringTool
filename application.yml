@@ -25,13 +25,14 @@ saml:
   spEntityId: "${SAML_SP_ENTITY_ID}"
 
 zuul:
-  #host:
-  #  socket-timeout-millis: 10000
+  host:
+    socket-timeout-millis: 30000
   routes:
     ims-api:
       path: /api/ims/**
       url: http://localhost:8081/api
 
+# session timeout in seconds
 server:
   session:
-    timeout: 600
+    timeout: 1800
