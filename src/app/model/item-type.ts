@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 export class ItemType {
+
   abbreviation: string;
 
   icon: string;

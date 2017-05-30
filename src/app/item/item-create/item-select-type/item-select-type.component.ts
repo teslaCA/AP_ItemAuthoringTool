@@ -26,6 +26,7 @@ import {Logger} from "../../../utility/logger";
   providers: [LookupService]
 })
 export class ItemSelectTypeComponent implements OnInit {
+
   private _items: ItemType[];
   get items(): ItemType[] {
     return this._items;

@@ -21,6 +21,7 @@ import {Item} from "../../model/item";
 import {ItemService} from "../../service/item.service";
 import {ItemLoadSaComponent} from "../item-load-sa/item-load-sa.component";
 import {Logger} from "../../utility/logger";
+import {AlertService} from "../../service/alert.service";
 
 // TODO: Move stem-related code into separate component (called StemComponent)
 // TODO: Move exemplar response-related code into separate component (called ExemplarResponsesComponent)
@@ -37,6 +38,7 @@ import {Logger} from "../../utility/logger";
 })
 // TODO: This class has too many fields - clear sign it needs to be factored into multiple classes
 export class ItemLoadComponent implements OnInit {
+
   private currentItemId: number;
 
   private _currentItem = new Item();
@@ -75,7 +77,8 @@ export class ItemLoadComponent implements OnInit {
               private router: Router,
               private route: ActivatedRoute,
               private lookupService: LookupService,
-              private itemService: ItemService) {
+              private itemService: ItemService,
+              private alertService: AlertService) {
   }
 
   ngOnInit() {
@@ -124,6 +127,9 @@ export class ItemLoadComponent implements OnInit {
     this.logger.debug('committing item: ' + JSON.stringify(itemCommit));
     // TODO: What if this fails?  Need to not redirect to / on failure
     if (itemCommit.id !== undefined) {
+      // TODO: Take out this alert after this section of code no longer always redirects to /
+      this.alertService.processing('Creating Item', `Your item is being created.`);
+
       this.itemService.commitItemCreate(itemCommit);
     } else {
       this.logger.error('Item was not properly loaded from subcomponent. Generate error');
@@ -132,6 +138,9 @@ export class ItemLoadComponent implements OnInit {
   }
 
   cancelCreate(): void {
+    // TODO: Take out this alert after this section of code no longer always redirects to /
+    this.alertService.processing('Cancelling Creation', `Your item is being removed.`);
+
     // TODO: What if this fails?  Need to not redirect to / on failure
     this.itemService.rollbackItemCreate(this.item.id);
     this.router.navigateByUrl('/');
@@ -148,6 +157,9 @@ export class ItemLoadComponent implements OnInit {
   }
 
   cancelEdit(): void {
+    // TODO: Take out this alert after this section of code no longer always redirects to /
+    this.alertService.processing('Discarding Changes', `Your changes to the item are being discarded.`);
+
     // TODO: What if this fails?  Need to not redirect to / on failure
     this.itemService.rollbackItemEdit(this.item.id);
     this.router.navigateByUrl('/');
@@ -162,6 +174,10 @@ export class ItemLoadComponent implements OnInit {
       }
     }
     this.logger.debug('committing item: ' + JSON.stringify(itemCommit));
+
+    // TODO: Take out this alert after this section of code no longer always redirects to /
+    this.alertService.processing('Saving Changes', `Your changes to the item are being saved.`);
+
     // TODO: What if this fails?  Need to not redirect to / on failure
     if (itemCommit.id !== undefined) {
       this.itemService.commitItemEdit(itemCommit, 'IAT generated commit');

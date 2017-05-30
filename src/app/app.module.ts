@@ -35,6 +35,8 @@ import {ItemLoadComponent} from "./item/item-load/item-load.component";
 import {ItemRedirectComponent} from "./item/item-redirect/item-redirect.component";
 import {NoRouteComponent} from "./no-route/no-route.component";
 import {Logger} from "./utility/logger";
+import {ToastyModule} from "ng2-toasty";
+import {AlertService} from "./service/alert.service";
 
 @NgModule({
   declarations: [
@@ -58,10 +60,12 @@ import {Logger} from "./utility/logger";
     BsDropdownModule.forRoot(),
     ModalModule.forRoot(),
     AlertModule.forRoot(),
-    Ng2BootstrapModule.forRoot()
+    Ng2BootstrapModule.forRoot(),
+    ToastyModule.forRoot()
   ],
   providers: [
-    Logger
+    Logger,
+    AlertService
   ],
   bootstrap: [
     AppComponent
