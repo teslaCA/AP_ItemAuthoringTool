@@ -32,6 +32,7 @@ zuul:
       path: /api/ims/**
       url: http://localhost:8081/api
 
+# session timeout in seconds
 server:
   session:
-    timeout: 600
+    timeout: 1800
