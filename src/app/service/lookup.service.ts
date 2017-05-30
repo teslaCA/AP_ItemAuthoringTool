@@ -42,6 +42,7 @@ const OTHER_ITEMS: ItemType[] = [
 
 @Injectable()
 export class LookupService {
+
   private userResource = '/api/users/principal';
   private buildInfoResource = '/manage/info';
 

@@ -38,6 +38,7 @@ import {AlertService} from "../../service/alert.service";
 })
 // TODO: This class has too many fields - clear sign it needs to be factored into multiple classes
 export class ItemLoadComponent implements OnInit {
+
   private currentItemId: number;
 
   private _currentItem = new Item();

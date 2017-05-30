@@ -24,6 +24,7 @@ import {Logger} from "../../utility/logger";
   styleUrls: ['./item-load-sa.component.less']
 })
 export class ItemLoadSaComponent implements OnInit {
+
   stemForm: FormGroup;
 
   responseForm: FormGroup;

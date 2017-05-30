@@ -28,6 +28,7 @@ import {Logger} from "../../utility/logger";
   ]
 })
 export class ItemCreateComponent implements OnInit {
+
   private itemType: string;
 
   private errorMessage: string;

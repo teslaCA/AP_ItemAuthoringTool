@@ -26,6 +26,7 @@ import {AlertService} from "./alert.service";
 
 @Injectable()
 export class ItemService {
+
   private static serviceUrl = '/api/ims/v1/items';
   private static requestOptions = new RequestOptions({ headers : new Headers({ 'Content-Type': 'application/json'}) });
 
