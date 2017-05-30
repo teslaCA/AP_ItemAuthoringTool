@@ -19,7 +19,8 @@ import {ToastOptions, ToastyConfig, ToastyService} from "ng2-toasty";
 /**
  * Service for showing growl-style alerts to the user.
  *
- * This service uses the ng2-toasty library (https://github.com/akserg/ng2-toasty/blob/master/README.md).
+ * This service uses the ng2-toasty library (https://github.com/akserg/ng2-toasty/blob/master/README.md) to display
+ * the alerts.
  */
 @Injectable()
 export class AlertService {
