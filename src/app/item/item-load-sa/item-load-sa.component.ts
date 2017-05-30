@@ -24,30 +24,79 @@ import {Logger} from "../../utility/logger";
   styleUrls: ['./item-load-sa.component.less']
 })
 export class ItemLoadSaComponent implements OnInit {
+
   stemForm: FormGroup;
 
   responseForm: FormGroup;
 
   private _item = new Item();
-
   get item() {
     return this._item;
   }
-
   @Input()
   set item(item) {
     this._item = item;
   }
 
   private _isView: boolean;
-
   get isView() {
     return this._isView;
   }
-
   @Input()
   set isView(value) {
     this._isView = value;
+  }
+
+  private _deleteResponseIndex: number;
+  get deleteResponseIndex(): number {
+    return this._deleteResponseIndex;
+  }
+  set deleteResponseIndex(value: number) {
+    this._deleteResponseIndex = value;
+  }
+
+  get responses(): FormArray {
+    return this.responseForm.get('responses') as FormArray;
+  };
+
+  constructor(private logger: Logger,
+              public fb: FormBuilder) {
+    this.stemForm = this.fb.group({
+      promptStem: '',
+      disabled: true
+    });
+    this.responseForm = this.fb.group({
+      responses: this.fb.array([])
+    });
+  }
+
+  ngOnInit() {
+    this._deleteResponseIndex = -1;
+    if (this.item != null) {
+      // Filter ENU content
+      // TODO: retrieve default language via configuration
+      const enuContents = this.item.contents.filter(
+        content => content.language === 'ENU'
+      );
+      if (enuContents.length > 0) {
+        if (enuContents[0].rubrics.length > 0) {
+          const exemplarRubrics = enuContents[0].rubrics.filter(
+            rubric => rubric.name === 'ExemplarResponse'
+          );
+          if (exemplarRubrics.length > 0) {
+            const samples = exemplarRubrics[0].samples;
+            for (const sample of samples) {
+              this.addResponse(sample.samplecontent);
+            }
+          }
+        }
+      }
+    }
+    this.logger.debug('isView: ' + this.isView);
+    if (this.isView) {
+      this.stemForm.disable();
+      this.responseForm.disable();
+    }
   }
 
   // TODO: Move to Item object
@@ -62,19 +111,6 @@ export class ItemLoadSaComponent implements OnInit {
     }
     return '';
   }
-
-  private _deleteResponseIndex: number;
-
-  get deleteResponseIndex(): number {
-    return this._deleteResponseIndex;
-  }
-  set deleteResponseIndex(value: number) {
-    this._deleteResponseIndex = value;
-  }
-
-  get responses(): FormArray {
-    return this.responseForm.get('responses') as FormArray;
-  };
 
   public currentItem(): Item {
     const samples: Sample[] = [];
@@ -113,54 +149,14 @@ export class ItemLoadSaComponent implements OnInit {
     return this.item;
   }
 
-  constructor(private logger: Logger,
-              public fb: FormBuilder) {
-    this.stemForm = this.fb.group({
-      promptStem: '',
-      disabled: true
-    });
-    this.responseForm = this.fb.group({
-      responses: this.fb.array([])
-    });
-  }
-
-  ngOnInit() {
-    this._deleteResponseIndex = 0;
-    if (this.item != null) {
-      // Filter ENU content
-      // TODO: retrieve default language via configuration
-      const enuContents = this.item.contents.filter(
-        content => content.language === 'ENU'
-      );
-      if (enuContents.length > 0) {
-        if (enuContents[0].rubrics.length > 0) {
-          const exemplarRubrics = enuContents[0].rubrics.filter(
-            rubric => rubric.name === 'ExemplarResponse'
-          );
-          if (exemplarRubrics.length > 0) {
-            const samples = exemplarRubrics[0].samples;
-            for (const sample of samples) {
-              this.addResponse(sample.samplecontent);
-            }
-          }
-        }
-      }
-    }
-    this.logger.debug('isView: ' + this.isView);
-    if (this.isView) {
-      this.stemForm.disable();
-      this.responseForm.disable();
-    }
-  }
-
   addResponse(value: string): void {
     this.responses.push(this.fb.group({samplecontent: value}));
   }
 
   removeResponse(): void {
-    if (this.deleteResponseIndex !== 0) {
+    if (this.deleteResponseIndex !== -1) {
       this.responses.removeAt(this.deleteResponseIndex);
-      this.deleteResponseIndex = 0;
+      this.deleteResponseIndex = -1;
     }
   }
 }
