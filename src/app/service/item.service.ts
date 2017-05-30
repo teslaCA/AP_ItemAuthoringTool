@@ -77,12 +77,12 @@ export class ItemService {
       .post(url, { item: item }, ItemService.requestOptions)
       .subscribe(
         (response: Response) => {
-          this.alertService.success('Your item has been created and added to the item bank.');
+          this.alertService.success('Item Created', 'Your item has been created and added to the item bank.');
 
           this.logger.debug('post ' + url + ' operation successful');
         },
         e => {
-          this.alertService.error(`The creation of your item failed.  Reason:\n\n${e}`);
+          this.alertService.error('Error Creating Item', `An error was encountered trying to create your item.  Reason:\n\n${e}`);
 
           this.handleError(e);
         });
@@ -98,8 +98,16 @@ export class ItemService {
     this.http
       .post(url, null, ItemService.requestOptions)
       .subscribe(
-        (response: Response) => { this.logger.debug('delete ' + url + ' operation successful'); },
-        e => { this.handleError(e); });
+        (response: Response) => {
+          this.alertService.success('Creation Cancelled', 'The item you were creating has been successfully removed.');
+
+          this.logger.debug('delete ' + url + ' operation successful');
+        },
+        e => {
+          this.alertService.error('Error Cancelling Creation', `An error was encountered trying to cancel the creation of your item.  Reason:\n\n${e}`);
+
+          this.handleError(e);
+        });
   }
 
   //---------------------------------------------------------------------------
@@ -127,8 +135,16 @@ export class ItemService {
     this.http
       .put(url, { item: item, message: commitMessage }, ItemService.requestOptions)
       .subscribe(
-        (response: Response) => { this.logger.debug('put ' + url + ' operation successful'); },
-        e => { this.handleError(e); });
+        (response: Response) => {
+          this.alertService.success('Changes Saved', 'Your edits to the item have been saved.');
+
+          this.logger.debug('put ' + url + ' operation successful');
+        },
+        e => {
+          this.alertService.error('Error Saving Changes', `Your edits to the item failed to be saved.  Reason:\n\n${e}`);
+
+          this.handleError(e);
+        });
   }
 
   // Rollback the editing of the item (the changes made to the item since editing began will be removed)
@@ -141,8 +157,16 @@ export class ItemService {
     this.http
       .put(url, null, ItemService.requestOptions)
       .subscribe(
-        (response: Response) => { this.logger.debug('put ' + url + ' operation successful'); },
-        e => { this.handleError(e); });
+        (response: Response) => {
+          this.alertService.success('Changes Discarded', 'Your edits to the item have been successfully discarded.');
+
+          this.logger.debug('put ' + url + ' operation successful');
+        },
+        e => {
+          this.alertService.error('Error Discarding Changes', `An error was encountered trying to discard your edits to the item.  Reason:\n\n${e}`);
+
+          this.handleError(e);
+        });
   }
 
   //---------------------------------------------------------------------------

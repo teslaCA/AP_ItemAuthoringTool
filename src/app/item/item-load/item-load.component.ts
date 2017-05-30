@@ -128,7 +128,7 @@ export class ItemLoadComponent implements OnInit {
     // TODO: What if this fails?  Need to not redirect to / on failure
     if (itemCommit.id !== undefined) {
       // TODO: Take out this alert after this section of code no longer always redirects to /
-      this.alertService.processing(`Your item is being created.`);
+      this.alertService.processing('Creating Item', `Your item is being created.`);
 
       this.itemService.commitItemCreate(itemCommit);
     } else {
@@ -138,6 +138,9 @@ export class ItemLoadComponent implements OnInit {
   }
 
   cancelCreate(): void {
+    // TODO: Take out this alert after this section of code no longer always redirects to /
+    this.alertService.processing('Cancelling Creation', `Your item is being removed.`);
+
     // TODO: What if this fails?  Need to not redirect to / on failure
     this.itemService.rollbackItemCreate(this.item.id);
     this.router.navigateByUrl('/');
@@ -154,6 +157,9 @@ export class ItemLoadComponent implements OnInit {
   }
 
   cancelEdit(): void {
+    // TODO: Take out this alert after this section of code no longer always redirects to /
+    this.alertService.processing('Discarding Changes', `Your changes to the item are being discarded.`);
+
     // TODO: What if this fails?  Need to not redirect to / on failure
     this.itemService.rollbackItemEdit(this.item.id);
     this.router.navigateByUrl('/');
@@ -168,6 +174,10 @@ export class ItemLoadComponent implements OnInit {
       }
     }
     this.logger.debug('committing item: ' + JSON.stringify(itemCommit));
+
+    // TODO: Take out this alert after this section of code no longer always redirects to /
+    this.alertService.processing('Saving Changes', `Your changes to the item are being saved.`);
+
     // TODO: What if this fails?  Need to not redirect to / on failure
     if (itemCommit.id !== undefined) {
       this.itemService.commitItemEdit(itemCommit, 'IAT generated commit');

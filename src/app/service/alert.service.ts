@@ -34,45 +34,50 @@ export class AlertService {
 
   /**
    * Show an alert indicating success.
-   * @param message the message to display.
+   * @param title the title of the alert.
+   * @param message the message of the alert.
    */
-  success(message: string) {
-    this.toastyService.success(AlertService.buildToastOptions(message));
+  success(title: string, message: string) {
+    this.toastyService.success(AlertService.buildToastOptions(title, message));
   }
 
   /**
    * Show an alert indicating general info.
-   * @param message the message to display.
+   * @param title the title of the alert.
+   * @param message the message of the alert.
    */
-  info(message: string) {
-    this.toastyService.info(AlertService.buildToastOptions(message));
+  info(title: string, message: string) {
+    this.toastyService.info(AlertService.buildToastOptions(title, message));
   }
 
   /**
    * Show an alert indicating a warning.
-   * @param message the message to display.
+   * @param title the title of the alert.
+   * @param message the message of the alert.
    */
-  warning(message: string) {
-    this.toastyService.warning(AlertService.buildToastOptions(message, "Warning"));
+  warning(title: string, message: string) {
+    this.toastyService.warning(AlertService.buildToastOptions(title, message));
   }
 
   /**
    * Show an alert indicating an error.
-   * @param message the message to display.
+   * @param title the title of the alert.
+   * @param message the message of the alert.
    */
-  error(message: string) {
-    this.toastyService.error(AlertService.buildToastOptions(message, "Error"));
+  error(title: string, message: string) {
+    this.toastyService.error(AlertService.buildToastOptions(title, message));
   }
 
   /**
    * Show an alert indicating processing is under way.
-   * @param message the message to display.
+   * @param title the title of the alert.
+   * @param message the message of the alert.
    */
-  processing(message: string) {
-    this.toastyService.wait(AlertService.buildToastOptions(message));
+  processing(title: string, message: string) {
+    this.toastyService.wait(AlertService.buildToastOptions(title, message));
   }
 
-  private static buildToastOptions(message: string, title?: string): ToastOptions {
+  private static buildToastOptions(title: string, message: string): ToastOptions {
     let options = new ToastOptions();
     options.msg = message;
     options.title = title;
