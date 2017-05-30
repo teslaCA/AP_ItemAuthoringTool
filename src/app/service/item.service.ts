@@ -1,3 +1,18 @@
+/*
+ * Copyright 2017 Regents of the University of California.
+ *
+ * Licensed under the Educational Community License, Version 2.0 (the "license");
+ * you may not use this file except in compliance with the License. You may
+ * obtain a copy of the license at
+ *
+ * https://opensource.org/licenses/ECL-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
@@ -7,6 +22,7 @@ import 'rxjs/add/observable/throw';
 
 import { Item } from '../model/item';
 import {Logger} from "../utility/logger";
+import {AlertService} from "./alert.service";
 
 @Injectable()
 export class ItemService {
@@ -15,7 +31,8 @@ export class ItemService {
 
   constructor(
     private logger: Logger,
-    private http: Http
+    private http: Http,
+    private alertService: AlertService  // TODO: Remove injection of AlertService once all public methods return Observables (the caller will use the AlertService to alert user to success or failure)
   ) { }
 
   //---------------------------------------------------------------------------
@@ -58,8 +75,16 @@ export class ItemService {
     this.http
       .post(url, { item: item }, ItemService.requestOptions)
       .subscribe(
-        (response: Response) => { this.logger.debug('post ' + url + ' operation successful'); },
-        e => { this.handleError(e); });
+        (response: Response) => {
+          this.alertService.success('Your item has been created and added to the item bank.');
+
+          this.logger.debug('post ' + url + ' operation successful');
+        },
+        e => {
+          this.alertService.error(`The creation of your item failed.  Reason:\n\n${e}`);
+
+          this.handleError(e);
+        });
   }
 
   // Rollback the creation of the item (the item will be removed entirely)
