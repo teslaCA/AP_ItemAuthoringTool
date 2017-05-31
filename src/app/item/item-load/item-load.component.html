@@ -35,7 +35,7 @@
             <div class="row row-top">
               <div class="col-lg-6">
                 <div *ngIf="isCreate()">
-                  <button class="btn btn-primary" (click)="commitModal.show()">Create item</button>
+                  <button class="btn btn-primary" (click)="commitModal.show()">Create Item</button>
                   <button class="btn btn-link" (click)="cancelModal.show()">Cancel</button>
                 </div>
                 <div *ngIf="isView()">
@@ -91,7 +91,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="commitModal.hide()">
           <span aria-hidden="true">&times;</span>
         </button>
-        <h3 class="modal-title" id="commitModalLabel">Confirm commit</h3>
+        <h3 class="modal-title" id="commitModalLabel">Confirm Commit</h3>
       </div>
       <div *ngIf="isCreate()" class="modal-body">
         <span>Are you sure you want to finish creating this item and add it to the item bank?</span>
@@ -136,7 +136,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="cancelModal.hide()">
           <span aria-hidden="true">&times;</span>
         </button>
-        <h3 class="modal-title" id="cancelModalLabel">Confirm cancel</h3>
+        <h3 class="modal-title" id="cancelModalLabel">Confirm Cancel</h3>
       </div>
       <div class="modal-body">
         <span *ngIf="isCreate()">Are you sure you want to cancel creating this item and lose all changes you have made?</span>
