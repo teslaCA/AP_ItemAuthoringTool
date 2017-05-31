@@ -10,10 +10,11 @@
             <i class="fa fa-plus" aria-hidden="true"></i>
             Create Item or Stimulus
         </button>
-    </div>
-    <div *ngIf="showLink" class="container">
-      <p>
-        <a routerLink="{{itemUrl}}">{{itemLink}}</a>
-      </p>
+        <div *ngIf="showLink">
+            <button class="btn btn-info pull-left" routerLink="{{itemUrl}}">
+              <i class="fa fa-search" aria-hidden="true"></i>
+              {{itemLink}}
+            </button>
+        </div>
     </div>
 </section>

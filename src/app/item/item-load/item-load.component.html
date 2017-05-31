@@ -107,11 +107,13 @@
         </div>
         <div class="row">
           <div class="col-md-12">
-            <form [formGroup]="commitForm">
-              <span>Reason:</span>
-              <input formControlName="commitMsg" type="text" placeholder="Enter change reason here"
-                     class="modal-form-control" maxlength="100" size="50">
-            </form>
+            <div class="form-group">
+                <form [formGroup]="commitForm">
+                  <span>Reason: </span>
+                  <input formControlName="commitMsg" type="text" placeholder="Enter change reason here"
+                         class="modal-form-control" maxlength="100" size="50">
+                </form>
+            </div>
           </div>
         </div>
       </div>
