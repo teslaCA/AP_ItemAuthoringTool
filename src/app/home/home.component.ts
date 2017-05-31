@@ -13,12 +13,59 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import {Component} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
+import {ActivatedRoute} from "@angular/router";
+import {Logger} from "../utility/logger";
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.less']
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
+
+  private action = '';
+
+  private id: number;
+
+  private itemUrl = '';
+
+  private itemLink = '';
+
+  get showLink() : boolean {
+    if (this.action === 'create' || this.action === 'commit') {
+      return true;
+    }
+    return false;
+  }
+
+  constructor(private logger: Logger,
+              private route: ActivatedRoute) {
+  }
+
+  ngOnInit() {
+    this.route.queryParams
+      .subscribe(params => {
+        this.action = params['action'];
+        this.id = params['id'];
+      });
+
+    this.logger.debug('action: ' + this.action);
+    this.logger.debug('id: ' + this.id);
+
+    if (this.action != '') {
+      this.itemUrl = '/item/' + this.id;
+       switch (this.action) {
+         case 'create' : {
+           this.itemLink = 'Go to item you just created';
+           break;
+         }
+         case 'commit' : {
+           this.itemLink = 'Go to item you were just editing';
+           break;
+         }
+       }
+    }
+  }
+
 }

@@ -134,7 +134,7 @@ export class ItemLoadComponent implements OnInit {
     } else {
       this.logger.error('Item was not properly loaded from subcomponent. Generate error');
     }
-    this.router.navigateByUrl('/');
+    this.router.navigateByUrl('/?action=create&id=' + itemCommit.id);
   }
 
   cancelCreate(): void {
@@ -184,7 +184,7 @@ export class ItemLoadComponent implements OnInit {
     } else {
       this.logger.error('Item was not properly loaded from subcomponent. Generate error');
     }
-    this.router.navigateByUrl('/');
+    this.router.navigateByUrl('/?action=commit&id=' + itemCommit.id);
   }
 
   isCreate(): boolean {
