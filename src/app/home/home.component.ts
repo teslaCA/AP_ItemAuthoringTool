@@ -32,7 +32,7 @@ export class HomeComponent implements OnInit {
 
   private itemLink = '';
 
-  get showLink() : boolean {
+  get showLink(): boolean {
     if (this.action === 'create' || this.action === 'commit') {
       return true;
     }
@@ -53,7 +53,7 @@ export class HomeComponent implements OnInit {
     this.logger.debug('action: ' + this.action);
     this.logger.debug('id: ' + this.id);
 
-    if (this.action != '') {
+    if (this.action !== '') {
       this.itemUrl = '/item/' + this.id;
        switch (this.action) {
          case 'create' : {
