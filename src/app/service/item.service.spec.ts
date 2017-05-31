@@ -1,17 +1,21 @@
-import { TestBed, inject } from '@angular/core/testing';
-import { HttpModule } from '@angular/http';
-import { ItemService } from './item.service';
+import {TestBed, inject} from '@angular/core/testing';
+import {HttpModule} from '@angular/http';
+import {ItemService} from './item.service';
 import {Logger} from "../utility/logger";
+import {AlertService} from "./alert.service";
+import {ToastyModule} from "ng2-toasty";
 
 describe('ItemService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
-        HttpModule
+        HttpModule,
+        ToastyModule
       ],
       providers: [
         ItemService,
-        Logger
+        Logger,
+        AlertService
       ]
     });
   });

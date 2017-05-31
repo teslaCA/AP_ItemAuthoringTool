@@ -6,6 +6,8 @@ import {LookupService} from '../../service/lookup.service';
 import {ItemService} from '../../service/item.service';
 import {ItemCreateComponent} from './item-create.component';
 import {Logger} from "../../utility/logger";
+import {AlertService} from "../../service/alert.service";
+import {ToastyModule} from "ng2-toasty";
 
 describe('ItemCreateComponent', () => {
     let component: ItemCreateComponent;
@@ -14,17 +16,19 @@ describe('ItemCreateComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [
-                HttpModule,
-                RouterTestingModule,
-                AlertModule.forRoot()
+              HttpModule,
+              RouterTestingModule,
+              AlertModule.forRoot(),
+              ToastyModule
             ],
             declarations: [
-                ItemCreateComponent
+              ItemCreateComponent
             ],
             providers: [
-                LookupService,
-                ItemService,
-                Logger
+              LookupService,
+              ItemService,
+              Logger,
+              AlertService
             ]
         })
             .compileComponents();
