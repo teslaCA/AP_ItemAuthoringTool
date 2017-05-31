@@ -64,14 +64,14 @@
           <div *ngIf="serviceError">
             <alert type="danger">{{errorMessage}}</alert>
             <p>
-              <button class="btn btn-primary" routerLink="/">Return home</button>
+              <button class="btn btn-primary" routerLink="/">Return Home</button>
             </p>
           </div>
 
           <div *ngIf="isNotEditable()">
             <alert type="danger">Item is currently being edited by {{item?.beingEditedBy}}</alert>
             <p>
-              <button class="btn btn-primary" routerLink="/">Return home</button>
+              <button class="btn btn-primary" routerLink="/">Return Home</button>
             </p>
           </div>
 
@@ -88,24 +88,39 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"
-                (click)="commitModal.hide()">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="commitModal.hide()">
           <span aria-hidden="true">&times;</span>
         </button>
         <h3 class="modal-title" id="commitModalLabel">Confirm commit</h3>
       </div>
-      <div class="modal-body">
-        <span *ngIf="isCreate()">Are you sure you want to create this new item?</span>
-        <span *ngIf="isEdit()">Are you sure you want to commit your changes?</span>
+      <div *ngIf="isCreate()" class="modal-body">
+        <span>Are you sure you want to finish creating this item and add it to the item bank?</span>
+      </div>
+      <div *ngIf="isEdit()" class="modal-body">
+        <div class="row">
+          <div class="col-md-12">
+            Are you sure you want to commit your changes to the item bank?
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">Please enter the reason for your changes to this item.</div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <form [formGroup]="commitForm">
+              <span>Reason:</span>
+              <input formControlName="commitMsg" type="text" placeholder="Enter change reason here"
+                     class="modal-form-control" maxlength="100" size="50">
+            </form>
+          </div>
+        </div>
       </div>
       <div class="modal-footer">
         <button *ngIf="isCreate()" type="button" class="btn btn-primary btn-small" (click)="createItem()">Yes
         </button>
         <button *ngIf="isEdit()" type="button" class="btn btn-primary btn-small" (click)="commitItem()">Yes
         </button>
-
-        <button type="button" class="btn btn-default btn-small"
-                data-dismiss="modal" (click)="commitModal.hide()">No
+        <button type="button" class="btn btn-default btn-small"data-dismiss="modal" (click)="commitModal.hide()">No
         </button>
       </div>
     </div>
@@ -118,22 +133,20 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"
-                (click)="cancelModal.hide()">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="cancelModal.hide()">
           <span aria-hidden="true">&times;</span>
         </button>
         <h3 class="modal-title" id="cancelModalLabel">Confirm cancel</h3>
       </div>
       <div class="modal-body">
-        <span
-            *ngIf="isCreate()">Are you sure you want to cancel creating this item and lose all changes you have made?</span>
-        <span
-            *ngIf="isEdit()">Are you sure you want to discard all changes you've made since you've started editing?</span>
+        <span *ngIf="isCreate()">Are you sure you want to cancel creating this item and lose all changes you have made?</span>
+        <span *ngIf="isEdit()">Are you sure you want to discard all changes you've made since you've started editing?</span>
       </div>
       <div class="modal-footer">
         <button *ngIf="isCreate()" type="button" class="btn btn-primary btn-small" (click)="cancelCreate()">Yes
         </button>
-        <button *ngIf="isEdit()" type="button" class="btn btn-primary btn-small" (click)="cancelEdit()">Yes
+        <button *ngIf="isEdit()" type="button" class="btn btn-primary btn-small" (click)="cancelEdit()">
+          Yes
         </button>
         <button type="button" class="btn btn-link btn-small"
                 data-dismiss="modal" (click)="cancelModal.hide()">No

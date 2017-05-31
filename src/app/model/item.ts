@@ -18,6 +18,7 @@
 // TODO: Add mappers called at service layer to map between remote JSON and this class hierarchy
 
 export class Item {
+
   attributes: Attribute[] = [];
 
   beingCreatedBy: any;
@@ -36,6 +37,7 @@ export class Item {
 }
 
 export class Attribute {
+
   attid: string;
 
   name: string;
@@ -44,6 +46,7 @@ export class Attribute {
 }
 
 export class Content {
+
   language: string;
 
   rubrics: Rubric[] = [];  // TODO: Need to hook into changes to this field to trigger auto-save
@@ -52,6 +55,7 @@ export class Content {
 }
 
 export class Rubric {
+
   maxVal: any;
 
   minVal: any;
@@ -66,6 +70,7 @@ export class Rubric {
 }
 
 export class Sample {
+
   name: string;
 
   purpose: string;

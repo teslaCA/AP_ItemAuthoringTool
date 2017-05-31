@@ -15,7 +15,7 @@
  */
 import {Component, Input, OnInit} from "@angular/core";
 import {Content, Item, Rubric, Sample} from "../../model/item";
-import {FormArray, FormControl, FormGroup, FormBuilder, ReactiveFormsModule} from '@angular/forms';
+import {FormArray, FormGroup, FormBuilder} from '@angular/forms';
 import {Logger} from "../../utility/logger";
 
 @Component({
@@ -62,8 +62,7 @@ export class ItemLoadSaComponent implements OnInit {
   constructor(private logger: Logger,
               public fb: FormBuilder) {
     this.stemForm = this.fb.group({
-      promptStem: '',
-      disabled: true
+      promptStem: ''
     });
     this.responseForm = this.fb.group({
       responses: this.fb.array([])

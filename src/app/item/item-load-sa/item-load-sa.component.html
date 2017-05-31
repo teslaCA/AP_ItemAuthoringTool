@@ -29,7 +29,6 @@
             -->
 
             <form [formGroup]="responseForm">
-
                 <div formArrayName="responses">
 
                     <div *ngFor="let sample of responses.controls; let i=index" [formGroupName]="i">

@@ -7,6 +7,8 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { ItemLoadSaComponent} from '../item-load-sa/item-load-sa.component';
 import { ItemLoadComponent } from './item-load.component';
 import {Logger} from "../../utility/logger";
+import {AlertService} from "../../service/alert.service";
+import {ToastyModule} from "ng2-toasty";
 
 describe('ItemLoadComponent', () => {
   let component: ItemLoadComponent;
@@ -19,14 +21,16 @@ describe('ItemLoadComponent', () => {
         RouterTestingModule,
         ReactiveFormsModule,
         ModalModule.forRoot(),
-        AlertModule.forRoot()
+        AlertModule.forRoot(),
+        ToastyModule
       ],
       declarations: [
         ItemLoadComponent,
         ItemLoadSaComponent
       ],
       providers: [
-        Logger
+        Logger,
+        AlertService
       ]
     })
     .compileComponents();
