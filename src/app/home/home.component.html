@@ -1,5 +1,4 @@
 <section class="main">
-
     <div class="container">
         <!--
         <form class="form-inline">
@@ -11,5 +10,10 @@
             <i class="fa fa-plus" aria-hidden="true"></i>
             Create Item or Stimulus
         </button>
+    </div>
+    <div *ngIf="showLink" class="container">
+      <p>
+        <a routerLink="{{itemUrl}}">{{itemLink}}</a>
+      </p>
     </div>
 </section>
