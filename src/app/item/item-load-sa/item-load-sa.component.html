@@ -32,17 +32,15 @@
                 <div formArrayName="responses">
 
                     <div *ngFor="let sample of responses.controls; let i=index" [formGroupName]="i">
-                                  <span class="pull-right">
-                                      <a *ngIf="!isView"
-                                         (click)="deleteResponseIndex = i; deleteExemplarResponse.show()">
-                                        <i class="fa fa-trash"></i></a>
-                                  </span>
-                                   <textarea formControlName="samplecontent"
-                                             class="form-control form95"
-                                             rows="3">
-                                   </textarea>
-
-
+                        <span class="pull-right">
+                            <a *ngIf="!isView"
+                               (click)="deleteResponseIndex = i; deleteExemplarResponse.show()">
+                              <i class="fa fa-trash"></i></a>
+                        </span>
+                         <textarea formControlName="samplecontent"
+                                   class="form-control form95"
+                                   rows="3">
+                         </textarea>
                     </div>
 
                 </div>
