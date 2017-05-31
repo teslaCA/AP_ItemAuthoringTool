@@ -16,6 +16,7 @@
 import {isNumeric} from "rxjs/util/isNumeric";
 import {Component, OnInit, ViewChild} from "@angular/core";
 import {ActivatedRoute, Router} from "@angular/router";
+import {FormGroup, FormBuilder} from '@angular/forms';
 import {LookupService} from "../../service/lookup.service";
 import {Item} from "../../model/item";
 import {ItemService} from "../../service/item.service";
@@ -40,6 +41,8 @@ import {AlertService} from "../../service/alert.service";
 export class ItemLoadComponent implements OnInit {
 
   private currentItemId: number;
+
+  commitForm: FormGroup;
 
   private _currentItem = new Item();
   get item(): Item {
@@ -78,7 +81,11 @@ export class ItemLoadComponent implements OnInit {
               private route: ActivatedRoute,
               private lookupService: LookupService,
               private itemService: ItemService,
-              private alertService: AlertService) {
+              private alertService: AlertService,
+              public fb: FormBuilder) {
+    this.commitForm = this.fb.group({
+      commitMsg: ''
+    });
   }
 
   ngOnInit() {
@@ -175,12 +182,18 @@ export class ItemLoadComponent implements OnInit {
     }
     this.logger.debug('committing item: ' + JSON.stringify(itemCommit));
 
+    let commitMsg = this.commitForm.get('commitMsg').value;
+    if (commitMsg === '') {
+      commitMsg = 'IAT item commit';
+    }
+    this.logger.debug('commit message: ' + commitMsg);
+
     // TODO: Take out this alert after this section of code no longer always redirects to /
     this.alertService.processing('Saving Changes', `Your changes to the item are being saved.`);
 
     // TODO: What if this fails?  Need to not redirect to / on failure
     if (itemCommit.id !== undefined) {
-      this.itemService.commitItemEdit(itemCommit, 'IAT generated commit');
+      this.itemService.commitItemEdit(itemCommit, commitMsg);
     } else {
       this.logger.error('Item was not properly loaded from subcomponent. Generate error');
     }

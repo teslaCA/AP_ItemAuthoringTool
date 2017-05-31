@@ -79,7 +79,7 @@ export class AlertService {
   }
 
   private static buildToastOptions(title: string, message: string): ToastOptions {
-    let options = new ToastOptions();
+    const options = new ToastOptions();
     options.msg = message;
     options.title = title;
     return options;
