@@ -57,11 +57,11 @@ export class HomeComponent implements OnInit {
       this.itemUrl = '/item/' + this.id;
        switch (this.action) {
          case 'create' : {
-           this.itemLink = 'Go to item you just created';
+           this.itemLink = 'View New Created Item';
            break;
          }
          case 'commit' : {
-           this.itemLink = 'Go to item you were just editing';
+           this.itemLink = 'View Last Edited Item';
            break;
          }
        }
