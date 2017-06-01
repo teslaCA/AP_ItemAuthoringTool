@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import {AfterViewChecked, Component, Input, OnInit, ElementRef} from "@angular/core";
+import {AfterViewChecked, Component, ElementRef, Input, OnInit} from "@angular/core";
 import {Item, Rubric, Sample} from "../../model/item";
-import {FormArray, FormGroup, FormBuilder} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup} from "@angular/forms";
 import {Logger} from "../../utility/logger";
 
 @Component({
@@ -35,6 +35,7 @@ export class ItemLoadSaComponent implements OnInit, AfterViewChecked {
   get item() {
     return this._item;
   }
+
   @Input()
   set item(item) {
     this._item = item;
@@ -44,6 +45,7 @@ export class ItemLoadSaComponent implements OnInit, AfterViewChecked {
   get isView() {
     return this._isView;
   }
+
   @Input()
   set isView(value) {
     this._isView = value;
@@ -53,6 +55,7 @@ export class ItemLoadSaComponent implements OnInit, AfterViewChecked {
   get deleteResponseIndex(): number {
     return this._deleteResponseIndex;
   }
+
   set deleteResponseIndex(value: number) {
     this._deleteResponseIndex = value;
   }
@@ -72,8 +75,22 @@ export class ItemLoadSaComponent implements OnInit, AfterViewChecked {
     });
   }
 
+  ngAfterViewChecked() {
+    // Implemented AfterViewChecked lifecycle hook since DOM is not rendered yet when the new response object is created in addResponse()
+    // Added a local flag to only attempt to set focus when a new response has been added
+    if (this.responseAdded) {
+      const lastRespId = this.responses.length - 1;
+      this.logger.debug('Focusing last Response' + lastRespId);
+      const lastResp = this.element.nativeElement.querySelector('#samplecontent-' + lastRespId);
+      if (undefined !== lastResp && lastResp.valueOf() !== '') {
+        lastResp.focus();
+      }
+      this.responseAdded = false;
+    }
+
+  }
+
   ngOnInit() {
-    // this.logger.debug('OnInit');
     this._deleteResponseIndex = -1;
     if (this.item != null) {
       // Filter ENU content
@@ -102,21 +119,6 @@ export class ItemLoadSaComponent implements OnInit, AfterViewChecked {
     }
   }
 
-  ngAfterViewChecked() {
-    // this.logger.debug('AfterViewChecked');
-
-    if (this.responseAdded) {
-      const lastRespId = this.responses.length - 1;
-      this.logger.debug('Focusing last Response' + lastRespId);
-      const lastResp = this.element.nativeElement.querySelector('#samplecontent-' + lastRespId);
-      if (undefined !== lastResp && lastResp.valueOf() !== '') {
-        lastResp.focus();
-      }
-      this.responseAdded = false;
-    }
-
-  }
-
   // TODO: Move to Item object
   get itemStem(): string {
     if (this.item != null) {
@@ -134,12 +136,12 @@ export class ItemLoadSaComponent implements OnInit, AfterViewChecked {
     const samples: Sample[] = [];
     // Get UI Responses into Samples model objects
     for (let i = 0; i < this.responses.length; i++) {
-       const sample = new Sample();
-       sample.name = 'Exemplar ' + i;
-       sample.purpose = 'Exemplar';
-       sample.samplecontent = this.responses.at(i).get('samplecontent').value;
-       sample.scorepoint = null;
-       samples.push(sample);
+      const sample = new Sample();
+      sample.name = 'Exemplar ' + i;
+      sample.purpose = 'Exemplar';
+      sample.samplecontent = this.responses.at(i).get('samplecontent').value;
+      sample.scorepoint = null;
+      samples.push(sample);
     }
 
     for (const content of this.item.contents) {
@@ -178,5 +180,4 @@ export class ItemLoadSaComponent implements OnInit, AfterViewChecked {
       this.deleteResponseIndex = -1;
     }
   }
-
 }
