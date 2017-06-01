@@ -103,10 +103,10 @@ export class ItemLoadSaComponent implements OnInit, AfterViewChecked {
   }
 
   ngAfterViewChecked() {
-    const lastRespId = this.responses.length - 1;
-    this.logger.debug('AfterViewChecked - responseIdx:' + lastRespId);
+    //this.logger.debug('AfterViewChecked');
 
     if (this.responseAdded) {
+      const lastRespId = this.responses.length - 1;
       this.logger.debug('Focusing last Response' + lastRespId);
       const lastResp = this.element.nativeElement.querySelector('#samplecontent-' + lastRespId);
       if (undefined !== lastResp && lastResp.valueOf() !== '') {
