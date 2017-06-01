@@ -195,9 +195,6 @@ export class ItemService {
 
   // TODO: Can this be removed once all public methods return Observables instead of handling errors internally?
   private handleError(error: Response | any): any {
-
-    this.logger.error(JSON.stringify(error));
-
     let message: string;
     if (error instanceof Response) {
       const body = error.json() || '';
