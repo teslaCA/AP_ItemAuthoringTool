@@ -98,6 +98,10 @@ task ngInstall(type: Exec) {
     commandLine 'npm', 'install'
 }
 
+task ngPrune(type: Exec) {
+    commandLine 'npm', 'install'
+}
+
 task ngBuild(type: Exec) {
     if (project.hasProperty('production')) {
         commandLine 'npm', 'run', 'ng-build-prod'
@@ -105,6 +109,8 @@ task ngBuild(type: Exec) {
         commandLine 'npm', 'run', 'ng-build'
     }
 }
+
+ngBuild.dependsOn ngInstall, ngPrune
 
 /***************************
  * build information
