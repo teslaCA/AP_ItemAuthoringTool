@@ -47,8 +47,8 @@ export class ItemService {
 
     return this.http
       .get(ItemService.serviceUrl + '/' + itemId, ItemService.requestOptions)
-      .map(ItemService.extractJson)
-      .catch(this.handleError);
+      .map(res => ItemService.extractJson(res))
+      .catch(err => this.handleError(err));
   }
 
   //---------------------------------------------------------------------------
@@ -62,8 +62,8 @@ export class ItemService {
 
     return this.http
       .post(url, { 'type': itemType }, ItemService.requestOptions)
-      .map(ItemService.extractJson)
-      .catch(this.handleError);
+      .map(res => ItemService.extractJson(res))
+      .catch(err => this.handleError(err));
   }
 
   // Commit the creation of the item (the item will become available in the system)
@@ -122,7 +122,7 @@ export class ItemService {
     return this.http
       .put(url, null, ItemService.requestOptions)
       .map(() => { return new Observable<boolean>(); })
-      .catch(this.handleError);
+      .catch(err => this.handleError(err));
   }
 
   // Commit the editing of the item (the changes to the item will become available in the system)
