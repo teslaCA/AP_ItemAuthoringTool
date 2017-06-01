@@ -12,7 +12,7 @@
                       <textarea formControlName="promptStem"
                                 ngModel="{{itemStem}}"
                                 class="form-control form95"
-                                rows="6">
+                                rows="6" autofocus="true">
                       </textarea>
             </form>
       </div>
@@ -37,10 +37,10 @@
                                (click)="deleteResponseIndex = i; deleteExemplarResponse.show()">
                               <i class="fa fa-trash"></i></a>
                         </span>
-                         <textarea formControlName="samplecontent"
+                         <textarea id="samplecontent-{{i}}"
+                                   formControlName="samplecontent"
                                    class="form-control form95"
-                                   rows="3">
-                         </textarea>
+                                   rows="3"></textarea>
                     </div>
 
                 </div>

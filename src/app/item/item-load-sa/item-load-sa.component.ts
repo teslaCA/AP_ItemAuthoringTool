@@ -13,8 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import {Component, Input, OnInit} from "@angular/core";
-import {Content, Item, Rubric, Sample} from "../../model/item";
+import {AfterViewChecked, Component, Input, OnInit, ElementRef} from "@angular/core";
+import {Item, Rubric, Sample} from "../../model/item";
 import {FormArray, FormGroup, FormBuilder} from '@angular/forms';
 import {Logger} from "../../utility/logger";
 
@@ -23,11 +23,13 @@ import {Logger} from "../../utility/logger";
   templateUrl: './item-load-sa.component.html',
   styleUrls: ['./item-load-sa.component.less']
 })
-export class ItemLoadSaComponent implements OnInit {
+export class ItemLoadSaComponent implements OnInit, AfterViewChecked {
 
   stemForm: FormGroup;
 
   responseForm: FormGroup;
+
+  private responseAdded = false;
 
   private _item = new Item();
   get item() {
@@ -60,7 +62,8 @@ export class ItemLoadSaComponent implements OnInit {
   };
 
   constructor(private logger: Logger,
-              public fb: FormBuilder) {
+              private fb: FormBuilder,
+              private element: ElementRef) {
     this.stemForm = this.fb.group({
       promptStem: ''
     });
@@ -70,6 +73,7 @@ export class ItemLoadSaComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.logger.debug('OnInit');
     this._deleteResponseIndex = -1;
     if (this.item != null) {
       // Filter ENU content
@@ -96,6 +100,21 @@ export class ItemLoadSaComponent implements OnInit {
       this.stemForm.disable();
       this.responseForm.disable();
     }
+  }
+
+  ngAfterViewChecked() {
+    const lastRespId = this.responses.length - 1;
+    this.logger.debug('AfterViewChecked - responseIdx:' + lastRespId);
+
+    if (this.responseAdded) {
+      this.logger.debug('Focusing last Response' + lastRespId);
+      const lastResp = this.element.nativeElement.querySelector('#samplecontent-' + lastRespId);
+      if (undefined !== lastResp && lastResp.valueOf() !== '') {
+        lastResp.focus();
+      }
+      this.responseAdded = false;
+    }
+
   }
 
   // TODO: Move to Item object
@@ -150,6 +169,7 @@ export class ItemLoadSaComponent implements OnInit {
 
   addResponse(value: string): void {
     this.responses.push(this.fb.group({samplecontent: value}));
+    this.responseAdded = true;
   }
 
   removeResponse(): void {
@@ -158,4 +178,5 @@ export class ItemLoadSaComponent implements OnInit {
       this.deleteResponseIndex = -1;
     }
   }
+
 }
