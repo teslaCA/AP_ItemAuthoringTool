@@ -73,7 +73,7 @@ export class ItemLoadSaComponent implements OnInit, AfterViewChecked {
   }
 
   ngOnInit() {
-    this.logger.debug('OnInit');
+    // this.logger.debug('OnInit');
     this._deleteResponseIndex = -1;
     if (this.item != null) {
       // Filter ENU content
@@ -103,7 +103,7 @@ export class ItemLoadSaComponent implements OnInit, AfterViewChecked {
   }
 
   ngAfterViewChecked() {
-    //this.logger.debug('AfterViewChecked');
+    // this.logger.debug('AfterViewChecked');
 
     if (this.responseAdded) {
       const lastRespId = this.responses.length - 1;
