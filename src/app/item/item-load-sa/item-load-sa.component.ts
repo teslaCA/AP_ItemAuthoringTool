@@ -76,7 +76,7 @@ export class ItemLoadSaComponent implements OnInit, AfterViewChecked {
   }
 
   ngAfterViewChecked() {
-    // Implemented AfterViewChecked lifecycle hook since DOM is not rendered yet when the new response object is created in addResponse()
+    // Implemented AfterViewChecked lifecycle hook since DOM is not rendered when the new response object is created in addResponse()
     // Added a local flag to only attempt to set focus when a new response has been added
     if (this.responseAdded) {
       const lastRespId = this.responses.length - 1;
