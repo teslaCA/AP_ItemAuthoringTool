@@ -40,6 +40,18 @@ plugins {
 }
 
 apply plugin: 'io.github.robwin.jgitflow'
+apply plugin: 'idea'
+
+/***************************
+ * Intellij
+ ***************************/
+
+idea {
+    module {
+        inheritOutputDirs = false
+        outputDir = file("$buildDir/classes/main/")
+    }
+}
 
 /***************************
  * dependency management
