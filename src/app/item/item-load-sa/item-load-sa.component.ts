@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import {Component, Input, OnInit} from "@angular/core";
-import {Content, Item, Rubric, Sample} from "../../model/item";
-import {FormArray, FormGroup, FormBuilder} from '@angular/forms';
+import {AfterViewChecked, Component, ElementRef, Input, OnInit} from "@angular/core";
+import {Item, Rubric, Sample} from "../../model/item";
+import {FormArray, FormBuilder, FormGroup} from "@angular/forms";
 import {Logger} from "../../utility/logger";
 
 @Component({
@@ -23,16 +23,19 @@ import {Logger} from "../../utility/logger";
   templateUrl: './item-load-sa.component.html',
   styleUrls: ['./item-load-sa.component.less']
 })
-export class ItemLoadSaComponent implements OnInit {
+export class ItemLoadSaComponent implements OnInit, AfterViewChecked {
 
   stemForm: FormGroup;
 
   responseForm: FormGroup;
 
+  private responseAdded = false;
+
   private _item = new Item();
   get item() {
     return this._item;
   }
+
   @Input()
   set item(item) {
     this._item = item;
@@ -42,6 +45,7 @@ export class ItemLoadSaComponent implements OnInit {
   get isView() {
     return this._isView;
   }
+
   @Input()
   set isView(value) {
     this._isView = value;
@@ -51,6 +55,7 @@ export class ItemLoadSaComponent implements OnInit {
   get deleteResponseIndex(): number {
     return this._deleteResponseIndex;
   }
+
   set deleteResponseIndex(value: number) {
     this._deleteResponseIndex = value;
   }
@@ -60,13 +65,29 @@ export class ItemLoadSaComponent implements OnInit {
   };
 
   constructor(private logger: Logger,
-              public fb: FormBuilder) {
+              private fb: FormBuilder,
+              private element: ElementRef) {
     this.stemForm = this.fb.group({
       promptStem: ''
     });
     this.responseForm = this.fb.group({
       responses: this.fb.array([])
     });
+  }
+
+  ngAfterViewChecked() {
+    // Implemented AfterViewChecked lifecycle hook since DOM is not rendered when the new response object is created in addResponse()
+    // Added a local flag to only attempt to set focus when a new response has been added
+    if (this.responseAdded) {
+      const lastRespId = this.responses.length - 1;
+      this.logger.debug('Focusing last Response' + lastRespId);
+      const lastResp = this.element.nativeElement.querySelector('#samplecontent-' + lastRespId);
+      if (undefined !== lastResp && lastResp.valueOf() !== '') {
+        lastResp.focus();
+      }
+      this.responseAdded = false;
+    }
+
   }
 
   ngOnInit() {
@@ -115,12 +136,12 @@ export class ItemLoadSaComponent implements OnInit {
     const samples: Sample[] = [];
     // Get UI Responses into Samples model objects
     for (let i = 0; i < this.responses.length; i++) {
-       const sample = new Sample();
-       sample.name = 'Exemplar ' + i;
-       sample.purpose = 'Exemplar';
-       sample.samplecontent = this.responses.at(i).get('samplecontent').value;
-       sample.scorepoint = null;
-       samples.push(sample);
+      const sample = new Sample();
+      sample.name = 'Exemplar ' + i;
+      sample.purpose = 'Exemplar';
+      sample.samplecontent = this.responses.at(i).get('samplecontent').value;
+      sample.scorepoint = null;
+      samples.push(sample);
     }
 
     for (const content of this.item.contents) {
@@ -150,6 +171,7 @@ export class ItemLoadSaComponent implements OnInit {
 
   addResponse(value: string): void {
     this.responses.push(this.fb.group({samplecontent: value}));
+    this.responseAdded = true;
   }
 
   removeResponse(): void {
