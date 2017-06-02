@@ -5,7 +5,7 @@
   "scripts": {
     "ng": "ng",
     "ng-build": "ng build",
-    "start-dev": "ng build --output-path=build/classes/main/static --watch",
+    "dev": "ng build --output-path=build/classes/main/static --watch",
     "ng-build-prod": "ng build -prod",
     "start": "ng serve  --proxy-config proxy.conf.json",
     "start-prod": "ng serve --proxy-config proxy.conf.json --prod",
