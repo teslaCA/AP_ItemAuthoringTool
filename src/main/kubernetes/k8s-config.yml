@@ -41,31 +41,25 @@ spec:
           timeoutSeconds: 10
         resources:
           requests:
-            cpu: 100m
-            memory: 512M
-          limits:
             cpu: 200m
             memory: 1024M
+          limits:
+            cpu: 400m
+            memory: 2048M
         env:
         - name: GET_HOSTS_FROM
           value: dns
+        - name: SPRING_PROFILES_ACTIVE
+          value: "aws-k8s dev"
         - name: CONFIG_SERVICE_URL
           value: "http://configuration-service"
         - name: CONFIG_SERVICE_ENABLED
           value: "true"
-        - name: SAML_KS_FILE
-          value: "binary-http://configuration-service/ap-iat/default/master/ap-iat-ui.jks"
         - name: SAML_KS_PASS
           value: "@samlKeyStorePassword@"
-        - name: SAML_PKE_ALIAS
-          value: "@samlPrivateKeyEntryAlias@"
         - name: SAML_PKE_PASS
           value: "@samlPrivateKeyEntryPassword@"
-        - name: SAML_IDP_URL
-          value: "@samlIdpMetadataUrl@"
-        - name: SAML_SP_ENTITY_ID
-          value: "@samlSpEntityId@"
         - name: JAVA_OPTS
-          value: "-Xmx256m"
+          value: "-Xmx1024m"
         ports:
         - containerPort: 8080
