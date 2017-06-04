@@ -1,0 +1,11 @@
+<form (submit)="$event.preventDefault(); search(query.value);">
+  <div class="input-group">
+      <span class="input-group-btn">
+        <button class="btn btn-primary" type="submit">
+          <i class="fa fa-search" aria-hidden="true"></i>
+          Find item or Stimulus
+        </button>
+      </span>
+    <input #query type="text" class="form-control" placeholder="Search for..."/>
+  </div>
+</form>
