@@ -37,6 +37,7 @@ import {NoRouteComponent} from "./no-route/no-route.component";
 import {Logger} from "./utility/logger";
 import {ToastyModule} from "ng2-toasty";
 import {AlertService} from "./service/alert.service";
+import {ItemSearchComponent} from './item/item-search/item-search.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import {AlertService} from "./service/alert.service";
     ItemLoadSaComponent,
     ItemLoadComponent,
     ItemRedirectComponent,
-    NoRouteComponent
+    NoRouteComponent,
+    ItemSearchComponent
   ],
   imports: [
     BrowserModule,
