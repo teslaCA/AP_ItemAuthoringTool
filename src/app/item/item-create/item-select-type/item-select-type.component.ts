@@ -17,7 +17,7 @@ import {Component, OnInit} from "@angular/core";
 import {Router} from "@angular/router";
 import {LookupService} from "../../../service/lookup.service";
 import {ItemType} from "../../../model/item-type";
-import {Logger} from "../../../utility/logger";
+import {Logger} from "../../../service/logger.service";
 
 @Component({
   selector: 'app-item-select-type',

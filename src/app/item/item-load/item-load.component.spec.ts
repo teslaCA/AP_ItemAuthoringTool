@@ -6,7 +6,7 @@ import { AlertModule } from 'ngx-bootstrap/alert';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { ItemLoadSaComponent} from '../item-load-sa/item-load-sa.component';
 import { ItemLoadComponent } from './item-load.component';
-import {Logger} from "../../utility/logger";
+import {Logger} from "../../service/logger.service";
 import {AlertService} from "../../service/alert.service";
 import {ToastyModule} from "ng2-toasty";
 

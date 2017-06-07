@@ -23,7 +23,7 @@ import {ItemLoadSaComponent} from "../item/item-load-sa/item-load-sa.component";
 import {ItemLoadComponent} from "../item/item-load/item-load.component";
 import {ItemRedirectComponent} from "../item/item-redirect/item-redirect.component";
 import {NoRouteComponent} from "../no-route/no-route.component";
-import {Logger} from "../utility/logger";
+import {Logger} from "../service/logger.service";
 import {ToastyModule} from "ng2-toasty";
 import {AlertService} from "../service/alert.service";
 import {ItemSearchComponent} from '../item/item-search/item-search.component';

@@ -13,28 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { Injectable } from '@angular/core';
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/observable/throw';
-
-import { Item } from '../model/item';
-import {Logger} from "../utility/logger";
+import {Injectable} from "@angular/core";
+import {Headers, Http, RequestOptions, Response} from "@angular/http";
+import {Observable} from "rxjs/Observable";
+import "rxjs/add/operator/catch";
+import "rxjs/add/operator/map";
+import "rxjs/add/observable/throw";
+import {Logger} from "./logger.service";
 import {AlertService} from "./alert.service";
+import {Item} from "app/model/item/item";
 
 @Injectable()
 export class ItemService {
 
   private static serviceUrl = '/api/ims/v1/items';
-  private static requestOptions = new RequestOptions({ headers : new Headers({ 'Content-Type': 'application/json'}) });
+  private static requestOptions = new RequestOptions({headers: new Headers({'Content-Type': 'application/json'})});
 
-  constructor(
-    private logger: Logger,
-    private http: Http,
-    private alertService: AlertService  // TODO: Remove injection of AlertService once all public methods return Observables (the caller will use the AlertService to alert user to success or failure)
-  ) { }
+  constructor(private logger: Logger,
+              private http: Http,
+              private alertService: AlertService  // TODO: Remove injection of AlertService once all public methods return Observables (the caller will use the AlertService to alert user to success or failure)
+  ) {
+  }
 
   //---------------------------------------------------------------------------
   // Item lookup
@@ -61,7 +60,7 @@ export class ItemService {
     this.logger.debug(`Beginning creation of item type ${itemType}: ${url}`);
 
     return this.http
-      .post(url, { 'type': itemType }, ItemService.requestOptions)
+      .post(url, {'type': itemType}, ItemService.requestOptions)
       .map(res => ItemService.extractJson(res))
       .catch(err => this.handleError(err));
   }
@@ -74,7 +73,7 @@ export class ItemService {
     this.logger.debug(`Committing creation of item ${JSON.stringify(item)}: ${url}`);
 
     this.http
-      .post(url, { item: item }, ItemService.requestOptions)
+      .post(url, {item: item}, ItemService.requestOptions)
       .subscribe(
         (response: Response) => {
           this.alertService.success('Item Created', 'Your item has been created and added to the item bank.');
@@ -121,7 +120,9 @@ export class ItemService {
 
     return this.http
       .put(url, null, ItemService.requestOptions)
-      .map(() => { return new Observable<boolean>(); })
+      .map(() => {
+        return new Observable<boolean>();
+      })
       .catch(err => this.handleError(err));
   }
 
@@ -133,7 +134,7 @@ export class ItemService {
     this.logger.debug(`Committing edit of item ${JSON.stringify(item)}: ${url}`);
 
     this.http
-      .put(url, { item: item, message: commitMessage }, ItemService.requestOptions)
+      .put(url, {item: item, message: commitMessage}, ItemService.requestOptions)
       .subscribe(
         (response: Response) => {
           this.alertService.success('Changes Saved', 'Your edits to the item have been saved.');
@@ -182,8 +183,12 @@ export class ItemService {
     this.http
       .post(url, JSON.stringify(item), ItemService.requestOptions)
       .subscribe(
-        (response: Response) => { this.logger.debug('post ' + url + ' operation successful'); },
-        e => { this.handleError(e); });
+        (response: Response) => {
+          this.logger.debug('post ' + url + ' operation successful');
+        },
+        e => {
+          this.handleError(e);
+        });
   }
 
   //---------------------------------------------------------------------------

@@ -3,9 +3,9 @@ import { RouterTestingModule} from '@angular/router/testing';
 import { ReactiveFormsModule} from '@angular/forms';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { ItemLoadSaComponent } from './item-load-sa.component';
-import {Logger} from "../../utility/logger";
+import {Logger} from "../../service/logger.service";
 
-describe('ItemCreateSaComponent', () => {
+describe('ItemLoadSaComponent', () => {
   let component: ItemLoadSaComponent;
   let fixture: ComponentFixture<ItemLoadSaComponent>;
 
