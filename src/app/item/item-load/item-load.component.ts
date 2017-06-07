@@ -16,13 +16,13 @@
 import {isNumeric} from "rxjs/util/isNumeric";
 import {Component, OnInit, ViewChild} from "@angular/core";
 import {ActivatedRoute, Router} from "@angular/router";
-import {FormGroup, FormBuilder} from '@angular/forms';
+import {FormBuilder, FormGroup} from "@angular/forms";
 import {LookupService} from "../../service/lookup.service";
-import {Item} from "../../model/item";
 import {ItemService} from "../../service/item.service";
 import {ItemLoadSaComponent} from "../item-load-sa/item-load-sa.component";
 import {Logger} from "../../service/logger.service";
 import {AlertService} from "../../service/alert.service";
+import {NewItem} from "../../model/item/new-item";
 
 // TODO: Move stem-related code into separate component (called StemComponent)
 // TODO: Move exemplar response-related code into separate component (called ExemplarResponsesComponent)
@@ -44,8 +44,8 @@ export class ItemLoadComponent implements OnInit {
 
   commitForm: FormGroup;
 
-  private _currentItem = new Item();
-  get item(): Item {
+  private _currentItem: NewItem;
+  get currentItem(): NewItem {
     return this._currentItem;
   }
 
@@ -123,9 +123,9 @@ export class ItemLoadComponent implements OnInit {
   }
 
   createItem(): void {
-    let itemCommit = new Item();
+    let itemCommit: NewItem;
 
-    switch (this.item.type) {
+    switch (this.currentItem.type) {
       case 'sa' : {
         itemCommit = this.saItemComponent.currentItem();
         break;
@@ -149,7 +149,7 @@ export class ItemLoadComponent implements OnInit {
     this.alertService.processing('Cancelling Creation', `Your item is being removed.`);
 
     // TODO: What if this fails?  Need to not redirect to / on failure
-    this.itemService.rollbackItemCreate(this.item.id);
+    this.itemService.rollbackItemCreate(this.currentItem.id);
     this.router.navigateByUrl('/');
   }
 
@@ -168,13 +168,13 @@ export class ItemLoadComponent implements OnInit {
     this.alertService.processing('Discarding Changes', `Your changes to the item are being discarded.`);
 
     // TODO: What if this fails?  Need to not redirect to / on failure
-    this.itemService.rollbackItemEdit(this.item.id);
+    this.itemService.rollbackItemEdit(this.currentItem.id);
     this.router.navigateByUrl('/');
   }
 
   commitItem(): void {
-    let itemCommit = new Item();
-    switch (this.item.type) {
+    let itemCommit: NewItem;
+    switch (this.currentItem.type) {
       case 'sa' : {
         itemCommit = this.saItemComponent.currentItem();
         break;
@@ -201,9 +201,9 @@ export class ItemLoadComponent implements OnInit {
   }
 
   isCreate(): boolean {
-    if (this._user && this.item) {
-      if (this._user.username === this.item.beingCreatedBy
-        && this.item.beingEditedBy === null) {
+    if (this._user && this.currentItem) {
+      if (this._user.username === this.currentItem.beingCreatedBy
+        && this.currentItem.beingEditedBy === null) {
         return true;
       }
     }
@@ -211,9 +211,9 @@ export class ItemLoadComponent implements OnInit {
   }
 
   isView(): boolean {
-    if (this.item) {
-      if (this.item.beingCreatedBy === null
-        && this.item.beingEditedBy === null) {
+    if (this.currentItem) {
+      if (this.currentItem.beingCreatedBy === null
+        && this.currentItem.beingEditedBy === null) {
         return true;
       }
     }
@@ -221,9 +221,9 @@ export class ItemLoadComponent implements OnInit {
   }
 
   isEdit(): boolean {
-    if (this._user && this.item) {
-      if (this._user.username === this.item.beingEditedBy
-        && this.item.beingCreatedBy === null) {
+    if (this._user && this.currentItem) {
+      if (this._user.username === this.currentItem.beingEditedBy
+        && this.currentItem.beingCreatedBy === null) {
         return true;
       }
     }
@@ -232,10 +232,10 @@ export class ItemLoadComponent implements OnInit {
 
   // TODO: Why isn't this the negation of isEdit?
   isNotEditable(): boolean {
-    if (this._user && this.item) {
-      if (this.item.beingCreatedBy === null
-        && this.item.beingEditedBy != null
-        && this._user.username !== this.item.beingEditedBy) {
+    if (this._user && this.currentItem) {
+      if (this.currentItem.beingCreatedBy === null
+        && this.currentItem.beingEditedBy != null
+        && this._user.username !== this.currentItem.beingEditedBy) {
         return true;
       }
     }
@@ -246,11 +246,10 @@ export class ItemLoadComponent implements OnInit {
     this.router.navigateByUrl('/');
   }
 
-  private onSuccess(item): void {
+  private onSuccess(item: NewItem): void {
     this.logger.debug('retrieved item: ' + JSON.stringify(item));
     let navBarMsgPrefix: string;
     this._currentItem = item;
-    this._currentItem.description = this.lookupService.getItemDescription(this.item.type);
 
     if (this.isCreate()) {
       // Item is currently being created by logged in user
@@ -263,8 +262,8 @@ export class ItemLoadComponent implements OnInit {
       navBarMsgPrefix = 'Edit';
     }
 
-    this._navBarMessage = navBarMsgPrefix + ' Item ' + this.item.id
-      + ' | ' + this._currentItem.description;
+    this._navBarMessage = navBarMsgPrefix + ' Item ' + this.currentItem.id
+      + ' | ' + this.lookupService.getItemDescription(this.currentItem.type);
   }
 
   private onError(error): void {

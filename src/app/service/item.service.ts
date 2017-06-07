@@ -13,34 +13,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { Injectable } from '@angular/core';
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/observable/throw';
-
-import { Item } from '../model/item';
+import {Injectable} from "@angular/core";
+import {Headers, Http, RequestOptions, Response} from "@angular/http";
+import {Observable} from "rxjs/Observable";
+import "rxjs/add/operator/catch";
+import "rxjs/add/operator/map";
+import "rxjs/add/observable/throw";
 import {Logger} from "./logger.service";
 import {AlertService} from "./alert.service";
+import {NewItem} from "app/model/item/new-item";
 
 @Injectable()
 export class ItemService {
 
   private static serviceUrl = '/api/ims/v1/items';
-  private static requestOptions = new RequestOptions({ headers : new Headers({ 'Content-Type': 'application/json'}) });
+  private static requestOptions = new RequestOptions({headers: new Headers({'Content-Type': 'application/json'})});
 
-  constructor(
-    private logger: Logger,
-    private http: Http,
-    private alertService: AlertService  // TODO: Remove injection of AlertService once all public methods return Observables (the caller will use the AlertService to alert user to success or failure)
-  ) { }
+  constructor(private logger: Logger,
+              private http: Http,
+              private alertService: AlertService  // TODO: Remove injection of AlertService once all public methods return Observables (the caller will use the AlertService to alert user to success or failure)
+  ) {
+  }
 
   //---------------------------------------------------------------------------
   // Item lookup
   //---------------------------------------------------------------------------
   // Return the item with the given ID
-  findItem(itemId: number): Observable<Item> {
+  findItem(itemId: number): Observable<NewItem> {
     const url = ItemService.serviceUrl + '/' + itemId;
 
     this.logger.debug(`Finding item with ID ${itemId}: ${url}`);
@@ -55,26 +54,26 @@ export class ItemService {
   // Item create
   //---------------------------------------------------------------------------
   // Begin creating an item (creates a scratchpad to which updates will be saved)
-  beginItemCreate(itemType: string): Observable<Item> {
+  beginItemCreate(itemType: string): Observable<NewItem> {
     const url = ItemService.serviceUrl + '/begin';
 
     this.logger.debug(`Beginning creation of item type ${itemType}: ${url}`);
 
     return this.http
-      .post(url, { 'type': itemType }, ItemService.requestOptions)
+      .post(url, {'type': itemType}, ItemService.requestOptions)
       .map(res => ItemService.extractJson(res))
       .catch(err => this.handleError(err));
   }
 
   // Commit the creation of the item (the item will become available in the system)
   // TODO: Change to return Observable so caller can decide what to do on success/failure
-  commitItemCreate(item: Item): void {
+  commitItemCreate(item: NewItem): void {
     const url = ItemService.serviceUrl + '/' + item.id + '/commit';
 
     this.logger.debug(`Committing creation of item ${JSON.stringify(item)}: ${url}`);
 
     this.http
-      .post(url, { item: item }, ItemService.requestOptions)
+      .post(url, {item: item}, ItemService.requestOptions)
       .subscribe(
         (response: Response) => {
           this.alertService.success('Item Created', 'Your item has been created and added to the item bank.');
@@ -121,19 +120,21 @@ export class ItemService {
 
     return this.http
       .put(url, null, ItemService.requestOptions)
-      .map(() => { return new Observable<boolean>(); })
+      .map(() => {
+        return new Observable<boolean>();
+      })
       .catch(err => this.handleError(err));
   }
 
   // Commit the editing of the item (the changes to the item will become available in the system)
   // TODO: Change to return Observable so caller can decide what to do on success/failure
-  commitItemEdit(item: Item, commitMessage: string): void {
+  commitItemEdit(item: NewItem, commitMessage: string): void {
     const url = ItemService.serviceUrl + '/' + item.id + '/commit';
 
     this.logger.debug(`Committing edit of item ${JSON.stringify(item)}: ${url}`);
 
     this.http
-      .put(url, { item: item, message: commitMessage }, ItemService.requestOptions)
+      .put(url, {item: item, message: commitMessage}, ItemService.requestOptions)
       .subscribe(
         (response: Response) => {
           this.alertService.success('Changes Saved', 'Your edits to the item have been saved.');
@@ -174,7 +175,7 @@ export class ItemService {
   //---------------------------------------------------------------------------
   // Save changes to the item (update the scratchpad)
   // TODO: Change to return Observable so caller can decide what to do on success/failure
-  saveChanges(item: Item): void {
+  saveChanges(item: NewItem): void {
     const url = ItemService.serviceUrl + '/' + item.id + '/save';
 
     this.logger.debug(`Saving item ${JSON.stringify(item)}: ${url}`);
@@ -182,8 +183,12 @@ export class ItemService {
     this.http
       .post(url, JSON.stringify(item), ItemService.requestOptions)
       .subscribe(
-        (response: Response) => { this.logger.debug('post ' + url + ' operation successful'); },
-        e => { this.handleError(e); });
+        (response: Response) => {
+          this.logger.debug('post ' + url + ' operation successful');
+        },
+        e => {
+          this.handleError(e);
+        });
   }
 
   //---------------------------------------------------------------------------
