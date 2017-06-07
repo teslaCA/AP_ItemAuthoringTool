@@ -1,7 +1,7 @@
 import {TestBed, inject} from '@angular/core/testing';
 import {HttpModule} from '@angular/http';
 import {ItemService} from './item.service';
-import {Logger} from "../utility/logger";
+import {Logger} from "./logger.service";
 import {AlertService} from "./alert.service";
 import {ToastyModule} from "ng2-toasty";
 

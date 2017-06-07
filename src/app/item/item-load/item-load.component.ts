@@ -21,7 +21,7 @@ import {LookupService} from "../../service/lookup.service";
 import {Item} from "../../model/item";
 import {ItemService} from "../../service/item.service";
 import {ItemLoadSaComponent} from "../item-load-sa/item-load-sa.component";
-import {Logger} from "../../utility/logger";
+import {Logger} from "../../service/logger.service";
 import {AlertService} from "../../service/alert.service";
 
 // TODO: Move stem-related code into separate component (called StemComponent)

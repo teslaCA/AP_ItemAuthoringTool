@@ -16,7 +16,7 @@
 import {Component} from "@angular/core";
 import {Response} from "@angular/http";
 import {LookupService} from "../service/lookup.service";
-import {Logger} from "../utility/logger";
+import {Logger} from "../service/logger.service";
 
 @Component({
   selector: 'app-header',

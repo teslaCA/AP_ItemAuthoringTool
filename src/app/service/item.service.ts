@@ -21,7 +21,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
 
 import { Item } from '../model/item';
-import {Logger} from "../utility/logger";
+import {Logger} from "./logger.service";
 import {AlertService} from "./alert.service";
 
 @Injectable()

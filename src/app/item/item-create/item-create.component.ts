@@ -17,7 +17,7 @@ import "rxjs/add/operator/switchMap";
 import {Component, OnInit} from "@angular/core";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ItemService} from "../../service/item.service";
-import {Logger} from "../../utility/logger";
+import {Logger} from "../../service/logger.service";
 
 @Component({
   selector: 'app-item-create',
