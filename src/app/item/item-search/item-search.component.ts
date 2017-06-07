@@ -5,7 +5,7 @@
 import {Component} from "@angular/core";
 import {Router} from "@angular/router";
 
-import {Logger} from "../../utility/logger";
+import {Logger} from "../../service/logger.service";
 
 @Component({
   selector: 'app-item-search',

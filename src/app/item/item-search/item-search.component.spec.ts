@@ -1,7 +1,7 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {RouterTestingModule} from '@angular/router/testing';
 
-import {Logger} from "../../utility/logger";
+import {Logger} from "../../service/logger.service";
 import {ItemSearchComponent} from './item-search.component';
 
 describe('ItemSearchComponent', () => {
