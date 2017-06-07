@@ -22,7 +22,7 @@ import {ItemService} from "../../service/item.service";
 import {ItemLoadSaComponent} from "../item-load-sa/item-load-sa.component";
 import {Logger} from "../../service/logger.service";
 import {AlertService} from "../../service/alert.service";
-import {NewItem} from "../../model/item/new-item";
+import {Item} from "../../model/item/item";
 
 // TODO: Move stem-related code into separate component (called StemComponent)
 // TODO: Move exemplar response-related code into separate component (called ExemplarResponsesComponent)
@@ -44,8 +44,8 @@ export class ItemLoadComponent implements OnInit {
 
   commitForm: FormGroup;
 
-  private _currentItem: NewItem;
-  get currentItem(): NewItem {
+  private _currentItem: Item;
+  get currentItem(): Item {
     return this._currentItem;
   }
 
@@ -123,7 +123,7 @@ export class ItemLoadComponent implements OnInit {
   }
 
   createItem(): void {
-    let itemCommit: NewItem;
+    let itemCommit: Item;
 
     switch (this.currentItem.type) {
       case 'sa' : {
@@ -173,7 +173,7 @@ export class ItemLoadComponent implements OnInit {
   }
 
   commitItem(): void {
-    let itemCommit: NewItem;
+    let itemCommit: Item;
     switch (this.currentItem.type) {
       case 'sa' : {
         itemCommit = this.saItemComponent.currentItem();
@@ -246,7 +246,7 @@ export class ItemLoadComponent implements OnInit {
     this.router.navigateByUrl('/');
   }
 
-  private onSuccess(item: NewItem): void {
+  private onSuccess(item: Item): void {
     this.logger.debug('retrieved item: ' + JSON.stringify(item));
     let navBarMsgPrefix: string;
     this._currentItem = item;

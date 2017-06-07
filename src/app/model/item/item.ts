@@ -1,4 +1,4 @@
-export abstract class NewItem {
+export abstract class Item {
 
   beingCreatedBy: string;
 

@@ -21,7 +21,7 @@ import "rxjs/add/operator/map";
 import "rxjs/add/observable/throw";
 import {Logger} from "./logger.service";
 import {AlertService} from "./alert.service";
-import {NewItem} from "app/model/item/new-item";
+import {Item} from "app/model/item/item";
 
 @Injectable()
 export class ItemService {
@@ -39,7 +39,7 @@ export class ItemService {
   // Item lookup
   //---------------------------------------------------------------------------
   // Return the item with the given ID
-  findItem(itemId: number): Observable<NewItem> {
+  findItem(itemId: number): Observable<Item> {
     const url = ItemService.serviceUrl + '/' + itemId;
 
     this.logger.debug(`Finding item with ID ${itemId}: ${url}`);
@@ -54,7 +54,7 @@ export class ItemService {
   // Item create
   //---------------------------------------------------------------------------
   // Begin creating an item (creates a scratchpad to which updates will be saved)
-  beginItemCreate(itemType: string): Observable<NewItem> {
+  beginItemCreate(itemType: string): Observable<Item> {
     const url = ItemService.serviceUrl + '/begin';
 
     this.logger.debug(`Beginning creation of item type ${itemType}: ${url}`);
@@ -67,7 +67,7 @@ export class ItemService {
 
   // Commit the creation of the item (the item will become available in the system)
   // TODO: Change to return Observable so caller can decide what to do on success/failure
-  commitItemCreate(item: NewItem): void {
+  commitItemCreate(item: Item): void {
     const url = ItemService.serviceUrl + '/' + item.id + '/commit';
 
     this.logger.debug(`Committing creation of item ${JSON.stringify(item)}: ${url}`);
@@ -128,7 +128,7 @@ export class ItemService {
 
   // Commit the editing of the item (the changes to the item will become available in the system)
   // TODO: Change to return Observable so caller can decide what to do on success/failure
-  commitItemEdit(item: NewItem, commitMessage: string): void {
+  commitItemEdit(item: Item, commitMessage: string): void {
     const url = ItemService.serviceUrl + '/' + item.id + '/commit';
 
     this.logger.debug(`Committing edit of item ${JSON.stringify(item)}: ${url}`);
@@ -175,7 +175,7 @@ export class ItemService {
   //---------------------------------------------------------------------------
   // Save changes to the item (update the scratchpad)
   // TODO: Change to return Observable so caller can decide what to do on success/failure
-  saveChanges(item: NewItem): void {
+  saveChanges(item: Item): void {
     const url = ItemService.serviceUrl + '/' + item.id + '/save';
 
     this.logger.debug(`Saving item ${JSON.stringify(item)}: ${url}`);

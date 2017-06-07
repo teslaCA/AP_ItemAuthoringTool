@@ -18,7 +18,7 @@ import {Component, OnInit} from "@angular/core";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ItemService} from "../../service/item.service";
 import {Logger} from "../../service/logger.service";
-import {NewItem} from "../../model/item/new-item";
+import {Item} from "../../model/item/item";
 
 @Component({
   selector: 'app-item-create',
@@ -54,7 +54,7 @@ export class ItemCreateComponent implements OnInit {
       );
   }
 
-  private processSuccess(item: NewItem): void {
+  private processSuccess(item: Item): void {
     // TODO: Add validation
     const itemId = item.id;
 

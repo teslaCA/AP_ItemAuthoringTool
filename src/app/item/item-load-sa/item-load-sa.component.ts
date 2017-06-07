@@ -16,7 +16,7 @@
 import {AfterViewChecked, Component, ElementRef, Input, OnInit} from "@angular/core";
 import {FormArray, FormBuilder, FormGroup} from "@angular/forms";
 import {Logger} from "../../service/logger.service";
-import {NewItem} from "../../model/item/new-item";
+import {Item} from "../../model/item/item";
 import {SaItem} from "../../model/item/sa-item";
 
 @Component({
@@ -158,7 +158,7 @@ export class ItemLoadSaComponent implements OnInit, AfterViewChecked {
     }
   }
 
-  public currentItem(): NewItem {
+  public currentItem(): Item {
     this.copyStemFromFormIntoItem();
     this.copyExemplarResponsesFromFormToItem();
 

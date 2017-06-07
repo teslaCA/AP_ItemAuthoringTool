@@ -1,6 +1,6 @@
-import {NewItem} from "./new-item";
+import {Item} from "./item";
 
-export class SaItem extends NewItem {
+export class SaItem extends Item {
 
   exemplarResponses: string[];
 
