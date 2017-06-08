@@ -1,0 +1,24 @@
+<section class="main">
+    <div class="container">
+        <div class="well well-top">
+            <h1>
+                Create Item or Stimulus
+            </h1>
+            <h4>
+                Item Types
+            </h4>
+            <div *ngFor="let item of items" class="col btn-group btn-block">
+                <div class="row">
+                    <a routerLink="/item/create/{{item.type}}">
+                        <div class="btn btn-items">
+                                <p>{{item.name}}
+                                <div class="blue">{{item.abbreviation}}</div>
+                                <p><i class="fa {{item.icon}} fa-2x"></i></p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <button class="btn btn-link" [routerLink]="['/']">Cancel</button>
+        </div>
+    </div>
+</section>
