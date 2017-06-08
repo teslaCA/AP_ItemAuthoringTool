@@ -6,6 +6,7 @@ import {Component} from "@angular/core";
 import {Router} from "@angular/router";
 
 import {Logger} from "../../service/logger.service";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-item-search',
@@ -14,11 +15,27 @@ import {Logger} from "../../service/logger.service";
 })
 export class ItemSearchComponent {
 
-  constructor(private logger: Logger, private router: Router) {
+  complexForm: FormGroup;
+
+  constructor(private logger: Logger, private router: Router, fb: FormBuilder) {
+    this.complexForm = fb.group({
+      'query': [null, Validators.required]
+    });
   }
 
-  search(query: string) {
-    this.logger.debug("Item search for " + query);
-    this.router.navigateByUrl('/item/' + query);
+  submitForm(value: any) {
+    this.logger.debug("Item search: " + value.query);
+    this.router.navigateByUrl('/item/' + value.query);
   }
+
+  _keyPress(event: any) {
+    const pattern = /[0-9\+\-\ ]/;
+
+    let inputChar = String.fromCharCode(event.charCode);
+
+    if (!pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
+
 }
