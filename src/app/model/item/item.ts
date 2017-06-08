@@ -4,7 +4,7 @@ export abstract class Item {
 
   beingEditedBy: string;
 
-  id: number;
+  id: string;
 
   abstract get type(): string;
 }

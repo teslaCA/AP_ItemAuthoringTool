@@ -40,7 +40,7 @@ import {Item} from "../../model/item/item";
 // TODO: This class has too many fields - clear sign it needs to be factored into multiple classes
 export class ItemLoadComponent implements OnInit {
 
-  private currentItemId: number;
+  private currentItemId: string;
 
   commitForm: FormGroup;
 
@@ -99,27 +99,23 @@ export class ItemLoadComponent implements OnInit {
 
     this.logger.debug('id: ' + this.currentItemId);
 
-    if (isNumeric(this.currentItemId)) {
-      this.lookupService.getUser()
-        .subscribe(
-          (res: Response) => {
-            this._user = res.json();
-          },
-          error => this.logger.error(error),
-          () => {
-            this.itemService.findItem(this.currentItemId)
-              .subscribe(
-                item => this.onSuccess(item),
-                error => this.onError(error),
-                () => {
-                  this._loading = false;
-                }
-              );
-          });
-    } else {
-      this._loading = false;
-      this.router.navigateByUrl('/unavailable');
-    }
+    this.lookupService.getUser()
+      .subscribe(
+        (res: Response) => {
+          this._user = res.json();
+        },
+        error => this.logger.error(error),
+        () => {
+          this.itemService.findItem(this.currentItemId)
+            .subscribe(
+              item => this.onSuccess(item),
+              error => this.onError(error),
+              () => {
+                this._loading = false;
+              }
+            );
+        });
+
   }
 
   createItem(): void {

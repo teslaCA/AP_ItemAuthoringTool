@@ -39,7 +39,7 @@ export class ItemService {
   // Item lookup
   //---------------------------------------------------------------------------
   // Return the item with the given ID
-  findItem(itemId: number): Observable<Item> {
+  findItem(itemId: string): Observable<Item> {
     const url = ItemService.serviceUrl + '/' + itemId;
 
     this.logger.debug(`Finding item with ID ${itemId}: ${url}`);
@@ -89,7 +89,7 @@ export class ItemService {
 
   // Rollback the creation of the item (the item will be removed entirely)
   // TODO: Change to return Observable so caller can decide what to do on success/failure
-  rollbackItemCreate(itemId: number): void {
+  rollbackItemCreate(itemId: string): void {
     const url = ItemService.serviceUrl + '/' + itemId + '/rollback';
 
     this.logger.debug(`Rolling back creation of item with ID ${itemId}: ${url}`);
@@ -113,7 +113,7 @@ export class ItemService {
   // Item edit
   //---------------------------------------------------------------------------
   // Begin editing an item (creates a scratchpad to which updates will be saved)
-  beginItemEdit(itemId: number): Observable<boolean> {
+  beginItemEdit(itemId: string): Observable<boolean> {
     const url = ItemService.serviceUrl + '/' + itemId + '/begin';
 
     this.logger.debug(`Beginning edit of item with ID ${itemId}: ${url}`);
@@ -150,7 +150,7 @@ export class ItemService {
 
   // Rollback the editing of the item (the changes made to the item since editing began will be removed)
   // TODO: Change to return Observable so caller can decide what to do on success/failure
-  rollbackItemEdit(itemId: number): void {
+  rollbackItemEdit(itemId: string): void {
     const url = ItemService.serviceUrl + '/' + itemId + '/rollback';
 
     this.logger.debug(`Rolling back edit of item with ID ${itemId}: ${url}`);
