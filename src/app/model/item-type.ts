@@ -13,15 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+export enum ItemTypeCategory {
+  Normal,
+  OtherResource
+}
+
 export class ItemType {
-
   abbreviation: string;
-
-  icon: string;
-
+  category: ItemTypeCategory;
+  code: string;
   description: string;
-
-  type: string;
-
+  icon: string;
   name: string;
 }

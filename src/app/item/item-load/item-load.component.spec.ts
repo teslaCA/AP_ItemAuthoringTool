@@ -9,6 +9,9 @@ import { ItemLoadComponent } from './item-load.component';
 import {Logger} from "../../core/logger.service";
 import {AlertService} from "../../core/alert.service";
 import {ToastyModule} from "ng2-toasty";
+import {UserService} from "../../core/user.service";
+import {ItemService} from "../../core/item.service";
+import {ItemTypeService} from "../../core/item-type.service";
 
 describe('ItemLoadComponent', () => {
   let component: ItemLoadComponent;
@@ -29,8 +32,11 @@ describe('ItemLoadComponent', () => {
         ItemLoadSaComponent
       ],
       providers: [
+        AlertService,
         Logger,
-        AlertService
+        ItemService,
+        ItemTypeService,
+        UserService
       ]
     })
     .compileComponents();

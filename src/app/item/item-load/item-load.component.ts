@@ -13,16 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import {isNumeric} from "rxjs/util/isNumeric";
 import {Component, OnInit, ViewChild} from "@angular/core";
 import {ActivatedRoute, Router} from "@angular/router";
 import {FormBuilder, FormGroup} from "@angular/forms";
-import {LookupService} from "../../service/lookup.service";
-import {ItemService} from "../../service/item.service";
+import {ItemService} from "../../core/item.service";
 import {ItemLoadSaComponent} from "../item-load-sa/item-load-sa.component";
 import {Logger} from "../../core/logger.service";
 import {AlertService} from "../../core/alert.service";
 import {Item} from "../../model/item/item";
+import {ItemTypeService} from "../../core/item-type.service";
+import {UserService} from "app/core/user.service";
 
 // TODO: Move stem-related code into separate component (called StemComponent)
 // TODO: Move exemplar response-related code into separate component (called ExemplarResponsesComponent)
@@ -31,11 +31,7 @@ import {Item} from "../../model/item/item";
 @Component({
   selector: 'app-item-load',
   templateUrl: './item-load.component.html',
-  styleUrls: ['./item-load.component.less'],
-  providers: [
-    LookupService,
-    ItemService
-  ]
+  styleUrls: ['./item-load.component.less']
 })
 // TODO: This class has too many fields - clear sign it needs to be factored into multiple classes
 export class ItemLoadComponent implements OnInit {
@@ -79,8 +75,9 @@ export class ItemLoadComponent implements OnInit {
   constructor(private logger: Logger,
               private router: Router,
               private route: ActivatedRoute,
-              private lookupService: LookupService,
+              private userService: UserService,
               private itemService: ItemService,
+              private itemTypeService: ItemTypeService,
               private alertService: AlertService,
               public fb: FormBuilder) {
     this.commitForm = this.fb.group({
@@ -99,7 +96,7 @@ export class ItemLoadComponent implements OnInit {
 
     this.logger.debug('id: ' + this.currentItemId);
 
-    this.lookupService.getUser()
+    this.userService.findCurrentUser()
       .subscribe(
         (res: Response) => {
           this._user = res.json();
@@ -258,8 +255,9 @@ export class ItemLoadComponent implements OnInit {
       navBarMsgPrefix = 'Edit';
     }
 
+    // Set header
     this._navBarMessage = navBarMsgPrefix + ' Item ' + this.currentItem.id
-      + ' | ' + this.lookupService.getItemDescription(this.currentItem.type);
+      + ' | ' + this.itemTypeService.findItemTypeDescription(this.currentItem.type);
   }
 
   private onError(error): void {

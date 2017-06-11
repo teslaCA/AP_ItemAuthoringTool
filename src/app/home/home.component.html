@@ -2,10 +2,12 @@
   <div class="container">
     <div class="row">
 
+      <!-- Item search -->
       <div class="col-lg-6">
         <app-item-search></app-item-search>
       </div>
 
+      <!-- Create item -->
       <div class="col-lg-6">
         <div class="pull-right">
           <button class="btn btn-primary" routerLink="/item/create/select-type">
@@ -13,11 +15,10 @@
             Create Item or Stimulus
           </button>
         </div>
-
         <div class="pull-right">
           <div *ngIf="showLink">
             <button class="btn btn-info" routerLink="{{itemUrl}}">
-              {{itemLink}} Newly Created Item
+              {{itemLink}}
             </button>
             &nbsp;&nbsp;
           </div>
@@ -25,6 +26,5 @@
       </div>
 
     </div>
-
   </div>
 </section>

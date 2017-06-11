@@ -28,9 +28,9 @@ export class HomeComponent implements OnInit {
 
   private id: number;
 
-  private itemUrl = '';
+  public itemUrl = '';
 
-  private itemLink = '';
+  public itemLink = '';
 
   get showLink(): boolean {
     if (this.action === 'create' || this.action === 'commit') {
@@ -57,7 +57,7 @@ export class HomeComponent implements OnInit {
       this.itemUrl = '/item/' + this.id;
       switch (this.action) {
         case 'create' : {
-          this.itemLink = 'View New Created Item';
+          this.itemLink = 'View Newly Created Item';
           break;
         }
         case 'commit' : {

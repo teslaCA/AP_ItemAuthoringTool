@@ -13,27 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import {Component} from "@angular/core";
-import {BuildInfoService} from "../core/build-info.service";
+import {inject, TestBed} from "@angular/core/testing";
+import {HttpModule} from "@angular/http";
 
-@Component({
-  selector: 'app-footer',
-  templateUrl: './footer.component.html',
-  styleUrls: ['./footer.component.less']
-})
-export class FooterComponent {
-  private _buildInfo: any;
-  get buildInfo(): any {
-    return this._buildInfo;
-  }
+import {BuildInfoService} from "./build-info.service";
 
-  constructor(private buildInfoService: BuildInfoService) {
-    this.buildInfoService.findBuildInfo()
-      .subscribe((res: Response) => {
-          this._buildInfo = res.json();
-        },
-        () => {
-          this._buildInfo = '';
-        });
-  }
-}
+describe('BuildInfoService', () => {
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      providers: [
+        BuildInfoService
+      ],
+      imports: [
+        HttpModule
+      ]
+    });
+  });
+
+  it('should be created', inject([BuildInfoService], (service: BuildInfoService) => {
+    expect(service).toBeTruthy();
+  }));
+});

@@ -13,27 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import {Component} from "@angular/core";
-import {BuildInfoService} from "../core/build-info.service";
+import {Injectable} from "@angular/core";
+import {Observable} from "rxjs/Observable";
+import {Http} from "@angular/http";
 
-@Component({
-  selector: 'app-footer',
-  templateUrl: './footer.component.html',
-  styleUrls: ['./footer.component.less']
-})
-export class FooterComponent {
-  private _buildInfo: any;
-  get buildInfo(): any {
-    return this._buildInfo;
+@Injectable()
+export class UserService {
+  private serviceUrl = '/api/users/principal';
+
+  constructor(private http: Http) {
   }
 
-  constructor(private buildInfoService: BuildInfoService) {
-    this.buildInfoService.findBuildInfo()
-      .subscribe((res: Response) => {
-          this._buildInfo = res.json();
-        },
-        () => {
-          this._buildInfo = '';
-        });
+  findCurrentUser(): Observable<any> {
+    return this.http.request(this.serviceUrl);
   }
 }

@@ -1,9 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpModule } from '@angular/http';
 import { ItemSelectTypeComponent } from './item-select-type.component';
-import { LookupService} from '../../../service/lookup.service';
+import { BuildInfoService} from '../../../core/build-info.service';
 import { RouterTestingModule} from '@angular/router/testing';
 import {Logger} from "../../../core/logger.service";
+import {ItemTypeService} from "../../../core/item-type.service";
 
 describe('ItemSelectTypeComponent', () => {
 
@@ -17,7 +18,8 @@ describe('ItemSelectTypeComponent', () => {
         RouterTestingModule
       ],
       providers: [
-        LookupService,
+        BuildInfoService,
+        ItemTypeService,
         Logger
       ]
     }).compileComponents();

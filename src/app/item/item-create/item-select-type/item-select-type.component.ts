@@ -14,41 +14,21 @@
  * limitations under the License.
  */
 import {Component, OnInit} from "@angular/core";
-import {Router} from "@angular/router";
-import {LookupService} from "../../../service/lookup.service";
 import {ItemType} from "../../../model/item-type";
-import {Logger} from "../../../core/logger.service";
+import {ItemTypeService} from "../../../core/item-type.service";
 
 @Component({
   selector: 'app-item-select-type',
   templateUrl: './item-select-type.component.html',
-  styleUrls: ['./item-select-type.component.less'],
-  providers: [LookupService]
+  styleUrls: ['./item-select-type.component.less']
 })
 export class ItemSelectTypeComponent implements OnInit {
+  public normalItemTypes: ItemType[];
 
-  private _items: ItemType[];
-  get items(): ItemType[] {
-    return this._items;
-  }
-
-  private _other: ItemType[];
-  get other(): ItemType[] {
-    return this._other;
-  }
-
-  constructor(private logger: Logger,
-              private router: Router,
-              private lookupService: LookupService) {
+  constructor(private itemTypeService: ItemTypeService) {
   }
 
   ngOnInit() {
-    this._items = this.lookupService.getMainItemTypes();
-    this._other = this.lookupService.getOtherItemTypes();
-  }
-
-  confirmCancel(): void {
-    this.logger.debug('cancel item select type...');
-    this.router.navigateByUrl('/');
+    this.normalItemTypes = this.itemTypeService.findNormalItemTypes();
   }
 }

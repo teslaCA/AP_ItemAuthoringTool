@@ -15,13 +15,12 @@
  */
 import {Injectable} from "@angular/core";
 
+// TODO: Integrate with JavaScript error tracking solution such as Sentry (https://sentry.io/for/javascript/)
 /**
  * Logger to be used throughout the app instead of directly sending messages to console.
  */
 @Injectable()
 export class Logger {
-  // TODO: Integrate with JavaScript error tracking solution such as Sentry (https://sentry.io/for/javascript/)
-
   /**
    * Log a debug level message.
    * @param message to be logged.

@@ -1,5 +1,5 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-import {APP_BASE_HREF} from '@angular/common';
+import {async, TestBed} from "@angular/core/testing";
+import {APP_BASE_HREF} from "@angular/common";
 
 
 import {BrowserModule} from "@angular/platform-browser";
@@ -26,7 +26,7 @@ import {NoRouteComponent} from "../no-route/no-route.component";
 import {Logger} from "../core/logger.service";
 import {ToastyModule} from "ng2-toasty";
 import {AlertService} from "../core/alert.service";
-import {ItemSearchComponent} from '../item/item-search/item-search.component';
+import {ItemSearchComponent} from "../item/item-search/item-search.component";
 
 describe('HomeComponent', () => {
 
@@ -60,7 +60,7 @@ describe('HomeComponent', () => {
       providers: [
         Logger,
         AlertService,
-        {provide: APP_BASE_HREF, useValue : '/' }
+        {provide: APP_BASE_HREF, useValue: '/'}
       ]
     }).compileComponents();
   }));

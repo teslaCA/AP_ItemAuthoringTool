@@ -24,7 +24,6 @@ import {ToastOptions, ToastyConfig, ToastyService} from "ng2-toasty";
  */
 @Injectable()
 export class AlertService {
-
   constructor(private toastyService: ToastyService,
               private toastyConfig: ToastyConfig) {
     this.toastyConfig.limit = 5;

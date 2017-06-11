@@ -16,17 +16,14 @@
 import "rxjs/add/operator/switchMap";
 import {Component, OnInit} from "@angular/core";
 import {ActivatedRoute, Router} from "@angular/router";
-import {ItemService} from "../../service/item.service";
+import {ItemService} from "../../core/item.service";
 import {Logger} from "../../core/logger.service";
 import {Item} from "../../model/item/item";
 
 @Component({
   selector: 'app-item-create',
   templateUrl: './item-create.component.html',
-  styleUrls: ['./item-create.component.less'],
-  providers: [
-    ItemService
-  ]
+  styleUrls: ['./item-create.component.less']
 })
 export class ItemCreateComponent implements OnInit {
 

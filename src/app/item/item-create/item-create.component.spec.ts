@@ -2,8 +2,8 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {HttpModule} from '@angular/http';
 import {RouterTestingModule} from '@angular/router/testing';
 import {AlertModule} from 'ngx-bootstrap/alert';
-import {LookupService} from '../../service/lookup.service';
-import {ItemService} from '../../service/item.service';
+import {BuildInfoService} from '../../core/build-info.service';
+import {ItemService} from '../../core/item.service';
 import {ItemCreateComponent} from './item-create.component';
 import {Logger} from "../../core/logger.service";
 import {AlertService} from "../../core/alert.service";
@@ -25,7 +25,7 @@ describe('ItemCreateComponent', () => {
               ItemCreateComponent
             ],
             providers: [
-              LookupService,
+              BuildInfoService,
               ItemService,
               Logger,
               AlertService
