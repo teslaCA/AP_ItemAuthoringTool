@@ -4,6 +4,7 @@ import {Observable} from "rxjs/Observable";
 import "rxjs/add/operator/catch";
 import "rxjs/add/operator/map";
 import "rxjs/add/observable/throw";
+import 'rxjs/add/observable/fromPromise';
 
 import {Logger} from "./logger.service";
 import {AlertService} from "./alert.service";
@@ -14,10 +15,10 @@ export class ItemService {
   private static serviceUrl = '/api/ims/v1/items';
   private static requestOptions = new RequestOptions({headers: new Headers({'Content-Type': 'application/json'})});
 
+  // TODO: Remove injection of AlertService once all public methods return Observables (the caller will use the AlertService to alert user to success or failure)
   constructor(private logger: Logger,
               private http: Http,
-              private alertService: AlertService  // TODO: Remove injection of AlertService once all public methods return Observables (the caller will use the AlertService to alert user to success or failure)
-  ) {
+              private alertService: AlertService) {
   }
 
   //---------------------------------------------------------------------------
@@ -51,47 +52,21 @@ export class ItemService {
   }
 
   // Commit the creation of the item (the item will become available in the system)
-  // TODO: Change to return Observable so caller can decide what to do on success/failure
-  commitItemCreate(item: Item): void {
-    const url = ItemService.serviceUrl + '/' + item.id + '/commit';
-
-    this.logger.debug(`Committing creation of item ${JSON.stringify(item)}: ${url}`);
-
-    this.http
+  commitItemCreate(item: Item): Observable<void> {
+    const url = `${ItemService.serviceUrl}/${item.id}/commit`;
+    return this.http
       .post(url, {item: item}, ItemService.requestOptions)
-      .subscribe(
-        (response: Response) => {
-          this.alertService.success('Item Created', 'Your item has been created and added to the item bank.');
-
-          this.logger.debug('post ' + url + ' operation successful');
-        },
-        e => {
-          this.alertService.error('Error Creating Item', `An error was encountered trying to create your item.  Reason:\n\n${e}`);
-
-          this.handleError(e);
-        });
+      .map(_ => null)
+      .catch(this.handleError);
   }
 
   // Rollback the creation of the item (the item will be removed entirely)
-  // TODO: Change to return Observable so caller can decide what to do on success/failure
-  rollbackItemCreate(itemId: string): void {
-    const url = ItemService.serviceUrl + '/' + itemId + '/rollback';
-
-    this.logger.debug(`Rolling back creation of item with ID ${itemId}: ${url}`);
-
-    this.http
+  rollbackItemCreate(itemId: string): Observable<void> {
+    const url = `${ItemService.serviceUrl}/${itemId}/rollback`;
+    return this.http
       .post(url, null, ItemService.requestOptions)
-      .subscribe(
-        (response: Response) => {
-          this.alertService.success('Creation Cancelled', 'The item you were creating has been successfully removed.');
-
-          this.logger.debug('delete ' + url + ' operation successful');
-        },
-        e => {
-          this.alertService.error('Error Cancelling Creation', `An error was encountered trying to cancel the creation of your item.  Reason:\n\n${e}`);
-
-          this.handleError(e);
-        });
+      .map(_ => null)
+      .catch(e => this.handleError(e));
   }
 
   //---------------------------------------------------------------------------

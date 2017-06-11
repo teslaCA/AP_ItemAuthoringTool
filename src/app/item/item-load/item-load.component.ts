@@ -101,34 +101,71 @@ export class ItemLoadComponent implements OnInit {
   }
 
   createItem(): void {
-    let itemCommit: Item;
-
+    // TODO: This is bad - shouldn't use switch, shouldn't be hardcoded to SA, clean this up
+    // Get the item to be created
+    let item: Item;
     switch (this.currentItem.type) {
       case 'sa' : {
-        itemCommit = this.saItemComponent.currentItem();
+        item = this.saItemComponent.currentItem();
         break;
       }
     }
-    this.logger.debug('committing item: ' + JSON.stringify(itemCommit));
-    // TODO: What if this fails?  Need to not redirect to / on failure
-    if (itemCommit.id !== undefined) {
-      // TODO: Take out this alert after this section of code no longer always redirects to /
-      this.alertService.processing('Creating Item', `Your item is being created.`);
-
-      this.itemService.commitItemCreate(itemCommit);
-    } else {
+    if (!item || !item.id) {
       this.logger.error('Item was not properly loaded from subcomponent. Generate error');
+      return;
     }
-    this.router.navigateByUrl('/?action=create&id=' + itemCommit.id);
+
+    // TODO: Replace with processing overlay
+    this.alertService.processing(
+      'Creating Item',
+      `Your item is being created.`);
+    this.itemService
+      .commitItemCreate(item)
+      .subscribe(
+        () => {
+          this.alertService.success(
+            'Item Created',
+            'The item has been successfully created and added to the item bank.');
+
+          // Return user to dashboard
+          this.router.navigateByUrl(`/?action=create&id=${item.id}`);
+        },
+        e => {
+          this.alertService.error(
+            'Error Creating Item',
+            `An error was encountered trying to create your item.  Reason:\n\n${e}`);
+        },
+        () => {
+          // TODO: Remove processing overlay
+        }
+      );
   }
 
   cancelCreate(): void {
-    // TODO: Take out this alert after this section of code no longer always redirects to /
-    this.alertService.processing('Cancelling Creation', `Your item is being removed.`);
+    // TODO: Replace with processing overlay
+    this.alertService.processing(
+      'Cancelling Creation',
+      `Your item is being removed.`);
+    this.itemService
+      .rollbackItemCreate(this.currentItem.id)
+      .subscribe(
+        () => {
+          this.alertService.success(
+            'Creation Cancelled',
+            'The item you were creating has been successfully removed.');
 
-    // TODO: What if this fails?  Need to not redirect to / on failure
-    this.itemService.rollbackItemCreate(this.currentItem.id);
-    this.router.navigateByUrl('/');
+          // Return user to dashboard
+          this.router.navigateByUrl('/');
+        },
+        e => {
+          this.alertService.error(
+            'Error Cancelling Creation',
+            `An error was encountered trying to cancel the creation of your item.  Reason:\n\n${e}`);
+        },
+        () => {
+          // TODO: Remove processing overlay
+        }
+      );
   }
 
   editItem(): void {
