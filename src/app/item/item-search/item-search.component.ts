@@ -1,7 +1,3 @@
-/**
- * Created by brettdrainer on 6/3/17.
- */
-
 import {Component} from "@angular/core";
 import {Router} from "@angular/router";
 
