@@ -118,7 +118,7 @@ export class ItemLoadComponent implements OnInit {
     // TODO: Replace with processing overlay
     this.alertService.processing(
       'Creating Item',
-      `Your item is being created.`);
+      'Your item is being created.');
     this.itemService
       .commitItemCreate(item)
       .subscribe(
@@ -145,7 +145,7 @@ export class ItemLoadComponent implements OnInit {
     // TODO: Replace with processing overlay
     this.alertService.processing(
       'Cancelling Creation',
-      `Your item is being removed.`);
+      'Your item is being removed.');
     this.itemService
       .rollbackItemCreate(this.currentItem.id)
       .subscribe(
@@ -172,7 +172,7 @@ export class ItemLoadComponent implements OnInit {
     // TODO: Replace with processing overlay
     this.alertService.processing(
       'Editing Item',
-      `Your item is being opened for editing.`);
+      'Your item is being opened for editing.');
     this.itemService
       .beginItemEdit(this.currentItemId)
       .subscribe(
@@ -195,40 +195,77 @@ export class ItemLoadComponent implements OnInit {
   }
 
   cancelEdit(): void {
-    // TODO: Take out this alert after this section of code no longer always redirects to /
-    this.alertService.processing('Discarding Changes', `Your changes to the item are being discarded.`);
+    // TODO: Replace with processing overlay
+    this.alertService.processing(
+      'Discarding Changes',
+      'Your changes to the item are being discarded.');
+    this.itemService
+      .rollbackItemEdit(this.currentItem.id)
+      .subscribe(
+        () => {
+          this.alertService.success(
+            'Changes Discarded',
+            'Your changes to the item have been discarded.');
 
-    // TODO: What if this fails?  Need to not redirect to / on failure
-    this.itemService.rollbackItemEdit(this.currentItem.id);
-    this.router.navigateByUrl('/');
+          // Route user to dashboard
+          this.router.navigateByUrl(`/?action=commit&id=${this.currentItem.id}`);
+        },
+        e => {
+          this.alertService.error(
+            'Error Discarding Changes',
+            `An error was encountered trying to discard your changes to the item.  Reason:\n\n${e}`);
+        },
+        () => {
+          // TODO: Remove processing overlay
+        }
+      );
   }
 
   commitItem(): void {
-    let itemCommit: Item;
+    // TODO: This is bad - shouldn't use switch, shouldn't be hardcoded to SA, clean this up
+    // Get the item to be created
+    let item: Item;
     switch (this.currentItem.type) {
       case 'sa' : {
-        itemCommit = this.saItemComponent.currentItem();
+        item = this.saItemComponent.currentItem();
         break;
       }
     }
-    this.logger.debug('committing item: ' + JSON.stringify(itemCommit));
-
-    let commitMsg = this.commitForm.get('commitMsg').value;
-    if (commitMsg === '') {
-      commitMsg = 'IAT item commit';
-    }
-    this.logger.debug('commit message: ' + commitMsg);
-
-    // TODO: Take out this alert after this section of code no longer always redirects to /
-    this.alertService.processing('Saving Changes', `Your changes to the item are being saved.`);
-
-    // TODO: What if this fails?  Need to not redirect to / on failure
-    if (itemCommit.id !== undefined) {
-      this.itemService.commitItemEdit(itemCommit, commitMsg);
-    } else {
+    if (!item || !item.id) {
       this.logger.error('Item was not properly loaded from subcomponent. Generate error');
+      return;
     }
-    this.router.navigateByUrl('/?action=commit&id=' + itemCommit.id);
+
+    // Get the commit message
+    let message = this.commitForm.get('commitMsg').value;
+    if (message === '') {
+      message = 'IAT item commit';
+    }
+
+    // TODO: Replace with processing overlay
+    this.alertService.processing(
+      'Saving Changes',
+      'Your changes to the item are being saved.');
+    this.itemService
+      .commitItemEdit(item, message)
+      .subscribe(
+        () => {
+          this.alertService.success(
+            'Changes Saved',
+            'Your changes to the item have been saved to the item bank.');
+
+          // Route user to dashboard
+          this.router.navigateByUrl(`/?action=commit&id=${item.id}`);
+        },
+        e => {
+          this.alertService.error(
+            'Error Saving Changes',
+            `An error was encountered trying to save your changes to the item.  Reason:\n\n${e}`);
+        },
+        () => {
+          // TODO: Remove processing overlay
+        }
+      );
   }
 
   isCreate(): boolean {

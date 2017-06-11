@@ -7,7 +7,6 @@ import "rxjs/add/observable/throw";
 import "rxjs/add/observable/fromPromise";
 
 import {Logger} from "./logger.service";
-import {AlertService} from "./alert.service";
 import {Item} from "app/model/item/item";
 
 @Injectable()
@@ -17,10 +16,8 @@ export class ItemService {
   // TODO: Move to base class
   private static requestOptions = new RequestOptions({headers: new Headers({'Content-Type': 'application/json'})});
 
-  // TODO: Remove injection of AlertService once all public methods return Observables
   constructor(private logger: Logger,
-              private http: Http,
-              private alertService: AlertService) {
+              private http: Http) {
   }
 
   //---------------------------------------------------------------------------
@@ -78,68 +75,35 @@ export class ItemService {
   }
 
   // Commit the editing of the item (the changes to the item will become available in the system)
-  // TODO: Change to return Observable so caller can decide what to do on success/failure
-  commitItemEdit(item: Item, commitMessage: string): void {
-    const url = ItemService.serviceUrl + '/' + item.id + '/commit';
-
-    this.logger.debug(`Committing edit of item ${JSON.stringify(item)}: ${url}`);
-
-    this.http
+  commitItemEdit(item: Item, commitMessage: string): Observable<void> {
+    const url = `${ItemService.serviceUrl}/${item.id}/commit`;
+    return this.http
       .put(url, {item: item, message: commitMessage}, ItemService.requestOptions)
-      .subscribe(
-        (response: Response) => {
-          this.alertService.success('Changes Saved', 'Your edits to the item have been saved.');
-
-          this.logger.debug('put ' + url + ' operation successful');
-        },
-        e => {
-          this.alertService.error('Error Saving Changes', `Your edits to the item failed to be saved.  Reason:\n\n${e}`);
-
-          this.handleError(e);
-        });
+      .map(_ => null)
+      .catch(this.handleError);
   }
 
   // Rollback the editing of the item (the changes made to the item since editing began will be removed)
-  // TODO: Change to return Observable so caller can decide what to do on success/failure
-  rollbackItemEdit(itemId: string): void {
-    const url = ItemService.serviceUrl + '/' + itemId + '/rollback';
-
-    this.logger.debug(`Rolling back edit of item with ID ${itemId}: ${url}`);
-
-    this.http
+  rollbackItemEdit(itemId: string): Observable<void> {
+    const url = `${ItemService.serviceUrl}/${itemId}/rollback`;
+    return this.http
       .put(url, null, ItemService.requestOptions)
-      .subscribe(
-        (response: Response) => {
-          this.alertService.success('Changes Discarded', 'Your edits to the item have been successfully discarded.');
-
-          this.logger.debug('put ' + url + ' operation successful');
-        },
-        e => {
-          this.alertService.error('Error Discarding Changes', `An error was encountered trying to discard your edits to the item.  Reason:\n\n${e}`);
-
-          this.handleError(e);
-        });
+      .map(_ => null)
+      .catch(this.handleError);
   }
 
   //---------------------------------------------------------------------------
   // Item save
   //---------------------------------------------------------------------------
   // Save changes to the item (update the scratchpad)
-  // TODO: Change to return Observable so caller can decide what to do on success/failure
-  saveChanges(item: Item): void {
-    const url = ItemService.serviceUrl + '/' + item.id + '/save';
-
-    this.logger.debug(`Saving item ${JSON.stringify(item)}: ${url}`);
-
-    this.http
+  // TODO: Determine if there should be two versions of this method - POST for saving create, PUT for saving edit
+  // TODO: Do not remove this method; remove this TODO when auto-save makes use of this method
+  saveChanges(item: Item): Observable<void> {
+    const url = `${ItemService.serviceUrl}/${item.id}/save`;
+    return this.http
       .post(url, JSON.stringify(item), ItemService.requestOptions)
-      .subscribe(
-        (response: Response) => {
-          this.logger.debug('post ' + url + ' operation successful');
-        },
-        e => {
-          this.handleError(e);
-        });
+      .map(_ => null)
+      .catch(this.handleError);
   }
 
   //---------------------------------------------------------------------------

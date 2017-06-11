@@ -4,7 +4,6 @@ import {ToastyModule} from "ng2-toasty";
 
 import {ItemService} from "./item.service";
 import {Logger} from "./logger.service";
-import {AlertService} from "./alert.service";
 
 describe('ItemService', () => {
   beforeEach(() => {
@@ -15,8 +14,7 @@ describe('ItemService', () => {
       ],
       providers: [
         ItemService,
-        Logger,
-        AlertService
+        Logger
       ]
     });
   });
