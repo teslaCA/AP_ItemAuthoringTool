@@ -8,20 +8,13 @@ import {Logger} from "../core/logger.service";
   styleUrls: ['./home.component.less']
 })
 export class HomeComponent implements OnInit {
-
   private action = '';
-
   private id: number;
-
   public itemUrl = '';
-
   public itemLink = '';
 
   get showLink(): boolean {
-    if (this.action === 'create' || this.action === 'commit') {
-      return true;
-    }
-    return false;
+    return this.action === 'create' || this.action === 'commit';
   }
 
   constructor(private logger: Logger,
@@ -52,5 +45,4 @@ export class HomeComponent implements OnInit {
       }
     }
   }
-
 }

@@ -7,7 +7,6 @@ import {ActivatedRoute, Router} from "@angular/router";
   styleUrls: ['./item-redirect.component.less']
 })
 export class ItemRedirectComponent implements OnInit {
-
   private itemId: number;
 
   constructor(private router: Router,

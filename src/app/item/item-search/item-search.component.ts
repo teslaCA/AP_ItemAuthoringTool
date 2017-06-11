@@ -10,7 +10,6 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
   styleUrls: ['./item-search.component.less'],
 })
 export class ItemSearchComponent {
-
   complexForm: FormGroup;
 
   constructor(private logger: Logger, private router: Router, fb: FormBuilder) {

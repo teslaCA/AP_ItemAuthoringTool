@@ -10,7 +10,6 @@ import {SaItem} from "../../model/item/sa-item";
   styleUrls: ['./item-load-sa.component.less']
 })
 export class ItemLoadSaComponent implements OnInit, AfterViewChecked {
-
   //---------------------------------------------------------------------------
   // Stem fields
   // TODO: Move to separate component
@@ -29,18 +28,9 @@ export class ItemLoadSaComponent implements OnInit, AfterViewChecked {
   // Exemplar responses fields
   // TODO: Move to separate component
   //---------------------------------------------------------------------------
-  responseForm: FormGroup;
-
   private responseAdded = false;
-
-  private _deleteResponseIndex: number;
-  get deleteResponseIndex(): number {
-    return this._deleteResponseIndex;
-  }
-
-  set deleteResponseIndex(value: number) {
-    this._deleteResponseIndex = value;
-  }
+  responseForm: FormGroup;
+  deleteResponseIndex: number;
 
   get responses(): FormArray {
     return this.responseForm.get('responses') as FormArray;
@@ -50,7 +40,6 @@ export class ItemLoadSaComponent implements OnInit, AfterViewChecked {
   // General responses fields
   //---------------------------------------------------------------------------
   @Input() item: SaItem;
-
   @Input() isView: boolean;
 
   //---------------------------------------------------------------------------

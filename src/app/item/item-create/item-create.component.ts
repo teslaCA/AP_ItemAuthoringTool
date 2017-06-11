@@ -11,9 +11,7 @@ import {Item} from "../../model/item/item";
   styleUrls: ['./item-create.component.less']
 })
 export class ItemCreateComponent implements OnInit {
-
   private itemType: string;
-
   private errorMessage: string;
 
   constructor(private logger: Logger,

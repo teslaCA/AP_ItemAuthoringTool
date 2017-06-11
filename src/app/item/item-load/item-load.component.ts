@@ -20,40 +20,14 @@ import {UserService} from "app/core/user.service";
 })
 // TODO: This class has too many fields - clear sign it needs to be factored into multiple classes
 export class ItemLoadComponent implements OnInit {
-
   private currentItemId: string;
-
   commitForm: FormGroup;
-
-  private _currentItem: Item;
-  get currentItem(): Item {
-    return this._currentItem;
-  }
-
-  private _navBarMessage: string;
-  get navBarMessage(): string {
-    return this._navBarMessage;
-  }
-
-  private _user: any; // TODO: Strongly type (looks like only the username is used so consider changing this field to a non-nullable string "_currentUsername")
-  get user(): any {
-    return this._user;
-  }
-
-  private _loading: boolean;
-  get loading(): boolean {
-    return this._loading;
-  }
-
-  private _serviceError: boolean;
-  get serviceError(): boolean {
-    return this._serviceError;
-  }
-
-  private _errorMessage: string;
-  get errorMessage(): string {
-    return this._errorMessage;
-  }
+  currentItem: Item;
+  navBarMessage: string;
+  user: any; // TODO: Strongly type (looks like only the username is used so consider changing this field to a non-nullable string "_currentUsername")
+  loading: boolean;
+  serviceError: boolean;
+  errorMessage: string;
 
   @ViewChild(ItemLoadSaComponent) saItemComponent;
 
@@ -71,8 +45,8 @@ export class ItemLoadComponent implements OnInit {
   }
 
   ngOnInit() {
-    this._loading = true;
-    this._serviceError = false;
+    this.loading = true;
+    this.serviceError = false;
 
     this.route.params
       .subscribe(params => {
@@ -84,7 +58,7 @@ export class ItemLoadComponent implements OnInit {
     this.userService.findCurrentUser()
       .subscribe(
         (res: Response) => {
-          this._user = res.json();
+          this.user = res.json();
         },
         error => this.logger.error(error),
         () => {
@@ -93,7 +67,7 @@ export class ItemLoadComponent implements OnInit {
               item => this.onSuccess(item),
               error => this.onError(error),
               () => {
-                this._loading = false;
+                this.loading = false;
               }
             );
         });
@@ -269,8 +243,8 @@ export class ItemLoadComponent implements OnInit {
   }
 
   isCreate(): boolean {
-    if (this._user && this.currentItem) {
-      if (this._user.username === this.currentItem.beingCreatedBy
+    if (this.user && this.currentItem) {
+      if (this.user.username === this.currentItem.beingCreatedBy
         && this.currentItem.beingEditedBy === null) {
         return true;
       }
@@ -289,8 +263,8 @@ export class ItemLoadComponent implements OnInit {
   }
 
   isEdit(): boolean {
-    if (this._user && this.currentItem) {
-      if (this._user.username === this.currentItem.beingEditedBy
+    if (this.user && this.currentItem) {
+      if (this.user.username === this.currentItem.beingEditedBy
         && this.currentItem.beingCreatedBy === null) {
         return true;
       }
@@ -300,10 +274,10 @@ export class ItemLoadComponent implements OnInit {
 
   // TODO: Why isn't this the negation of isEdit?
   isNotEditable(): boolean {
-    if (this._user && this.currentItem) {
+    if (this.user && this.currentItem) {
       if (this.currentItem.beingCreatedBy === null
         && this.currentItem.beingEditedBy != null
-        && this._user.username !== this.currentItem.beingEditedBy) {
+        && this.user.username !== this.currentItem.beingEditedBy) {
         return true;
       }
     }
@@ -317,7 +291,7 @@ export class ItemLoadComponent implements OnInit {
   private onSuccess(item: Item): void {
     this.logger.debug('retrieved item: ' + JSON.stringify(item));
     let navBarMsgPrefix: string;
-    this._currentItem = item;
+    this.currentItem = item;
 
     if (this.isCreate()) {
       // Item is currently being created by logged in user
@@ -331,28 +305,28 @@ export class ItemLoadComponent implements OnInit {
     }
 
     // Set header
-    this._navBarMessage = navBarMsgPrefix + ' Item ' + this.currentItem.id
+    this.navBarMessage = navBarMsgPrefix + ' Item ' + this.currentItem.id
       + ' | ' + this.itemTypeService.findItemTypeDescription(this.currentItem.type);
   }
 
   private onError(error): void {
-    this._loading = false;
-    this._serviceError = true;
+    this.loading = false;
+    this.serviceError = true;
 
     this.logger.error('Error Status: ' + error.status);
 
     switch (error.status) {
       case 400:
       case 404: {
-        this._errorMessage = this.getErrorMessages(error);
+        this.errorMessage = this.getErrorMessages(error);
         break;
       }
       case 500: {
-        this._errorMessage = 'Internal Server Error';
+        this.errorMessage = 'Internal Server Error';
         break;
       }
       default: {
-        this._errorMessage = 'Unknown Error';
+        this.errorMessage = 'Unknown Error';
       }
     }
   }

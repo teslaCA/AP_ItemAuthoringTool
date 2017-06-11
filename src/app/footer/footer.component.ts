@@ -7,18 +7,15 @@ import {BuildInfoService} from "../core/build-info.service";
   styleUrls: ['./footer.component.less']
 })
 export class FooterComponent {
-  private _buildInfo: any;
-  get buildInfo(): any {
-    return this._buildInfo;
-  }
+  buildInfo: any;
 
   constructor(private buildInfoService: BuildInfoService) {
     this.buildInfoService.findBuildInfo()
       .subscribe((res: Response) => {
-          this._buildInfo = res.json();
+          this.buildInfo = res.json();
         },
         () => {
-          this._buildInfo = '';
+          this.buildInfo = '';
         });
   }
 }
