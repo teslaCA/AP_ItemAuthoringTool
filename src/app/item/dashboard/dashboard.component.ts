@@ -1,13 +1,13 @@
 import {Component, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
-import {Logger} from "../core/logger.service";
+import {Logger} from "../../core/logger.service";
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.less']
+  selector: 'item-dashboard',
+  templateUrl: './dashboard.component.html',
+  styleUrls: ['./dashboard.component.less']
 })
-export class HomeComponent implements OnInit {
+export class DashboardComponent implements OnInit {
   private action = '';
   private id: number;
   public itemUrl = '';

@@ -1,8 +1,8 @@
 import {AfterViewChecked, Component, ElementRef, Input, OnInit} from "@angular/core";
 import {FormArray, FormBuilder, FormGroup} from "@angular/forms";
 import {Logger} from "../../core/logger.service";
-import {Item} from "../../model/item/item";
-import {SaItem} from "../../model/item/sa-item";
+import {Item} from "../model/item/item";
+import {SaItem} from "../model/item/sa-item";
 
 @Component({
   selector: 'app-item-load-sa',

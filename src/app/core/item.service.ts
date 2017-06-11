@@ -7,7 +7,7 @@ import "rxjs/add/observable/throw";
 import "rxjs/add/observable/fromPromise";
 
 import {Logger} from "./logger.service";
-import {Item} from "app/model/item/item";
+import {Item} from "app/item/model/item/item";
 
 @Injectable()
 export class ItemService {

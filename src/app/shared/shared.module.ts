@@ -3,6 +3,7 @@ import {CommonModule} from "@angular/common";
 import {FooterComponent} from "./footer/footer.component";
 import {HeaderComponent} from "./header/header.component";
 import {Ng2BootstrapModule} from "ngx-bootstrap";
+import {NotFoundComponent} from "./not-found/not-found.component";
 
 @NgModule({
   imports: [
@@ -11,11 +12,13 @@ import {Ng2BootstrapModule} from "ngx-bootstrap";
   ],
   declarations: [
     FooterComponent,
-    HeaderComponent
+    HeaderComponent,
+    NotFoundComponent
   ],
   exports: [
     FooterComponent,
-    HeaderComponent
+    HeaderComponent,
+    NotFoundComponent
   ]
 })
 export class SharedModule {

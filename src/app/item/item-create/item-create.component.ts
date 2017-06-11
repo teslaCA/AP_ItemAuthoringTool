@@ -3,7 +3,7 @@ import {Component, OnInit} from "@angular/core";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ItemService} from "../../core/item.service";
 import {Logger} from "../../core/logger.service";
-import {Item} from "../../model/item/item";
+import {Item} from "../model/item/item";
 
 @Component({
   selector: 'app-item-create',

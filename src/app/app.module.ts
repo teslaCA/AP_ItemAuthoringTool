@@ -15,24 +15,23 @@ import {ItemCreateComponent} from "./item/item-create/item-create.component";
 import {ItemLoadSaComponent} from "./item/item-load-sa/item-load-sa.component";
 import {ItemLoadComponent} from "./item/item-load/item-load.component";
 import {ItemRedirectComponent} from "./item/item-redirect/item-redirect.component";
-import {NoRouteComponent} from "./no-route/no-route.component";
+import {NotFoundComponent} from "./shared/not-found/not-found.component";
 import {ToastyModule} from "ng2-toasty";
 import {ItemSearchComponent} from "./item/item-search/item-search.component";
 import {CoreModule} from "./core/core.module";
 import {SharedModule} from "./shared/shared.module";
-import {HomeComponent} from "./home/home.component";
+import {DashboardComponent} from "./item/dashboard/dashboard.component";
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
+    DashboardComponent,
     ItemCreateComponent,
     ItemLoadSaComponent,
     ItemLoadComponent,
     ItemRedirectComponent,
     ItemSearchComponent,
-    ItemSelectTypeComponent,
-    NoRouteComponent,
+    ItemSelectTypeComponent
   ],
   imports: [
     AlertModule.forRoot(),
