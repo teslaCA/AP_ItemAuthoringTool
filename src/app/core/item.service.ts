@@ -4,7 +4,7 @@ import {Observable} from "rxjs/Observable";
 import "rxjs/add/operator/catch";
 import "rxjs/add/operator/map";
 import "rxjs/add/observable/throw";
-import 'rxjs/add/observable/fromPromise';
+import "rxjs/add/observable/fromPromise";
 
 import {Logger} from "./logger.service";
 import {AlertService} from "./alert.service";
@@ -13,27 +13,26 @@ import {Item} from "app/model/item/item";
 @Injectable()
 export class ItemService {
   private static serviceUrl = '/api/ims/v1/items';
+
+  // TODO: Move to base class
   private static requestOptions = new RequestOptions({headers: new Headers({'Content-Type': 'application/json'})});
 
-  // TODO: Remove injection of AlertService once all public methods return Observables (the caller will use the AlertService to alert user to success or failure)
+  // TODO: Remove injection of AlertService once all public methods return Observables
   constructor(private logger: Logger,
               private http: Http,
               private alertService: AlertService) {
   }
 
   //---------------------------------------------------------------------------
-  // Item lookup
+  // Item search
   //---------------------------------------------------------------------------
   // Return the item with the given ID
   findItem(itemId: string): Observable<Item> {
-    const url = ItemService.serviceUrl + '/' + itemId;
-
-    this.logger.debug(`Finding item with ID ${itemId}: ${url}`);
-
+    const url = `${ItemService.serviceUrl}/${itemId}`;
     return this.http
-      .get(ItemService.serviceUrl + '/' + itemId, ItemService.requestOptions)
-      .map(res => ItemService.extractJson(res))
-      .catch(err => this.handleError(err));
+      .get(url, ItemService.requestOptions)
+      .map(ItemService.extractJson)
+      .catch(this.handleError);
   }
 
   //---------------------------------------------------------------------------
@@ -41,14 +40,11 @@ export class ItemService {
   //---------------------------------------------------------------------------
   // Begin creating an item (creates a scratchpad to which updates will be saved)
   beginItemCreate(itemType: string): Observable<Item> {
-    const url = ItemService.serviceUrl + '/begin';
-
-    this.logger.debug(`Beginning creation of item type ${itemType}: ${url}`);
-
+    const url = `${ItemService.serviceUrl}/begin`;
     return this.http
       .post(url, {'type': itemType}, ItemService.requestOptions)
-      .map(res => ItemService.extractJson(res))
-      .catch(err => this.handleError(err));
+      .map(ItemService.extractJson)
+      .catch(this.handleError);
   }
 
   // Commit the creation of the item (the item will become available in the system)
@@ -66,24 +62,19 @@ export class ItemService {
     return this.http
       .post(url, null, ItemService.requestOptions)
       .map(_ => null)
-      .catch(e => this.handleError(e));
+      .catch(this.handleError);
   }
 
   //---------------------------------------------------------------------------
   // Item edit
   //---------------------------------------------------------------------------
   // Begin editing an item (creates a scratchpad to which updates will be saved)
-  beginItemEdit(itemId: string): Observable<boolean> {
-    const url = ItemService.serviceUrl + '/' + itemId + '/begin';
-
-    this.logger.debug(`Beginning edit of item with ID ${itemId}: ${url}`);
-
+  beginItemEdit(itemId: string): Observable<void> {
+    const url = `${ItemService.serviceUrl}/${itemId}/begin`;
     return this.http
       .put(url, null, ItemService.requestOptions)
-      .map(() => {
-        return new Observable<boolean>();
-      })
-      .catch(err => this.handleError(err));
+      .map(_ => null)
+      .catch(this.handleError);
   }
 
   // Commit the editing of the item (the changes to the item will become available in the system)
@@ -154,6 +145,7 @@ export class ItemService {
   //---------------------------------------------------------------------------
   // Helpers
   //---------------------------------------------------------------------------
+  // TODO: Move all helpers to base class so they can be reused by all HttpServices
   private static extractJson(res: Response): any | {} {
     return res.json() || {};
   }

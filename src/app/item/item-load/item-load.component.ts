@@ -127,7 +127,7 @@ export class ItemLoadComponent implements OnInit {
             'Item Created',
             'The item has been successfully created and added to the item bank.');
 
-          // Return user to dashboard
+          // Route user to dashboard
           this.router.navigateByUrl(`/?action=create&id=${item.id}`);
         },
         e => {
@@ -154,7 +154,7 @@ export class ItemLoadComponent implements OnInit {
             'Creation Cancelled',
             'The item you were creating has been successfully removed.');
 
-          // Return user to dashboard
+          // Route user to dashboard
           this.router.navigateByUrl('/');
         },
         e => {
@@ -169,12 +169,28 @@ export class ItemLoadComponent implements OnInit {
   }
 
   editItem(): void {
-    this.itemService.beginItemEdit(this.currentItemId)
+    // TODO: Replace with processing overlay
+    this.alertService.processing(
+      'Editing Item',
+      `Your item is being opened for editing.`);
+    this.itemService
+      .beginItemEdit(this.currentItemId)
       .subscribe(
         () => {
+          this.alertService.success(
+            'Editing Item',
+            'Your item has been successfully opened for editing.');
+
+          // Route user to item
           this.router.navigateByUrl('/item-redirect/' + this.currentItemId);
         },
-        error => this.onError(error)
+        e => {
+          // TODO: Replace this call with an error alert
+          this.onError(e);
+        },
+        () => {
+          // TODO: Remove processing overlay
+        }
       );
   }
 
