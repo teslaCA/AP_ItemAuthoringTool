@@ -3,7 +3,7 @@ import { RouterTestingModule} from '@angular/router/testing';
 import { ReactiveFormsModule} from '@angular/forms';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { ItemLoadSaComponent } from './item-load-sa.component';
-import {Logger} from "../../service/logger.service";
+import {Logger} from "../../core/logger.service";
 
 describe('ItemLoadSaComponent', () => {
   let component: ItemLoadSaComponent;

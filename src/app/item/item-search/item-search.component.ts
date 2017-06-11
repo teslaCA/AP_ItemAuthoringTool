@@ -5,7 +5,7 @@
 import {Component} from "@angular/core";
 import {Router} from "@angular/router";
 
-import {Logger} from "../../service/logger.service";
+import {Logger} from "../../core/logger.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 @Component({

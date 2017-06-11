@@ -2,7 +2,7 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {RouterTestingModule} from '@angular/router/testing';
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 
-import {Logger} from "../../service/logger.service";
+import {Logger} from "../../core/logger.service";
 import {ItemSearchComponent} from './item-search.component';
 
 describe('ItemSearchComponent', () => {

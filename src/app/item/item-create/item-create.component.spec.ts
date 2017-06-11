@@ -5,8 +5,8 @@ import {AlertModule} from 'ngx-bootstrap/alert';
 import {LookupService} from '../../service/lookup.service';
 import {ItemService} from '../../service/item.service';
 import {ItemCreateComponent} from './item-create.component';
-import {Logger} from "../../service/logger.service";
-import {AlertService} from "../../service/alert.service";
+import {Logger} from "../../core/logger.service";
+import {AlertService} from "../../core/alert.service";
 import {ToastyModule} from "ng2-toasty";
 
 describe('ItemCreateComponent', () => {

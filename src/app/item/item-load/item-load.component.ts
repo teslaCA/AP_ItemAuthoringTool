@@ -20,8 +20,8 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 import {LookupService} from "../../service/lookup.service";
 import {ItemService} from "../../service/item.service";
 import {ItemLoadSaComponent} from "../item-load-sa/item-load-sa.component";
-import {Logger} from "../../service/logger.service";
-import {AlertService} from "../../service/alert.service";
+import {Logger} from "../../core/logger.service";
+import {AlertService} from "../../core/alert.service";
 import {Item} from "../../model/item/item";
 
 // TODO: Move stem-related code into separate component (called StemComponent)

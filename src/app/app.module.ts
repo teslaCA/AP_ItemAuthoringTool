@@ -34,10 +34,11 @@ import {ItemLoadSaComponent} from "./item/item-load-sa/item-load-sa.component";
 import {ItemLoadComponent} from "./item/item-load/item-load.component";
 import {ItemRedirectComponent} from "./item/item-redirect/item-redirect.component";
 import {NoRouteComponent} from "./no-route/no-route.component";
-import {Logger} from "./service/logger.service";
+import {Logger} from "./core/logger.service";
 import {ToastyModule} from "ng2-toasty";
-import {AlertService} from "./service/alert.service";
+import {AlertService} from "./core/alert.service";
 import {ItemSearchComponent} from './item/item-search/item-search.component';
+import {CoreModule} from "./core/core.module";
 
 @NgModule({
   declarations: [
@@ -45,29 +46,26 @@ import {ItemSearchComponent} from './item/item-search/item-search.component';
     FooterComponent,
     HeaderComponent,
     HomeComponent,
-    ItemSelectTypeComponent,
     ItemCreateComponent,
     ItemLoadSaComponent,
     ItemLoadComponent,
     ItemRedirectComponent,
+    ItemSearchComponent,
+    ItemSelectTypeComponent,
     NoRouteComponent,
-    ItemSearchComponent
   ],
   imports: [
-    BrowserModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpModule,
-    AppRoutingModule,
-    BsDropdownModule.forRoot(),
-    ModalModule.forRoot(),
     AlertModule.forRoot(),
+    AppRoutingModule,
+    BrowserModule,
+    BsDropdownModule.forRoot(),
+    CoreModule,
+    FormsModule,
+    HttpModule,
+    ModalModule.forRoot(),
     Ng2BootstrapModule.forRoot(),
-    ToastyModule.forRoot()
-  ],
-  providers: [
-    Logger,
-    AlertService
+    ReactiveFormsModule,
+    ToastyModule.forRoot(),
   ],
   bootstrap: [
     AppComponent

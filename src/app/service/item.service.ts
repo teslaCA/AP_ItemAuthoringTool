@@ -19,8 +19,8 @@ import {Observable} from "rxjs/Observable";
 import "rxjs/add/operator/catch";
 import "rxjs/add/operator/map";
 import "rxjs/add/observable/throw";
-import {Logger} from "./logger.service";
-import {AlertService} from "./alert.service";
+import {Logger} from "../core/logger.service";
+import {AlertService} from "../core/alert.service";
 import {Item} from "app/model/item/item";
 
 @Injectable()

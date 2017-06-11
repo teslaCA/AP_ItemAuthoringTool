@@ -15,7 +15,7 @@
  */
 import {Component, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
-import {Logger} from "../service/logger.service";
+import {Logger} from "../core/logger.service";
 
 @Component({
   selector: 'app-home',
