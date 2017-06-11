@@ -25,7 +25,7 @@ describe('ItemSelectTypeComponent', () => {
     }).compileComponents();
   }));
 
-  it('should create', () => {
+  it('should be created', () => {
     const fixture = TestBed.createComponent(ItemSelectTypeComponent);
     const app = fixture.debugElement.componentInstance;
     expect(app).toBeTruthy();
