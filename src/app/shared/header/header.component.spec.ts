@@ -4,8 +4,8 @@ import {HeaderComponent} from "./header.component";
 import {BsDropdownModule} from "ngx-bootstrap/dropdown";
 import {ModalModule} from "ngx-bootstrap/modal";
 import {CollapseDirective} from "ngx-bootstrap/collapse";
-import {Logger} from "../core/logger.service";
-import {UserService} from "../core/user.service";
+import {Logger} from "../../core/logger.service";
+import {UserService} from "../../core/user.service";
 
 describe('HeaderComponent', () => {
   beforeEach(async(() => {

@@ -8,8 +8,8 @@ import {ModalModule} from "ngx-bootstrap/modal";
 import {AlertModule} from "ngx-bootstrap/alert";
 
 import {AppComponent} from "./app.component";
-import {HeaderComponent} from "./header/header.component";
-import {FooterComponent} from "./footer/footer.component";
+import {HeaderComponent} from "./shared/header/header.component";
+import {FooterComponent} from "./shared/footer/footer.component";
 import {ItemSelectTypeComponent} from "./item/item-create/item-select-type/item-select-type.component";
 import {HomeComponent} from "./home/home.component";
 import {ItemCreateComponent} from "./item/item-create/item-create.component";

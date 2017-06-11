@@ -2,7 +2,7 @@ import {async, TestBed} from "@angular/core/testing";
 
 import {FooterComponent} from "./footer.component";
 import {HttpModule} from "@angular/http";
-import {BuildInfoService} from "../core/build-info.service";
+import {BuildInfoService} from "../../core/build-info.service";
 
 describe('FooterComponent', () => {
 

@@ -15,8 +15,8 @@ import {HomeComponent} from "./home.component";
 
 import {AppRoutingModule} from "../app.routing";
 import {AppComponent} from "../app.component";
-import {HeaderComponent} from "../header/header.component";
-import {FooterComponent} from "../footer/footer.component";
+import {HeaderComponent} from "../shared/header/header.component";
+import {FooterComponent} from "../shared/footer/footer.component";
 import {ItemSelectTypeComponent} from "../item/item-create/item-select-type/item-select-type.component";
 import {ItemCreateComponent} from "../item/item-create/item-create.component";
 import {ItemLoadSaComponent} from "../item/item-load-sa/item-load-sa.component";
