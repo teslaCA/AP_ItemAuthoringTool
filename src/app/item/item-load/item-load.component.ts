@@ -5,7 +5,7 @@ import {ItemService} from "../../core/item.service";
 import {ItemLoadSaComponent} from "../item-load-sa/item-load-sa.component";
 import {Logger} from "../../core/logger.service";
 import {AlertService} from "../../core/alert.service";
-import {Item} from "../model/item/item";
+import {Item} from "../models/item";
 import {ItemTypeService} from "../../core/item-type.service";
 import {UserService} from "app/core/user.service";
 

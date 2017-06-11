@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 
-import {ItemType, ItemTypeCategory} from "../item/model/item-type";
+import {ItemType, ItemTypeCategory} from "../item/models/item-type";
 
 const itemTypes: ItemType[] = [
   // TODO: Do not delete the commented-out item types; uncomment them as they are implemented

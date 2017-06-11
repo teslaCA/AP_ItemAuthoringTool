@@ -7,10 +7,14 @@ import {BuildInfoService} from "./build-info.service";
 import {ItemService} from "./item.service";
 import {ItemTypeService} from "./item-type.service";
 import {UserService} from "./user.service";
+import {HttpModule} from "@angular/http";
+import {AlertModule} from "ngx-bootstrap";
 
 @NgModule({
   imports: [
-    CommonModule
+    AlertModule,
+    CommonModule,
+    HttpModule
   ],
   declarations: [],
   providers: [
