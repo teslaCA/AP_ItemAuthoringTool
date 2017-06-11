@@ -13,7 +13,6 @@ import {Item} from "app/model/item/item";
 export class ItemService {
   private static serviceUrl = '/api/ims/v1/items';
 
-  // TODO: Move to base class
   private static requestOptions = new RequestOptions({headers: new Headers({'Content-Type': 'application/json'})});
 
   constructor(private logger: Logger,
@@ -109,12 +108,10 @@ export class ItemService {
   //---------------------------------------------------------------------------
   // Helpers
   //---------------------------------------------------------------------------
-  // TODO: Move all helpers to base class so they can be reused by all HttpServices
   private static extractJson(res: Response): any | {} {
     return res.json() || {};
   }
 
-  // TODO: Can this be removed once all public methods return Observables instead of handling errors internally?
   private handleError(error: Response | any): any {
     let message: string;
     if (error instanceof Response) {
@@ -124,7 +121,7 @@ export class ItemService {
     } else {
       message = error.message ? error.message : error.toString();
     }
-    this.logger.error('Item Service: ' + message);
+    this.logger.error(message);
     return Observable.throw(error);
   }
 }
