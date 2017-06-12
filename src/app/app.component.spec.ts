@@ -19,6 +19,8 @@ import {FindItemComponent} from "./item/components/find-item/find-item.component
 import {Logger} from "./core/logger.service";
 import {UserService} from "./core/user.service";
 import {BuildInfoService} from "./core/build-info.service";
+import {BusyOverlayComponent} from "./core/busy.service/busy-overlay.component";
+import {CoreModule} from "./core/core.module";
 
 describe('AppComponent', () => {
   let component: AppComponent;
@@ -43,6 +45,7 @@ describe('AppComponent', () => {
         UserService
       ],
       imports: [
+        CoreModule,
         FormsModule,
         ReactiveFormsModule,
         HttpModule,
