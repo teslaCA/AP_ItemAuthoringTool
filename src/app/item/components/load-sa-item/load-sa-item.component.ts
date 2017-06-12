@@ -5,11 +5,11 @@ import {Item} from "../../models/item";
 import {SaItem} from "../../models/sa-item";
 
 @Component({
-  selector: 'app-item-load-sa',
-  templateUrl: './item-load-sa.component.html',
-  styleUrls: ['./item-load-sa.component.less']
+  selector: 'load-sa-item',
+  templateUrl: './load-sa-item.component.html',
+  styleUrls: ['./load-sa-item.component.less']
 })
-export class ItemLoadSaComponent implements OnInit, AfterViewChecked {
+export class LoadSaItemComponent implements OnInit, AfterViewChecked {
   //---------------------------------------------------------------------------
   // Stem fields
   // TODO: Move to separate component

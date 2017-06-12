@@ -1,21 +1,21 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule} from '@angular/router/testing';
-import { ItemRedirectComponent } from './item-redirect.component';
+import { LoadItemRedirectComponent } from './load-item-redirect.component';
 
-describe('ItemRedirectComponent', () => {
-  let component: ItemRedirectComponent;
-  let fixture: ComponentFixture<ItemRedirectComponent>;
+describe('LoadItemRedirectComponent', () => {
+  let component: LoadItemRedirectComponent;
+  let fixture: ComponentFixture<LoadItemRedirectComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ItemRedirectComponent ],
+      declarations: [ LoadItemRedirectComponent ],
       imports: [RouterTestingModule]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ItemRedirectComponent);
+    fixture = TestBed.createComponent(LoadItemRedirectComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -6,6 +6,9 @@ import {ToastOptions, ToastyConfig, ToastyService} from "ng2-toasty";
  *
  * This service uses the ng2-toasty library (https://github.com/akserg/ng2-toasty/blob/master/README.md) to display
  * the alerts.
+ *
+ * Note the ng2-toasty element can be found in app.component.html. This element controls where the alert popup
+ * is displayed.
  */
 @Injectable()
 export class AlertService {

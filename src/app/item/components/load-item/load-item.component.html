@@ -28,9 +28,9 @@
               <span class="text-success">Saved!</span>
             </div>
             -->
-            <app-item-load-sa *ngIf="currentItem.type=='sa'"
-                              [item]="currentItem" [isView]="isView()">
-            </app-item-load-sa>
+            <load-sa-item *ngIf="currentItem.type=='sa'"
+                          [item]="currentItem" [isView]="isView()">
+            </load-sa-item>
 
             <div class="row row-top">
               <div class="col-lg-6">

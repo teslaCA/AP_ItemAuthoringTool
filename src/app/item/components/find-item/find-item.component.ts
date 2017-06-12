@@ -5,11 +5,11 @@ import {Logger} from "../../../core/logger.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 @Component({
-  selector: 'app-item-search',
-  templateUrl: './item-search.component.html',
-  styleUrls: ['./item-search.component.less'],
+  selector: 'find-item',
+  templateUrl: './find-item.component.html',
+  styleUrls: ['./find-item.component.less'],
 })
-export class ItemSearchComponent {
+export class FindItemComponent {
   complexForm: FormGroup;
 
   constructor(private logger: Logger, private router: Router, fb: FormBuilder) {

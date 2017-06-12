@@ -1,13 +1,13 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-import {RouterTestingModule} from '@angular/router/testing';
-import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
+import {async, ComponentFixture, TestBed} from "@angular/core/testing";
+import {RouterTestingModule} from "@angular/router/testing";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 import {Logger} from "../../../core/logger.service";
-import {ItemSearchComponent} from './item-search.component';
+import {FindItemComponent} from "./find-item.component";
 
-describe('ItemSearchComponent', () => {
-  let component: ItemSearchComponent;
-  let fixture: ComponentFixture<ItemSearchComponent>;
+describe('FindItemComponent', () => {
+  let component: FindItemComponent;
+  let fixture: ComponentFixture<FindItemComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -17,7 +17,7 @@ describe('ItemSearchComponent', () => {
         FormsModule
       ],
       declarations: [
-        ItemSearchComponent
+        FindItemComponent
       ],
       providers: [
         Logger
@@ -27,7 +27,7 @@ describe('ItemSearchComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ItemSearchComponent);
+    fixture = TestBed.createComponent(FindItemComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

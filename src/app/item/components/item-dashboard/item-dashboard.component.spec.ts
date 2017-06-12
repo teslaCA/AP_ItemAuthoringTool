@@ -8,38 +8,37 @@ import {ModalModule} from "ngx-bootstrap/modal";
 import {AlertModule} from "ngx-bootstrap/alert";
 import {Ng2BootstrapModule} from "ngx-bootstrap/ng2-bootstrap";
 
-import {DashboardComponent} from "./dashboard.component";
+import {ItemDashboardComponent} from "./item-dashboard.component";
 import {AppRoutingModule} from "../../../app.routing";
 import {AppComponent} from "../../../app.component";
 import {HeaderComponent} from "../../../header.component";
 import {FooterComponent} from "../../../footer.component";
-import {ItemSelectTypeComponent} from "../item-create/item-select-type/item-select-type.component";
-import {ItemCreateComponent} from "../item-create/item-create.component";
-import {ItemLoadSaComponent} from "../item-load-sa/item-load-sa.component";
-import {ItemLoadComponent} from "../item-load/item-load.component";
-import {ItemRedirectComponent} from "../item-redirect/item-redirect.component";
+import {CreateItemSelectTypeComponent} from "../create-item-select-type/create-item-select-type.component";
+import {CreateItemComponent} from "../create-item/create-item.component";
+import {LoadSaItemComponent} from "../load-sa-item/load-sa-item.component";
+import {LoadItemComponent} from "../load-item/load-item.component";
+import {LoadItemRedirectComponent} from "../load-item-redirect/load-item-redirect.component";
 import {ResourceNotFoundComponent} from "../../../resource-not-found.component";
 import {Logger} from "../../../core/logger.service";
 import {ToastyModule} from "ng2-toasty";
 import {AlertService} from "../../../core/alert.service";
-import {ItemSearchComponent} from "../item-search/item-search.component";
+import {FindItemComponent} from "../find-item/find-item.component";
 
-describe('DashboardComponent', () => {
-
+describe('ItemDashboardComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
         AppComponent,
         FooterComponent,
         HeaderComponent,
-        DashboardComponent,
-        ItemSelectTypeComponent,
-        ItemCreateComponent,
-        ItemLoadSaComponent,
-        ItemLoadComponent,
-        ItemRedirectComponent,
+        ItemDashboardComponent,
+        CreateItemSelectTypeComponent,
+        CreateItemComponent,
+        LoadSaItemComponent,
+        LoadItemComponent,
+        LoadItemRedirectComponent,
         ResourceNotFoundComponent,
-        ItemSearchComponent
+        FindItemComponent
       ],
       imports: [
         BrowserModule,
@@ -62,7 +61,7 @@ describe('DashboardComponent', () => {
   }));
 
   it('should be created', () => {
-    const fixture = TestBed.createComponent(DashboardComponent);
+    const fixture = TestBed.createComponent(ItemDashboardComponent);
     const app = fixture.debugElement.componentInstance;
     expect(app).toBeTruthy();
   });

@@ -1,12 +1,12 @@
 import {NgModule} from "@angular/core";
 import {CommonModule} from "@angular/common";
-import {ItemSelectTypeComponent} from "./components/item-create/item-select-type/item-select-type.component";
-import {ItemSearchComponent} from "./components/item-search/item-search.component";
-import {ItemRedirectComponent} from "./components/item-redirect/item-redirect.component";
-import {ItemLoadComponent} from "./components/item-load/item-load.component";
-import {ItemLoadSaComponent} from "./components/item-load-sa/item-load-sa.component";
-import {ItemCreateComponent} from "./components/item-create/item-create.component";
-import {DashboardComponent} from "./components/dashboard/dashboard.component";
+import {CreateItemSelectTypeComponent} from "./components/create-item-select-type/create-item-select-type.component";
+import {FindItemComponent} from "./components/find-item/find-item.component";
+import {LoadItemRedirectComponent} from "./components/load-item-redirect/load-item-redirect.component";
+import {LoadItemComponent} from "./components/load-item/load-item.component";
+import {LoadSaItemComponent} from "./components/load-sa-item/load-sa-item.component";
+import {CreateItemComponent} from "./components/create-item/create-item.component";
+import {ItemDashboardComponent} from "./components/item-dashboard/item-dashboard.component";
 import {ReactiveFormsModule} from "@angular/forms";
 import {Ng2BootstrapModule} from "ngx-bootstrap";
 import {BrowserModule} from "@angular/platform-browser";
@@ -23,22 +23,22 @@ import {HttpModule} from "@angular/http";
     RouterModule,
   ],
   declarations: [
-    DashboardComponent,
-    ItemCreateComponent,
-    ItemLoadSaComponent,
-    ItemLoadComponent,
-    ItemRedirectComponent,
-    ItemSearchComponent,
-    ItemSelectTypeComponent
+    ItemDashboardComponent,
+    CreateItemComponent,
+    LoadSaItemComponent,
+    LoadItemComponent,
+    LoadItemRedirectComponent,
+    FindItemComponent,
+    CreateItemSelectTypeComponent
   ],
   exports: [
-    DashboardComponent,
-    ItemCreateComponent,
-    ItemLoadSaComponent,
-    ItemLoadComponent,
-    ItemRedirectComponent,
-    ItemSearchComponent,
-    ItemSelectTypeComponent
+    ItemDashboardComponent,
+    CreateItemComponent,
+    LoadSaItemComponent,
+    LoadItemComponent,
+    LoadItemRedirectComponent,
+    FindItemComponent,
+    CreateItemSelectTypeComponent
   ]
 })
 export class ItemModule {

@@ -4,14 +4,14 @@ import {RouterTestingModule} from '@angular/router/testing';
 import {AlertModule} from 'ngx-bootstrap/alert';
 import {BuildInfoService} from '../../../core/build-info.service';
 import {ItemService} from '../../services/item.service';
-import {ItemCreateComponent} from './item-create.component';
+import {CreateItemComponent} from './create-item.component';
 import {Logger} from "../../../core/logger.service";
 import {AlertService} from "../../../core/alert.service";
 import {ToastyModule} from "ng2-toasty";
 
-describe('ItemCreateComponent', () => {
-    let component: ItemCreateComponent;
-    let fixture: ComponentFixture<ItemCreateComponent>;
+describe('CreateItemComponent', () => {
+    let component: CreateItemComponent;
+    let fixture: ComponentFixture<CreateItemComponent>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -22,7 +22,7 @@ describe('ItemCreateComponent', () => {
               ToastyModule
             ],
             declarations: [
-              ItemCreateComponent
+              CreateItemComponent
             ],
             providers: [
               BuildInfoService,
@@ -35,7 +35,7 @@ describe('ItemCreateComponent', () => {
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(ItemCreateComponent);
+        fixture = TestBed.createComponent(CreateItemComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

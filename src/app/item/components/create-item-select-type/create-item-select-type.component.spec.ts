@@ -1,17 +1,17 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpModule } from '@angular/http';
-import { ItemSelectTypeComponent } from './item-select-type.component';
-import { BuildInfoService} from '../../../../core/build-info.service';
+import { CreateItemSelectTypeComponent } from './create-item-select-type.component';
+import { BuildInfoService} from '../../../core/build-info.service';
 import { RouterTestingModule} from '@angular/router/testing';
-import {Logger} from "../../../../core/logger.service";
-import {ItemTypeService} from "../../../services/item-type.service";
+import {Logger} from "../../../core/logger.service";
+import {ItemTypeService} from "../../services/item-type.service";
 
-describe('ItemSelectTypeComponent', () => {
+describe('CreateItemSelectTypeComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        ItemSelectTypeComponent
+        CreateItemSelectTypeComponent
       ],
       imports: [
         HttpModule,
@@ -26,7 +26,7 @@ describe('ItemSelectTypeComponent', () => {
   }));
 
   it('should be created', () => {
-    const fixture = TestBed.createComponent(ItemSelectTypeComponent);
+    const fixture = TestBed.createComponent(CreateItemSelectTypeComponent);
     const app = fixture.debugElement.componentInstance;
     expect(app).toBeTruthy();
   });

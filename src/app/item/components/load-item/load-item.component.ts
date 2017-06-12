@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild} from "@angular/core";
 import {ActivatedRoute, Router} from "@angular/router";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {ItemService} from "../../services/item.service";
-import {ItemLoadSaComponent} from "../item-load-sa/item-load-sa.component";
+import {LoadSaItemComponent} from "../load-sa-item/load-sa-item.component";
 import {Logger} from "../../../core/logger.service";
 import {AlertService} from "../../../core/alert.service";
 import {Item} from "../../models/item";
@@ -14,12 +14,12 @@ import {UserService} from "app/core/user.service";
 // TODO: Move nav bar message-related code into separate component (called ItemHeaderComponent)
 
 @Component({
-  selector: 'app-item-load',
-  templateUrl: './item-load.component.html',
-  styleUrls: ['./item-load.component.less']
+  selector: 'load-item',
+  templateUrl: './load-item.component.html',
+  styleUrls: ['./load-item.component.less']
 })
 // TODO: This class has too many fields - clear sign it needs to be factored into multiple classes
-export class ItemLoadComponent implements OnInit {
+export class LoadItemComponent implements OnInit {
   private currentItemId: string;
   commitForm: FormGroup;
   currentItem: Item;
@@ -29,7 +29,7 @@ export class ItemLoadComponent implements OnInit {
   serviceError: boolean;
   errorMessage: string;
 
-  @ViewChild(ItemLoadSaComponent) saItemComponent;
+  @ViewChild(LoadSaItemComponent) saItemComponent;
 
   constructor(private logger: Logger,
               private router: Router,

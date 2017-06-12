@@ -10,12 +10,12 @@ import {AlertModule} from "ngx-bootstrap/alert";
 import {AppComponent} from "./app.component";
 import {HeaderComponent} from "./header.component";
 import {FooterComponent} from "./footer.component";
-import {ItemSelectTypeComponent} from "./item/components/item-create/item-select-type/item-select-type.component";
-import {DashboardComponent} from "./item/components/dashboard/dashboard.component";
-import {ItemCreateComponent} from "./item/components/item-create/item-create.component";
-import {ItemLoadSaComponent} from "./item/components/item-load-sa/item-load-sa.component";
+import {CreateItemSelectTypeComponent} from "./item/components/create-item-select-type/create-item-select-type.component";
+import {ItemDashboardComponent} from "./item/components/item-dashboard/item-dashboard.component";
+import {CreateItemComponent} from "./item/components/create-item/create-item.component";
+import {LoadSaItemComponent} from "./item/components/load-sa-item/load-sa-item.component";
 import {ToastyModule} from "ng2-toasty";
-import {ItemSearchComponent} from "./item/components/item-search/item-search.component";
+import {FindItemComponent} from "./item/components/find-item/find-item.component";
 import {Logger} from "./core/logger.service";
 import {UserService} from "./core/user.service";
 import {BuildInfoService} from "./core/build-info.service";
@@ -30,11 +30,11 @@ describe('AppComponent', () => {
         AppComponent,
         HeaderComponent,
         FooterComponent,
-        DashboardComponent,
-        ItemSelectTypeComponent,
-        ItemCreateComponent,
-        ItemLoadSaComponent,
-        ItemSearchComponent
+        ItemDashboardComponent,
+        CreateItemSelectTypeComponent,
+        CreateItemComponent,
+        LoadSaItemComponent,
+        FindItemComponent
       ],
       providers: [
         {provide: APP_BASE_HREF, useValue: '/'},

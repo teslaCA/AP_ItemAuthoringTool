@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ResourceNotFoundComponent } from './resource-not-found.component';
 
-describe('NoRouteComponent', () => {
+describe('ResourceNotFoundComponent', () => {
   let component: ResourceNotFoundComponent;
   let fixture: ComponentFixture<ResourceNotFoundComponent>;
 

@@ -4,8 +4,8 @@ import { ReactiveFormsModule} from '@angular/forms';
 import { RouterTestingModule} from '@angular/router/testing';
 import { AlertModule } from 'ngx-bootstrap/alert';
 import { ModalModule } from 'ngx-bootstrap/modal';
-import { ItemLoadSaComponent} from '../item-load-sa/item-load-sa.component';
-import { ItemLoadComponent } from './item-load.component';
+import { LoadSaItemComponent} from '../load-sa-item/load-sa-item.component';
+import { LoadItemComponent } from './load-item.component';
 import {Logger} from "../../../core/logger.service";
 import {AlertService} from "../../../core/alert.service";
 import {ToastyModule} from "ng2-toasty";
@@ -13,9 +13,9 @@ import {UserService} from "../../../core/user.service";
 import {ItemService} from "../../services/item.service";
 import {ItemTypeService} from "../../services/item-type.service";
 
-describe('ItemLoadComponent', () => {
-  let component: ItemLoadComponent;
-  let fixture: ComponentFixture<ItemLoadComponent>;
+describe('LoadItemComponent', () => {
+  let component: LoadItemComponent;
+  let fixture: ComponentFixture<LoadItemComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -28,8 +28,8 @@ describe('ItemLoadComponent', () => {
         ToastyModule
       ],
       declarations: [
-        ItemLoadComponent,
-        ItemLoadSaComponent
+        LoadItemComponent,
+        LoadSaItemComponent
       ],
       providers: [
         AlertService,
@@ -43,7 +43,7 @@ describe('ItemLoadComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ItemLoadComponent);
+    fixture = TestBed.createComponent(LoadItemComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

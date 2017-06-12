@@ -6,11 +6,11 @@ import {Logger} from "../../../core/logger.service";
 import {Item} from "../../models/item";
 
 @Component({
-  selector: 'app-item-create',
-  templateUrl: './item-create.component.html',
-  styleUrls: ['./item-create.component.less']
+  selector: 'create-item',
+  templateUrl: './create-item.component.html',
+  styleUrls: ['./create-item.component.less']
 })
-export class ItemCreateComponent implements OnInit {
+export class CreateItemComponent implements OnInit {
   private itemType: string;
   private errorMessage: string;
 

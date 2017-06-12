@@ -4,10 +4,10 @@ import {Logger} from "../../../core/logger.service";
 
 @Component({
   selector: 'item-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.less']
+  templateUrl: './item-dashboard.component.html',
+  styleUrls: ['./item-dashboard.component.less']
 })
-export class DashboardComponent implements OnInit {
+export class ItemDashboardComponent implements OnInit {
   private action = '';
   private id: number;
   public itemUrl = '';

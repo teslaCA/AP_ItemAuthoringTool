@@ -2,11 +2,11 @@ import {Component, OnInit} from "@angular/core";
 import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
-  selector: 'app-item-redirect',
-  templateUrl: './item-redirect.component.html',
-  styleUrls: ['./item-redirect.component.less']
+  selector: 'load-item-redirect',
+  templateUrl: './load-item-redirect.component.html',
+  styleUrls: ['./load-item-redirect.component.less']
 })
-export class ItemRedirectComponent implements OnInit {
+export class LoadItemRedirectComponent implements OnInit {
   private itemId: number;
 
   constructor(private router: Router,
