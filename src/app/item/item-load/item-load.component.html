@@ -17,40 +17,50 @@
             <h1>
               {{navBarMessage}}
             </h1>
-            <!--
-            <div class="text-center" style="white-space: normal;">
-              <button class="btn btn-secondary" routerLink="/">Preview</button>
-            </div>
-            -->
-            <!--
-            <div class="float-right" style="white-space: normal;">
-              <i class="fa fa-check-circle" style="color: green;"></i>&nbsp;
-              <span class="text-success">Saved!</span>
-            </div>
-            -->
-            <app-item-load-sa *ngIf="currentItem.type=='sa'"
-                              [item]="currentItem" [isView]="isView()">
-            </app-item-load-sa>
 
-            <div class="row row-top">
-              <div class="col-lg-6">
-                <div *ngIf="isCreate()">
-                  <button class="btn btn-primary" (click)="commitModal.show()">Create Item</button>
-                  <button class="btn btn-link" (click)="cancelModal.show()">Cancel</button>
-                </div>
-                <div *ngIf="isView()">
-                  <button class="btn btn-primary" (click)="goHome()">Done</button>
-                  <button class="btn btn-primary" (click)="editItem()">Edit</button>
-                </div>
-                <div *ngIf="isEdit()">
-                  <button class="btn btn-primary" (click)="commitModal.show()">Commit Changes
-                  </button>
-                  <button class="btn btn-link" (click)="cancelModal.show()">Discard Changes
-                  </button>
-                </div>
-              </div>
+            <div class="btn-group">
+              <label class="btn btn-primary btn-sm" [(ngModel)]="radioModel" btnRadio="History" uncheckable>History</label>
             </div>
 
+            <div class="split-example">
+
+              <split [gutterSize]="1" direction="horizontal">
+
+                <split-area [order]="1">
+
+                  <app-item-load-sa *ngIf="currentItem.type=='sa'" [item]="currentItem"
+                                    [isView]="isView()"></app-item-load-sa>
+
+                  <div class="row">
+                    <div class="col-lg-12">
+                      <div *ngIf="isCreate()">
+                        <button class="btn btn-primary" (click)="commitModal.show()">Create Item</button>
+                        <button class="btn btn-link" (click)="cancelModal.show()">Cancel</button>
+                      </div>
+                      <div *ngIf="isView()">
+                        <button class="btn btn-primary" (click)="goHome()">Done</button>
+                        <button class="btn btn-primary" (click)="editItem()">Edit</button>
+                      </div>
+                      <div *ngIf="isEdit()">
+                        <button class="btn btn-primary" (click)="commitModal.show()">Commit Changes
+                        </button>
+                        <button class="btn btn-link" (click)="cancelModal.show()">Discard Changes
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                </split-area>
+
+                <split-area [order]="2">
+                  <div *ngIf="radioModel === 'History'">
+                    <app-item-history [itemId]="currentItem.id"></app-item-history>
+                  </div>
+                </split-area>
+
+              </split>
+
+            </div>
           </div>
         </div>
       </div>
@@ -108,11 +118,11 @@
         <div class="row">
           <div class="col-md-12">
             <div class="form-group">
-                <form [formGroup]="commitForm">
-                  <span>Reason: </span>
-                  <input formControlName="commitMsg" type="text" placeholder="Enter change reason here"
-                         class="modal-form-control" maxlength="100" size="50">
-                </form>
+              <form [formGroup]="commitForm">
+                <span>Reason: </span>
+                <input formControlName="commitMsg" type="text" placeholder="Enter change reason here"
+                       class="modal-form-control" maxlength="100" size="50">
+              </form>
             </div>
           </div>
         </div>
@@ -122,7 +132,7 @@
         </button>
         <button *ngIf="isEdit()" type="button" class="btn btn-primary btn-small" (click)="commitItem()">Yes
         </button>
-        <button type="button" class="btn btn-default btn-small"data-dismiss="modal" (click)="commitModal.hide()">No
+        <button type="button" class="btn btn-default btn-small" data-dismiss="modal" (click)="commitModal.hide()">No
         </button>
       </div>
     </div>
@@ -141,8 +151,10 @@
         <h3 class="modal-title" id="cancelModalLabel">Confirm Cancel</h3>
       </div>
       <div class="modal-body">
-        <span *ngIf="isCreate()">Are you sure you want to cancel creating this item and lose all changes you have made?</span>
-        <span *ngIf="isEdit()">Are you sure you want to discard all changes you've made since you've started editing?</span>
+        <span
+            *ngIf="isCreate()">Are you sure you want to cancel creating this item and lose all changes you have made?</span>
+        <span
+            *ngIf="isEdit()">Are you sure you want to discard all changes you've made since you've started editing?</span>
       </div>
       <div class="modal-footer">
         <button *ngIf="isCreate()" type="button" class="btn btn-primary btn-small" (click)="cancelCreate()">Yes

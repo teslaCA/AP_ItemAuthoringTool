@@ -23,6 +23,8 @@ import {ModalModule} from "ngx-bootstrap/modal";
 import {AlertModule} from "ngx-bootstrap/alert";
 import {Ng2BootstrapModule} from "ngx-bootstrap/ng2-bootstrap";
 
+import {AngularSplitModule} from 'angular-split';
+
 import {AppRoutingModule} from "./app.routing";
 import {AppComponent} from "./app.component";
 import {HeaderComponent} from "./header/header.component";
@@ -38,6 +40,8 @@ import {Logger} from "./service/logger.service";
 import {ToastyModule} from "ng2-toasty";
 import {AlertService} from "./service/alert.service";
 import {ItemSearchComponent} from './item/item-search/item-search.component';
+import {ItemHistoryComponent} from './item/item-history/item-history.component';
+
 
 @NgModule({
   declarations: [
@@ -51,7 +55,8 @@ import {ItemSearchComponent} from './item/item-search/item-search.component';
     ItemLoadComponent,
     ItemRedirectComponent,
     NoRouteComponent,
-    ItemSearchComponent
+    ItemSearchComponent,
+    ItemHistoryComponent
   ],
   imports: [
     BrowserModule,
@@ -63,7 +68,8 @@ import {ItemSearchComponent} from './item/item-search/item-search.component';
     ModalModule.forRoot(),
     AlertModule.forRoot(),
     Ng2BootstrapModule.forRoot(),
-    ToastyModule.forRoot()
+    ToastyModule.forRoot(),
+    AngularSplitModule,
   ],
   providers: [
     Logger,
