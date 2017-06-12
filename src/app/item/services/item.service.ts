@@ -26,8 +26,8 @@ export class ItemService {
     const url = `${ItemService.serviceUrl}/${itemId}`;
     return this.http
       .get(url, ItemService.requestOptions)
-      .map(ItemService.extractJson)
-      .catch(this.handleError);
+      .map(response => ItemService.extractJson(response))
+      .catch(error => this.handleError(error));
   }
 
   //---------------------------------------------------------------------------
@@ -38,8 +38,8 @@ export class ItemService {
     const url = `${ItemService.serviceUrl}/begin`;
     return this.http
       .post(url, {'type': itemType}, ItemService.requestOptions)
-      .map(ItemService.extractJson)
-      .catch(this.handleError);
+      .map(response => ItemService.extractJson(response))
+      .catch(error => this.handleError(error));
   }
 
   // Commit the creation of the item (the item will become available in the system)
@@ -48,7 +48,7 @@ export class ItemService {
     return this.http
       .post(url, {item: item}, ItemService.requestOptions)
       .map(_ => null)
-      .catch(this.handleError);
+      .catch(error => this.handleError(error));
   }
 
   // Rollback the creation of the item (the item will be removed entirely)
@@ -57,7 +57,7 @@ export class ItemService {
     return this.http
       .post(url, null, ItemService.requestOptions)
       .map(_ => null)
-      .catch(this.handleError);
+      .catch(error => this.handleError(error));
   }
 
   //---------------------------------------------------------------------------
@@ -69,7 +69,7 @@ export class ItemService {
     return this.http
       .put(url, null, ItemService.requestOptions)
       .map(_ => null)
-      .catch(this.handleError);
+      .catch(error => this.handleError(error));
   }
 
   // Commit the editing of the item (the changes to the item will become available in the system)
@@ -78,7 +78,7 @@ export class ItemService {
     return this.http
       .put(url, {item: item, message: commitMessage}, ItemService.requestOptions)
       .map(_ => null)
-      .catch(this.handleError);
+      .catch(error => this.handleError(error));
   }
 
   // Rollback the editing of the item (the changes made to the item since editing began will be removed)
@@ -87,7 +87,7 @@ export class ItemService {
     return this.http
       .put(url, null, ItemService.requestOptions)
       .map(_ => null)
-      .catch(this.handleError);
+      .catch(error => this.handleError(error));
   }
 
   //---------------------------------------------------------------------------
@@ -101,7 +101,7 @@ export class ItemService {
     return this.http
       .post(url, JSON.stringify(item), ItemService.requestOptions)
       .map(_ => null)
-      .catch(this.handleError);
+      .catch(error => this.handleError(error));
   }
 
   //---------------------------------------------------------------------------

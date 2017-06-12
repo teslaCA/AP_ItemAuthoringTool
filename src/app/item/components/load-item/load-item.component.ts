@@ -60,12 +60,19 @@ export class LoadItemComponent implements OnInit {
         (res: Response) => {
           this.user = res.json();
         },
-        error => this.logger.error(error),
+        error => {
+          this.logger.error(`Failed to find current user ${error}`);
+        },
         () => {
           this.itemService.findItem(this.currentItemId)
             .subscribe(
-              item => this.onSuccess(item),
-              error => this.onError(error),
+              item => {
+                this.onSuccess(item);
+              },
+              error => {
+                this.logger.warn(`Failed to find item ${error}`);
+                this.onError(error)
+              },
               () => {
                 this.loading = false;
               }
@@ -313,20 +320,16 @@ export class LoadItemComponent implements OnInit {
     this.loading = false;
     this.serviceError = true;
 
-    this.logger.error('Error Status: ' + error.status);
-
     switch (error.status) {
       case 400:
       case 404: {
         this.errorMessage = this.getErrorMessages(error);
         break;
       }
-      case 500: {
-        this.errorMessage = 'Internal Server Error';
-        break;
-      }
       default: {
-        this.errorMessage = 'Unknown Error';
+        this.logger.error('Error Status: ' + error.status);
+        this.errorMessage = 'Internal server error';
+        break;
       }
     }
   }
