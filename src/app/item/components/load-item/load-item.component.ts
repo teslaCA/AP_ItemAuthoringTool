@@ -107,12 +107,7 @@ export class LoadItemComponent implements OnInit {
       return;
     }
 
-    // TODO: Uncomment once BusyService styling is complete
-    //this.busyService.show('Creating Item');
-    // TODO: Replace with processing overlay
-    this.alertService.processing(
-      'Creating Item',
-      'Your item is being created.');
+    this.busyService.show('Creating Item');
     this.itemService
       .commitItemCreate(item)
       .subscribe(
@@ -130,17 +125,13 @@ export class LoadItemComponent implements OnInit {
             `An error was encountered trying to create your item.  Reason:\n\n${e}`);
         },
         () => {
-          // TODO: Uncomment once BusyService styling is complete
-          //this.busyService.hide();
+          this.busyService.hide();
         }
       );
   }
 
   cancelCreate(): void {
-    // TODO: Replace with processing overlay
-    this.alertService.processing(
-      'Cancelling Creation',
-      'Your item is being removed.');
+    this.busyService.show('Cancelling Creation');
     this.itemService
       .rollbackItemCreate(this.currentItem.id)
       .subscribe(
@@ -158,16 +149,13 @@ export class LoadItemComponent implements OnInit {
             `An error was encountered trying to cancel the creation of your item.  Reason:\n\n${e}`);
         },
         () => {
-          // TODO: Remove processing overlay
+          this.busyService.hide();
         }
       );
   }
 
   editItem(): void {
-    // TODO: Replace with processing overlay
-    this.alertService.processing(
-      'Editing Item',
-      'Your item is being opened for editing.');
+    this.busyService.show('Opening Item');
     this.itemService
       .beginItemEdit(this.currentItemId)
       .subscribe(
@@ -180,20 +168,19 @@ export class LoadItemComponent implements OnInit {
           this.router.navigateByUrl('/item-redirect/' + this.currentItemId);
         },
         e => {
-          // TODO: Replace this call with an error alert
+          this.alertService.error(
+            'Error Editing Item',
+            `An error was encountered trying to open the item for editing.  Reason:\n\n${e}`);
           this.onError(e);
         },
         () => {
-          // TODO: Remove processing overlay
+          this.busyService.hide();
         }
       );
   }
 
   cancelEdit(): void {
-    // TODO: Replace with processing overlay
-    this.alertService.processing(
-      'Discarding Changes',
-      'Your changes to the item are being discarded.');
+    this.busyService.show('Discarding Changes');
     this.itemService
       .rollbackItemEdit(this.currentItem.id)
       .subscribe(
@@ -211,7 +198,7 @@ export class LoadItemComponent implements OnInit {
             `An error was encountered trying to discard your changes to the item.  Reason:\n\n${e}`);
         },
         () => {
-          // TODO: Remove processing overlay
+          this.busyService.hide();
         }
       );
   }
@@ -237,10 +224,8 @@ export class LoadItemComponent implements OnInit {
       message = 'IAT item commit';
     }
 
-    // TODO: Replace with processing overlay
-    this.alertService.processing(
-      'Saving Changes',
-      'Your changes to the item are being saved.');
+    // Save the changes
+    this.busyService.show('Saving Changes');
     this.itemService
       .commitItemEdit(item, message)
       .subscribe(
@@ -258,7 +243,7 @@ export class LoadItemComponent implements OnInit {
             `An error was encountered trying to save your changes to the item.  Reason:\n\n${e}`);
         },
         () => {
-          // TODO: Remove processing overlay
+          this.busyService.hide();
         }
       );
   }
