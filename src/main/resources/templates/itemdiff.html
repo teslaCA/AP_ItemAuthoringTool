@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Item Diff</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/styles/github.min.css"/>
+
+  <link rel="stylesheet" th:href="@{/assets/css/diff2html.css}" href="../../css/diff2html.css"/>
+
+  <!-- Javascripts -->
+  <script type="text/javascript" th:src="@{/assets/js/diff2html.js}" src="../../js/diff2html.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/languages/scala.min.js"></script>
+
+  <script th:inline="javascript">
+
+    /*<![CDATA[*/
+
+    var lineDiffExample = /*[[${diff}]]*/ '';
+
+        document.addEventListener("DOMContentLoaded", function () {
+          // parse the diff to json
+          var diffJson = Diff2Html.getJsonFromDiff(lineDiffExample);
+
+          // collect all the file extensions in the json
+          var allFileLanguages = diffJson.map(function (line) {
+              return line.language;
+          });
+
+          // remove duplicated languages
+          var distinctLanguages = allFileLanguages.filter(function (v, i) {
+              return allFileLanguages.indexOf(v) == i;
+          });
+
+          // pass the languages to the highlightjs plugin
+          hljs.configure({languages: distinctLanguages});
+
+          // generate and inject the diff HTML into the desired place
+          document.getElementById("line-by-line").innerHTML = Diff2Html.getPrettyHtml(diffJson, {
+              inputFormat: 'json',
+              showFiles: true
+          });
+//          document.getElementById("side-by-side").innerHTML = Diff2Html.getPrettyHtml(diffJson, {
+//              inputFormat: 'json',
+//              outputFormat: 'side-by-side'
+//          });
+
+          // collect all the code lines and execute the highlight on them
+          var codeLines = document.getElementsByClassName("d2h-code-line-ctn");
+          [].forEach.call(codeLines, function (line) {
+              hljs.highlightBlock(line);
+          });
+      });
+
+    /*]]>*/
+  </script>
+
+</head>
+<body>
+
+<!--<h2>Line by Line</h2>-->
+
+<div id="line-by-line" style="margin: 0 auto; max-width: 900px;"></div>
+
+<!--<h2>Side by Side</h2>-->
+
+<!--<div id="side-by-side" style="margin: 0 auto;"></div>-->
+
+
+</body>
+</html>
