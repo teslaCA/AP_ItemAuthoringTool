@@ -28,8 +28,7 @@
 
                 <split-area [order]="1">
 
-                  <app-item-load-sa *ngIf="currentItem.type=='sa'" [item]="currentItem"
-                                    [isView]="isView()"></app-item-load-sa>
+                  <load-sa-item *ngIf="currentItem.type=='sa'" [item]="currentItem" [isView]="isView()"></load-sa-item>
 
                   <div class="row">
                     <div class="col-lg-12">

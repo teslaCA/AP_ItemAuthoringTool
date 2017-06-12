@@ -1,18 +1,20 @@
 import {async, ComponentFixture, TestBed} from "@angular/core/testing";
-import {ItemLoadComponent} from "./item-load.component";
-import {Logger} from "../../service/logger.service";
-import {AlertService} from "../../service/alert.service";
-import {AppModule} from "../../app.module";
 import {APP_BASE_HREF} from "@angular/common";
+import {AppModule} from "../../../app.module";
+import {Logger} from "../../../core/logger.service";
+import {AlertService} from "../../../core/alert.service";
+import { LoadItemComponent } from './load-item.component';
+import {ItemModule} from "../../item.module";
+import {ItemHistoryComponent} from "../item-history/item-history.component";
 
-describe('ItemLoadComponent', () => {
-  let component: ItemLoadComponent;
-  let fixture: ComponentFixture<ItemLoadComponent>;
+describe('LoadItemComponent', () => {
+  let component: LoadItemComponent;
+  let fixture: ComponentFixture<LoadItemComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        AppModule,
+        AppModule
       ],
       declarations: [
       ],
@@ -26,7 +28,7 @@ describe('ItemLoadComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ItemLoadComponent);
+    fixture = TestBed.createComponent(LoadItemComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -80,7 +80,7 @@ export class LoadItemComponent implements OnInit {
               },
               error => {
                 this.logger.warn(`Failed to find item ${error}`);
-                this.onError(error)
+                this.onError(error);
               },
               () => {
                 this.loading = false;

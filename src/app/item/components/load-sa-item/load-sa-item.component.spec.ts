@@ -4,6 +4,8 @@ import { ReactiveFormsModule} from '@angular/forms';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { LoadSaItemComponent } from './load-sa-item.component';
 import {Logger} from "../../../core/logger.service";
+import {AppModule} from "../../../app.module";
+import {APP_BASE_HREF} from "@angular/common";
 
 describe('LoadSaItemComponent', () => {
   let component: LoadSaItemComponent;
@@ -12,15 +14,13 @@ describe('LoadSaItemComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule,
-        ReactiveFormsModule,
-        ModalModule.forRoot()
+        AppModule
       ],
       declarations: [
-        LoadSaItemComponent
       ],
       providers: [
-        Logger
+        Logger,
+        {provide: APP_BASE_HREF, useValue: '/'}
       ]
     })
     .compileComponents();

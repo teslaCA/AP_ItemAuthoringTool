@@ -15,8 +15,7 @@ describe('ItemHistoryComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        AppModule,
-        ItemModule
+        AppModule
       ],
       declarations: [],
       providers: [

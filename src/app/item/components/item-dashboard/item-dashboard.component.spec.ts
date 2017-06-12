@@ -23,34 +23,15 @@ import {Logger} from "../../../core/logger.service";
 import {ToastyModule} from "ng2-toasty";
 import {AlertService} from "../../../core/alert.service";
 import {FindItemComponent} from "../find-item/find-item.component";
+import {AppModule} from "../../../app.module";
 
 describe('ItemDashboardComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        AppComponent,
-        FooterComponent,
-        HeaderComponent,
-        ItemDashboardComponent,
-        CreateItemSelectTypeComponent,
-        CreateItemComponent,
-        LoadSaItemComponent,
-        LoadItemComponent,
-        LoadItemRedirectComponent,
-        ResourceNotFoundComponent,
-        FindItemComponent
       ],
       imports: [
-        BrowserModule,
-        FormsModule,
-        ReactiveFormsModule,
-        HttpModule,
-        AppRoutingModule,
-        BsDropdownModule.forRoot(),
-        ModalModule.forRoot(),
-        AlertModule.forRoot(),
-        Ng2BootstrapModule.forRoot(),
-        ToastyModule.forRoot()
+        AppModule
       ],
       providers: [
         Logger,

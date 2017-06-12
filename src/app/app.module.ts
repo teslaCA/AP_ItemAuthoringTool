@@ -40,12 +40,11 @@ import {SharedModule} from "./shared/shared.module";
   imports: [
     AppRoutingModule,
     BrowserModule,
-    CoreModule,
     ItemModule,
+    CoreModule,
     Ng2BootstrapModule.forRoot(),
     SharedModule,
-    ToastyModule.forRoot(),
-    AngularSplitModule
+    ToastyModule.forRoot()
   ],
   bootstrap: [
     AppComponent
