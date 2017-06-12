@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ItemHistoryService} from "./item-history.service";
-import {ItemHistory} from "./item-history";
-import {Logger} from "../../core/logger.service";
+import {ItemHistory} from "../../models/item-history";
+import {Logger} from "../../../core/logger.service";
+import {ItemService} from "../../services/item.service";
 
 
 @Component({
@@ -9,7 +9,7 @@ import {Logger} from "../../core/logger.service";
   templateUrl: './item-history.component.html',
   styleUrls: ['./item-history.component.less'],
   providers: [
-    ItemHistoryService
+    ItemService
   ]
 })
 export class ItemHistoryComponent implements OnInit {
@@ -21,7 +21,7 @@ export class ItemHistoryComponent implements OnInit {
 
   diffWindow: any;
 
-  constructor(private logger: Logger, private historyService: ItemHistoryService) {
+  constructor(private logger: Logger, private historyService: ItemService) {
   }
 
   ngOnInit() {

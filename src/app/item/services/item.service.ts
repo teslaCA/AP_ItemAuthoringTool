@@ -18,6 +18,22 @@ export class ItemService {
               private http: Http) {
   }
 
+
+  //---------------------------------------------------------------------------
+  // Item history
+  //---------------------------------------------------------------------------
+  // Returns a list of ItemHistory objects
+  getItemHistory(itemId: string): Observable<any> {
+    const url = ItemService.serviceUrl + '/' + itemId + '/history';
+
+    this.logger.debug(`Getting history for item ID ${itemId}: ${url}`);
+
+    return this.http
+      .get(url, ItemService.requestOptions)
+      .map(res => ItemService.extractJson(res))
+      .catch(err => this.handleError(err));
+  }
+
   //---------------------------------------------------------------------------
   // Item search
   //---------------------------------------------------------------------------

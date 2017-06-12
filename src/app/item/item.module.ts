@@ -12,6 +12,7 @@ import {Ng2BootstrapModule} from "ngx-bootstrap";
 import {BrowserModule} from "@angular/platform-browser";
 import {RouterModule} from "@angular/router";
 import {HttpModule} from "@angular/http";
+import {ItemHistoryComponent} from "./components/item-history/item-history.component";
 
 @NgModule({
   imports: [
@@ -29,7 +30,8 @@ import {HttpModule} from "@angular/http";
     LoadItemComponent,
     LoadItemRedirectComponent,
     FindItemComponent,
-    CreateItemSelectTypeComponent
+    CreateItemSelectTypeComponent,
+    ItemHistoryComponent
   ],
   exports: [
     ItemDashboardComponent,
@@ -38,7 +40,8 @@ import {HttpModule} from "@angular/http";
     LoadItemComponent,
     LoadItemRedirectComponent,
     FindItemComponent,
-    CreateItemSelectTypeComponent
+    CreateItemSelectTypeComponent,
+    ItemHistoryComponent
   ]
 })
 export class ItemModule {
