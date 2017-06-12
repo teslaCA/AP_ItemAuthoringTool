@@ -1,9 +1,8 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-
-import {ItemHistoryComponent} from './item-history.component';
-import {AppModule} from "../../../app.module";
+import {async, ComponentFixture, TestBed} from "@angular/core/testing";
 import {APP_BASE_HREF} from "@angular/common";
-import {ItemModule} from "../../item.module";
+
+import {ItemHistoryComponent} from "./item-history.component";
+import {AppModule} from "../../../app.module";
 import {Logger} from "../../../core/logger.service";
 import {AlertService} from "../../../core/alert.service";
 import {ItemService} from "../../services/item.service";
