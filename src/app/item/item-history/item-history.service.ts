@@ -21,9 +21,6 @@ import "rxjs/add/operator/catch";
 import "rxjs/add/operator/map";
 import "rxjs/add/observable/throw";
 import {Logger} from "../../service/logger.service";
-import {AlertService} from "../../service/alert.service";
-import {Item} from "app/model/item/item";
-import {ItemHistory} from "./item-history";
 
 @Injectable()
 export class ItemHistoryService {

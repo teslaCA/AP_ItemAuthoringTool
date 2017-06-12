@@ -4,7 +4,7 @@
 
 export class ItemHistory {
 
-  changedByEmail: string
+  changedByEmail: string;
 
   changedBy: string;
 
