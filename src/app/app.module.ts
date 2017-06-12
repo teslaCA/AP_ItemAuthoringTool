@@ -8,10 +8,16 @@ import {ToastyModule} from "ng2-toasty";
 import {CoreModule} from "./core/core.module";
 import {SharedModule} from "./shared/shared.module";
 import {ItemModule} from "./item/item.module";
+import {ResourceNotFoundComponent} from "./resource-not-found.component";
+import {HeaderComponent} from "./header.component";
+import {FooterComponent} from "./footer.component";
 
 @NgModule({
   declarations: [
     AppComponent,
+    FooterComponent,
+    HeaderComponent,
+    ResourceNotFoundComponent
   ],
   imports: [
     AppRoutingModule,
