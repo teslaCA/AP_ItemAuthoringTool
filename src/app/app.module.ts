@@ -16,11 +16,9 @@
 import {BrowserModule} from "@angular/platform-browser";
 import {NgModule} from "@angular/core";
 import {Ng2BootstrapModule} from "ngx-bootstrap/ng2-bootstrap";
-
 import {AppRoutingModule} from "./app.routing";
 import {AppComponent} from "./app.component";
 import {ToastyModule} from "ng2-toasty";
-import {AngularSplitModule} from "angular-split";
 
 import {ResourceNotFoundComponent} from "./resource-not-found.component";
 import {HeaderComponent} from "./header.component";

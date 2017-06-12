@@ -8,6 +8,7 @@ import {AlertService} from "../../../core/alert.service";
 import {Item} from "../../models/item";
 import {ItemTypeService} from "../../services/item-type.service";
 import {UserService} from "app/core/user.service";
+import {BusyService} from "../../../core/busy.service/busy.service";
 
 // TODO: Move stem-related code into separate component (called StemComponent)
 // TODO: Move exemplar response-related code into separate component (called ExemplarResponsesComponent)
@@ -47,6 +48,7 @@ export class LoadItemComponent implements OnInit {
               private itemService: ItemService,
               private itemTypeService: ItemTypeService,
               private alertService: AlertService,
+              private busyService: BusyService,
               public fb: FormBuilder) {
     this.commitForm = this.fb.group({
       commitMsg: ''
@@ -105,6 +107,8 @@ export class LoadItemComponent implements OnInit {
       return;
     }
 
+    // TODO: Uncomment once BusyService styling is complete
+    //this.busyService.show('Creating Item');
     // TODO: Replace with processing overlay
     this.alertService.processing(
       'Creating Item',
@@ -126,7 +130,8 @@ export class LoadItemComponent implements OnInit {
             `An error was encountered trying to create your item.  Reason:\n\n${e}`);
         },
         () => {
-          // TODO: Remove processing overlay
+          // TODO: Uncomment once BusyService styling is complete
+          //this.busyService.hide();
         }
       );
   }
