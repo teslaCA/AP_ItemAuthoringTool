@@ -42,6 +42,15 @@ export class ItemLoadComponent implements OnInit {
 
   private currentItemId: string;
 
+  private _radioModel: string;
+  get radioModel(): string {
+    return this._radioModel;
+  }
+
+  set radioModel(value: string) {
+    this._radioModel = value;
+  }
+
   commitForm: FormGroup;
 
   private _currentItem: Item;
