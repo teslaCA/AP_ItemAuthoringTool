@@ -1,13 +1,12 @@
 <form [formGroup]="complexForm" (ngSubmit)="submitForm(complexForm.value)">
-  <div class="input-group" [ngClass]="{'has-error':!complexForm.controls['query'].valid}">
+  <div class="input-group">
       <span class="input-group-btn">
-        <button class="btn btn-primary" type="submit" [disabled]="!complexForm.valid">
+        <button class="btn btn-primary" type="submit" >
           <i class="fa fa-search" aria-hidden="true"></i>
           Find item or Stimulus
         </button>
       </span>
     <input type="text" class="form-control" placeholder="Enter item or stimulus id..."
-           [formControl]="complexForm.controls['query']"
-           (keypress)="_keyPress($event)"/>
+           [formControl]="complexForm.controls['query']"/>
   </div>
 </form>
