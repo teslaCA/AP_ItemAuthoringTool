@@ -14,19 +14,17 @@
         <div *ngIf="!isNotEditable()">
 
           <div *ngIf="isCreate() || isEdit() || isView()">
-            <h1>
-              {{navBarMessage}}
-            </h1>
-
-            <div class="btn-group">
-              <label class="btn btn-primary btn-sm" [(ngModel)]="radioModel" btnRadio="History" uncheckable>History</label>
+            <div class="page-title">
+              <h1>
+                <span class="item-type-icon"><i class="fa {{currentItemType.icon}}"></i></span>
+                <span class="item-type-name">{{currentItemType.name}}
+                <span class="item-type-abb">({{currentItemType.abbreviation}})</span></span>
+                <span class="item-type-mode">{{mode}} Item:
+                <span class="item-type-id">{{currentItem.id}}</span></span>
+              </h1>
             </div>
 
-            <div class="split-example">
-
-              <split [gutterSize]="1" direction="horizontal">
-
-                <split-area [order]="1">
+                <div class="col-md-6">
 
                   <load-sa-item *ngIf="currentItem.type=='sa'" [item]="currentItem" [isView]="isView()"></load-sa-item>
 
@@ -49,17 +47,14 @@
                     </div>
                   </div>
 
-                </split-area>
+                </div>
 
-                <split-area [order]="2">
-                  <div *ngIf="radioModel === 'History'">
+                <div class="col-md-6 ">
+                  <div class="item-box">
                     <item-history [itemId]="currentItem.id"></item-history>
                   </div>
-                </split-area>
+                </div>
 
-              </split>
-
-            </div>
           </div>
         </div>
       </div>

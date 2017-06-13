@@ -108,8 +108,7 @@ export class ItemTypeService {
     return itemTypes.filter(type => type.category === ItemTypeCategory.Normal);
   }
 
-  findItemTypeDescription(itemTypeCode: string): string {
-    const itemType = itemTypes.find(type => type.code === itemTypeCode);
-    return itemType ? itemType.description : '';
+  findItemType(itemTypeCode: string): ItemType {
+    return itemTypes.find(type => type.code === itemTypeCode);
   }
 }
