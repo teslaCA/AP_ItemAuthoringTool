@@ -14,14 +14,15 @@
         <div *ngIf="!isNotEditable()">
 
           <div *ngIf="isCreate() || isEdit() || isView()">
-            <h1>
-              <span>{{mode}} Item</span>
-              <span>{{currentItem.id}}</span>
-              <span>|</span>
-              <span>{{currentItemType.name}}</span>
-              <span>({{currentItemType.abbreviation}})</span>
-              <span><i class="fa {{currentItemType.icon}}"></i></span>
-            </h1>
+            <div class="page-title">
+              <h1>
+                <span class="item-type-icon"><i class="fa {{currentItemType.icon}}"></i></span>
+                <span class="item-type-name">{{currentItemType.name}}
+                <span class="item-type-abb">({{currentItemType.abbreviation}})</span></span>
+                <span class="item-type-mode">{{mode}} Item:
+                <span class="item-type-id">{{currentItem.id}}</span></span>
+              </h1>
+            </div>
 
                 <div class="col-md-6">
 
