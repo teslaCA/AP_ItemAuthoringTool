@@ -16,8 +16,12 @@
           <div *ngIf="isCreate() || isEdit() || isView()">
 
             <div class="pull-right txt-alert green"><i class="fa fa-check" aria-hidden="true"></i> Saved</div>
-            <div style="display:none" class="pull-right txt-alert aqua"><i class="fa fa-spinner fa-spin" aria-hidden="true"></i> Saving</div>
-            <div style="display:none" class="pull-right txt-alert orange"><i class="fa fa-asterisk" aria-hidden="true"></i> Changed</div>
+            <div style="display:none" class="pull-right txt-alert aqua"><i class="fa fa-spinner fa-spin"
+                                                                           aria-hidden="true"></i> Saving
+            </div>
+            <div style="display:none" class="pull-right txt-alert orange"><i class="fa fa-asterisk"
+                                                                             aria-hidden="true"></i> Changed
+            </div>
 
 
             <div class="page-title">
@@ -30,36 +34,36 @@
               </h1>
             </div>
 
-                <div class="col-md-6">
+            <div class="col-md-6">
 
-                  <load-sa-item *ngIf="currentItem.type=='sa'" [item]="currentItem" [isView]="isView()"></load-sa-item>
+              <load-sa-item *ngIf="currentItem.type=='sa'" [item]="currentItem" [isView]="isView()"></load-sa-item>
 
-                  <div class="row">
-                    <div class="col-lg-12">
-                      <div *ngIf="isCreate()">
-                        <button class="btn btn-primary" (click)="commitModal.show()">Create Item</button>
-                        <button class="btn btn-link" (click)="cancelModal.show()">Cancel</button>
-                      </div>
-                      <div *ngIf="isView()">
-                        <button class="btn btn-primary" (click)="goHome()">Done</button>
-                        <button class="btn btn-primary" (click)="editItem()">Edit</button>
-                      </div>
-                      <div *ngIf="isEdit()">
-                        <button class="btn btn-primary" (click)="commitModal.show()">Commit Changes
-                        </button>
-                        <button class="btn btn-link" (click)="cancelModal.show()">Discard Changes
-                        </button>
-                      </div>
-                    </div>
+              <div class="row">
+                <div class="col-lg-12">
+                  <div *ngIf="isCreate()">
+                    <button class="btn btn-primary" (click)="commitModal.show()">Create Item</button>
+                    <button class="btn btn-link" (click)="cancelModal.show()">Cancel</button>
                   </div>
-
-                </div>
-
-                <div class="col-md-6 ">
-                  <div class="item-box">
-                    <item-history [itemId]="currentItem.id"></item-history>
+                  <div *ngIf="isView()">
+                    <button class="btn btn-primary" (click)="goHome()">Done</button>
+                    <button class="btn btn-primary" (click)="editItem()">Edit</button>
+                  </div>
+                  <div *ngIf="isEdit()">
+                    <button class="btn btn-primary" (click)="commitModal.show()">Commit Changes
+                    </button>
+                    <button class="btn btn-link" (click)="cancelModal.show()">Discard Changes
+                    </button>
                   </div>
                 </div>
+              </div>
+
+            </div>
+
+            <div class="col-md-6 ">
+              <div class="item-box">
+                <item-history [itemId]="currentItem.id"></item-history>
+              </div>
+            </div>
 
           </div>
         </div>
@@ -97,44 +101,64 @@
 
   <div class="modal-dialog" role="document">
     <div class="modal-content">
+
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="commitModal.hide()">
           <span aria-hidden="true">&times;</span>
         </button>
         <h3 class="modal-title" id="commitModalLabel">Confirm Commit</h3>
       </div>
-      <div *ngIf="isCreate()" class="modal-body">
-        <span>Are you sure you want to finish creating this item and add it to the item bank?</span>
+
+
+      <div *ngIf="isCreate()">
+        <div class="modal-body">
+          <span>Are you sure you want to finish creating this item and add it to the item bank?</span>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary btn-small" (click)="createItem()">Yes</button>
+          <button type="button" class="btn btn-default btn-small" data-dismiss="modal" (click)="commitModal.hide()">No
+          </button>
+        </div>
       </div>
-      <div *ngIf="isEdit()" class="modal-body">
-        <div class="row">
-          <div class="col-md-12">
-            Are you sure you want to commit your changes to the item bank?
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-12">Please enter the reason for your changes to this item.</div>
-        </div>
-        <div class="row">
-          <div class="col-md-12">
-            <div class="form-group">
-              <form [formGroup]="commitForm">
-                <span>Reason: </span>
-                <input formControlName="commitMsg" type="text" placeholder="Enter change reason here"
-                       class="modal-form-control" maxlength="100" size="50">
-              </form>
+
+      <div *ngIf="isEdit()">
+        <form [formGroup]="commitForm" (submit)="commitItem()">
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-md-12">
+                Are you sure you want to commit your changes to the item bank?
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">Please enter the reason for your changes to this item.</div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <span>Reason: </span>
+                  <div class="input-group" [ngClass]="{'has-error':!commitForm.controls['commitMsg'].valid}">
+                    <input formControlName="commitMsg"
+                           type="text"
+                           placeholder="Enter change reason here"
+                           class="modal-form-control"
+                           maxlength="100"
+                           size="50"
+                           [formControl]="commitForm.controls['commitMsg']">
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary btn-small" [disabled]="!commitForm.valid">
+              Yes
+            </button>
+            <button type="button" class="btn btn-default btn-small" data-dismiss="modal" (click)="commitModal.hide()">No
+            </button>
+          </div>
+        </form>
       </div>
-      <div class="modal-footer">
-        <button *ngIf="isCreate()" type="button" class="btn btn-primary btn-small" (click)="createItem()">Yes
-        </button>
-        <button *ngIf="isEdit()" type="button" class="btn btn-primary btn-small" (click)="commitItem()">Yes
-        </button>
-        <button type="button" class="btn btn-default btn-small" data-dismiss="modal" (click)="commitModal.hide()">No
-        </button>
-      </div>
+
     </div>
   </div>
 </div>

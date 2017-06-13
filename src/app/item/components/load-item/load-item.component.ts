@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from "@angular/core";
 import {ActivatedRoute, Router} from "@angular/router";
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ItemService} from "../../services/item.service";
 import {LoadSaItemComponent} from "../load-sa-item/load-sa-item.component";
 import {Logger} from "../../../core/logger.service";
@@ -53,7 +53,7 @@ export class LoadItemComponent implements OnInit {
               private busyService: BusyService,
               public fb: FormBuilder) {
     this.commitForm = this.fb.group({
-      commitMsg: ''
+      commitMsg: [null, Validators.required]
     });
   }
 
