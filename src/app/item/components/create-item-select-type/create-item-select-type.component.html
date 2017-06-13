@@ -7,9 +7,9 @@
       <h4>
         Item Types
       </h4>
-      <div *ngFor="let type of normalItemTypes" class="col btn-group btn-block">
+      <div class="col btn-group btn-block">
         <div class="row">
-          <a routerLink="/item/create/{{type.code}}">
+          <a *ngFor="let type of normalItemTypes" routerLink="/item/create/{{type.code}}">
             <div class="btn btn-items teal">
               <p>{{type.name}}</p>
               <p>{{type.abbreviation}}</p>
