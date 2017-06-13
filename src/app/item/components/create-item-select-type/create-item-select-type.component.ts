@@ -30,7 +30,7 @@ export class CreateItemSelectTypeComponent implements OnInit {
   createItem(itemTypeCode: string) {
     this.logger.debug(`Creating item of type ${itemTypeCode}`);
     this.busyService.show("Creating Item");
-    this.itemService.beginItemCreate('asdf')
+    this.itemService.beginItemCreate(itemTypeCode)
       .subscribe(
         item => {
           this.logger.debug(`Successfully created item ${JSON.stringify(item)}`);
