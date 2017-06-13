@@ -13,7 +13,6 @@ import {BrowserModule} from "@angular/platform-browser";
 import {RouterModule} from "@angular/router";
 import {HttpModule} from "@angular/http";
 import {ItemHistoryComponent} from "./components/item-history/item-history.component";
-import {AngularSplitModule} from "angular-split";
 
 @NgModule({
   imports: [
@@ -22,8 +21,7 @@ import {AngularSplitModule} from "angular-split";
     HttpModule,
     Ng2BootstrapModule,
     ReactiveFormsModule,
-    RouterModule,
-    AngularSplitModule
+    RouterModule
   ],
   declarations: [
     ItemDashboardComponent,

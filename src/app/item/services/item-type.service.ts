@@ -69,28 +69,20 @@ const itemTypes: ItemType[] = [
     name: 'Short Answer'
   },
   // {
-  //   abbreviation: 'TI',
-  //   category: ItemTypeCategory.Normal,
-  //   code: 'ti',
-  //   description: 'Table Interaction (TI)',
-  //   icon: 'fa-table',
-  //   name: 'Table Interaction'
-  // },
-  // {
-  //   abbreviation: 'WER',
-  //   category: ItemTypeCategory.Normal,
-  //   code: 'wer',
-  //   description: 'Writing Extended Response (WER)',
-  //   icon: 'fa-comments',
-  //   name: 'Writing Extended Response'
-  // },
-  // {
   //   abbreviation: 'STIM',
   //   category: ItemTypeCategory.OtherResource,
   //   code: 'stim',
   //   description: 'Stimulus (STIM)',
   //   icon: 'fa-commenting-o',
   //   name: 'Stimulus'
+  // },
+  // {
+  //   abbreviation: 'TI',
+  //   category: ItemTypeCategory.Normal,
+  //   code: 'ti',
+  //   description: 'Table Interaction (TI)',
+  //   icon: 'fa-table',
+  //   name: 'Table Interaction'
   // },
   // {
   //   abbreviation: 'TUT',
@@ -100,6 +92,14 @@ const itemTypes: ItemType[] = [
   //   icon: 'fa-question-circle',
   //   name: 'Tutorial'
   // },
+  {
+    abbreviation: 'WER',
+    category: ItemTypeCategory.Normal,
+    code: 'wer',
+    description: 'Writing Extended Response (WER)',
+    icon: 'fa-comments',
+    name: 'Writing Extended Response'
+  },
 ];
 
 @Injectable()

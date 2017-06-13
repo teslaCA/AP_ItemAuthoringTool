@@ -14,6 +14,12 @@
         <div *ngIf="!isNotEditable()">
 
           <div *ngIf="isCreate() || isEdit() || isView()">
+
+            <div class="pull-right txt-alert green"><i class="fa fa-check" aria-hidden="true"></i> Saved</div>
+            <div style="display:none" class="pull-right txt-alert aqua"><i class="fa fa-spinner fa-spin" aria-hidden="true"></i> Saving</div>
+            <div style="display:none" class="pull-right txt-alert orange"><i class="fa fa-asterisk" aria-hidden="true"></i> Changed</div>
+
+
             <div class="page-title">
               <h1>
                 <span class="item-type-icon"><i class="fa {{currentItemType.icon}}"></i></span>
