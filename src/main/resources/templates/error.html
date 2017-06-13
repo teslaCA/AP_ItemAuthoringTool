@@ -24,9 +24,9 @@
   <div class="row">
     <div class="error-template">
       <h1>Oops!</h1>
-      <h2 th:text="${error}">Error</h2>
+      <h2 th:text="${status + ' ' + error}">Error</h2>
       <div class="error-details">
-        Sorry, an error has occurred!<br/>
+        Sorry, an error has occurred.<br/>
         <p th:text="${message}"></p>
       </div>
       <div class="error-actions">
