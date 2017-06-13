@@ -18,10 +18,6 @@
               {{navBarMessage}}
             </h1>
 
-            <div class="btn-group">
-              <label class="btn btn-primary btn-sm" [(ngModel)]="radioModel" btnRadio="History" uncheckable>History</label>
-            </div>
-
             <div class="split-example">
 
               <split [gutterSize]="1" direction="horizontal">
@@ -52,9 +48,7 @@
                 </split-area>
 
                 <split-area [order]="2">
-                  <div *ngIf="radioModel === 'History'">
                     <item-history [itemId]="currentItem.id"></item-history>
-                  </div>
                 </split-area>
 
               </split>
