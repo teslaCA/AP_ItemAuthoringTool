@@ -9,6 +9,7 @@ import {Item} from "../../models/item";
 import {ItemTypeService} from "../../services/item-type.service";
 import {UserService} from "app/core/user.service";
 import {BusyService} from "../../../core/busy.service/busy.service";
+import {ItemType} from "../../models/item-type";
 
 // TODO: Move stem-related code into separate component (called StemComponent)
 // TODO: Move exemplar response-related code into separate component (called ExemplarResponsesComponent)
@@ -24,7 +25,8 @@ export class LoadItemComponent implements OnInit {
   private currentItemId: string;
   commitForm: FormGroup;
   currentItem: Item;
-  navBarMessage: string;
+  mode: string;
+  currentItemType: ItemType;
   user: any; // TODO: Strongly type (looks like only the username is used so consider changing this field to a non-nullable string "_currentUsername")
   loading: boolean;
   serviceError: boolean;
@@ -296,23 +298,21 @@ export class LoadItemComponent implements OnInit {
 
   private onSuccess(item: Item): void {
     this.logger.debug('retrieved item: ' + JSON.stringify(item));
-    let navBarMsgPrefix: string;
     this.currentItem = item;
 
     if (this.isCreate()) {
       // Item is currently being created by logged in user
-      navBarMsgPrefix = 'Create';
+      this.mode = 'Create';
     }
     if (this.isView()) {
-      navBarMsgPrefix = 'View';
+      this.mode = 'View';
     }
     if (this.isEdit()) {
-      navBarMsgPrefix = 'Edit';
+      this.mode = 'Edit';
     }
 
     // Set header
-    this.navBarMessage = navBarMsgPrefix + ' Item ' + this.currentItem.id
-      + ' | ' + this.itemTypeService.findItemTypeDescription(this.currentItem.type);
+    this.currentItemType = this.itemTypeService.findItemType(this.currentItem.type);
   }
 
   private onError(error): void {

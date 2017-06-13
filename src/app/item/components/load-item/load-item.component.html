@@ -15,7 +15,12 @@
 
           <div *ngIf="isCreate() || isEdit() || isView()">
             <h1>
-              {{navBarMessage}}
+              <span>{{mode}} Item</span>
+              <span>{{currentItem.id}}</span>
+              <span>|</span>
+              <span>{{currentItemType.name}}</span>
+              <span>({{currentItemType.abbreviation}})</span>
+              <span><i class="fa {{currentItemType.icon}}"></i></span>
             </h1>
 
                 <div class="col-md-6">
