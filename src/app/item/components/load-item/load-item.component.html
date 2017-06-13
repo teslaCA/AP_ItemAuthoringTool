@@ -18,11 +18,7 @@
               {{navBarMessage}}
             </h1>
 
-            <div class="split-example">
-
-              <split [gutterSize]="1" direction="horizontal">
-
-                <split-area [order]="1">
+                <div class="col-md-6">
 
                   <load-sa-item *ngIf="currentItem.type=='sa'" [item]="currentItem" [isView]="isView()"></load-sa-item>
 
@@ -45,15 +41,14 @@
                     </div>
                   </div>
 
-                </split-area>
+                </div>
 
-                <split-area [order]="2">
+                <div class="col-md-6 ">
+                  <div class="item-box">
                     <item-history [itemId]="currentItem.id"></item-history>
-                </split-area>
+                  </div>
+                </div>
 
-              </split>
-
-            </div>
           </div>
         </div>
       </div>
