@@ -32,15 +32,6 @@ export class LoadItemComponent implements OnInit {
   serviceError: boolean;
   errorMessage: string;
 
-  private _radioModel: string;
-  get radioModel(): string {
-    return this._radioModel;
-  }
-
-  set radioModel(value: string) {
-    this._radioModel = value;
-  }
-
   @ViewChild(LoadSaItemComponent) saItemComponent;
 
   constructor(private logger: Logger,
