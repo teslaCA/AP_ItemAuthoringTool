@@ -5,6 +5,9 @@ import { BuildInfoService} from '../../../core/build-info.service';
 import { RouterTestingModule} from '@angular/router/testing';
 import {Logger} from "../../../core/logger.service";
 import {ItemTypeService} from "../../services/item-type.service";
+import {AlertService} from "../../../core/alert.service";
+import {ToastyConfig, ToastyService} from "ng2-toasty";
+import {CoreModule} from "../../../core/core.module";
 
 describe('CreateItemSelectTypeComponent', () => {
 
@@ -14,13 +17,17 @@ describe('CreateItemSelectTypeComponent', () => {
         CreateItemSelectTypeComponent
       ],
       imports: [
+        CoreModule,
         HttpModule,
         RouterTestingModule
       ],
       providers: [
+        AlertService,
         BuildInfoService,
         ItemTypeService,
-        Logger
+        Logger,
+        ToastyService,
+        ToastyConfig
       ]
     }).compileComponents();
   }));

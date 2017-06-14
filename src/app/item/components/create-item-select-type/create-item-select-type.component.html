@@ -9,7 +9,7 @@
       </h4>
       <div class="col btn-group btn-block">
         <div class="row">
-          <a *ngFor="let type of normalItemTypes" routerLink="/item/create/{{type.code}}">
+          <a *ngFor="let type of normalItemTypes" (click)="createItem(type.code)">
             <div class="btn btn-items teal">
               <p>{{type.name}}</p>
               <p>{{type.abbreviation}}</p>
