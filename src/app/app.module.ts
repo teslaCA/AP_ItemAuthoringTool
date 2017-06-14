@@ -15,57 +15,34 @@
  */
 import {BrowserModule} from "@angular/platform-browser";
 import {NgModule} from "@angular/core";
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {HttpModule} from "@angular/http";
-
-import {BsDropdownModule} from "ngx-bootstrap/dropdown";
-import {ModalModule} from "ngx-bootstrap/modal";
-import {AlertModule} from "ngx-bootstrap/alert";
 import {Ng2BootstrapModule} from "ngx-bootstrap/ng2-bootstrap";
-
 import {AppRoutingModule} from "./app.routing";
 import {AppComponent} from "./app.component";
-import {HeaderComponent} from "./header/header.component";
-import {FooterComponent} from "./footer/footer.component";
-import {ItemSelectTypeComponent} from "./item/item-create/item-select-type/item-select-type.component";
-import {HomeComponent} from "./home/home.component";
-import {ItemCreateComponent} from "./item/item-create/item-create.component";
-import {ItemLoadSaComponent} from "./item/item-load-sa/item-load-sa.component";
-import {ItemLoadComponent} from "./item/item-load/item-load.component";
-import {ItemRedirectComponent} from "./item/item-redirect/item-redirect.component";
-import {NoRouteComponent} from "./no-route/no-route.component";
-import {Logger} from "./service/logger.service";
 import {ToastyModule} from "ng2-toasty";
-import {AlertService} from "./service/alert.service";
+
+import {ResourceNotFoundComponent} from "./resource-not-found.component";
+import {HeaderComponent} from "./header.component";
+import {FooterComponent} from "./footer.component";
+import {CoreModule} from "./core/core.module";
+import {ItemModule} from "./item/item.module";
+import {SharedModule} from "./shared/shared.module";
+
 
 @NgModule({
   declarations: [
     AppComponent,
     FooterComponent,
     HeaderComponent,
-    HomeComponent,
-    ItemSelectTypeComponent,
-    ItemCreateComponent,
-    ItemLoadSaComponent,
-    ItemLoadComponent,
-    ItemRedirectComponent,
-    NoRouteComponent
+    ResourceNotFoundComponent
   ],
   imports: [
-    BrowserModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpModule,
     AppRoutingModule,
-    BsDropdownModule.forRoot(),
-    ModalModule.forRoot(),
-    AlertModule.forRoot(),
+    BrowserModule,
+    ItemModule,
+    CoreModule,
     Ng2BootstrapModule.forRoot(),
+    SharedModule,
     ToastyModule.forRoot()
-  ],
-  providers: [
-    Logger,
-    AlertService
   ],
   bootstrap: [
     AppComponent
@@ -73,3 +50,4 @@ import {AlertService} from "./service/alert.service";
 })
 export class AppModule {
 }
+

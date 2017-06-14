@@ -1,0 +1,14 @@
+<!-- Changed -->
+<div *ngIf="enabled && changed" class="pull-right txt-alert orange">
+  <i class="fa fa-asterisk" aria-hidden="true"></i> Changed
+</div>
+
+<!-- Saved -->
+<div *ngIf="enabled && saved" class="pull-right txt-alert green">
+  <i class="fa fa-check" aria-hidden="true"></i> Saved
+</div>
+
+<!-- Saving -->
+<div *ngIf="enabled && saving" class="pull-right txt-alert aqua">
+  <i class="fa fa-spinner fa-spin" aria-hidden="true"></i> Saving
+</div>
