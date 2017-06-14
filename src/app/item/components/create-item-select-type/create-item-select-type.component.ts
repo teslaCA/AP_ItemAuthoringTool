@@ -28,19 +28,19 @@ export class CreateItemSelectTypeComponent implements OnInit {
   }
 
   createItem(itemTypeCode: string) {
-    this.logger.debug(`Creating item of type ${itemTypeCode}`);
-    this.busyService.show("Creating Item");
+    this.logger.debug(`Initializing item of type ${itemTypeCode}`);
+    this.busyService.show("Initializing Item");
     this.itemService.beginItemCreate(itemTypeCode)
       .subscribe(
         item => {
-          this.logger.debug(`Successfully created item ${JSON.stringify(item)}`);
+          this.logger.debug(`Successfully initialized item ${JSON.stringify(item)}`);
           this.busyService.hide();
           this.router.navigateByUrl(`/item/${item.id}`);
         },
         error => {
-          this.logger.error(`Failed to create item of type ${itemTypeCode}, error ${JSON.stringify(error)}`);
+          this.logger.error(`Failed to initialize item of type ${itemTypeCode}, error ${JSON.stringify(error)}`);
           this.busyService.hide();
-          this.alertService.error("Error Creating Item", `An error was encountered while creating your item`);
+          this.alertService.error("Error Initializing Item", `An error was encountered while initializing your item`);
         }
       );
   }
