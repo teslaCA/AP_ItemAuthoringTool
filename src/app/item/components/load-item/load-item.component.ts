@@ -10,6 +10,7 @@ import {ItemTypeService} from "../../services/item-type.service";
 import {UserService} from "app/core/user.service";
 import {BusyService} from "../../../core/busy.service/busy.service";
 import {ItemType} from "../../models/item-type";
+import {LoadWerItemComponent} from "../load-wer-item/load-wer-item.component";
 
 // TODO: Move stem-related code into separate component (called StemComponent)
 // TODO: Move exemplar response-related code into separate component (called ExemplarResponsesComponent)
@@ -32,6 +33,7 @@ export class LoadItemComponent implements OnInit {
   errorMessage: string;
 
   @ViewChild(LoadSaItemComponent) saItemComponent;
+  @ViewChild(LoadWerItemComponent) werItemComponent;
 
   constructor(private logger: Logger,
               private router: Router,
@@ -96,6 +98,10 @@ export class LoadItemComponent implements OnInit {
     switch (this.currentItem.type) {
       case 'sa' : {
         item = this.saItemComponent.currentItem();
+        break;
+      }
+      case 'wer' : {
+        item = this.werItemComponent.currentItem();
         break;
       }
     }
@@ -200,6 +206,10 @@ export class LoadItemComponent implements OnInit {
     switch (this.currentItem.type) {
       case 'sa' : {
         item = this.saItemComponent.currentItem();
+        break;
+      }
+      case 'wer' : {
+        item = this.werItemComponent.currentItem();
         break;
       }
     }

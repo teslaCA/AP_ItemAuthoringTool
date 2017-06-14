@@ -5,6 +5,7 @@ import {FindItemComponent} from "./components/find-item/find-item.component";
 import {LoadItemRedirectComponent} from "./components/load-item-redirect/load-item-redirect.component";
 import {LoadItemComponent} from "./components/load-item/load-item.component";
 import {LoadSaItemComponent} from "./components/load-sa-item/load-sa-item.component";
+import {LoadWerItemComponent} from "./components/load-wer-item/load-wer-item.component";
 import {ItemDashboardComponent} from "./components/item-dashboard/item-dashboard.component";
 import {ReactiveFormsModule} from "@angular/forms";
 import {Ng2BootstrapModule} from "ngx-bootstrap";
@@ -12,6 +13,7 @@ import {BrowserModule} from "@angular/platform-browser";
 import {RouterModule} from "@angular/router";
 import {HttpModule} from "@angular/http";
 import {ItemHistoryComponent} from "./components/item-history/item-history.component";
+import {ItemAutoSaveComponent } from './components/item-auto-save/item-auto-save.component';
 
 @NgModule({
   imports: [
@@ -25,15 +27,18 @@ import {ItemHistoryComponent} from "./components/item-history/item-history.compo
   declarations: [
     ItemDashboardComponent,
     LoadSaItemComponent,
+    LoadWerItemComponent,
     LoadItemComponent,
     LoadItemRedirectComponent,
     FindItemComponent,
     CreateItemSelectTypeComponent,
-    ItemHistoryComponent
+    ItemHistoryComponent,
+    ItemAutoSaveComponent
   ],
   exports: [
     ItemDashboardComponent,
     LoadSaItemComponent,
+    LoadWerItemComponent,
     LoadItemComponent,
     LoadItemRedirectComponent,
     FindItemComponent,
