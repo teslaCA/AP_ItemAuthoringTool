@@ -78,7 +78,7 @@ export class LoadItemComponent implements OnInit {
               error => {
                 this.logger.error(`Failed to load item having ID ${this.currentItemId}, error ${JSON.stringify(error)}`);
                 this.busyService.hide();
-                this.alertService.error("Error loading item", `There was an error loading the the item having ID ${this.currentItemId}`);
+                this.alertService.error("Error loading item", `There was an error loading the item having ID ${this.currentItemId}`);
                 this.onError(error);
               }
             );
