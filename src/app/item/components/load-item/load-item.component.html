@@ -35,6 +35,12 @@
               [isView]="isView()"
               (itemChanged)="autoSave.onItemChange($event)">
             </load-sa-item>
+            <load-wer-item
+              *ngIf="currentItem.type=='wer'"
+              [item]="currentItem"
+              [isView]="isView()"
+              (itemChanged)="autoSave.onItemChange($event)">
+            </load-wer-item>
 
             <!-- Action buttons -->
             <div class="row">
