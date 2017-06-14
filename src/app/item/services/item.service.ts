@@ -109,12 +109,20 @@ export class ItemService {
   // Item save
   //---------------------------------------------------------------------------
   // Save changes to the item (update the scratchpad)
-  // TODO: Determine if there should be two versions of this method - POST for saving create, PUT for saving edit
-  // TODO: Do not remove this method; remove this TODO when auto-save makes use of this method
-  saveChanges(item: Item): Observable<void> {
+  // TODO: Combine saveCreateChanges and saveEditChanges into one method and make corresponding change in the back-end service
+  saveCreateChanges(item: Item): Observable<void> {
     const url = `${ItemService.serviceUrl}/${item.id}/save`;
     return this.http
       .post(url, JSON.stringify(item), ItemService.requestOptions)
+      .map(_ => null)
+      .catch(error => this.handleError(error));
+  }
+
+  // TODO: Combine saveCreateChanges and saveEditChanges into one method and make corresponding change in the back-end service
+  saveEditChanges(item: Item): Observable<void> {
+    const url = `${ItemService.serviceUrl}/${item.id}/save`;
+    return this.http
+      .put(url, JSON.stringify(item), ItemService.requestOptions)
       .map(_ => null)
       .catch(error => this.handleError(error));
   }

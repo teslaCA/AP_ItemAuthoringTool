@@ -12,6 +12,7 @@ import {BrowserModule} from "@angular/platform-browser";
 import {RouterModule} from "@angular/router";
 import {HttpModule} from "@angular/http";
 import {ItemHistoryComponent} from "./components/item-history/item-history.component";
+import { ItemAutoSaveComponent } from './components/item-auto-save/item-auto-save.component';
 
 @NgModule({
   imports: [
@@ -29,7 +30,8 @@ import {ItemHistoryComponent} from "./components/item-history/item-history.compo
     LoadItemRedirectComponent,
     FindItemComponent,
     CreateItemSelectTypeComponent,
-    ItemHistoryComponent
+    ItemHistoryComponent,
+    ItemAutoSaveComponent
   ],
   exports: [
     ItemDashboardComponent,

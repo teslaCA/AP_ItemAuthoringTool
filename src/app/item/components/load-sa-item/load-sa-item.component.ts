@@ -1,4 +1,7 @@
-import {AfterViewChecked, Component, ElementRef, Input, OnInit} from "@angular/core";
+import {
+  AfterViewChecked, AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit,
+  Output
+} from "@angular/core";
 import {FormArray, FormBuilder, FormGroup} from "@angular/forms";
 import {Logger} from "../../../core/logger.service";
 import {Item} from "../../models/item";
@@ -9,7 +12,7 @@ import {SaItem} from "../../models/sa-item";
   templateUrl: './load-sa-item.component.html',
   styleUrls: ['./load-sa-item.component.less']
 })
-export class LoadSaItemComponent implements OnInit, AfterViewChecked {
+export class LoadSaItemComponent implements OnInit, AfterViewChecked, AfterViewInit {
   //---------------------------------------------------------------------------
   // Stem fields
   // TODO: Move to separate component
@@ -37,10 +40,11 @@ export class LoadSaItemComponent implements OnInit, AfterViewChecked {
   };
 
   //---------------------------------------------------------------------------
-  // General responses fields
+  // General fields
   //---------------------------------------------------------------------------
   @Input() item: SaItem;
   @Input() isView: boolean;
+  @Output() itemChanged = new EventEmitter<Item>();
 
   //---------------------------------------------------------------------------
   // Stem methods
@@ -130,6 +134,22 @@ export class LoadSaItemComponent implements OnInit, AfterViewChecked {
       this.stemForm.disable();
       this.responseForm.disable();
     }
+  }
+
+  ngAfterViewInit() {
+    // Wire up changes to the stem form to trigger an auto-save
+    this.stemForm.valueChanges.subscribe(
+      () => {
+        this.logger.debug("Stem form changed");
+        this.itemChanged.emit(this.currentItem());
+      });
+
+    // Wire up changes to the exemplar responses form to trigger an auto-save
+    this.responseForm.valueChanges.subscribe(
+      () => {
+        this.logger.debug("Exemplar responses form changed");
+        this.itemChanged.emit(this.currentItem());
+      });
   }
 
   public currentItem(): Item {
