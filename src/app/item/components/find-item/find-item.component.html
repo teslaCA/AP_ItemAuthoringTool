@@ -2,7 +2,7 @@
   <div class="col-md-8">
   <div class="input-group" [ngClass]="{'has-error':!complexForm.controls['query'].valid}">
      <input type="text" class="form-control" placeholder="Item or stimulus ID"
-           [formControl]="complexForm.controls['query']"/>
+           [formControl]="complexForm.controls['query']" maxlength="16"/>
      <span class="input-group-btn">
        <button class="btn btn-primary" type="submit" [disabled]="!complexForm.valid">
          <i class="fa fa-search" aria-hidden="true"></i>
