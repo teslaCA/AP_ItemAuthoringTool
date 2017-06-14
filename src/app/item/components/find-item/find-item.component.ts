@@ -25,7 +25,7 @@ export class FindItemComponent {
 
   _keyPress(event: any) {
     const pattern = /^[@#%&()=\\;.?/]+$/;
-    let inputChar = String.fromCharCode(event.charCode);
+    const inputChar = String.fromCharCode(event.charCode);
 
     if (pattern.test(inputChar)) {
       // invalid character, prevent input
