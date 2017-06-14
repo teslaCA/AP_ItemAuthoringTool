@@ -28,8 +28,7 @@ export class LoadItemComponent implements OnInit {
   mode: string;
   currentItemType: ItemType;
   user: any; // TODO: Strongly type (looks like only the username is used so consider changing this field to a non-nullable string "_currentUsername")
-  loading: boolean;
-  serviceError: boolean;
+  serviceError = false;
   errorMessage: string;
 
   private _radioModel: string;
@@ -58,38 +57,43 @@ export class LoadItemComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loading = true;
-    this.serviceError = false;
-
+    // Extract item ID from route
     this.route.params
       .subscribe(params => {
         this.currentItemId = params['id'];
       });
 
-    this.logger.debug('id: ' + this.currentItemId);
-
+    // Load current user
+    this.logger.debug("Loading current user");
+    this.busyService.show("Loading Current User");
     this.userService.findCurrentUser()
       .subscribe(
-        (res: Response) => {
-          this.user = res.json();
-        },
-        error => {
-          this.logger.error(`Failed to find current user ${error}`);
-        },
-        () => {
+        (response: Response) => {
+          this.logger.debug("Current user successfully loaded");
+          this.user = response.json();
+
+          // Load current item
+          this.logger.debug(`Loading item having ID ${this.currentItemId}`);
+          this.busyService.show(`Loading Item`);
           this.itemService.findItem(this.currentItemId)
             .subscribe(
               item => {
+                this.logger.debug(`Successfully loaded item ${JSON.stringify(item)}`);
+                this.busyService.hide();
                 this.onSuccess(item);
               },
               error => {
-                this.logger.warn(`Failed to find item ${error}`);
+                this.logger.error(`Failed to load item having ID ${this.currentItemId}, error ${JSON.stringify(error)}`);
+                this.busyService.hide();
+                this.alertService.error("Error loading item", `There was an error loading the the item having ID ${this.currentItemId}`);
                 this.onError(error);
-              },
-              () => {
-                this.loading = false;
               }
             );
+        },
+        error => {
+          this.logger.error(`Failed to load current user, error ${JSON.stringify(error)}`);
+          this.busyService.hide();
+          this.alertService.error("Error loading current user", "There was an error loading the current user");
         });
 
   }
@@ -114,6 +118,7 @@ export class LoadItemComponent implements OnInit {
       .commitItemCreate(item)
       .subscribe(
         () => {
+          this.busyService.hide();
           this.alertService.success(
             'Item Created',
             'The item has been successfully created and added to the item bank.');
@@ -122,12 +127,10 @@ export class LoadItemComponent implements OnInit {
           this.router.navigateByUrl(`/?action=create&id=${item.id}`);
         },
         e => {
+          this.busyService.hide();
           this.alertService.error(
             'Error Creating Item',
             `An error was encountered trying to create your item.  Reason:\n\n${e}`);
-        },
-        () => {
-          this.busyService.hide();
         }
       );
   }
@@ -138,6 +141,7 @@ export class LoadItemComponent implements OnInit {
       .rollbackItemCreate(this.currentItem.id)
       .subscribe(
         () => {
+          this.busyService.hide();
           this.alertService.success(
             'Creation Cancelled',
             'The item you were creating has been successfully removed.');
@@ -146,12 +150,10 @@ export class LoadItemComponent implements OnInit {
           this.router.navigateByUrl('/');
         },
         e => {
+          this.busyService.hide();
           this.alertService.error(
             'Error Cancelling Creation',
             `An error was encountered trying to cancel the creation of your item.  Reason:\n\n${e}`);
-        },
-        () => {
-          this.busyService.hide();
         }
       );
   }
@@ -162,21 +164,17 @@ export class LoadItemComponent implements OnInit {
       .beginItemEdit(this.currentItemId)
       .subscribe(
         () => {
-          this.alertService.success(
-            'Editing Item',
-            'Your item has been successfully opened for editing.');
+          this.busyService.hide();
 
           // Route user to item
           this.router.navigateByUrl('/item-redirect/' + this.currentItemId);
         },
         e => {
+          this.busyService.hide();
           this.alertService.error(
             'Error Editing Item',
             `An error was encountered trying to open the item for editing.  Reason:\n\n${e}`);
           this.onError(e);
-        },
-        () => {
-          this.busyService.hide();
         }
       );
   }
@@ -187,6 +185,7 @@ export class LoadItemComponent implements OnInit {
       .rollbackItemEdit(this.currentItem.id)
       .subscribe(
         () => {
+          this.busyService.hide();
           this.alertService.success(
             'Changes Discarded',
             'Your changes to the item have been discarded.');
@@ -195,12 +194,10 @@ export class LoadItemComponent implements OnInit {
           this.router.navigateByUrl(`/?action=commit&id=${this.currentItem.id}`);
         },
         e => {
+          this.busyService.hide();
           this.alertService.error(
             'Error Discarding Changes',
             `An error was encountered trying to discard your changes to the item.  Reason:\n\n${e}`);
-        },
-        () => {
-          this.busyService.hide();
         }
       );
   }
@@ -227,25 +224,24 @@ export class LoadItemComponent implements OnInit {
     }
 
     // Save the changes
-    this.busyService.show('Saving Changes');
+    this.busyService.show('Committing Changes');
     this.itemService
       .commitItemEdit(item, message)
       .subscribe(
         () => {
+          this.busyService.hide();
           this.alertService.success(
-            'Changes Saved',
-            'Your changes to the item have been saved to the item bank.');
+            'Changes Committed',
+            'Your changes to the item have been committed to the item bank.');
 
           // Route user to dashboard
           this.router.navigateByUrl(`/?action=commit&id=${item.id}`);
         },
         e => {
-          this.alertService.error(
-            'Error Saving Changes',
-            `An error was encountered trying to save your changes to the item.  Reason:\n\n${e}`);
-        },
-        () => {
           this.busyService.hide();
+          this.alertService.error(
+            'Error Committing Changes',
+            `An error was encountered trying to save your changes to the item.  Reason:\n\n${e}`);
         }
       );
   }
@@ -315,14 +311,14 @@ export class LoadItemComponent implements OnInit {
     this.currentItemType = this.itemTypeService.findItemType(this.currentItem.type);
   }
 
+  // TODO: Remove this function - it is called in two places but only one the call from the "load" function can get 4xx errors; the call from the "edit" function will only get 500's - we need to not show an error alert when a 4xx is received
   private onError(error): void {
-    this.loading = false;
     this.serviceError = true;
 
     switch (error.status) {
       case 400:
       case 404: {
-        this.errorMessage = this.getErrorMessages(error);
+        this.errorMessage = LoadItemComponent.getErrorMessages(error);
         break;
       }
       default: {
@@ -334,7 +330,7 @@ export class LoadItemComponent implements OnInit {
   }
 
   // TODO: Function named with "get" prefix shouldn't take parameter (and if it doesn't take parameter it should be a property getter instead of a regular method).  In this case this function should be renamed to something like "toErrorString"
-  private getErrorMessages(error: any): string {
+  private static getErrorMessages(error: any): string {
     const body = error.json() || '';
     const objMessages = JSON.parse(JSON.stringify(body));
 
