@@ -7,15 +7,13 @@
         <div *ngIf="isCreate() || isEdit() || isView()">
 
           <!-- Auto-save -->
-          <div class="pull-right txt-alert green">
-            <i class="fa fa-check" aria-hidden="true"></i> Saved
-          </div>
-          <div style="display:none" class="pull-right txt-alert aqua">
-            <i class="fa fa-spinner fa-spin" aria-hidden="true"></i> Saving
-          </div>
-          <div style="display:none" class="pull-right txt-alert orange">
-            <i class="fa fa-asterisk" aria-hidden="true"></i> Changed
-          </div>
+          <item-auto-save
+            #autoSave
+            [enabled]="isCreate() || isEdit()"
+            [debounceTimeMillis]="3000"
+            [isCreate]="isCreate()"
+            [isEdit]="isEdit()">
+          </item-auto-save>
 
           <!-- Item title -->
           <div class="page-title">
@@ -31,7 +29,18 @@
           <!-- Left 6 columns -->
           <div class="col-md-6">
             <!-- Item details -->
-            <load-sa-item *ngIf="currentItem.type=='sa'" [item]="currentItem" [isView]="isView()"></load-sa-item>
+            <load-sa-item
+              *ngIf="currentItem.type=='sa'"
+              [item]="currentItem"
+              [isView]="isView()"
+              (itemChanged)="autoSave.onItemChange($event)">
+            </load-sa-item>
+            <load-wer-item
+              *ngIf="currentItem.type=='wer'"
+              [item]="currentItem"
+              [isView]="isView()"
+              (itemChanged)="autoSave.onItemChange($event)">
+            </load-wer-item>
 
             <!-- Action buttons -->
             <div class="row">

@@ -19,6 +19,7 @@ import {Logger} from "./core/logger.service";
 import {UserService} from "./core/user.service";
 import {BuildInfoService} from "./core/build-info.service";
 import {CoreModule} from "./core/core.module";
+import {LoadWerItemComponent} from "./item/components/load-wer-item/load-wer-item.component";
 
 describe('AppComponent', () => {
   let component: AppComponent;
@@ -33,6 +34,7 @@ describe('AppComponent', () => {
         ItemDashboardComponent,
         CreateItemSelectTypeComponent,
         LoadSaItemComponent,
+        LoadWerItemComponent,
         FindItemComponent
       ],
       providers: [

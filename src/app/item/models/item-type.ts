@@ -7,7 +7,6 @@ export class ItemType {
   abbreviation: string;
   category: ItemTypeCategory;
   code: string;
-  description: string;
   icon: string;
   name: string;
 }

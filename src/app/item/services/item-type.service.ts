@@ -8,7 +8,6 @@ const itemTypes: ItemType[] = [
   //   abbreviation: 'EBSR',
   //   category: ItemTypeCategory.Normal,
   //   code: 'ebsr',
-  //   description: 'Evidence-Based Select Response (EBSR)',
   //   icon: 'fa-list',
   //   name: 'Evidence-Based Select Response'
   // },
@@ -16,7 +15,6 @@ const itemTypes: ItemType[] = [
   //   abbreviation: 'EQ',
   //   category: ItemTypeCategory.Normal,
   //   code: 'eq',
-  //   description: 'Equation (EQ)',
   //   icon: 'fa-superscript',
   //   name: 'Equation'
   // },
@@ -24,7 +22,6 @@ const itemTypes: ItemType[] = [
   //   abbreviation: 'GI',
   //   category: ItemTypeCategory.Normal,
   //   code: 'gi',
-  //   description: 'Grid Item (GI)',
   //   icon: 'fa-bar-chart',
   //   name: 'Grid Item'
   // },
@@ -32,7 +29,6 @@ const itemTypes: ItemType[] = [
   //   abbreviation: 'HT',
   //   category: ItemTypeCategory.Normal,
   //   code: 'ht',
-  //   description: 'Hot Text (HT)',
   //   icon: 'fa-fire',
   //   name: 'Hot Text'
   // },
@@ -40,7 +36,6 @@ const itemTypes: ItemType[] = [
   //   abbreviation: 'MC',
   //   category: ItemTypeCategory.Normal,
   //   code: 'mc',
-  //   description: 'Multiple Choice (MC)',
   //   icon: 'fa-list-ul',
   //   name: 'Multiple Choice'
   // },
@@ -48,7 +43,6 @@ const itemTypes: ItemType[] = [
   //   abbreviation: 'MS',
   //   category: ItemTypeCategory.Normal,
   //   code: 'ms',
-  //   description: 'Multiple Select (MS)',
   //   icon: 'fa-th-list',
   //   name: 'Multiple Select'
   // },
@@ -56,7 +50,6 @@ const itemTypes: ItemType[] = [
   //   abbreviation: 'MI',
   //   category: ItemTypeCategory.Normal,
   //   code: 'mi',
-  //   description: 'Match Interaction (MI)',
   //   icon: 'fa-list-ul',
   //   name: 'Match Interaction'
   // },
@@ -64,7 +57,6 @@ const itemTypes: ItemType[] = [
     abbreviation: 'SA',
     category: ItemTypeCategory.Normal,
     code: 'sa',
-    description: 'Short Answer (SA)',
     icon: 'fa-font',
     name: 'Short Answer'
   },
@@ -72,7 +64,6 @@ const itemTypes: ItemType[] = [
   //   abbreviation: 'STIM',
   //   category: ItemTypeCategory.OtherResource,
   //   code: 'stim',
-  //   description: 'Stimulus (STIM)',
   //   icon: 'fa-commenting-o',
   //   name: 'Stimulus'
   // },
@@ -80,7 +71,6 @@ const itemTypes: ItemType[] = [
   //   abbreviation: 'TI',
   //   category: ItemTypeCategory.Normal,
   //   code: 'ti',
-  //   description: 'Table Interaction (TI)',
   //   icon: 'fa-table',
   //   name: 'Table Interaction'
   // },
@@ -88,7 +78,6 @@ const itemTypes: ItemType[] = [
   //   abbreviation: 'TUT',
   //   category: ItemTypeCategory.OtherResource,
   //   code: 'tut',
-  //   description: 'Tutorial (TUT)',
   //   icon: 'fa-question-circle',
   //   name: 'Tutorial'
   // },
@@ -96,7 +85,6 @@ const itemTypes: ItemType[] = [
     abbreviation: 'WER',
     category: ItemTypeCategory.Normal,
     code: 'wer',
-    description: 'Writing Extended Response (WER)',
     icon: 'fa-comments',
     name: 'Writing Extended Response'
   },
