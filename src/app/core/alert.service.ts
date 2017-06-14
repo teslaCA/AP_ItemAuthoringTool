@@ -56,16 +56,6 @@ export class AlertService {
     this.toastyService.error(AlertService.buildToastOptions(title, message));
   }
 
-  /**
-   * Show an alert indicating processing is under way.
-   * @param title the title of the alert.
-   * @param message the message of the alert.
-   */
-  // TODO: Remove this API after all calls have been replaced with calls to BusyService (BusyService will be used going forward to indicate lengthy processing is taking place)
-  processing(title: string, message: string) {
-    this.toastyService.wait(AlertService.buildToastOptions(title, message));
-  }
-
   private static buildToastOptions(title: string, message: string): ToastOptions {
     const options = new ToastOptions();
     options.msg = message;

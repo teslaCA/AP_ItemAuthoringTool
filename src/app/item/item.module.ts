@@ -5,7 +5,6 @@ import {FindItemComponent} from "./components/find-item/find-item.component";
 import {LoadItemRedirectComponent} from "./components/load-item-redirect/load-item-redirect.component";
 import {LoadItemComponent} from "./components/load-item/load-item.component";
 import {LoadSaItemComponent} from "./components/load-sa-item/load-sa-item.component";
-import {CreateItemComponent} from "./components/create-item/create-item.component";
 import {ItemDashboardComponent} from "./components/item-dashboard/item-dashboard.component";
 import {ReactiveFormsModule} from "@angular/forms";
 import {Ng2BootstrapModule} from "ngx-bootstrap";
@@ -25,7 +24,6 @@ import {ItemHistoryComponent} from "./components/item-history/item-history.compo
   ],
   declarations: [
     ItemDashboardComponent,
-    CreateItemComponent,
     LoadSaItemComponent,
     LoadItemComponent,
     LoadItemRedirectComponent,
@@ -35,7 +33,6 @@ import {ItemHistoryComponent} from "./components/item-history/item-history.compo
   ],
   exports: [
     ItemDashboardComponent,
-    CreateItemComponent,
     LoadSaItemComponent,
     LoadItemComponent,
     LoadItemRedirectComponent,
