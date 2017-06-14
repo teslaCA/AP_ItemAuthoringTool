@@ -101,7 +101,7 @@
 
 <!-- Modal -->
 <div id="commitModal" class="modal fade" bsModal #commitModal="bs-modal" [config]="{backdrop: 'static'}"
-     tabindex="-1" role="dialog" aria-labelledby="commitModalLabel">
+     tabindex="-1" role="dialog">
 
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -110,7 +110,8 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="commitModal.hide()">
           <span aria-hidden="true">&times;</span>
         </button>
-        <h3 class="modal-title" id="commitModalLabel">Confirm Commit</h3>
+        <h3 *ngIf="isCreate()" class="modal-title" id="commitCreateModalLabel">Finish Creating Item</h3>
+        <h3 *ngIf="isEdit()" class="modal-title" id="commitEditModalLabel">Commit Changes</h3>
       </div>
 
 
@@ -139,11 +140,11 @@
             <div class="row">
               <div class="col-md-12">
                 <div class="form-group">
-                  <span>Reason: </span>
+                  <span>Reason (required): </span>
                   <div class="input-group" [ngClass]="{'has-error':!commitForm.controls['commitMsg'].valid}">
                     <input formControlName="commitMsg"
                            type="text"
-                           placeholder="Enter change reason here"
+                           placeholder="Reason for change"
                            class="modal-form-control"
                            maxlength="100"
                            size="50"
@@ -168,7 +169,7 @@
 </div>
 
 <div id="cancelModal" class="modal fade" bsModal #cancelModal="bs-modal" [config]="{backdrop: 'static'}"
-     tabindex="-1" role="dialog" aria-labelledby="cancelModalLabel">
+     tabindex="-1" role="dialog">
 
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -176,7 +177,8 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="cancelModal.hide()">
           <span aria-hidden="true">&times;</span>
         </button>
-        <h3 class="modal-title" id="cancelModalLabel">Confirm Cancel</h3>
+        <h3 *ngIf="isCreate()" class="modal-title" id="cancelCreateModalLabel">Cancel Item Creation</h3>
+        <h3 *ngIf="isEdit()" class="modal-title" id="cancelEditModalLabel">Discard Changes</h3>
       </div>
       <div class="modal-body">
         <span
