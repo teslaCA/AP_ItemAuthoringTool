@@ -7,6 +7,7 @@ import {Logger} from "../../../core/logger.service";
 import {Item} from "../../models/item";
 import {WerItem} from "../../models/wer-item";
 
+// TODO: Refactor WER item component and SA item component to share common code, template, etc.
 @Component({
   selector: 'load-wer-item',
   templateUrl: './load-wer-item.component.html',
