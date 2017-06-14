@@ -12,6 +12,13 @@
 # Using Intellij you need to setup your run config so the
 # working directory is the project root.
 # --------------------------------------------------------
+
+logging:
+  level:
+    org:
+      springframework:
+        web: DEBUG
+
 management:
   security:
     enabled: "false"
