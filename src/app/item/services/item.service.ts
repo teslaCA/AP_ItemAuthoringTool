@@ -38,7 +38,7 @@ export class ItemService {
   //---------------------------------------------------------------------------
   // Return the item with the given ID
   findItem(itemId: string): Observable<Item> {
-    const url = `${ItemService.serviceUrl}/${itemId}`;
+    const url = `${ItemService.serviceUrl}/${encodeURIComponent(itemId)}`;
     return this.http
       .get(url, ItemService.requestOptions)
       .map(response => ItemService.extractJson(response))
