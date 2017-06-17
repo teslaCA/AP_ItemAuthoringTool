@@ -20,24 +20,23 @@ export class FindItemComponent implements OnInit {
 
   ngOnInit() {
     this.complexForm = this.fb.group({
-      'query': [null, Validators.required]
+      'query': ''
     });
   }
 
   submitForm(value: any) {
-    this.logger.debug("Item search: " + encodeURIComponent(value.query));
-    if (this.containsForbiddenSearchCharacters(value.query)) {
+    this.logger.debug("Item search: " + encodeURIComponent(value.query.trim()));
+    if (this.containsSpecialCharacters(value.query)) {
       this.alertService.error("Invalid Search Term", "Your search term contains special characters. Please remove them and try again");
     } else {
-      this.router.navigateByUrl('/item/' + encodeURIComponent(value.query));
+      this.router.navigateByUrl('/item/' + encodeURIComponent(value.query.trim()));
     }
   }
 
-  containsForbiddenSearchCharacters(value: string): boolean{
+  containsSpecialCharacters(value: string): boolean {
     const exp = '[~!@#$%^&*()]';
-    const searchRe = new RegExp(exp,"g");
-    const testResult = searchRe.test(value);
-    return testResult;
+    const searchRe = new RegExp(exp, "g");
+    return searchRe.test(value);
   }
 
 }
