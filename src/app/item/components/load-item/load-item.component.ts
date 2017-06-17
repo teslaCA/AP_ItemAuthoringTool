@@ -219,7 +219,7 @@ export class LoadItemComponent implements OnInit {
     }
 
     // Get the commit message
-    let message = this.commitForm.get('commitMsg').value;
+    let message = this.commitForm.get('commitMsg').value.trim();
     if (message === '') {
       message = 'IAT item commit';
     }
