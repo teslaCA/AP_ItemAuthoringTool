@@ -2,7 +2,7 @@ import {Component, OnInit} from "@angular/core";
 import {Router} from "@angular/router";
 import {AlertService} from "../../../core/alert.service";
 import {Logger} from "../../../core/logger.service";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormGroup} from "@angular/forms";
 
 @Component({
   selector: 'find-item',
