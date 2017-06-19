@@ -5,14 +5,13 @@ import {AlertService} from "../../../core/alert.service";
 import {Logger} from "../../../core/logger.service";
 import {FindItemComponent} from "./find-item.component";
 import {ToastyConfig, ToastyService} from "ng2-toasty";
+import {CoreModule} from "../../../core/core.module";
 
 describe('FindItemComponent', () => {
-  let component: FindItemComponent;
-  let fixture: ComponentFixture<FindItemComponent>;
-
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
+        CoreModule,
         RouterTestingModule,
         ReactiveFormsModule,
         FormsModule
@@ -30,13 +29,9 @@ describe('FindItemComponent', () => {
       .compileComponents();
   }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(FindItemComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
   it('should be created', () => {
-    expect(component).toBeTruthy();
+    const fixture = TestBed.createComponent(FindItemComponent);
+    const app = fixture.debugElement.componentInstance;
+    expect(app).toBeTruthy();
   });
 });
