@@ -219,10 +219,7 @@ export class LoadItemComponent implements OnInit {
     }
 
     // Get the commit message
-    let message = this.commitForm.get('commitMsg').value.trim();
-    if (message === '') {
-      message = 'IAT item commit';
-    }
+    const message = this.commitForm.get('commitMsg').value.trim();
 
     // Save the changes
     this.busyService.show('Committing Changes');
