@@ -6,6 +6,7 @@ import {Logger} from "../../../core/logger.service";
 import {Router} from "@angular/router";
 import {AlertService} from "../../../core/alert.service";
 import {BusyService} from "../../../core/busy.service/busy.service";
+import {Item} from "../../models/item";
 
 @Component({
   selector: 'create-item-select-type',
@@ -28,11 +29,13 @@ export class CreateItemSelectTypeComponent implements OnInit {
   }
 
   createItem(itemTypeCode: string) {
-    this.logger.debug(`Initializing item of type ${itemTypeCode}`);
     this.busyService.show("Initializing Item");
-    this.itemService.beginItemCreate(itemTypeCode)
+    this.itemService.beginCreateTransaction(itemTypeCode, "Beginning create")
       .subscribe(
-        item => {
+        (item: Item) => {
+          // TODO: Remove this logging
+          this.logger.debug('HERE' + item.constructor.name);
+
           this.logger.debug(`Successfully initialized item ${JSON.stringify(item)}`);
           this.busyService.hide();
           this.router.navigateByUrl(`/item/${item.id}`);

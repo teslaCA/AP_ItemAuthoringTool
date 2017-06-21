@@ -112,7 +112,7 @@ export class LoadItemComponent implements OnInit {
 
     this.busyService.show('Creating Item');
     this.itemService
-      .commitItemCreate(item)
+      .commitTransaction(item, item.createTransaction.transactionId, "Finishing create")
       .subscribe(
         () => {
           this.busyService.hide();
@@ -135,7 +135,7 @@ export class LoadItemComponent implements OnInit {
   cancelCreate(): void {
     this.busyService.show('Cancelling Creation');
     this.itemService
-      .rollbackItemCreate(this.currentItem.id)
+      .rollbackTransaction(this.currentItem.id, this.currentItem.createTransaction.transactionId)
       .subscribe(
         () => {
           this.busyService.hide();
@@ -158,7 +158,7 @@ export class LoadItemComponent implements OnInit {
   editItem(): void {
     this.busyService.show('Opening Item');
     this.itemService
-      .beginItemEdit(this.currentItemId)
+      .beginEditTransaction(this.currentItemId, "Beginning edit")
       .subscribe(
         () => {
           this.busyService.hide();
@@ -179,7 +179,7 @@ export class LoadItemComponent implements OnInit {
   cancelEdit(): void {
     this.busyService.show('Discarding Changes');
     this.itemService
-      .rollbackItemEdit(this.currentItem.id)
+      .rollbackTransaction(this.currentItem.id, this.currentItem.editTransaction.transactionId)
       .subscribe(
         () => {
           this.busyService.hide();
@@ -224,7 +224,7 @@ export class LoadItemComponent implements OnInit {
     // Save the changes
     this.busyService.show('Committing Changes');
     this.itemService
-      .commitItemEdit(item, message)
+      .commitTransaction(item, item.editTransaction.transactionId, message)
       .subscribe(
         () => {
           this.busyService.hide();
@@ -246,8 +246,9 @@ export class LoadItemComponent implements OnInit {
 
   isCreate(): boolean {
     if (this.user && this.currentItem) {
-      if (this.user.username === this.currentItem.beingCreatedBy
-        && this.currentItem.beingEditedBy === null) {
+      if (this.currentItem.createTransaction
+        && this.user.username === this.currentItem.createTransaction.username
+        && this.currentItem.editTransaction === null) {
         return true;
       }
     }
@@ -256,8 +257,8 @@ export class LoadItemComponent implements OnInit {
 
   isView(): boolean {
     if (this.currentItem) {
-      if (this.currentItem.beingCreatedBy === null
-        && this.currentItem.beingEditedBy === null) {
+      if (this.currentItem.createTransaction === null
+        && this.currentItem.editTransaction === null) {
         return true;
       }
     }
@@ -266,8 +267,9 @@ export class LoadItemComponent implements OnInit {
 
   isEdit(): boolean {
     if (this.user && this.currentItem) {
-      if (this.user.username === this.currentItem.beingEditedBy
-        && this.currentItem.beingCreatedBy === null) {
+      if (this.currentItem.editTransaction
+        && this.user.username === this.currentItem.editTransaction.username
+        && this.currentItem.createTransaction === null) {
         return true;
       }
     }
@@ -277,9 +279,9 @@ export class LoadItemComponent implements OnInit {
   // TODO: Why isn't this the negation of isEdit?
   isNotEditable(): boolean {
     if (this.user && this.currentItem) {
-      if (this.currentItem.beingCreatedBy === null
-        && this.currentItem.beingEditedBy != null
-        && this.user.username !== this.currentItem.beingEditedBy) {
+      if (this.currentItem.createTransaction === null
+        && this.currentItem.editTransaction != null
+        && this.user.username !== this.currentItem.editTransaction.username) {
         return true;
       }
     }
@@ -291,6 +293,8 @@ export class LoadItemComponent implements OnInit {
   }
 
   private onSuccess(item: Item): void {
+    this.logger.debug("HERE" + item.constructor.name);
+
     this.logger.debug('retrieved item: ' + JSON.stringify(item));
     this.currentItem = item;
 
