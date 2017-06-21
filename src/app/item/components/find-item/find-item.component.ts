@@ -2,7 +2,8 @@ import {Component, OnInit} from "@angular/core";
 import {Router} from "@angular/router";
 import {AlertService} from "../../../core/alert.service";
 import {Logger} from "../../../core/logger.service";
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {AbstractControl, FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import {isNumeric} from "rxjs/util/isNumeric";
 
 @Component({
   selector: 'find-item',
@@ -12,6 +13,7 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 export class FindItemComponent implements OnInit {
   complexForm: FormGroup;
   SPECIAL_CHARS = '~!@#$%^&*()';
+  queryFocused = false;
 
   constructor(private logger: Logger,
               private router: Router,
@@ -21,7 +23,7 @@ export class FindItemComponent implements OnInit {
 
   ngOnInit() {
     this.complexForm = this.fb.group({
-      'query': ''
+      'query': new FormControl('')
     });
   }
 
@@ -40,4 +42,37 @@ export class FindItemComponent implements OnInit {
     return searchRe.test(value);
   }
 
+  showErrorMessage(control: AbstractControl): boolean {
+    if ((!control.valid && !control.pristine
+      && !isNumeric(control.value)
+      && control.value.trim() !== ''
+      || control.value.length > 10)
+      && this.queryFocused
+    ) {
+      return true;
+    }
+    return false;
+  }
+
+  handleKeypress(event: any) {
+    const pattern = /^[\s]+$/;
+    const inputChar = String.fromCharCode(event.charCode);
+    if (pattern.test(inputChar)) {
+      // invalid character, prevent input
+      event.preventDefault();
+    }
+  }
+
+  handlePaste(event: any) {
+    const inputChar = event.clipboardData.getData('text/plain');
+    console.log('pasted values: ' + inputChar);
+    //Add a timeout to allow screen lifecycle to finish and new input value to render on screen
+    setTimeout(() => {
+      const exp = '[ ]';
+      const spaceRe = new RegExp(exp, "g");
+      this.complexForm.controls['query'].setValue(inputChar.replace(spaceRe, ""));
+    });
+
+
+  }
 }
