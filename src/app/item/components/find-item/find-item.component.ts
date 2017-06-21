@@ -4,7 +4,6 @@ import {AlertService} from "../../../core/alert.service";
 import {Logger} from "../../../core/logger.service";
 import {AbstractControl, FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {isNumeric} from "rxjs/util/isNumeric";
-import {timeout} from "rxjs/operator/timeout";
 
 @Component({
   selector: 'find-item',
@@ -44,12 +43,10 @@ export class FindItemComponent implements OnInit {
   }
 
   showErrorMessage(control: AbstractControl): boolean {
-    if (
-      (!control.valid && !control.pristine
-        && !isNumeric(control.value)
-        && control.value.trim() != ''
-        || control.value.length > 10
-      )
+    if ((!control.valid && !control.pristine
+      && !isNumeric(control.value)
+      && control.value.trim() !== ''
+      || control.value.length > 10)
       && this.queryFocused
     ) {
       return true;
@@ -60,7 +57,6 @@ export class FindItemComponent implements OnInit {
   handleKeypress(event: any) {
     const pattern = /^[\s]+$/;
     const inputChar = String.fromCharCode(event.charCode);
-
     if (pattern.test(inputChar)) {
       // invalid character, prevent input
       event.preventDefault();
@@ -70,10 +66,12 @@ export class FindItemComponent implements OnInit {
   handlePaste(event: any) {
     const inputChar = event.clipboardData.getData('text/plain');
     console.log('pasted values: ' + inputChar);
-
-    setTimeout( () => {
-      this.complexForm.controls['query'].setValue(inputChar.trim());
-    })
+    //Add a timeout to allow screen lifecycle to finish and new input value to render on screen
+    setTimeout(() => {
+      const exp = '[ ]';
+      const spaceRe = new RegExp(exp, "g");
+      this.complexForm.controls['query'].setValue(inputChar.replace(spaceRe, ""));
+    });
 
 
   }
