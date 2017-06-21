@@ -1,6 +1,10 @@
+import {Transaction} from "./transaction";
+
 export abstract class Item {
-  beingCreatedBy: string;
-  beingEditedBy: string;
+  createTransaction: Transaction;
+  editTransaction: Transaction;
   id: string;
-  abstract get type(): string;
+  // TODO: Replace "type" with "type()" after changing all service methods to return strongly typed objects
+  //abstract get type(): string;
+  type: string;
 }

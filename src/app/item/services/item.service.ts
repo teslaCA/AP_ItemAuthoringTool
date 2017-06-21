@@ -23,6 +23,7 @@ export class ItemService {
   //---------------------------------------------------------------------------
   // Returns a list of ItemHistory objects
   getItemHistory(itemId: string): Observable<any> {   // TODO: Strongly type
+    // TODO: Create true List<ItemHistory> returned from this method, currently it's returning an Object
     const url = ItemService.serviceUrl + '/' + itemId + '/history';
 
     this.logger.debug(`Getting history for item ID ${itemId}: ${url}`);
@@ -38,6 +39,7 @@ export class ItemService {
   //---------------------------------------------------------------------------
   // Return the item with the given ID
   findItem(itemId: string): Observable<Item> {
+    // TODO: Create true Item returned from this method, currently it's returning an Object
     const url = `${ItemService.serviceUrl}/${encodeURIComponent(itemId.trim())}`;
     return this.http
       .get(url, ItemService.requestOptions)
@@ -46,83 +48,51 @@ export class ItemService {
   }
 
   //---------------------------------------------------------------------------
-  // Item create
+  // Item creation & editing
   //---------------------------------------------------------------------------
-  // Begin creating an item (creates a scratchpad to which updates will be saved)
-  beginItemCreate(itemType: string): Observable<Item> {
-    const url = `${ItemService.serviceUrl}/begin`;
+  // Begin a create item transaction (creates a repo & scratchpad to which updates will be saved)
+  beginCreateTransaction(itemType: string, message: string): Observable<Item> {
+    // TODO: Create true Item returned from this method, currently it's returning an Object
+    const url = `${ItemService.serviceUrl}/transactions`;
     return this.http
-      .post(url, {'type': itemType}, ItemService.requestOptions)
-      .map(response => ItemService.extractJson(response))
+      .post(url, {'type': itemType, message: message}, ItemService.requestOptions)
+      .map(response => ItemService.extractJson(response) as Item)
       .catch(error => this.handleError(error));
   }
 
-  // Commit the creation of the item (the item will become available in the system)
-  commitItemCreate(item: Item): Observable<void> {
-    const url = `${ItemService.serviceUrl}/${item.id}/commit`;
+  // Begin an edit item transaction (creates a scratchpad to which updates will be saved)
+  beginEditTransaction(itemId: string, message: string): Observable<Item> {
+    // TODO: Create true Item returned from this method, currently it's returning an Object
+    const url = `${ItemService.serviceUrl}/${itemId}/transactions`;
     return this.http
-      .post(url, {item: item}, ItemService.requestOptions)
+      .post(url, {message: message}, ItemService.requestOptions)
+      .map(response => ItemService.extractJson(response) as Item)
+      .catch(error => this.handleError(error));
+  }
+
+  // Save changes to the transaction (update the scratchpad)
+  updateTransaction(item: Item, transactionId: string, message: string): Observable<void> {
+    const url = `${ItemService.serviceUrl}/${item.id}/transactions/${transactionId}`;
+    return this.http
+      .patch(url, {item: item, message: message}, ItemService.requestOptions)
       .map(_ => null)
       .catch(error => this.handleError(error));
   }
 
-  // Rollback the creation of the item (the item will be removed entirely)
-  rollbackItemCreate(itemId: string): Observable<void> {
-    const url = `${ItemService.serviceUrl}/${itemId}/rollback`;
+  // Commit the transaction (merges the scratchpad to master)
+  commitTransaction(item: Item, transactionId: string, message: string): Observable<void> {
+    const url = `${ItemService.serviceUrl}/${item.id}/transactions/${transactionId}`;
     return this.http
-      .post(url, null, ItemService.requestOptions)
+      .put(url, {item: item, message: message}, ItemService.requestOptions)
       .map(_ => null)
       .catch(error => this.handleError(error));
   }
 
-  //---------------------------------------------------------------------------
-  // Item edit
-  //---------------------------------------------------------------------------
-  // Begin editing an item (creates a scratchpad to which updates will be saved)
-  beginItemEdit(itemId: string): Observable<void> {
-    const url = `${ItemService.serviceUrl}/${itemId}/begin`;
+  // Rollback the transaction (discards the scratchpad (and the repo if this was a create transaction))
+  rollbackTransaction(itemId: string, transactionId: string): Observable<void> {
+    const url = `${ItemService.serviceUrl}/${itemId}/transactions/${transactionId}`;
     return this.http
-      .put(url, null, ItemService.requestOptions)
-      .map(_ => null)
-      .catch(error => this.handleError(error));
-  }
-
-  // Commit the editing of the item (the changes to the item will become available in the system)
-  commitItemEdit(item: Item, commitMessage: string): Observable<void> {
-    const url = `${ItemService.serviceUrl}/${item.id}/commit`;
-    return this.http
-      .put(url, {item: item, message: commitMessage}, ItemService.requestOptions)
-      .map(_ => null)
-      .catch(error => this.handleError(error));
-  }
-
-  // Rollback the editing of the item (the changes made to the item since editing began will be removed)
-  rollbackItemEdit(itemId: string): Observable<void> {
-    const url = `${ItemService.serviceUrl}/${itemId}/rollback`;
-    return this.http
-      .put(url, null, ItemService.requestOptions)
-      .map(_ => null)
-      .catch(error => this.handleError(error));
-  }
-
-  //---------------------------------------------------------------------------
-  // Item save
-  //---------------------------------------------------------------------------
-  // Save changes to the item (update the scratchpad)
-  // TODO: Combine saveCreateChanges and saveEditChanges into one method and make corresponding change in the back-end service
-  saveCreateChanges(item: Item): Observable<void> {
-    const url = `${ItemService.serviceUrl}/${item.id}/save`;
-    return this.http
-      .post(url, JSON.stringify(item), ItemService.requestOptions)
-      .map(_ => null)
-      .catch(error => this.handleError(error));
-  }
-
-  // TODO: Combine saveCreateChanges and saveEditChanges into one method and make corresponding change in the back-end service
-  saveEditChanges(item: Item): Observable<void> {
-    const url = `${ItemService.serviceUrl}/${item.id}/save`;
-    return this.http
-      .put(url, JSON.stringify(item), ItemService.requestOptions)
+      .delete(url)
       .map(_ => null)
       .catch(error => this.handleError(error));
   }

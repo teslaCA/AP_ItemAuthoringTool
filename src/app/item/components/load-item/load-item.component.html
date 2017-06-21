@@ -10,9 +10,7 @@
           <item-auto-save
             #autoSave
             [enabled]="isCreate() || isEdit()"
-            [debounceTimeMillis]="3000"
-            [isCreate]="isCreate()"
-            [isEdit]="isEdit()">
+            [debounceTimeMillis]="3000">
           </item-auto-save>
 
           <!-- Item title -->
@@ -88,7 +86,7 @@
 
         <!-- "Currently being edited" message -->
         <div *ngIf="isNotEditable()">
-          <alert type="danger">Item is currently being edited by {{currentItem?.beingEditedBy}}</alert>
+          <alert type="danger">Item is currently being edited by {{currentItem?.editTransaction?.username}}</alert>
           <p>
             <button class="btn btn-primary" routerLink="/">Return Home</button>
           </p>

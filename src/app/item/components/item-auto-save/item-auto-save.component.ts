@@ -4,6 +4,7 @@ import {Item} from "../../models/item";
 import {ItemService} from "../../services/item.service";
 import {Observable} from "rxjs/Observable";
 import {Subject} from "rxjs/Subject";
+import {Transaction} from "../../models/transaction";
 
 enum AutoSaveMode {
   Changed,
@@ -41,18 +42,6 @@ export class ItemAutoSaveComponent implements OnInit, OnDestroy {
    * @type {number} number of milliseconds to wait after the last change before saving
    */
   @Input() debounceTimeMillis = 3000;
-
-  // TODO: Change item service to have one "saveChanges" API then remove this property
-  /**
-   * Should changes be saved using the "create" save API?
-   */
-  @Input() isCreate: boolean;
-
-  // TODO: Change item service to have one "saveChanges" API then remove this property
-  /**
-   * Should changes be saved using the "edit" save API?
-   */
-  @Input() isEdit: boolean;
 
   /**
    * Return whether the item has changed since the last save.
@@ -122,38 +111,22 @@ export class ItemAutoSaveComponent implements OnInit, OnDestroy {
   private saveChanges(item: Item): void {
     this.mode = AutoSaveMode.Saving;
 
-    // TODO: Change item service to have one "saveChanges" API then remove separate isCreate and isEdit branches here
-    // Save changes while item is being created
-    if (this.isCreate) {
-      this.itemService.saveCreateChanges(item).subscribe(
-        () => {
-          // Item successfully saved
-          this.logger.debug(`Successfully saved item ${JSON.stringify(item)}`);
-          this.mode = AutoSaveMode.Saved;
-        },
-        err => {
-          // Item save failed; re-enqueue for retry after debounce period
-          this.logger.error(`Error saving item ${JSON.stringify(err)}`);
-          this.changesSubject.next(item);
-        }
-      );
-    }
-
-    // TODO: Change item service to have one "saveChanges" API then remove separate isCreate and isEdit branches here
-    // Save changes while item is being edited (identical to saving create changes except for service called)
-    if (this.isEdit) {
-      this.itemService.saveEditChanges(item).subscribe(
-        () => {
-          // Item successfully saved
-          this.logger.debug(`Successfully saved item ${JSON.stringify(item)}`);
-          this.mode = AutoSaveMode.Saved;
-        },
-        err => {
-          // Item save failed; re-enqueue for retry after debounce period
-          this.logger.error(`Error saving item ${JSON.stringify(err)}`);
-          this.changesSubject.next(item);
-        }
-      );
-    }
+    // TODO: Make "currentTransaction" a property on item; to do this requires changing all service API's to return
+    // TODO: ...strongly typed objects instead of raw JSON objects.
+    const currentTransaction: Transaction = item.createTransaction
+      ? item.createTransaction
+      : item.editTransaction;
+    this.itemService.updateTransaction(item, currentTransaction.transactionId, "Auto-save").subscribe(
+      () => {
+        // Item successfully saved
+        this.logger.debug(`Successfully saved item ${JSON.stringify(item)}`);
+        this.mode = AutoSaveMode.Saved;
+      },
+      error => {
+        // Item save failed; re-enqueue for retry after debounce period
+        this.logger.error(`Error saving item ${JSON.stringify(error)}`);
+        this.changesSubject.next(item);
+      }
+    );
   }
 }
