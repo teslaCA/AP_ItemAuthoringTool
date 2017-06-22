@@ -11,9 +11,10 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {Ng2BootstrapModule} from "ngx-bootstrap";
 import {BrowserModule} from "@angular/platform-browser";
 import {RouterModule} from "@angular/router";
-import {HttpModule} from "@angular/http";
+import {Http, HttpModule} from "@angular/http";
 import {ItemHistoryComponent} from "./components/item-history/item-history.component";
 import {ItemAutoSaveComponent } from './components/item-auto-save/item-auto-save.component';
+import {AuthenticatedHttpService} from "../core/authenticated-http.service";
 
 @NgModule({
   imports: [
@@ -44,6 +45,9 @@ import {ItemAutoSaveComponent } from './components/item-auto-save/item-auto-save
     FindItemComponent,
     CreateItemSelectTypeComponent,
     ItemHistoryComponent
+  ],
+  providers: [
+    {provide: Http, useClass: AuthenticatedHttpService}
   ]
 })
 export class ItemModule {
