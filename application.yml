@@ -13,12 +13,6 @@
 # working directory is the project root.
 # --------------------------------------------------------
 
-logging:
-  level:
-    org:
-      springframework:
-        web: DEBUG
-
 management:
   security:
     enabled: "false"
@@ -42,8 +36,19 @@ zuul:
 # session timeout in seconds
 server:
   session:
-    timeout: 1800
+    timeout: 10
 
 spring:
   thymeleaf:
     cache: false
+
+logging:
+  level:
+    org:
+      springframework:
+        web: DEBUG
+        security:
+          saml: DEBUG
+      opentestsystem:
+        ap:
+          iat: DEBUG
