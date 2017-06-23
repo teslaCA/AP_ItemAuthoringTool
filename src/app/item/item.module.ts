@@ -14,7 +14,7 @@ import {RouterModule} from "@angular/router";
 import {Http, HttpModule} from "@angular/http";
 import {ItemHistoryComponent} from "./components/item-history/item-history.component";
 import {ItemAutoSaveComponent } from './components/item-auto-save/item-auto-save.component';
-import {AuthenticatedHttpService} from "../core/authenticated-http.service";
+import {AuthenticatedHttpService} from "../core/authenticated-http.service/authenticated-http.service";
 
 @NgModule({
   imports: [

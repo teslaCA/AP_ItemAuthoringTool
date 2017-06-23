@@ -3,8 +3,8 @@ import {APP_BASE_HREF} from "@angular/common";
 
 import {ItemHistoryComponent} from "./item-history.component";
 import {AppModule} from "../../../app.module";
-import {Logger} from "../../../core/logger.service";
-import {AlertService} from "../../../core/alert.service";
+import {Logger} from "../../../core/logger.service/logger.service";
+import {AlertService} from "../../../core/alert.service/alert.service";
 import {ItemService} from "../../services/item.service";
 
 describe('ItemHistoryComponent', () => {

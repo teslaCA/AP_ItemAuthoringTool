@@ -1,11 +1,11 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { HttpModule } from '@angular/http';
-import { CreateItemSelectTypeComponent } from './create-item-select-type.component';
-import { BuildInfoService} from '../../../core/build-info.service';
-import { RouterTestingModule} from '@angular/router/testing';
-import {Logger} from "../../../core/logger.service";
+import {async, TestBed} from "@angular/core/testing";
+import {HttpModule} from "@angular/http";
+import {CreateItemSelectTypeComponent} from "./create-item-select-type.component";
+import {AppInfoService} from "../../../core/app-info.service/app-info.service";
+import {RouterTestingModule} from "@angular/router/testing";
+import {Logger} from "../../../core/logger.service/logger.service";
 import {ItemTypeService} from "../../services/item-type.service";
-import {AlertService} from "../../../core/alert.service";
+import {AlertService} from "../../../core/alert.service/alert.service";
 import {ToastyConfig, ToastyService} from "ng2-toasty";
 import {CoreModule} from "../../../core/core.module";
 
@@ -23,7 +23,7 @@ describe('CreateItemSelectTypeComponent', () => {
       ],
       providers: [
         AlertService,
-        BuildInfoService,
+        AppInfoService,
         ItemTypeService,
         Logger,
         ToastyService,

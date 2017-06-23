@@ -3,15 +3,15 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ItemService} from "../../services/item.service";
 import {LoadSaItemComponent} from "../load-sa-item/load-sa-item.component";
-import {Logger} from "../../../core/logger.service";
-import {AlertService} from "../../../core/alert.service";
+import {Logger} from "../../../core/logger.service/logger.service";
+import {AlertService} from "../../../core/alert.service/alert.service";
 import {Item} from "../../models/item";
 import {ItemTypeService} from "../../services/item-type.service";
-import {UserService} from "app/core/user.service";
+import {UserService} from "app/core/user.service/user.service";
 import {BusyService} from "../../../core/busy.service/busy.service";
 import {ItemType} from "../../models/item-type";
 import {LoadWerItemComponent} from "../load-wer-item/load-wer-item.component";
-import {User} from "../../../core/models/user";
+import {User} from "../../../core/user.service/user";
 
 // TODO: Move stem-related code into separate component (called StemComponent)
 // TODO: Move exemplar response-related code into separate component (called ExemplarResponsesComponent)

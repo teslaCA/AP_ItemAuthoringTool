@@ -1,13 +1,13 @@
 import {inject, TestBed} from "@angular/core/testing";
 import {HttpModule} from "@angular/http";
 
-import {BuildInfoService} from "./build-info.service";
+import {AppInfoService} from "./app-info.service";
 
-describe('BuildInfoService', () => {
+describe('AppInfoService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
-        BuildInfoService
+        AppInfoService
       ],
       imports: [
         HttpModule
@@ -15,7 +15,7 @@ describe('BuildInfoService', () => {
     });
   });
 
-  it('should be created', inject([BuildInfoService], (service: BuildInfoService) => {
+  it('should be created', inject([AppInfoService], (service: AppInfoService) => {
     expect(service).toBeTruthy();
   }));
 });

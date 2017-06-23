@@ -1,9 +1,7 @@
-import {Injectable} from '@angular/core';
+import {Injectable} from "@angular/core";
 import {Http, Request, RequestOptions, RequestOptionsArgs, Response, XHRBackend} from "@angular/http";
 import {Observable} from "rxjs/Observable";
-import {Logger} from "./logger.service";
-import {AlertService} from "./alert.service";
-import {BusyService} from "./busy.service/busy.service";
+import {Logger} from "../logger.service/logger.service";
 
 /**
  * Extends Http and intercepts all request calls.  The purpose is to
@@ -17,10 +15,7 @@ import {BusyService} from "./busy.service/busy.service";
  */
 @Injectable()
 export class AuthenticatedHttpService extends Http {
-
   constructor(private logger: Logger,
-              private alertService: AlertService,
-              private busyService: BusyService,
               private backend: XHRBackend,
               private defaultOptions: RequestOptions) {
     super(backend, defaultOptions);
@@ -31,10 +26,10 @@ export class AuthenticatedHttpService extends Http {
     return super.request(url, options).catch((error: Response) => {
       if (error.status === 401) {
         this.logger.debug('Received 401 - Authorization required');
+        // Reload current page
         window.location.href = window.location.href;
       }
       return Observable.throw(error);
     });
   }
-
 }

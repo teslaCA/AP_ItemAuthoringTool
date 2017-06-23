@@ -3,7 +3,7 @@ import {HttpModule} from "@angular/http";
 import {ToastyModule} from "ng2-toasty";
 
 import {ItemService} from "./item.service";
-import {Logger} from "../../core/logger.service";
+import {Logger} from "../../core/logger.service/logger.service";
 
 describe('ItemService', () => {
   beforeEach(() => {

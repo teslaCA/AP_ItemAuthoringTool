@@ -1,5 +1,8 @@
 import {Component, OnInit} from "@angular/core";
-import {BuildInfoService} from "./core/build-info.service";
+import {AppInfoService} from "./core/app-info.service/app-info.service";
+import {AppInfo} from "./core/app-info.service/app-info";
+import {AlertService} from "./core/alert.service/alert.service";
+import {Logger} from "./core/logger.service/logger.service";
 
 @Component({
   selector: 'app-footer',
@@ -7,20 +10,25 @@ import {BuildInfoService} from "./core/build-info.service";
   styleUrls: ['./footer.component.less']
 })
 export class FooterComponent implements OnInit {
-  buildInfo: any;
+  appInfo: AppInfo;
 
-  constructor(private buildInfoService: BuildInfoService) {
+  constructor(private appInfoService: AppInfoService,
+              private alertService: AlertService,
+              private logger: Logger) {
   }
 
   ngOnInit() {
     // Load build info
-    this.buildInfoService.findBuildInfo()
+    this.appInfoService.findAppInfo()
       .subscribe(
-        (res: Response) => {
-          this.buildInfo = res.json();
+        (appInfo: AppInfo) => {
+          this.appInfo = appInfo;
         },
-        () => {
-          this.buildInfo = '';
+        error => {
+          this.logger.error(`An error occurred while trying to load the app info, ${error}`);
+          this.alertService.error(
+            "Error loading app info",
+            `An error occurred while trying to load the app info, ${error}`);
         });
   }
 }

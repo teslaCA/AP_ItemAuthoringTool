@@ -15,9 +15,9 @@ import {ItemDashboardComponent} from "./item/components/item-dashboard/item-dash
 import {LoadSaItemComponent} from "./item/components/load-sa-item/load-sa-item.component";
 import {ToastyModule} from "ng2-toasty";
 import {FindItemComponent} from "./item/components/find-item/find-item.component";
-import {Logger} from "./core/logger.service";
-import {UserService} from "./core/user.service";
-import {BuildInfoService} from "./core/build-info.service";
+import {Logger} from "./core/logger.service/logger.service";
+import {UserService} from "./core/user.service/user.service";
+import {AppInfoService} from "./core/app-info.service/app-info.service";
 import {CoreModule} from "./core/core.module";
 import {LoadWerItemComponent} from "./item/components/load-wer-item/load-wer-item.component";
 
@@ -39,7 +39,7 @@ describe('AppComponent', () => {
       ],
       providers: [
         {provide: APP_BASE_HREF, useValue: '/'},
-        BuildInfoService,
+        AppInfoService,
         Logger,
         UserService
       ],
