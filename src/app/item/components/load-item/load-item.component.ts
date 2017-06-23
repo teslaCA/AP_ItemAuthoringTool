@@ -11,6 +11,7 @@ import {UserService} from "app/core/user.service";
 import {BusyService} from "../../../core/busy.service/busy.service";
 import {ItemType} from "../../models/item-type";
 import {LoadWerItemComponent} from "../load-wer-item/load-wer-item.component";
+import {User} from "../../../core/models/user";
 
 // TODO: Move stem-related code into separate component (called StemComponent)
 // TODO: Move exemplar response-related code into separate component (called ExemplarResponsesComponent)
@@ -28,7 +29,7 @@ export class LoadItemComponent implements OnInit {
   currentItem: Item;
   mode: string;
   currentItemType: ItemType;
-  user: any; // TODO: Strongly type (looks like only the username is used so consider changing this field to a non-nullable string "_currentUsername")
+  currentUser: User;
   serviceError = false;
   errorMessage: string;
 
@@ -61,9 +62,9 @@ export class LoadItemComponent implements OnInit {
     this.busyService.show("Loading Current User");
     this.userService.findCurrentUser()
       .subscribe(
-        (response: Response) => {
+        (user: User) => {
           this.logger.debug("Current user successfully loaded");
-          this.user = response.json();
+          this.currentUser = user;
 
           // Load current item
           this.logger.debug(`Loading item having ID ${this.currentItemId}`);
@@ -245,9 +246,9 @@ export class LoadItemComponent implements OnInit {
   }
 
   isCreate(): boolean {
-    if (this.user && this.currentItem) {
+    if (this.currentUser && this.currentItem) {
       if (this.currentItem.createTransaction
-        && this.user.username === this.currentItem.createTransaction.username
+        && this.currentUser.username === this.currentItem.createTransaction.username
         && this.currentItem.editTransaction === null) {
         return true;
       }
@@ -266,9 +267,9 @@ export class LoadItemComponent implements OnInit {
   }
 
   isEdit(): boolean {
-    if (this.user && this.currentItem) {
+    if (this.currentUser && this.currentItem) {
       if (this.currentItem.editTransaction
-        && this.user.username === this.currentItem.editTransaction.username
+        && this.currentUser.username === this.currentItem.editTransaction.username
         && this.currentItem.createTransaction === null) {
         return true;
       }
@@ -278,10 +279,10 @@ export class LoadItemComponent implements OnInit {
 
   // TODO: Why isn't this the negation of isEdit?
   isNotEditable(): boolean {
-    if (this.user && this.currentItem) {
+    if (this.currentUser && this.currentItem) {
       if (this.currentItem.createTransaction === null
         && this.currentItem.editTransaction != null
-        && this.user.username !== this.currentItem.editTransaction.username) {
+        && this.currentUser.username !== this.currentItem.editTransaction.username) {
         return true;
       }
     }

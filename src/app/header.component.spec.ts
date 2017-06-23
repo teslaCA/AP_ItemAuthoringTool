@@ -6,6 +6,8 @@ import {ModalModule} from "ngx-bootstrap/modal";
 import {CollapseDirective} from "ngx-bootstrap/collapse";
 import {Logger} from "./core/logger.service";
 import {UserService} from "./core/user.service";
+import {AlertService} from "./core/alert.service";
+import {ToastyConfig, ToastyService} from "ng2-toasty";
 
 describe('HeaderComponent', () => {
   beforeEach(async(() => {
@@ -21,7 +23,10 @@ describe('HeaderComponent', () => {
       ],
       providers: [
         Logger,
-        UserService
+        UserService,
+        AlertService,
+        ToastyService,
+        ToastyConfig
       ]
     }).compileComponents();
   }));
