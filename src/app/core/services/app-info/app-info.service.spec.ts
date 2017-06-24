@@ -2,12 +2,14 @@ import {inject, TestBed} from "@angular/core/testing";
 import {HttpModule} from "@angular/http";
 
 import {AppInfoService} from "./app-info.service";
+import {Logger} from "../logger/logger.service";
 
 describe('AppInfoService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
-        AppInfoService
+        AppInfoService,
+        Logger
       ],
       imports: [
         HttpModule

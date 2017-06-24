@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {Headers, Http, RequestOptions, Response} from "@angular/http";
+import {Headers, Http, RequestOptions} from "@angular/http";
 import {Observable} from "rxjs/Observable";
 import "rxjs/add/operator/catch";
 import "rxjs/add/operator/map";
@@ -8,14 +8,15 @@ import "rxjs/add/observable/fromPromise";
 
 import {Logger} from "../../../core/services/logger/logger.service";
 import {Item} from "app/item/services/item/item";
+import {HttpUtility} from "../../../core/util/http-utility";
 
 @Injectable()
 export class ItemService {
   private static serviceUrl = '/api/ims/v1/items';
   private static requestOptions = new RequestOptions({headers: new Headers({'Content-Type': 'application/json'})});
 
-  constructor(private logger: Logger,
-              private http: Http) {
+  constructor(private http: Http,
+              private logger: Logger) {
   }
 
   //---------------------------------------------------------------------------
@@ -31,8 +32,8 @@ export class ItemService {
 
     return this.http
       .get(url, ItemService.requestOptions)
-      .map(res => ItemService.extractJson(res))
-      .catch(err => this.handleError(err));
+      .map(response => response.json())
+      .catch(error => HttpUtility.logAndThrowError(this.logger, error));
   }
 
   //---------------------------------------------------------------------------
@@ -44,8 +45,8 @@ export class ItemService {
     const url = `${ItemService.serviceUrl}/${encodeURIComponent(itemId.trim())}`;
     return this.http
       .get(url, ItemService.requestOptions)
-      .map(response => ItemService.extractJson(response))
-      .catch(error => this.handleError(error));
+      .map(response => response.json())
+      .catch(error => HttpUtility.logAndThrowError(this.logger, error));
   }
 
   //---------------------------------------------------------------------------
@@ -57,8 +58,8 @@ export class ItemService {
     const url = `${ItemService.serviceUrl}/transactions`;
     return this.http
       .post(url, {'type': itemType, message: message}, ItemService.requestOptions)
-      .map(response => ItemService.extractJson(response) as Item)
-      .catch(error => this.handleError(error));
+      .map(response => response.json())
+      .catch(error => HttpUtility.logAndThrowError(this.logger, error));
   }
 
   // Begin an edit item transaction (creates a scratchpad to which updates will be saved)
@@ -67,8 +68,8 @@ export class ItemService {
     const url = `${ItemService.serviceUrl}/${itemId}/transactions`;
     return this.http
       .post(url, {message: message}, ItemService.requestOptions)
-      .map(response => ItemService.extractJson(response) as Item)
-      .catch(error => this.handleError(error));
+      .map(response => response.json())
+      .catch(error => HttpUtility.logAndThrowError(this.logger, error));
   }
 
   // Save changes to the transaction (update the scratchpad)
@@ -77,7 +78,7 @@ export class ItemService {
     return this.http
       .patch(url, {item: item, message: message}, ItemService.requestOptions)
       .map(_ => null)
-      .catch(error => this.handleError(error));
+      .catch(error => HttpUtility.logAndThrowError(this.logger, error));
   }
 
   // Commit the transaction (merges the scratchpad to master)
@@ -86,7 +87,7 @@ export class ItemService {
     return this.http
       .put(url, {item: item, message: message}, ItemService.requestOptions)
       .map(_ => null)
-      .catch(error => this.handleError(error));
+      .catch(error => HttpUtility.logAndThrowError(this.logger, error));
   }
 
   // Rollback the transaction (discards the scratchpad (and the repo if this was a create transaction))
@@ -95,27 +96,6 @@ export class ItemService {
     return this.http
       .delete(url)
       .map(_ => null)
-      .catch(error => this.handleError(error));
-  }
-
-  //---------------------------------------------------------------------------
-  // Helpers
-  //---------------------------------------------------------------------------
-  private static extractJson(res: Response): any | {} {
-    return res.json() || {};
-  }
-
-  // TODO: Move to service base class in app root module
-  private handleError(error: Response | any): any {
-    let message: string;
-    if (error instanceof Response) {
-      const body = error.json() || '';
-      const err = body.error || JSON.stringify(body);
-      message = `${error.status} - ${error.statusText || ''} ${err}`;
-    } else {
-      message = error.message ? error.message : error.toString();
-    }
-    this.logger.error(message);
-    return Observable.throw(error);
+      .catch(error => HttpUtility.logAndThrowError(this.logger, error));
   }
 }
