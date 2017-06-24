@@ -6,10 +6,10 @@ import {LoadSaItemComponent} from "../load-sa-item/load-sa-item.component";
 import {Logger} from "../../../core/logger.service/logger.service";
 import {AlertService} from "../../../core/alert.service/alert.service";
 import {Item} from "../../models/item";
-import {ItemTypeService} from "../../services/item-type.service";
+import {ItemTypeService} from "../../services/item-type.service/item-type.service";
 import {UserService} from "app/core/user.service/user.service";
 import {BusyService} from "../../../core/busy.service/busy.service";
-import {ItemType} from "../../models/item-type";
+import {ItemType} from "../../services/item-type.service/item-type";
 import {LoadWerItemComponent} from "../load-wer-item/load-wer-item.component";
 import {User} from "../../../core/user.service/user";
 
@@ -310,8 +310,21 @@ export class LoadItemComponent implements OnInit {
       this.mode = 'Edit';
     }
 
-    // Set header
-    this.currentItemType = this.itemTypeService.findItemType(this.currentItem.type);
+    // Load current item's type
+    this.busyService.show("Loading Item Type");
+    this.itemTypeService
+      .findItemType(this.currentItem.type)
+      .subscribe(
+        (itemType: ItemType) => {
+          this.busyService.hide();
+          this.currentItemType = itemType;
+        },
+        error => {
+          this.logger.error(`Failed to load item type, error ${JSON.stringify(error)}`);
+          this.busyService.hide();
+          this.alertService.error("Error Loading Item Type", `An error was encountered while loading item type`);
+        }
+      );
   }
 
   // TODO: Remove this function - it is called in two places but only one the call from the "load" function can get 4xx errors; the call from the "edit" function will only get 500's - we need to not show an error alert when a 4xx is received

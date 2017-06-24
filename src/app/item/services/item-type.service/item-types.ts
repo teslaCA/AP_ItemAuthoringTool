@@ -1,102 +1,90 @@
-import {Injectable} from "@angular/core";
+import {ItemType} from "./item-type";
+import {ItemTypeCategory} from "./item-type-category";
 
-import {ItemType, ItemTypeCategory} from "../models/item-type";
-
-const itemTypes: ItemType[] = [
+export const itemTypes: ItemType[] = [
   // TODO: Do not delete the commented-out item types; uncomment them as they are implemented
   // {
   //   abbreviation: 'EBSR',
   //   category: ItemTypeCategory.Normal,
-  //   code: 'ebsr',
   //   icon: 'fa-list',
-  //   name: 'Evidence-Based Select Response'
+  //   name: 'Evidence-Based Select Response',
+  //   type: 'ebsr',
   // },
   // {
   //   abbreviation: 'EQ',
   //   category: ItemTypeCategory.Normal,
-  //   code: 'eq',
   //   icon: 'fa-superscript',
-  //   name: 'Equation'
+  //   name: 'Equation',
+  //   type: 'eq',
   // },
   // {
   //   abbreviation: 'GI',
   //   category: ItemTypeCategory.Normal,
-  //   code: 'gi',
   //   icon: 'fa-bar-chart',
-  //   name: 'Grid Item'
+  //   name: 'Grid Item',
+  //   type: 'gi',
   // },
   // {
   //   abbreviation: 'HT',
   //   category: ItemTypeCategory.Normal,
-  //   code: 'ht',
   //   icon: 'fa-fire',
-  //   name: 'Hot Text'
+  //   name: 'Hot Text',
+  //   type: 'ht',
   // },
   // {
   //   abbreviation: 'MC',
   //   category: ItemTypeCategory.Normal,
-  //   code: 'mc',
   //   icon: 'fa-list-ul',
-  //   name: 'Multiple Choice'
+  //   name: 'Multiple Choice',
+  //   type: 'mc',
   // },
   // {
   //   abbreviation: 'MS',
   //   category: ItemTypeCategory.Normal,
-  //   code: 'ms',
   //   icon: 'fa-th-list',
-  //   name: 'Multiple Select'
+  //   name: 'Multiple Select',
+  //   type: 'ms',
   // },
   // {
   //   abbreviation: 'MI',
   //   category: ItemTypeCategory.Normal,
-  //   code: 'mi',
   //   icon: 'fa-list-ul',
-  //   name: 'Match Interaction'
+  //   name: 'Match Interaction',
+  //   type: 'mi',
   // },
   {
     abbreviation: 'SA',
     category: ItemTypeCategory.Normal,
-    code: 'sa',
     icon: 'fa-font',
-    name: 'Short Answer'
+    name: 'Short Answer',
+    type: 'sa',
   },
   // {
   //   abbreviation: 'STIM',
   //   category: ItemTypeCategory.OtherResource,
-  //   code: 'stim',
   //   icon: 'fa-commenting-o',
-  //   name: 'Stimulus'
+  //   name: 'Stimulus',
+  //   type: 'stim',
   // },
   // {
   //   abbreviation: 'TI',
   //   category: ItemTypeCategory.Normal,
-  //   code: 'ti',
   //   icon: 'fa-table',
-  //   name: 'Table Interaction'
+  //   name: 'Table Interaction',
+  //   type: 'ti',
   // },
   // {
   //   abbreviation: 'TUT',
   //   category: ItemTypeCategory.OtherResource,
-  //   code: 'tut',
   //   icon: 'fa-question-circle',
-  //   name: 'Tutorial'
+  //   name: 'Tutorial',
+  //   type: 'tut',
   // },
   {
     abbreviation: 'WER',
     category: ItemTypeCategory.Normal,
-    code: 'wer',
     icon: 'fa-comments',
-    name: 'Writing Extended Response'
+    name: 'Writing Extended Response',
+    type: 'wer',
   },
 ];
-
-@Injectable()
-export class ItemTypeService {
-  findNormalItemTypes(): ItemType[] {
-    return itemTypes.filter(type => type.category === ItemTypeCategory.Normal);
-  }
-
-  findItemType(itemTypeCode: string): ItemType {
-    return itemTypes.find(type => type.code === itemTypeCode);
-  }
-}

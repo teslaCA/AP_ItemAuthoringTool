@@ -4,7 +4,7 @@ import {CreateItemSelectTypeComponent} from "./create-item-select-type.component
 import {AppInfoService} from "../../../core/app-info.service/app-info.service";
 import {RouterTestingModule} from "@angular/router/testing";
 import {Logger} from "../../../core/logger.service/logger.service";
-import {ItemTypeService} from "../../services/item-type.service";
+import {ItemTypeService} from "../../services/item-type.service/item-type.service";
 import {AlertService} from "../../../core/alert.service/alert.service";
 import {ToastyConfig, ToastyService} from "ng2-toasty";
 import {CoreModule} from "../../../core/core.module";
