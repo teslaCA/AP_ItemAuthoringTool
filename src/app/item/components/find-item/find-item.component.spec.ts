@@ -1,8 +1,8 @@
 import {async, ComponentFixture, TestBed} from "@angular/core/testing";
 import {RouterTestingModule} from "@angular/router/testing";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {AlertService} from "../../../core/alert.service/alert.service";
-import {Logger} from "../../../core/logger.service/logger.service";
+import {AlertService} from "../../../core/services/alert/alert.service";
+import {Logger} from "../../../core/services/logger/logger.service";
 import {FindItemComponent} from "./find-item.component";
 import {ToastyConfig, ToastyService} from "ng2-toasty";
 import {CoreModule} from "../../../core/core.module";

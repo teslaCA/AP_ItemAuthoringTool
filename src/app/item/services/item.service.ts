@@ -6,7 +6,7 @@ import "rxjs/add/operator/map";
 import "rxjs/add/observable/throw";
 import "rxjs/add/observable/fromPromise";
 
-import {Logger} from "../../core/logger.service/logger.service";
+import {Logger} from "../../core/services/logger/logger.service";
 import {Item} from "app/item/models/item";
 
 @Injectable()

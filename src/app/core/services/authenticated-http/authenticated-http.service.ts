@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {Http, Request, RequestOptions, RequestOptionsArgs, Response, XHRBackend} from "@angular/http";
 import {Observable} from "rxjs/Observable";
-import {Logger} from "../logger.service/logger.service";
+import {Logger} from "../logger/logger.service";
 
 /**
  * Extends Http and intercepts all request calls.  The purpose is to

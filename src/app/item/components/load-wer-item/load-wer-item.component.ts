@@ -3,7 +3,7 @@ import {
   Output
 } from "@angular/core";
 import {FormArray, FormBuilder, FormGroup} from "@angular/forms";
-import {Logger} from "../../../core/logger.service/logger.service";
+import {Logger} from "../../../core/services/logger/logger.service";
 import {Item} from "../../models/item";
 import {WerItem} from "../../models/wer-item";
 

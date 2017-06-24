@@ -1,11 +1,11 @@
 import {Component, OnInit} from "@angular/core";
-import {ItemType} from "../../services/item-type.service/item-type";
-import {ItemTypeService} from "../../services/item-type.service/item-type.service";
+import {ItemType} from "../../services/item-type/item-type";
+import {ItemTypeService} from "../../services/item-type/item-type.service";
 import {ItemService} from "../../services/item.service";
-import {Logger} from "../../../core/logger.service/logger.service";
+import {Logger} from "../../../core/services/logger/logger.service";
 import {Router} from "@angular/router";
-import {AlertService} from "../../../core/alert.service/alert.service";
-import {BusyService} from "../../../core/busy.service/busy.service";
+import {AlertService} from "../../../core/services/alert/alert.service";
+import {BusyService} from "../../../core/services/busy/busy.service";
 import {Item} from "../../models/item";
 
 @Component({

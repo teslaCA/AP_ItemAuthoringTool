@@ -1,7 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 import {Router} from "@angular/router";
-import {AlertService} from "../../../core/alert.service/alert.service";
-import {Logger} from "../../../core/logger.service/logger.service";
+import {AlertService} from "../../../core/services/alert/alert.service";
+import {Logger} from "../../../core/services/logger/logger.service";
 import {AbstractControl, FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {isNumeric} from "rxjs/util/isNumeric";
 

@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from "@angular/core";
 
 import {ItemHistory} from "../../models/item-history";
-import {Logger} from "../../../core/logger.service/logger.service";
+import {Logger} from "../../../core/services/logger/logger.service";
 import {ItemService} from "../../services/item.service";
 
 @Component({

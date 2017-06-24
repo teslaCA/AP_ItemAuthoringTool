@@ -1,5 +1,5 @@
 import {Component, Input, OnDestroy, OnInit} from "@angular/core";
-import {Logger} from "../../../core/logger.service/logger.service";
+import {Logger} from "../../../core/services/logger/logger.service";
 import {Item} from "../../models/item";
 import {ItemService} from "../../services/item.service";
 import {Observable} from "rxjs/Observable";
