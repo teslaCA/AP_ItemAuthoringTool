@@ -2,12 +2,14 @@ import {inject, TestBed} from "@angular/core/testing";
 import {HttpModule} from "@angular/http";
 
 import {UserService} from "./user.service";
+import {Logger} from "../logger/logger.service";
 
 describe('UserService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
-        UserService
+        UserService,
+        Logger
       ],
       imports: [
         HttpModule

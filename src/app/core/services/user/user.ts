@@ -1,13 +1,16 @@
-import {UserDto} from "./user-dto";
+import {JsonObject, JsonProperty} from "json2typescript";
 
-export class User implements UserDto {
-  fullName: string;
-  username: string;
+/**
+ * User model that can be mapped to/from JSON.
+ *
+ * Important: Fields must be initialized to undefined to take part in mapping.
+ * See https://github.com/dhlab-basel/json2typescript for more info.
+ */
+@JsonObject
+export class User {
+  @JsonProperty("fullName", String)
+  fullName: string = undefined;   // Initialize to undefined so that field is mapped
 
-  static fromDto(userDto: UserDto): User {
-    const user = new User();
-    user.fullName = userDto.fullName;
-    user.username = userDto.username;
-    return user;
-  }
+  @JsonProperty("username", String)
+  username: string = undefined;   // Initialize to undefined so that field is mapped
 }

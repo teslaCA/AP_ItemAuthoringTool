@@ -4,6 +4,7 @@ import {Ng2BootstrapModule} from "ngx-bootstrap/ng2-bootstrap";
 import {AppRoutingModule} from "./app.routing";
 import {AppComponent} from "./components/app/app.component";
 import {ToastyModule} from "ng2-toasty";
+import {JsonConvert} from "json2typescript";
 
 import {ResourceNotFoundComponent} from "./components/resource-not-found/resource-not-found.component";
 import {HeaderComponent} from "./components/header/header.component";
@@ -33,5 +34,14 @@ import {SharedModule} from "../shared/shared.module";
   ]
 })
 export class AppModule {
+  constructor() {
+    AppModule.configureJson2TypescriptLibrary();
+  }
+
+  private static configureJson2TypescriptLibrary() {
+    JsonConvert.debugMode = true;               // Print debug data when converting
+    JsonConvert.ignorePrimitiveChecks = false;  // Don't allow assigning number to string, etc.
+    JsonConvert.valueCheckingMode = JsonConvert.ValueCheckingMode.DISALLOW_NULL;  // Never allow null
+  }
 }
 

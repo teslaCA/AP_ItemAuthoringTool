@@ -105,6 +105,7 @@ export class ItemService {
     return res.json() || {};
   }
 
+  // TODO: Move to service base class in app root module
   private handleError(error: Response | any): any {
     let message: string;
     if (error instanceof Response) {
