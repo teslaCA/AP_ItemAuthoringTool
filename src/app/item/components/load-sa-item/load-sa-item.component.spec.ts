@@ -1,7 +1,7 @@
 import {async, ComponentFixture, TestBed} from "@angular/core/testing";
 import {LoadSaItemComponent} from "./load-sa-item.component";
 import {Logger} from "../../../core/logger.service/logger.service";
-import {AppModule} from "../../../app.module";
+import {AppModule} from "../../../root/app.module";
 import {APP_BASE_HREF} from "@angular/common";
 
 describe('LoadSaItemComponent', () => {

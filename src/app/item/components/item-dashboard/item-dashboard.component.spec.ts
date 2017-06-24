@@ -4,7 +4,7 @@ import {APP_BASE_HREF} from "@angular/common";
 import {ItemDashboardComponent} from "./item-dashboard.component";
 import {Logger} from "../../../core/logger.service/logger.service";
 import {AlertService} from "../../../core/alert.service/alert.service";
-import {AppModule} from "../../../app.module";
+import {AppModule} from "../../../root/app.module";
 
 describe('ItemDashboardComponent', () => {
   beforeEach(async(() => {

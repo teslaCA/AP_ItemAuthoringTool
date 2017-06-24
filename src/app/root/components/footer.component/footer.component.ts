@@ -1,8 +1,8 @@
 import {Component, OnInit} from "@angular/core";
-import {AppInfoService} from "./core/app-info.service/app-info.service";
-import {AppInfo} from "./core/app-info.service/app-info";
-import {AlertService} from "./core/alert.service/alert.service";
-import {Logger} from "./core/logger.service/logger.service";
+import {AppInfoService} from "../../../core/app-info.service/app-info.service";
+import {AppInfo} from "../../../core/app-info.service/app-info";
+import {AlertService} from "../../../core/alert.service/alert.service";
+import {Logger} from "../../../core/logger.service/logger.service";
 
 @Component({
   selector: 'app-footer',
@@ -18,7 +18,7 @@ export class FooterComponent implements OnInit {
   }
 
   ngOnInit() {
-    // Load build info
+    // Load app info
     this.appInfoService.findAppInfo()
       .subscribe(
         (appInfo: AppInfo) => {

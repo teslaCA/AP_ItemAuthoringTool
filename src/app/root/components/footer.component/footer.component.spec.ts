@@ -2,10 +2,10 @@ import {async, TestBed} from "@angular/core/testing";
 
 import {FooterComponent} from "./footer.component";
 import {HttpModule} from "@angular/http";
-import {AppInfoService} from "./core/app-info.service/app-info.service";
-import {AlertService} from "./core/alert.service/alert.service";
+import {AppInfoService} from "../../../core/app-info.service/app-info.service";
+import {AlertService} from "../../../core/alert.service/alert.service";
 import {ToastyConfig, ToastyService} from "ng2-toasty";
-import {Logger} from "./core/logger.service/logger.service";
+import {Logger} from "../../../core/logger.service/logger.service";
 
 describe('FooterComponent', () => {
   beforeEach(async(() => {
