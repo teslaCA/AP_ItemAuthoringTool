@@ -2,7 +2,7 @@ import {async, ComponentFixture, TestBed} from "@angular/core/testing";
 
 import {ItemAutoSaveComponent} from "./item-auto-save.component";
 import {Logger} from "../../../core/services/logger/logger.service";
-import {ItemService} from "../../services/item.service";
+import {ItemService} from "../../services/item/item.service";
 import {CoreModule} from "../../../core/core.module";
 
 describe('ItemAutoSaveComponent', () => {

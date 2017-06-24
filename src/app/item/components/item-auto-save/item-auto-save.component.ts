@@ -1,10 +1,10 @@
 import {Component, Input, OnDestroy, OnInit} from "@angular/core";
 import {Logger} from "../../../core/services/logger/logger.service";
-import {Item} from "../../models/item";
-import {ItemService} from "../../services/item.service";
+import {Item} from "../../services/item/item";
+import {ItemService} from "../../services/item/item.service";
 import {Observable} from "rxjs/Observable";
 import {Subject} from "rxjs/Subject";
-import {Transaction} from "../../models/transaction";
+import {Transaction} from "../../services/item/transaction";
 
 enum AutoSaveMode {
   Changed,

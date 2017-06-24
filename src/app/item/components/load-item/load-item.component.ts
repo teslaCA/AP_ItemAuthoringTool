@@ -1,11 +1,11 @@
 import {Component, OnInit, ViewChild} from "@angular/core";
 import {ActivatedRoute, Router} from "@angular/router";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {ItemService} from "../../services/item.service";
+import {ItemService} from "../../services/item/item.service";
 import {LoadSaItemComponent} from "../load-sa-item/load-sa-item.component";
 import {Logger} from "../../../core/services/logger/logger.service";
 import {AlertService} from "../../../core/services/alert/alert.service";
-import {Item} from "../../models/item";
+import {Item} from "../../services/item/item";
 import {ItemTypeService} from "../../services/item-type/item-type.service";
 import {UserService} from "app/core/services/user/user.service";
 import {BusyService} from "../../../core/services/busy/busy.service";

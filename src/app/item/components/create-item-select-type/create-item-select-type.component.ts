@@ -1,12 +1,12 @@
 import {Component, OnInit} from "@angular/core";
 import {ItemType} from "../../services/item-type/item-type";
 import {ItemTypeService} from "../../services/item-type/item-type.service";
-import {ItemService} from "../../services/item.service";
+import {ItemService} from "../../services/item/item.service";
 import {Logger} from "../../../core/services/logger/logger.service";
 import {Router} from "@angular/router";
 import {AlertService} from "../../../core/services/alert/alert.service";
 import {BusyService} from "../../../core/services/busy/busy.service";
-import {Item} from "../../models/item";
+import {Item} from "../../services/item/item";
 
 @Component({
   selector: 'create-item-select-type',

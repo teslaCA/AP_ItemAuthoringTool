@@ -4,8 +4,8 @@ import {
 } from "@angular/core";
 import {FormArray, FormBuilder, FormGroup} from "@angular/forms";
 import {Logger} from "../../../core/services/logger/logger.service";
-import {Item} from "../../models/item";
-import {SaItem} from "../../models/sa-item";
+import {Item} from "../../services/item/item";
+import {SaItem} from "../../services/item/sa-item";
 
 // TODO: Refactor WER item component and SA item component to share common code, template, etc.
 @Component({

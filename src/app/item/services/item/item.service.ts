@@ -6,8 +6,8 @@ import "rxjs/add/operator/map";
 import "rxjs/add/observable/throw";
 import "rxjs/add/observable/fromPromise";
 
-import {Logger} from "../../core/services/logger/logger.service";
-import {Item} from "app/item/models/item";
+import {Logger} from "../../../core/services/logger/logger.service";
+import {Item} from "app/item/services/item/item";
 
 @Injectable()
 export class ItemService {
@@ -21,6 +21,7 @@ export class ItemService {
   //---------------------------------------------------------------------------
   // Item history
   //---------------------------------------------------------------------------
+  // TODO: Move this method to a new item-history service (move corresponding model)
   // Returns a list of ItemHistory objects
   getItemHistory(itemId: string): Observable<any> {   // TODO: Strongly type
     // TODO: Create true List<ItemHistory> returned from this method, currently it's returning an Object

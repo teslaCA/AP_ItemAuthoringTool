@@ -1,8 +1,8 @@
 import {Component, Input, OnInit} from "@angular/core";
 
-import {ItemHistory} from "../../models/item-history";
+import {ItemHistory} from "../../services/item/item-history";
 import {Logger} from "../../../core/services/logger/logger.service";
-import {ItemService} from "../../services/item.service";
+import {ItemService} from "../../services/item/item.service";
 
 @Component({
   selector: 'item-history',
