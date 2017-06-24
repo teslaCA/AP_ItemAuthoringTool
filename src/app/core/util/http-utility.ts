@@ -1,9 +1,15 @@
-import {Response} from "@angular/http";
+import {Headers, RequestOptions, Response} from "@angular/http";
 
 import {Logger} from "../services/logger/logger.service";
 import {Observable} from "rxjs/Observable";
 
 export class HttpUtility {
+  /**
+   * Options to be passed to a request containing JSON
+   * @type {RequestOptions} to be passed
+   */
+  static jsonRequestOptions = new RequestOptions({headers: new Headers({'Content-Type': 'application/json'})});
+
   /**
    * Log the error to the logger then throw the error.
    * @param logger to which the error will be logged

@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {Headers, Http, RequestOptions} from "@angular/http";
+import {Http} from "@angular/http";
 import {Observable} from "rxjs/Observable";
 import "rxjs/add/operator/catch";
 import "rxjs/add/operator/map";
@@ -13,7 +13,6 @@ import {HttpUtility} from "../../../core/util/http-utility";
 @Injectable()
 export class ItemService {
   private static serviceUrl = '/api/ims/v1/items';
-  private static requestOptions = new RequestOptions({headers: new Headers({'Content-Type': 'application/json'})});
 
   constructor(private http: Http,
               private logger: Logger) {
@@ -25,13 +24,13 @@ export class ItemService {
   // TODO: Move this method to a new item-history service (move corresponding model)
   // Returns a list of ItemHistory objects
   getItemHistory(itemId: string): Observable<any> {   // TODO: Strongly type
-    // TODO: Create true List<ItemHistory> returned from this method, currently it's returning an Object
+                                                      // TODO: Create true List<ItemHistory> returned from this method, currently it's returning an Object
     const url = ItemService.serviceUrl + '/' + itemId + '/history';
 
     this.logger.debug(`Getting history for item ID ${itemId}: ${url}`);
 
     return this.http
-      .get(url, ItemService.requestOptions)
+      .get(url, HttpUtility.jsonRequestOptions)
       .map(response => response.json())
       .catch(error => HttpUtility.logAndThrowError(this.logger, error));
   }
@@ -44,7 +43,7 @@ export class ItemService {
     // TODO: Create true Item returned from this method, currently it's returning an Object
     const url = `${ItemService.serviceUrl}/${encodeURIComponent(itemId.trim())}`;
     return this.http
-      .get(url, ItemService.requestOptions)
+      .get(url, HttpUtility.jsonRequestOptions)
       .map(response => response.json())
       .catch(error => HttpUtility.logAndThrowError(this.logger, error));
   }
@@ -57,7 +56,7 @@ export class ItemService {
     // TODO: Create true Item returned from this method, currently it's returning an Object
     const url = `${ItemService.serviceUrl}/transactions`;
     return this.http
-      .post(url, {'type': itemType, message: message}, ItemService.requestOptions)
+      .post(url, {'type': itemType, message: message}, HttpUtility.jsonRequestOptions)
       .map(response => response.json())
       .catch(error => HttpUtility.logAndThrowError(this.logger, error));
   }
@@ -67,7 +66,7 @@ export class ItemService {
     // TODO: Create true Item returned from this method, currently it's returning an Object
     const url = `${ItemService.serviceUrl}/${itemId}/transactions`;
     return this.http
-      .post(url, {message: message}, ItemService.requestOptions)
+      .post(url, {message: message}, HttpUtility.jsonRequestOptions)
       .map(response => response.json())
       .catch(error => HttpUtility.logAndThrowError(this.logger, error));
   }
@@ -76,7 +75,7 @@ export class ItemService {
   updateTransaction(item: Item, transactionId: string, message: string): Observable<void> {
     const url = `${ItemService.serviceUrl}/${item.id}/transactions/${transactionId}`;
     return this.http
-      .patch(url, {item: item, message: message}, ItemService.requestOptions)
+      .patch(url, {item: item, message: message}, HttpUtility.jsonRequestOptions)
       .map(_ => null)
       .catch(error => HttpUtility.logAndThrowError(this.logger, error));
   }
@@ -85,7 +84,7 @@ export class ItemService {
   commitTransaction(item: Item, transactionId: string, message: string): Observable<void> {
     const url = `${ItemService.serviceUrl}/${item.id}/transactions/${transactionId}`;
     return this.http
-      .put(url, {item: item, message: message}, ItemService.requestOptions)
+      .put(url, {item: item, message: message}, HttpUtility.jsonRequestOptions)
       .map(_ => null)
       .catch(error => HttpUtility.logAndThrowError(this.logger, error));
   }
