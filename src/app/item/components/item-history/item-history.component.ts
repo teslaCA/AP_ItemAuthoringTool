@@ -25,8 +25,8 @@ export class ItemHistoryComponent implements OnInit {
     if (this.itemId) {
       this.itemHistoryService.findItemHistory(this.itemId)
         .subscribe(
-          results => {
-            this.itemChanges = results
+          (itemChanges: ItemChange[]) => {
+            this.itemChanges = itemChanges
           },
           error => {
             this.logger.error(`Failed to load item history, error ${JSON.stringify(error)}`);

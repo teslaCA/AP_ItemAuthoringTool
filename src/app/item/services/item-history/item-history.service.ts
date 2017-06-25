@@ -5,10 +5,11 @@ import "rxjs/add/operator/catch";
 import "rxjs/add/operator/map";
 import "rxjs/add/observable/throw";
 import "rxjs/add/observable/fromPromise";
+import {JsonConvert} from "json2typescript";
 
 import {Logger} from "../../../core/services/logger/logger.service";
-import {Item} from "app/item/services/item/item";
 import {HttpUtility} from "../../../core/util/http-utility";
+import {ItemChange} from "./item-change";
 
 @Injectable()
 export class ItemHistoryService {
@@ -23,14 +24,13 @@ export class ItemHistoryService {
    * @param itemId of the item for which history will be retrieved
    * @returns Observable of the list of changes to the item
    */
-  findItemHistory(itemId: string): Observable<any> {   // TODO: Strongly type
+  findItemHistory(itemId: string): Observable<ItemChange[]> {
     this.logger.debug(`Finding item history for item having ID ${itemId}`);
 
-    // TODO: Map JSON returned from HTTP request to model object (List<ItemChange>)
     const url = ItemHistoryService.serviceUrl + '/' + itemId + '/history';
     return this.http
       .get(url, HttpUtility.jsonRequestOptions)
-      .map(response => response.json())
+      .map(response => JsonConvert.deserializeArray(response.json(), ItemChange))
       .catch(error => HttpUtility.logAndThrowError(this.logger, error));
   }
 }
