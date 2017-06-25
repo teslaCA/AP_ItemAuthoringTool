@@ -45,7 +45,7 @@ export class CreateItemSelectTypeComponent implements OnInit {
   createItem(itemTypeCode: string) {
     this.busyService.show("Initializing Item");
     this.itemService
-      .beginCreateTransaction(itemTypeCode, "Beginning create")
+      .beginCreateTransaction(itemTypeCode, "Began creation")
       .subscribe(
         (item: Item) => {
           this.logger.debug(`Successfully initialized item ${JSON.stringify(item)}`);

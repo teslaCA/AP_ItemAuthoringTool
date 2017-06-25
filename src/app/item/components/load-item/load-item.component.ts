@@ -113,7 +113,7 @@ export class LoadItemComponent implements OnInit {
 
     this.busyService.show('Creating Item');
     this.itemService
-      .commitTransaction(item.createTransaction.transactionId, item, "Finishing create")
+      .commitTransaction(item.createTransaction.transactionId, item, "Finished creation")
       .subscribe(
         () => {
           this.busyService.hide();
@@ -159,7 +159,7 @@ export class LoadItemComponent implements OnInit {
   editItem(): void {
     this.busyService.show('Opening Item');
     this.itemService
-      .beginEditTransaction(this.currentItemId, "Beginning edit")
+      .beginEditTransaction(this.currentItemId, "Began edit")
       .subscribe(
         () => {
           this.busyService.hide();
