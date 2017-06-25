@@ -8,6 +8,7 @@ import {ItemTypeService} from "../../services/item-type/item-type.service";
 import {AlertService} from "../../../core/services/alert/alert.service";
 import {ToastyConfig, ToastyService} from "ng2-toasty";
 import {CoreModule} from "../../../core/core.module";
+import {ItemService} from "../../services/item/item.service";
 
 describe('CreateItemSelectTypeComponent', () => {
 
@@ -24,6 +25,7 @@ describe('CreateItemSelectTypeComponent', () => {
       providers: [
         AlertService,
         AppInfoService,
+        ItemService,
         ItemTypeService,
         Logger,
         ToastyService,

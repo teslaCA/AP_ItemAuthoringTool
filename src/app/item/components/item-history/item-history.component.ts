@@ -1,33 +1,37 @@
 import {Component, Input, OnInit} from "@angular/core";
 
-import {ItemHistory} from "../../services/item/item-history";
 import {Logger} from "../../../core/services/logger/logger.service";
-import {ItemService} from "../../services/item/item.service";
+import {ItemHistoryService} from "../../services/item-history/item-history.service";
+import {AlertService} from "../../../core/services/alert/alert.service";
+import {ItemChange} from "../../services/item-history/item-change";
 
 @Component({
   selector: 'item-history',
   templateUrl: './item-history.component.html',
-  styleUrls: ['./item-history.component.less'],
-  providers: [
-    ItemService
-  ]
+  styleUrls: ['./item-history.component.less']
 })
 export class ItemHistoryComponent implements OnInit {
   @Input() itemId: string;
-  itemHistory: ItemHistory[];
+  itemChanges: ItemChange[];
   diffWindow: any;
 
-  constructor(private logger: Logger,
-              private historyService: ItemService) {
+  constructor(private alertService: AlertService,
+              private logger: Logger,
+              private itemHistoryService: ItemHistoryService) {
   }
 
   ngOnInit() {
     this.logger.debug("Item ID " + this.itemId);
     if (this.itemId) {
-      this.historyService.getItemHistory(this.itemId)
+      this.itemHistoryService.findItemHistory(this.itemId)
         .subscribe(
-          results => this.itemHistory = results,
-          error => this.onError(error)
+          results => {
+            this.itemChanges = results
+          },
+          error => {
+            this.logger.error(`Failed to load item history, error ${JSON.stringify(error)}`);
+            this.alertService.error("Error Loading Item History", `An error was encountered while loading item history`);
+          }
         );
     }
   }
@@ -36,9 +40,5 @@ export class ItemHistoryComponent implements OnInit {
     const strWindowFeatures = "height=800,width=1200,scrollbars=yes,status=yes";
     const url = "/diff/item/" + this.itemId + "/history/" + historyId;
     this.diffWindow = window.open(url, "itemDiff", strWindowFeatures);
-  }
-
-  private onError(error): void {
-    this.logger.error('Error Status: ' + error.status);
   }
 }

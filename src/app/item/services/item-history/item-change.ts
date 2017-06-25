@@ -1,4 +1,4 @@
-export class ItemHistory {
+export class ItemChange {
   changedBy: string;
   changedOn: string;
   historyId: string;

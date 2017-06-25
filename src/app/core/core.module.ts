@@ -3,7 +3,6 @@ import {CommonModule} from "@angular/common";
 
 import {AlertService} from "./services/alert/alert.service";
 import {Logger} from "./services/logger/logger.service";
-import {ItemService} from "../item/services/item/item.service";
 import {ItemTypeService} from "../item/services/item-type/item-type.service";
 import {UserService} from "./services/user/user.service";
 import {HttpModule} from "@angular/http";
@@ -27,7 +26,6 @@ import {AppInfoService} from "./services/app-info/app-info.service";
   providers: [
     AlertService,
     AppInfoService,
-    ItemService,
     ItemTypeService,
     BusyService,
     Logger,

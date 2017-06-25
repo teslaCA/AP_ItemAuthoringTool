@@ -18,29 +18,13 @@ export class ItemService {
               private logger: Logger) {
   }
 
-  //---------------------------------------------------------------------------
-  // Item history
-  //---------------------------------------------------------------------------
-  // TODO: Move this method to a new item-history service (move corresponding model)
-  // Returns a list of ItemHistory objects
-  getItemHistory(itemId: string): Observable<any> {   // TODO: Strongly type
-                                                      // TODO: Create true List<ItemHistory> returned from this method, currently it's returning an Object
-    const url = ItemService.serviceUrl + '/' + itemId + '/history';
-
-    this.logger.debug(`Getting history for item ID ${itemId}: ${url}`);
-
-    return this.http
-      .get(url, HttpUtility.jsonRequestOptions)
-      .map(response => response.json())
-      .catch(error => HttpUtility.logAndThrowError(this.logger, error));
-  }
-
-  //---------------------------------------------------------------------------
-  // Item search
-  //---------------------------------------------------------------------------
-  // Return the item with the given ID
+  /**
+   * Return the item with the given ID
+   * @param itemId ID of the item to return
+   * @returns Observable containing the item with the given ID
+   */
   findItem(itemId: string): Observable<Item> {
-    // TODO: Create true Item returned from this method, currently it's returning an Object
+    // TODO: Map JSON returned from HTTP request to model object
     const url = `${ItemService.serviceUrl}/${encodeURIComponent(itemId.trim())}`;
     return this.http
       .get(url, HttpUtility.jsonRequestOptions)
@@ -48,12 +32,15 @@ export class ItemService {
       .catch(error => HttpUtility.logAndThrowError(this.logger, error));
   }
 
-  //---------------------------------------------------------------------------
-  // Item creation & editing
-  //---------------------------------------------------------------------------
-  // Begin a create item transaction (creates a repo & scratchpad to which updates will be saved)
+  /**
+   * Begin a "create item" transaction.  This creates a repo and scratchpad branch in the item bank.
+   * Changes made to this item will be written to the scratchpad branch.
+   * @param itemType type of the item to create
+   * @param message to be captured as the commit message in the repo
+   * @returns Observable containing the item in its initial state
+   */
   beginCreateTransaction(itemType: string, message: string): Observable<Item> {
-    // TODO: Create true Item returned from this method, currently it's returning an Object
+    // TODO: Map JSON returned from HTTP request to model object
     const url = `${ItemService.serviceUrl}/transactions`;
     return this.http
       .post(url, {'type': itemType, message: message}, HttpUtility.jsonRequestOptions)
@@ -61,9 +48,16 @@ export class ItemService {
       .catch(error => HttpUtility.logAndThrowError(this.logger, error));
   }
 
-  // Begin an edit item transaction (creates a scratchpad to which updates will be saved)
+  /**
+   * Begins an "edit item" transaction.  This creates a scratchpad branch in the item bank.
+   * Changes made to this item will be written to the scratchpad branch.
+   * An item may only be edited by one user at a time.
+   * @param itemId of the item to be edited
+   * @param message to be captured as the commit message in the repo
+   * @returns Observable containing the item in its current state
+   */
   beginEditTransaction(itemId: string, message: string): Observable<Item> {
-    // TODO: Create true Item returned from this method, currently it's returning an Object
+    // TODO: Map JSON returned from HTTP request to model object
     const url = `${ItemService.serviceUrl}/${itemId}/transactions`;
     return this.http
       .post(url, {message: message}, HttpUtility.jsonRequestOptions)
@@ -71,7 +65,15 @@ export class ItemService {
       .catch(error => HttpUtility.logAndThrowError(this.logger, error));
   }
 
-  // Save changes to the transaction (update the scratchpad)
+  /**
+   * Saves a change to the scratchpad branch in the item bank.
+   * Changes may only be saved to an item that has an open create or edit transaction.
+   * Changes may only be saved by the user who is creating or editing the item.
+   * @param item to have changes saved
+   * @param transactionId of the create or edit transaction that is in progress
+   * @param message to be captured as the commit message for this change in the repo
+   * @returns Observable indicating when the update has completed
+   */
   updateTransaction(item: Item, transactionId: string, message: string): Observable<void> {
     const url = `${ItemService.serviceUrl}/${item.id}/transactions/${transactionId}`;
     return this.http
@@ -80,7 +82,17 @@ export class ItemService {
       .catch(error => HttpUtility.logAndThrowError(this.logger, error));
   }
 
-  // Commit the transaction (merges the scratchpad to master)
+  /**
+   * Commits the changes that have been saved during the current transaction.  Merges the
+   * scratchpad branch to the master branch then deletes the scratchpad branch from the repo.
+   * A transaction may only be committed by the user who is creating or editing the item.
+   * @param item containing a final set of changes to be persisted to the scratchpad branch
+   * before the transaction is committed
+   * @param transactionId of the transaction to be committed
+   * @param message to be saved as the commit message when the scratchpad branch is merged into
+   * the master branch
+   * @returns Observable indicating when the transaction has been committed
+   */
   commitTransaction(item: Item, transactionId: string, message: string): Observable<void> {
     const url = `${ItemService.serviceUrl}/${item.id}/transactions/${transactionId}`;
     return this.http
@@ -89,7 +101,15 @@ export class ItemService {
       .catch(error => HttpUtility.logAndThrowError(this.logger, error));
   }
 
-  // Rollback the transaction (discards the scratchpad (and the repo if this was a create transaction))
+  /**
+   * Rolls back the changes that have been saved during the current transaction.  If the
+   * current transaction is a "create item" transaction then the repo is removed from the item
+   * bank.  If the current transaction is an "edit item" transaction then the scratchpad branch
+   * is removed.
+   * @param itemId of the item to have the current transaction rolled back
+   * @param transactionId of the transaction to roll back
+   * @returns Observable indicating when the transaction has been rolled back
+   */
   rollbackTransaction(itemId: string, transactionId: string): Observable<void> {
     const url = `${ItemService.serviceUrl}/${itemId}/transactions/${transactionId}`;
     return this.http

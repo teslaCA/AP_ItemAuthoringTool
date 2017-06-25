@@ -15,6 +15,8 @@ import {Http, HttpModule} from "@angular/http";
 import {ItemHistoryComponent} from "./components/item-history/item-history.component";
 import {ItemAutoSaveComponent } from './components/item-auto-save/item-auto-save.component';
 import {AuthenticatedHttpService} from "../core/services/authenticated-http/authenticated-http.service";
+import {ItemHistoryService} from "./services/item-history/item-history.service";
+import {ItemService} from "./services/item/item.service";
 
 @NgModule({
   imports: [
@@ -47,7 +49,9 @@ import {AuthenticatedHttpService} from "../core/services/authenticated-http/auth
     ItemHistoryComponent
   ],
   providers: [
-    {provide: Http, useClass: AuthenticatedHttpService}
+    {provide: Http, useClass: AuthenticatedHttpService},
+    ItemService,
+    ItemHistoryService
   ]
 })
 export class ItemModule {
