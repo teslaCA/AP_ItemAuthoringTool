@@ -4,7 +4,7 @@ import {Item} from "../../services/item/item";
 import {ItemService} from "../../services/item/item.service";
 import {Observable} from "rxjs/Observable";
 import {Subject} from "rxjs/Subject";
-import {Transaction} from "../../services/item/transaction";
+import {ItemTransaction} from "../../services/item/item-transaction";
 
 enum AutoSaveMode {
   Changed,
@@ -110,13 +110,7 @@ export class ItemAutoSaveComponent implements OnInit, OnDestroy {
    */
   private saveChanges(item: Item): void {
     this.mode = AutoSaveMode.Saving;
-
-    // TODO: Make "currentTransaction" a property on item; to do this requires changing all service API's to return
-    // TODO: ...strongly typed objects instead of raw JSON objects.
-    const currentTransaction: Transaction = item.createTransaction
-      ? item.createTransaction
-      : item.editTransaction;
-    this.itemService.updateTransaction(currentTransaction.transactionId, item, "Auto-save").subscribe(
+    this.itemService.updateTransaction(item.currentTransaction.transactionId, item, "Auto-save").subscribe(
       () => {
         // Item successfully saved
         this.logger.debug(`Successfully saved item ${JSON.stringify(item)}`);

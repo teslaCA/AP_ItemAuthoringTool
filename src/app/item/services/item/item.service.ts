@@ -9,6 +9,7 @@ import "rxjs/add/observable/fromPromise";
 import {Logger} from "../../../core/services/logger/logger.service";
 import {Item} from "app/item/services/item/item";
 import {HttpUtility} from "../../../core/util/http-utility";
+import {ItemFactory} from "app/item/services/item/item-factory";
 
 @Injectable()
 export class ItemService {
@@ -26,11 +27,10 @@ export class ItemService {
   findItem(itemId: string): Observable<Item> {
     this.logger.debug(`Finding item having ID ${itemId}`);
 
-    // TODO: Map JSON returned from HTTP request to model object
     const url = `${ItemService.serviceUrl}/${encodeURIComponent(itemId.trim())}`;
     return this.http
       .get(url, HttpUtility.jsonRequestOptions)
-      .map(response => response.json())
+      .map(response => ItemFactory.fromJson(response.json()))
       .catch(error => HttpUtility.logAndThrowError(this.logger, error));
   }
 
@@ -44,11 +44,10 @@ export class ItemService {
   beginCreateTransaction(itemType: string, message: string): Observable<Item> {
     this.logger.debug(`Beginning "create item" transaction for item of type "${itemType}" with message "${message}"`);
 
-    // TODO: Map JSON returned from HTTP request to model object
     const url = `${ItemService.serviceUrl}/transactions`;
     return this.http
       .post(url, {'type': itemType, message: message}, HttpUtility.jsonRequestOptions)
-      .map(response => response.json())
+      .map(response => ItemFactory.fromJson(response.json()))
       .catch(error => HttpUtility.logAndThrowError(this.logger, error));
   }
 
@@ -63,11 +62,10 @@ export class ItemService {
   beginEditTransaction(itemId: string, message: string): Observable<Item> {
     this.logger.debug(`Beginning "edit item" transaction for item having ID ${itemId} with message "${message}"`);
 
-    // TODO: Map JSON returned from HTTP request to model object
     const url = `${ItemService.serviceUrl}/${itemId}/transactions`;
     return this.http
       .post(url, {message: message}, HttpUtility.jsonRequestOptions)
-      .map(response => response.json())
+      .map(response => ItemFactory.fromJson(response.json()))
       .catch(error => HttpUtility.logAndThrowError(this.logger, error));
   }
 
