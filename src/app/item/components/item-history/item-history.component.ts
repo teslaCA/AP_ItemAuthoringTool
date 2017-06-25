@@ -1,8 +1,5 @@
 import {Component, Input, OnInit} from "@angular/core";
-
-import {Logger} from "../../../core/services/logger/logger.service";
 import {ItemHistoryService} from "../../services/item-history/item-history.service";
-import {AlertService} from "../../../core/services/alert/alert.service";
 import {ItemChange} from "../../services/item-history/item-change";
 
 @Component({
@@ -15,9 +12,7 @@ export class ItemHistoryComponent implements OnInit {
   itemChanges: ItemChange[];
   diffWindow: any;
 
-  constructor(private alertService: AlertService,
-              private logger: Logger,
-              private itemHistoryService: ItemHistoryService) {
+  constructor(private itemHistoryService: ItemHistoryService) {
   }
 
   ngOnInit() {
@@ -25,11 +20,7 @@ export class ItemHistoryComponent implements OnInit {
       this.itemHistoryService.findItemHistory(this.itemId)
         .subscribe(
           (itemChanges: ItemChange[]) => {
-            this.itemChanges = itemChanges
-          },
-          error => {
-            this.logger.error(`Failed to load item history, error ${JSON.stringify(error)}`);
-            this.alertService.error("Error Loading Item History", `An error was encountered while loading item history`);
+            this.itemChanges = itemChanges;
           }
         );
     }

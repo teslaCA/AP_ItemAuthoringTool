@@ -1,7 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import {UserService} from "../../../core/services/user/user.service";
 import {User} from "../../../core/services/user/user";
-import {AlertService} from "../../../core/services/alert/alert.service";
 
 @Component({
   selector: 'app-header',
@@ -11,8 +10,7 @@ import {AlertService} from "../../../core/services/alert/alert.service";
 export class HeaderComponent implements OnInit {
   currentUser: User;
 
-  constructor(private alertService: AlertService,
-              private userService: UserService) {
+  constructor(private userService: UserService) {
   }
 
   ngOnInit() {
@@ -22,13 +20,7 @@ export class HeaderComponent implements OnInit {
       .subscribe(
         (user: User) => {
           this.currentUser = user;
-        },
-        error => {
-          this.alertService.error(
-            "Error loading current user",
-            `An error occurred while trying to load the current user, ${error}`);
-        }
-      );
+        });
   }
 
   logOut(): void {

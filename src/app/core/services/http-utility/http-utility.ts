@@ -10,16 +10,16 @@ import "rxjs/add/operator/multicast";
 
 @Injectable()
 export class HttpUtility {
-  constructor(private alertService: AlertService,
-              private busyService: BusyService,
-              private logger: Logger) {
-  }
-
   /**
    * Options to be passed to a request containing JSON
    * @type {RequestOptions} to be passed
    */
   static jsonRequestOptions = new RequestOptions({headers: new Headers({'Content-Type': 'application/json'})});
+
+  constructor(private alertService: AlertService,
+              private busyService: BusyService,
+              private logger: Logger) {
+  }
 
   /**
    * Wrap HTTP call with logging, error alert, and busy indicator.
@@ -78,6 +78,6 @@ export class HttpUtility {
     } else {
       message = error.message ? error.message : error.toString();
     }
-    return message
+    return message;
   }
 }
