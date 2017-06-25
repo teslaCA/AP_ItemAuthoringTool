@@ -16,6 +16,8 @@ export class UserService {
   }
 
   findCurrentUser(): Observable<User> {
+    this.logger.debug('Finding current user');
+
     return this.http
       .request(this.serviceUrl)
       .map(response => JsonConvert.deserializeObject(response.json(), User))

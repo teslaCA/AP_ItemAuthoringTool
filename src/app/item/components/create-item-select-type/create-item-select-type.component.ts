@@ -48,9 +48,6 @@ export class CreateItemSelectTypeComponent implements OnInit {
       .beginCreateTransaction(itemTypeCode, "Beginning create")
       .subscribe(
         (item: Item) => {
-          // TODO: Remove this logging
-          this.logger.debug('HERE' + item.constructor.name);
-
           this.logger.debug(`Successfully initialized item ${JSON.stringify(item)}`);
           this.busyService.hide();
           this.router.navigateByUrl(`/item/${item.id}`);

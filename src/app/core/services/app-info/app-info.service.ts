@@ -14,6 +14,8 @@ export class AppInfoService {
   }
 
   findAppInfo(): Observable<AppInfo> {
+    this.logger.debug('Finding app info');
+
     return this.http
       .request(this.serviceUrl)
       .map(request => AppInfo.fromDto(request.json()))

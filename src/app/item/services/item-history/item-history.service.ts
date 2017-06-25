@@ -24,11 +24,10 @@ export class ItemHistoryService {
    * @returns Observable of the list of changes to the item
    */
   findItemHistory(itemId: string): Observable<any> {   // TODO: Strongly type
-    const url = ItemHistoryService.serviceUrl + '/' + itemId + '/history';
-
-    this.logger.debug(`Getting history for item ID ${itemId}: ${url}`);
+    this.logger.debug(`Finding item history for item having ID ${itemId}`);
 
     // TODO: Map JSON returned from HTTP request to model object (List<ItemChange>)
+    const url = ItemHistoryService.serviceUrl + '/' + itemId + '/history';
     return this.http
       .get(url, HttpUtility.jsonRequestOptions)
       .map(response => response.json())

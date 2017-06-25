@@ -113,7 +113,7 @@ export class LoadItemComponent implements OnInit {
 
     this.busyService.show('Creating Item');
     this.itemService
-      .commitTransaction(item, item.createTransaction.transactionId, "Finishing create")
+      .commitTransaction(item.createTransaction.transactionId, item, "Finishing create")
       .subscribe(
         () => {
           this.busyService.hide();
@@ -136,7 +136,7 @@ export class LoadItemComponent implements OnInit {
   cancelCreate(): void {
     this.busyService.show('Cancelling Creation');
     this.itemService
-      .rollbackTransaction(this.currentItem.id, this.currentItem.createTransaction.transactionId)
+      .rollbackTransaction(this.currentItem.createTransaction.transactionId, this.currentItem.id)
       .subscribe(
         () => {
           this.busyService.hide();
@@ -180,7 +180,7 @@ export class LoadItemComponent implements OnInit {
   cancelEdit(): void {
     this.busyService.show('Discarding Changes');
     this.itemService
-      .rollbackTransaction(this.currentItem.id, this.currentItem.editTransaction.transactionId)
+      .rollbackTransaction(this.currentItem.editTransaction.transactionId, this.currentItem.id)
       .subscribe(
         () => {
           this.busyService.hide();
@@ -225,7 +225,7 @@ export class LoadItemComponent implements OnInit {
     // Save the changes
     this.busyService.show('Committing Changes');
     this.itemService
-      .commitTransaction(item, item.editTransaction.transactionId, message)
+      .commitTransaction(item.editTransaction.transactionId, item, message)
       .subscribe(
         () => {
           this.busyService.hide();
@@ -294,8 +294,6 @@ export class LoadItemComponent implements OnInit {
   }
 
   private onSuccess(item: Item): void {
-    this.logger.debug("HERE" + item.constructor.name);
-
     this.logger.debug('retrieved item: ' + JSON.stringify(item));
     this.currentItem = item;
 

@@ -116,7 +116,7 @@ export class ItemAutoSaveComponent implements OnInit, OnDestroy {
     const currentTransaction: Transaction = item.createTransaction
       ? item.createTransaction
       : item.editTransaction;
-    this.itemService.updateTransaction(item, currentTransaction.transactionId, "Auto-save").subscribe(
+    this.itemService.updateTransaction(currentTransaction.transactionId, item, "Auto-save").subscribe(
       () => {
         // Item successfully saved
         this.logger.debug(`Successfully saved item ${JSON.stringify(item)}`);
