@@ -1,10 +1,8 @@
 import {Component, Input, OnDestroy, OnInit} from "@angular/core";
-import {Logger} from "../../../core/services/logger/logger.service";
 import {Item} from "../../services/item/item";
 import {ItemService} from "../../services/item/item.service";
 import {Observable} from "rxjs/Observable";
 import {Subject} from "rxjs/Subject";
-import {ItemTransaction} from "../../services/item/item-transaction";
 
 enum AutoSaveMode {
   Changed,
@@ -67,8 +65,7 @@ export class ItemAutoSaveComponent implements OnInit, OnDestroy {
     return this.mode === AutoSaveMode.Saving;
   }
 
-  constructor(private logger: Logger,
-              private itemService: ItemService) {
+  constructor(private itemService: ItemService) {
   }
 
   /**
@@ -113,12 +110,10 @@ export class ItemAutoSaveComponent implements OnInit, OnDestroy {
     this.itemService.updateTransaction(item.currentTransaction.transactionId, item, "Auto-save").subscribe(
       () => {
         // Item successfully saved
-        this.logger.debug(`Successfully saved item ${JSON.stringify(item)}`);
         this.mode = AutoSaveMode.Saved;
       },
-      error => {
-        // Item save failed; re-enqueue for retry after debounce period
-        this.logger.error(`Error saving item ${JSON.stringify(error)}`);
+      () => {
+        // Re-enqueue for retry after debounce period
         this.changesSubject.next(item);
       }
     );

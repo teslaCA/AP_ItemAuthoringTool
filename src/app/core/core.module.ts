@@ -10,6 +10,7 @@ import {AlertModule} from "ngx-bootstrap";
 import {BusyService} from "./services/busy/busy.service";
 import {BusyOverlayComponent} from "./services/busy/busy-overlay.component";
 import {AppInfoService} from "./services/app-info/app-info.service";
+import {HttpUtility} from "./services/http-utility/http-utility";
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import {AppInfoService} from "./services/app-info/app-info.service";
     ItemTypeService,
     BusyService,
     Logger,
-    UserService
+    UserService,
+    HttpUtility
   ]
 })
 export class CoreModule {

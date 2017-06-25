@@ -39,8 +39,8 @@ export class AppModule {
   }
 
   private static configureJson2TypescriptLibrary() {
-    JsonConvert.debugMode = true;               // Print debug data when converting
-    JsonConvert.ignorePrimitiveChecks = false;  // Don't allow assigning number to string, etc.
+    JsonConvert.debugMode = false;              // Whether to print debug data when converting
+    JsonConvert.ignorePrimitiveChecks = false;  // Whether to allow assigning number to string, etc.
     JsonConvert.valueCheckingMode = JsonConvert.ValueCheckingMode.ALLOW_NULL;
   }
 }

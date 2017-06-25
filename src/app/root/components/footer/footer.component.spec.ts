@@ -6,6 +6,8 @@ import {AppInfoService} from "../../../core/services/app-info/app-info.service";
 import {AlertService} from "../../../core/services/alert/alert.service";
 import {ToastyConfig, ToastyService} from "ng2-toasty";
 import {Logger} from "../../../core/services/logger/logger.service";
+import {HttpUtility} from "../../../core/services/http-utility/http-utility";
+import {BusyService} from "../../../core/services/busy/busy.service";
 
 describe('FooterComponent', () => {
   beforeEach(async(() => {
@@ -18,10 +20,12 @@ describe('FooterComponent', () => {
       ],
       providers: [
         AppInfoService,
+        Logger,
+        HttpUtility,
         AlertService,
         ToastyService,
         ToastyConfig,
-        Logger
+        BusyService
       ]
     }).compileComponents();
   }));

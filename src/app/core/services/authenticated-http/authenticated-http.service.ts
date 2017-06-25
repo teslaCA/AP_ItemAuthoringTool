@@ -26,6 +26,7 @@ export class AuthenticatedHttpService extends Http {
     return super.request(url, options).catch((error: Response) => {
       if (error.status === 401) {
         this.logger.debug('Received 401 - Authorization required');
+
         // Reload current page
         window.location.href = window.location.href;
       }

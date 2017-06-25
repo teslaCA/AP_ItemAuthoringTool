@@ -5,10 +5,8 @@ import "rxjs/add/operator/catch";
 import "rxjs/add/operator/map";
 import "rxjs/add/observable/throw";
 import "rxjs/add/observable/fromPromise";
-
-import {Logger} from "../../../core/services/logger/logger.service";
 import {Item} from "app/item/services/item/item";
-import {HttpUtility} from "../../../core/util/http-utility";
+import {HttpUtility} from "../../../core/services/http-utility/http-utility";
 import {ItemFactory} from "app/item/services/item/item-factory";
 
 @Injectable()
@@ -16,7 +14,7 @@ export class ItemService {
   private static serviceUrl = '/api/ims/v1/items';
 
   constructor(private http: Http,
-              private logger: Logger) {
+              private httpUtility: HttpUtility) {
   }
 
   /**
@@ -25,13 +23,13 @@ export class ItemService {
    * @returns Observable containing the item with the given ID
    */
   findItem(itemId: string): Observable<Item> {
-    this.logger.debug(`Finding item having ID ${itemId}`);
-
     const url = `${ItemService.serviceUrl}/${encodeURIComponent(itemId.trim())}`;
-    return this.http
-      .get(url, HttpUtility.jsonRequestOptions)
-      .map(response => ItemFactory.fromJson(response.json()))
-      .catch(error => HttpUtility.logAndThrowError(this.logger, error));
+    return this.httpUtility.applyAsyncHandling(
+      "Finding item",
+      this.http
+        .get(url, HttpUtility.jsonRequestOptions)
+        .map(response => ItemFactory.fromJson(response.json()))
+    );
   }
 
   /**
@@ -42,13 +40,13 @@ export class ItemService {
    * @returns Observable containing the item in its initial state
    */
   beginCreateTransaction(itemType: string, message: string): Observable<Item> {
-    this.logger.debug(`Beginning "create item" transaction for item of type "${itemType}" with message "${message}"`);
-
     const url = `${ItemService.serviceUrl}/transactions`;
-    return this.http
-      .post(url, {'type': itemType, message: message}, HttpUtility.jsonRequestOptions)
-      .map(response => ItemFactory.fromJson(response.json()))
-      .catch(error => HttpUtility.logAndThrowError(this.logger, error));
+    return this.httpUtility.applyAsyncHandling(
+      "Creating item",
+      this.http
+        .post(url, {'type': itemType, message: message}, HttpUtility.jsonRequestOptions)
+        .map(response => ItemFactory.fromJson(response.json()))
+    );
   }
 
   /**
@@ -60,13 +58,13 @@ export class ItemService {
    * @returns Observable containing the item in its current state
    */
   beginEditTransaction(itemId: string, message: string): Observable<Item> {
-    this.logger.debug(`Beginning "edit item" transaction for item having ID ${itemId} with message "${message}"`);
-
     const url = `${ItemService.serviceUrl}/${itemId}/transactions`;
-    return this.http
-      .post(url, {message: message}, HttpUtility.jsonRequestOptions)
-      .map(response => ItemFactory.fromJson(response.json()))
-      .catch(error => HttpUtility.logAndThrowError(this.logger, error));
+    return this.httpUtility.applyAsyncHandling(
+      "Opening item for edit",
+      this.http
+        .post(url, {message: message}, HttpUtility.jsonRequestOptions)
+        .map(response => ItemFactory.fromJson(response.json()))
+    );
   }
 
   /**
@@ -79,14 +77,15 @@ export class ItemService {
    * @returns Observable indicating when the update has completed
    */
   updateTransaction(transactionId: string, item: Item, message: string): Observable<void> {
-    this.logger.debug(
-      `Updating transaction ${transactionId} for item ${JSON.stringify(item)} with message "${message}"`);
-
     const url = `${ItemService.serviceUrl}/${item.id}/transactions/${transactionId}`;
-    return this.http
-      .patch(url, {item: item, message: message}, HttpUtility.jsonRequestOptions)
-      .map(_ => null)
-      .catch(error => HttpUtility.logAndThrowError(this.logger, error));
+    return this.httpUtility.applyAsyncHandling(
+      "Saving changes",
+      this.http
+        .patch(url, {item: item, message: message}, HttpUtility.jsonRequestOptions)
+        .map(_ => null),
+      false /* showBusyIndicator */,
+      false /* showErrorAlert */
+    );
   }
 
   /**
@@ -101,14 +100,13 @@ export class ItemService {
    * @returns Observable indicating when the transaction has been committed
    */
   commitTransaction(transactionId: string, item: Item, message: string): Observable<void> {
-    this.logger.debug(
-      `Committing transaction ${transactionId} for item ${JSON.stringify(item)} with message "${message}"`);
-
     const url = `${ItemService.serviceUrl}/${item.id}/transactions/${transactionId}`;
-    return this.http
-      .put(url, {item: item, message: message}, HttpUtility.jsonRequestOptions)
-      .map(_ => null)
-      .catch(error => HttpUtility.logAndThrowError(this.logger, error));
+    return this.httpUtility.applyAsyncHandling(
+      "Committing changes",
+      this.http
+        .put(url, {item: item, message: message}, HttpUtility.jsonRequestOptions)
+        .map(_ => null)
+    );
   }
 
   /**
@@ -121,12 +119,12 @@ export class ItemService {
    * @returns Observable indicating when the transaction has been rolled back
    */
   rollbackTransaction(transactionId: string, itemId: string): Observable<void> {
-    this.logger.debug(`Rolling back transaction ${transactionId} for item having ID ${itemId}`);
-
     const url = `${ItemService.serviceUrl}/${itemId}/transactions/${transactionId}`;
-    return this.http
-      .delete(url)
-      .map(_ => null)
-      .catch(error => HttpUtility.logAndThrowError(this.logger, error));
+    return this.httpUtility.applyAsyncHandling(
+      "Discarding changes",
+      this.http
+        .delete(url)
+        .map(_ => null)
+    );
   }
 }

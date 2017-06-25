@@ -8,6 +8,8 @@ import {Logger} from "../../../core/services/logger/logger.service";
 import {UserService} from "../../../core/services/user/user.service";
 import {AlertService} from "../../../core/services/alert/alert.service";
 import {ToastyConfig, ToastyService} from "ng2-toasty";
+import {HttpUtility} from "../../../core/services/http-utility/http-utility";
+import {BusyService} from "../../../core/services/busy/busy.service";
 
 describe('HeaderComponent', () => {
   beforeEach(async(() => {
@@ -24,9 +26,11 @@ describe('HeaderComponent', () => {
       providers: [
         Logger,
         UserService,
+        HttpUtility,
         AlertService,
         ToastyService,
-        ToastyConfig
+        ToastyConfig,
+        BusyService
       ]
     }).compileComponents();
   }));

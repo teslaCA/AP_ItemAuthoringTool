@@ -86,7 +86,6 @@ export class LoadSaItemComponent implements OnInit, AfterViewChecked, AfterViewI
     // Added a local flag to only attempt to set focus when a new response has been added
     if (this.responseAdded) {
       const lastRespId = this.responses.length - 1;
-      this.logger.debug('Focusing last Response' + lastRespId);
       const lastResp = this.element.nativeElement.querySelector('#samplecontent-' + lastRespId);
       if (undefined !== lastResp && lastResp.valueOf() !== '') {
         lastResp.focus();
@@ -130,7 +129,6 @@ export class LoadSaItemComponent implements OnInit, AfterViewChecked, AfterViewI
     this.copyExemplarResponsesFromItemToForm();
 
     // Disable the form if we're in "view" mode
-    this.logger.debug('isView: ' + this.isView);
     if (this.isView) {
       this.stemForm.disable();
       this.responseForm.disable();
@@ -141,14 +139,12 @@ export class LoadSaItemComponent implements OnInit, AfterViewChecked, AfterViewI
     // Wire up changes to the stem form to trigger an auto-save
     this.stemForm.valueChanges.subscribe(
       () => {
-        this.logger.debug("Stem form changed");
         this.itemChanged.emit(this.currentItem());
       });
 
     // Wire up changes to the exemplar responses form to trigger an auto-save
     this.responseForm.valueChanges.subscribe(
       () => {
-        this.logger.debug("Exemplar responses form changed");
         this.itemChanged.emit(this.currentItem());
       });
   }

@@ -28,7 +28,6 @@ export class FindItemComponent implements OnInit {
   }
 
   submitForm(value: any) {
-    this.logger.debug("Item search: " + encodeURIComponent(value.query.trim()));
     if (this.containsSpecialCharacters(value.query)) {
       this.alertService.error("Invalid Search Term", "Your search term contains one or more of these special characters " + this.SPECIAL_CHARS + ". Please remove them and try again");
     } else {

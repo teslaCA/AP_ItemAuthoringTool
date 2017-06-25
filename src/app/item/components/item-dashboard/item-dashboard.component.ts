@@ -28,9 +28,6 @@ export class ItemDashboardComponent implements OnInit {
         this.id = params['id'];
       });
 
-    this.logger.debug('action: ' + this.action);
-    this.logger.debug('id: ' + this.id);
-
     if (this.action !== '') {
       this.itemUrl = '/item/' + this.id;
       switch (this.action) {

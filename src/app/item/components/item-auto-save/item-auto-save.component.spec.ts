@@ -4,6 +4,7 @@ import {ItemAutoSaveComponent} from "./item-auto-save.component";
 import {Logger} from "../../../core/services/logger/logger.service";
 import {ItemService} from "../../services/item/item.service";
 import {CoreModule} from "../../../core/core.module";
+import {ToastyConfig, ToastyService} from "ng2-toasty";
 
 describe('ItemAutoSaveComponent', () => {
   let component: ItemAutoSaveComponent;
@@ -19,7 +20,9 @@ describe('ItemAutoSaveComponent', () => {
       ],
       providers: [
         ItemService,
-        Logger
+        Logger,
+        ToastyService,
+        ToastyConfig
       ]
     }).compileComponents();
   }));

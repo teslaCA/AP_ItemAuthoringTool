@@ -1,9 +1,12 @@
 import {inject, TestBed} from "@angular/core/testing";
 import {HttpModule} from "@angular/http";
-import {ToastyModule} from "ng2-toasty";
+import {ToastyConfig, ToastyModule, ToastyService} from "ng2-toasty";
 
 import {ItemHistoryService} from "./item-history.service";
 import {Logger} from "../../../core/services/logger/logger.service";
+import {BusyService} from "../../../core/services/busy/busy.service";
+import {AlertService} from "../../../core/services/alert/alert.service";
+import {HttpUtility} from "../../../core/services/http-utility/http-utility";
 
 describe('ItemHistoryService', () => {
   beforeEach(() => {
@@ -14,7 +17,12 @@ describe('ItemHistoryService', () => {
       ],
       providers: [
         ItemHistoryService,
-        Logger
+        Logger,
+        HttpUtility,
+        AlertService,
+        ToastyService,
+        ToastyConfig,
+        BusyService
       ]
     });
   });

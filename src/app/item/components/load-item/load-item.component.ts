@@ -8,7 +8,6 @@ import {AlertService} from "../../../core/services/alert/alert.service";
 import {Item} from "../../services/item/item";
 import {ItemTypeService} from "../../services/item-type/item-type.service";
 import {UserService} from "app/core/services/user/user.service";
-import {BusyService} from "../../../core/services/busy/busy.service";
 import {ItemType} from "../../services/item-type/item-type";
 import {LoadWerItemComponent} from "../load-wer-item/load-wer-item.component";
 import {User} from "../../../core/services/user/user";
@@ -43,7 +42,6 @@ export class LoadItemComponent implements OnInit {
               private itemService: ItemService,
               private itemTypeService: ItemTypeService,
               private alertService: AlertService,
-              private busyService: BusyService,
               public fb: FormBuilder) {
     this.commitForm = this.fb.group({
       commitMsg: [null, Validators.required]
@@ -58,189 +56,126 @@ export class LoadItemComponent implements OnInit {
       });
 
     // Load current user
-    this.logger.debug("Loading current user");
-    this.busyService.show("Loading Current User");
     this.userService.findCurrentUser()
       .subscribe(
         (user: User) => {
-          this.logger.debug("Current user successfully loaded");
           this.currentUser = user;
 
           // Load current item
-          this.logger.debug(`Loading item having ID ${this.currentItemId}`);
-          this.busyService.show(`Loading Item`);
           this.itemService.findItem(this.currentItemId)
             .subscribe(
               item => {
-                this.logger.debug(`Successfully loaded item ${JSON.stringify(item)}`);
-                this.busyService.hide();
                 this.onSuccess(item);
               },
               error => {
-                this.logger.error(`Failed to load item having ID ${this.currentItemId}, error ${JSON.stringify(error)}`);
-                this.busyService.hide();
-                this.alertService.error("Error loading item", `There was an error loading the item having ID ${this.currentItemId}`);
                 this.onError(error);
               }
             );
-        },
-        error => {
-          this.logger.error(`Failed to load current user, error ${JSON.stringify(error)}`);
-          this.busyService.hide();
-          this.alertService.error("Error loading current user", "There was an error loading the current user");
         });
-
   }
 
   createItem(): void {
-    // TODO: This is bad - shouldn't use switch, shouldn't be hardcoded to SA, clean this up
     // Get the item to be created
     let item: Item;
     switch (this.currentItem.type) {
-      case 'sa' : {
+      case 'sa':
         item = this.saItemComponent.currentItem();
         break;
-      }
-      case 'wer' : {
+
+      case 'wer':
         item = this.werItemComponent.currentItem();
         break;
-      }
-    }
-    if (!item || !item.id) {
-      this.logger.error('Item was not properly loaded from subcomponent. Generate error');
-      return;
+
+      default:
+        throw new Error(`Cannot create unknown item type ${this.currentItem.type}`);
     }
 
-    this.busyService.show('Creating Item');
+    // Commit the transaction
     this.itemService
       .commitTransaction(item.createTransaction.transactionId, item, "Finished creation")
       .subscribe(
         () => {
-          this.busyService.hide();
           this.alertService.success(
             'Item Created',
             'The item has been successfully created and added to the item bank.');
 
           // Route user to dashboard
           this.router.navigateByUrl(`/?action=create&id=${item.id}`);
-        },
-        e => {
-          this.busyService.hide();
-          this.alertService.error(
-            'Error Creating Item',
-            `An error was encountered trying to create your item.  Reason:\n\n${e}`);
         }
       );
   }
 
   cancelCreate(): void {
-    this.busyService.show('Cancelling Creation');
     this.itemService
       .rollbackTransaction(this.currentItem.createTransaction.transactionId, this.currentItem.id)
       .subscribe(
         () => {
-          this.busyService.hide();
           this.alertService.success(
             'Creation Cancelled',
             'The item you were creating has been successfully removed.');
 
           // Route user to dashboard
           this.router.navigateByUrl('/');
-        },
-        e => {
-          this.busyService.hide();
-          this.alertService.error(
-            'Error Cancelling Creation',
-            `An error was encountered trying to cancel the creation of your item.  Reason:\n\n${e}`);
         }
       );
   }
 
   editItem(): void {
-    this.busyService.show('Opening Item');
     this.itemService
       .beginEditTransaction(this.currentItemId, "Began edit")
       .subscribe(
         () => {
-          this.busyService.hide();
-
           // Route user to item
           this.router.navigateByUrl('/item-redirect/' + this.currentItemId);
-        },
-        e => {
-          this.busyService.hide();
-          this.alertService.error(
-            'Error Editing Item',
-            `An error was encountered trying to open the item for editing.  Reason:\n\n${e}`);
-          this.onError(e);
         }
       );
   }
 
   cancelEdit(): void {
-    this.busyService.show('Discarding Changes');
     this.itemService
       .rollbackTransaction(this.currentItem.editTransaction.transactionId, this.currentItem.id)
       .subscribe(
         () => {
-          this.busyService.hide();
           this.alertService.success(
             'Changes Discarded',
             'Your changes to the item have been discarded.');
 
           // Route user to dashboard
           this.router.navigateByUrl(`/?action=commit&id=${this.currentItem.id}`);
-        },
-        e => {
-          this.busyService.hide();
-          this.alertService.error(
-            'Error Discarding Changes',
-            `An error was encountered trying to discard your changes to the item.  Reason:\n\n${e}`);
         }
       );
   }
 
   commitItem(): void {
-    // TODO: This is bad - shouldn't use switch, shouldn't be hardcoded to SA, clean this up
     // Get the item to be created
     let item: Item;
     switch (this.currentItem.type) {
-      case 'sa' : {
+      case 'sa':
         item = this.saItemComponent.currentItem();
         break;
-      }
-      case 'wer' : {
+
+      case 'wer':
         item = this.werItemComponent.currentItem();
         break;
-      }
-    }
-    if (!item || !item.id) {
-      this.logger.error('Item was not properly loaded from subcomponent. Generate error');
-      return;
+
+      default:
+        throw new Error(`Cannot commit changes to item of unknown type ${this.currentItem.type}`);
     }
 
     // Get the commit message
     const message = this.commitForm.get('commitMsg').value.trim();
 
     // Save the changes
-    this.busyService.show('Committing Changes');
     this.itemService
       .commitTransaction(item.editTransaction.transactionId, item, message)
       .subscribe(
         () => {
-          this.busyService.hide();
           this.alertService.success(
             'Changes Committed',
             'Your changes to the item have been committed to the item bank.');
 
           // Route user to dashboard
           this.router.navigateByUrl(`/?action=commit&id=${item.id}`);
-        },
-        e => {
-          this.busyService.hide();
-          this.alertService.error(
-            'Error Committing Changes',
-            `An error was encountered trying to save your changes to the item.  Reason:\n\n${e}`);
         }
       );
   }
@@ -294,7 +229,6 @@ export class LoadItemComponent implements OnInit {
   }
 
   private onSuccess(item: Item): void {
-    this.logger.debug('retrieved item: ' + JSON.stringify(item));
     this.currentItem = item;
 
     if (this.isCreate()) {
@@ -309,18 +243,11 @@ export class LoadItemComponent implements OnInit {
     }
 
     // Load current item's type
-    this.busyService.show("Loading Item Type");
     this.itemTypeService
       .findItemType(this.currentItem.type)
       .subscribe(
         (itemType: ItemType) => {
-          this.busyService.hide();
           this.currentItemType = itemType;
-        },
-        error => {
-          this.logger.error(`Failed to load item type, error ${JSON.stringify(error)}`);
-          this.busyService.hide();
-          this.alertService.error("Error Loading Item Type", `An error was encountered while loading item type`);
         }
       );
   }

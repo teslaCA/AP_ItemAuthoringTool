@@ -4,23 +4,22 @@ import {Observable} from "rxjs/Observable";
 import {JsonConvert} from "json2typescript";
 
 import {AppInfo} from "./app-info";
-import {HttpUtility} from "../../util/http-utility";
-import {Logger} from "../logger/logger.service";
+import {HttpUtility} from "../http-utility/http-utility";
 
 @Injectable()
 export class AppInfoService {
   private serviceUrl = '/manage/info';
 
   constructor(private http: Http,
-              private logger: Logger) {
+              private httpUtility: HttpUtility) {
   }
 
   findAppInfo(): Observable<AppInfo> {
-    this.logger.debug('Finding app info');
-
-    return this.http
-      .request(this.serviceUrl)
-      .map(response => JsonConvert.deserializeObject(response.json(), AppInfo))
-      .catch(error => HttpUtility.logAndThrowError(this.logger, error));
+    return this.httpUtility.applyAsyncHandling(
+      "Finding app info",
+      this.http
+        .request(this.serviceUrl)
+        .map(response => JsonConvert.deserializeObject(response.json(), AppInfo))
+    );
   }
 }

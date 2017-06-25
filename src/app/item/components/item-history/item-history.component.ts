@@ -21,7 +21,6 @@ export class ItemHistoryComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.logger.debug("Item ID " + this.itemId);
     if (this.itemId) {
       this.itemHistoryService.findItemHistory(this.itemId)
         .subscribe(
