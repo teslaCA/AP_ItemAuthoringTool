@@ -2,24 +2,24 @@ import {Component, OnInit, ViewChild} from "@angular/core";
 import {ActivatedRoute, Router} from "@angular/router";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ItemService} from "../../services/item/item.service";
-import {LoadSaItemComponent} from "../load-sa-item/load-sa-item.component";
+import {SaItemComponent} from "./item-types/sa-item/sa-item.component";
 import {Logger} from "../../../core/services/logger/logger.service";
 import {AlertService} from "../../../core/services/alert/alert.service";
 import {Item} from "../../services/item/item";
 import {ItemTypeService} from "../../services/item-type/item-type.service";
 import {UserService} from "app/core/services/user/user.service";
 import {ItemType} from "../../services/item-type/item-type";
-import {LoadWerItemComponent} from "../load-wer-item/load-wer-item.component";
+import {WerItemComponent} from "./item-types/wer-item/wer-item.component";
 import {User} from "../../../core/services/user/user";
 
 // TODO: Move nav bar message-related code into separate component (called ItemHeaderComponent)
 
 @Component({
-  selector: 'load-item',
-  templateUrl: './load-item.component.html',
-  styleUrls: ['./load-item.component.less']
+  selector: 'item',
+  templateUrl: './item.component.html',
+  styleUrls: ['./item.component.less']
 })
-export class LoadItemComponent implements OnInit {
+export class ItemComponent implements OnInit {
   private currentItemId: string;
   commitForm: FormGroup;
   currentItem: Item;
@@ -29,8 +29,8 @@ export class LoadItemComponent implements OnInit {
   serviceError = false;
   errorMessage: string;
 
-  @ViewChild(LoadSaItemComponent) saItemComponent;
-  @ViewChild(LoadWerItemComponent) werItemComponent;
+  @ViewChild(SaItemComponent) saItemComponent;
+  @ViewChild(WerItemComponent) werItemComponent;
 
   constructor(private logger: Logger,
               private router: Router,

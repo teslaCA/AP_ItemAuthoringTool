@@ -3,32 +3,29 @@ import {APP_BASE_HREF} from "@angular/common";
 import {AppModule} from "../../../root/app.module";
 import {Logger} from "../../../core/services/logger/logger.service";
 import {AlertService} from "../../../core/services/alert/alert.service";
-import { LoadItemComponent } from './load-item.component';
-import {ItemModule} from "../../item.module";
-import {ItemHistoryComponent} from "../item-history/item-history.component";
+import {ItemComponent} from "./item.component";
 
-describe('LoadItemComponent', () => {
-  let component: LoadItemComponent;
-  let fixture: ComponentFixture<LoadItemComponent>;
+describe('ItemComponent', () => {
+  let component: ItemComponent;
+  let fixture: ComponentFixture<ItemComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
         AppModule
       ],
-      declarations: [
-      ],
+      declarations: [],
       providers: [
         Logger,
         AlertService,
-        {provide: APP_BASE_HREF, useValue : '/' }
+        {provide: APP_BASE_HREF, useValue: '/'}
       ]
     })
       .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LoadItemComponent);
+    fixture = TestBed.createComponent(ItemComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

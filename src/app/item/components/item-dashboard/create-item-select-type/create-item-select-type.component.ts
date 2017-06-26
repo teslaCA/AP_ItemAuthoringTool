@@ -1,9 +1,9 @@
 import {Component, OnInit} from "@angular/core";
-import {ItemType} from "../../services/item-type/item-type";
-import {ItemTypeService} from "../../services/item-type/item-type.service";
-import {ItemService} from "../../services/item/item.service";
+import {ItemType} from "../../../services/item-type/item-type";
+import {ItemTypeService} from "../../../services/item-type/item-type.service";
+import {ItemService} from "../../../services/item/item.service";
 import {Router} from "@angular/router";
-import {Item} from "../../services/item/item";
+import {Item} from "../../../services/item/item";
 
 @Component({
   selector: 'create-item-select-type',

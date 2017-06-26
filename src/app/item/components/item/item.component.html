@@ -27,18 +27,18 @@
           <!-- Left 6 columns -->
           <div class="col-md-6">
             <!-- Item details -->
-            <load-sa-item
+            <sa-item
               *ngIf="currentItem.type=='sa'"
               [item]="currentItem"
               [isView]="isView()"
               (itemChanged)="autoSave.onItemChange($event)">
-            </load-sa-item>
-            <load-wer-item
+            </sa-item>
+            <wer-item
               *ngIf="currentItem.type=='wer'"
               [item]="currentItem"
               [isView]="isView()"
               (itemChanged)="autoSave.onItemChange($event)">
-            </load-wer-item>
+            </wer-item>
 
             <!-- Action buttons -->
             <div class="row">

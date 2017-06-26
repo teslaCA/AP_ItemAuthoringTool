@@ -1,14 +1,14 @@
 import {async, TestBed} from "@angular/core/testing";
 import {HttpModule} from "@angular/http";
 import {CreateItemSelectTypeComponent} from "./create-item-select-type.component";
-import {AppInfoService} from "../../../core/services/app-info/app-info.service";
+import {AppInfoService} from "../../../../core/services/app-info/app-info.service";
 import {RouterTestingModule} from "@angular/router/testing";
-import {Logger} from "../../../core/services/logger/logger.service";
-import {ItemTypeService} from "../../services/item-type/item-type.service";
-import {AlertService} from "../../../core/services/alert/alert.service";
+import {Logger} from "../../../../core/services/logger/logger.service";
+import {ItemTypeService} from "../../../services/item-type/item-type.service";
+import {AlertService} from "../../../../core/services/alert/alert.service";
 import {ToastyConfig, ToastyService} from "ng2-toasty";
-import {CoreModule} from "../../../core/core.module";
-import {ItemService} from "../../services/item/item.service";
+import {CoreModule} from "../../../../core/core.module";
+import {ItemService} from "../../../services/item/item.service";
 
 describe('CreateItemSelectTypeComponent', () => {
 

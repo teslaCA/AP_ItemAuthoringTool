@@ -1,12 +1,12 @@
 import {async, ComponentFixture, TestBed} from "@angular/core/testing";
-import {LoadWerItemComponent} from "./load-wer-item.component";
-import {Logger} from "../../../core/services/logger/logger.service";
-import {AppModule} from "../../../root/app.module";
+import {SaItemComponent} from "./sa-item.component";
+import {Logger} from "../../../../../core/services/logger/logger.service";
+import {AppModule} from "../../../../../root/app.module";
 import {APP_BASE_HREF} from "@angular/common";
 
-describe('LoadWerItemComponent', () => {
-  let component: LoadWerItemComponent;
-  let fixture: ComponentFixture<LoadWerItemComponent>;
+describe('SaItemComponent', () => {
+  let component: SaItemComponent;
+  let fixture: ComponentFixture<SaItemComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -22,7 +22,7 @@ describe('LoadWerItemComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LoadWerItemComponent);
+    fixture = TestBed.createComponent(SaItemComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

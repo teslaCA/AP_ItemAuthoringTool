@@ -3,17 +3,17 @@ import {
   Output
 } from "@angular/core";
 import {FormArray, FormBuilder, FormGroup} from "@angular/forms";
-import {Logger} from "../../../core/services/logger/logger.service";
-import {Item} from "../../services/item/item";
-import {SaItem} from "../../services/item/sa-item";
+import {Logger} from "../../../../../core/services/logger/logger.service";
+import {Item} from "../../../../services/item/item";
+import {WerItem} from "../../../../services/item/wer-item";
 
 // TODO: Refactor WER item component and SA item component to share common code, template, etc.
 @Component({
-  selector: 'load-sa-item',
-  templateUrl: './load-sa-item.component.html',
-  styleUrls: ['./load-sa-item.component.less']
+  selector: 'wer-item',
+  templateUrl: './wer-item.component.html',
+  styleUrls: ['./wer-item.component.less']
 })
-export class LoadSaItemComponent implements OnInit, AfterViewChecked, AfterViewInit {
+export class WerItemComponent implements OnInit, AfterViewChecked, AfterViewInit {
   //---------------------------------------------------------------------------
   // Stem fields
   // TODO: Move to separate component
@@ -43,7 +43,7 @@ export class LoadSaItemComponent implements OnInit, AfterViewChecked, AfterViewI
   //---------------------------------------------------------------------------
   // General fields
   //---------------------------------------------------------------------------
-  @Input() item: SaItem;
+  @Input() item: WerItem;
   @Input() isView: boolean;
   @Output() itemChanged = new EventEmitter<Item>();
 

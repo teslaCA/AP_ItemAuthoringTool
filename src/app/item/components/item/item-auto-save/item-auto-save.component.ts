@@ -1,6 +1,6 @@
 import {Component, Input, OnDestroy, OnInit} from "@angular/core";
-import {Item} from "../../services/item/item";
-import {ItemService} from "../../services/item/item.service";
+import {Item} from "../../../services/item/item";
+import {ItemService} from "../../../services/item/item.service";
 import {Observable} from "rxjs/Observable";
 import {Subject} from "rxjs/Subject";
 

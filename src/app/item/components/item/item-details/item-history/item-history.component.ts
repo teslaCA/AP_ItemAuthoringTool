@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from "@angular/core";
-import {ItemHistoryService} from "../../services/item-history/item-history.service";
-import {ItemChange} from "../../services/item-history/item-change";
+import {ItemHistoryService} from "../../../../services/item-history/item-history.service";
+import {ItemChange} from "../../../../services/item-history/item-change";
 
 @Component({
   selector: 'item-history',
