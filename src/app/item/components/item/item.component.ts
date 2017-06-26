@@ -20,16 +20,28 @@ import {User} from "../../../core/services/user/user";
 })
 export class ItemComponent implements OnInit {
   currentUser: User;
-  itemId: string;
   item: Item;
   itemType: ItemType;
-  mode: string;
   commitForm: FormGroup;
   isError = false;
   errorMessage: string;
-
   @ViewChild(SaItemComponent) saItemComponent;
   @ViewChild(WerItemComponent) werItemComponent;
+
+  get mode(): string {
+    if (this.isCreate()) {
+      return "Create";
+    }
+    else if (this.isEdit()) {
+      return "Edit";
+    }
+    else if (this.isView()) {
+      return "View";
+    }
+    else {
+      return "";
+    }
+  }
 
   constructor(private logger: Logger,
               private router: Router,
@@ -51,7 +63,7 @@ export class ItemComponent implements OnInit {
     this.route.params
       .subscribe(
         params => {
-          this.itemId = params['id'];
+          const itemId = params['id'];
 
           // Load current user
           this.userService.findCurrentUser()
@@ -60,21 +72,10 @@ export class ItemComponent implements OnInit {
                 this.currentUser = user;
 
                 // Load current item
-                this.itemService.findItem(this.itemId)
+                this.itemService.findItem(itemId)
                   .subscribe(
                     item => {
                       this.item = item;
-
-                      if (this.isCreate()) {
-                        // Item is currently being created by logged in user
-                        this.mode = 'Create';
-                      }
-                      if (this.isView()) {
-                        this.mode = 'View';
-                      }
-                      if (this.isEdit()) {
-                        this.mode = 'Edit';
-                      }
 
                       // Load current item's type
                       this.itemTypeService
@@ -214,11 +215,11 @@ export class ItemComponent implements OnInit {
 
   beginEditTransaction(): void {
     this.itemService
-      .beginEditTransaction(this.itemId, "Began edit")
+      .beginEditTransaction(this.item.id, "Began edit")
       .subscribe(
         () => {
           // Route user to item
-          this.router.navigateByUrl('/item-redirect/' + this.itemId);
+          this.router.navigateByUrl('/item-redirect/' + this.item.id);
         }
       );
   }
