@@ -68,7 +68,7 @@ export class ItemComponent implements OnInit {
   }
 
   ngOnInit() {
-    // TODO: Use observable operators to chain / run-in-parallel these calls
+    // TODO: Use observable operators to chain / run-in-parallel these calls (also enhance busy service to handle parallel operations)
     // TODO: Add error handling for all calls (currently only findItem failure is handled)
     // Extract item ID from route
     this.route.params
