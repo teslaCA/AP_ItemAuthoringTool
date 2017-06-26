@@ -12,8 +12,6 @@ import {ItemType} from "../../services/item-type/item-type";
 import {LoadWerItemComponent} from "../load-wer-item/load-wer-item.component";
 import {User} from "../../../core/services/user/user";
 
-// TODO: Move stem-related code into separate component (called StemComponent)
-// TODO: Move exemplar response-related code into separate component (called ExemplarResponsesComponent)
 // TODO: Move nav bar message-related code into separate component (called ItemHeaderComponent)
 
 @Component({
@@ -21,7 +19,6 @@ import {User} from "../../../core/services/user/user";
   templateUrl: './load-item.component.html',
   styleUrls: ['./load-item.component.less']
 })
-// TODO: This class has too many fields - clear sign it needs to be factored into multiple classes
 export class LoadItemComponent implements OnInit {
   private currentItemId: string;
   commitForm: FormGroup;
@@ -49,32 +46,77 @@ export class LoadItemComponent implements OnInit {
   }
 
   ngOnInit() {
+    // TODO: Use observable operators to chain / run-in-parallel these calls
+    // TODO: Add error handling for all calls (currently only findItem failure is handled)
     // Extract item ID from route
     this.route.params
-      .subscribe(params => {
-        this.currentItemId = params['id'];
-      });
-
-    // Load current user
-    this.userService.findCurrentUser()
       .subscribe(
-        (user: User) => {
-          this.currentUser = user;
+        params => {
+          this.currentItemId = params['id'];
 
-          // Load current item
-          this.itemService.findItem(this.currentItemId)
+          // Load current user
+          this.userService.findCurrentUser()
             .subscribe(
-              item => {
-                this.onSuccess(item);
-              },
-              error => {
-                this.onError(error);
-              }
-            );
+              (user: User) => {
+                this.currentUser = user;
+
+                // Load current item
+                this.itemService.findItem(this.currentItemId)
+                  .subscribe(
+                    item => {
+                      this.currentItem = item;
+
+                      if (this.isCreate()) {
+                        // Item is currently being created by logged in user
+                        this.mode = 'Create';
+                      }
+                      if (this.isView()) {
+                        this.mode = 'View';
+                      }
+                      if (this.isEdit()) {
+                        this.mode = 'Edit';
+                      }
+
+                      // Load current item's type
+                      this.itemTypeService
+                        .findItemType(this.currentItem.type)
+                        .subscribe(
+                          (itemType: ItemType) => {
+                            this.currentItemType = itemType;
+                          });
+                    },
+                    error => {
+                      this.serviceError = true;
+
+                      switch (error.status) {
+                        case 400:
+                        case 404: {
+                          const body = error.json() || '';
+                          const objMessages = JSON.parse(JSON.stringify(body));
+
+                          let msgs = '';
+
+                          if (objMessages instanceof Array) {
+                            for (const msg of objMessages) {
+                              msgs += msg.message;
+                            }
+                          }
+
+                          this.errorMessage = msgs;
+                          break;
+                        }
+                        default: {
+                          this.logger.error('Error Status: ' + error.status);
+                          this.errorMessage = 'Internal server error';
+                          break;
+                        }
+                      }
+                    });
+              });
         });
   }
 
-  createItem(): void {
+  commitCreateItemTransaction(): void {
     // Get the item to be created
     let item: Item;
     switch (this.currentItem.type) {
@@ -105,48 +147,7 @@ export class LoadItemComponent implements OnInit {
       );
   }
 
-  cancelCreate(): void {
-    this.itemService
-      .rollbackTransaction(this.currentItem.createTransaction.transactionId, this.currentItem.id)
-      .subscribe(
-        () => {
-          this.alertService.success(
-            'Creation Cancelled',
-            'The item you were creating has been successfully removed.');
-
-          // Route user to dashboard
-          this.router.navigateByUrl('/');
-        }
-      );
-  }
-
-  editItem(): void {
-    this.itemService
-      .beginEditTransaction(this.currentItemId, "Began edit")
-      .subscribe(
-        () => {
-          // Route user to item
-          this.router.navigateByUrl('/item-redirect/' + this.currentItemId);
-        }
-      );
-  }
-
-  cancelEdit(): void {
-    this.itemService
-      .rollbackTransaction(this.currentItem.editTransaction.transactionId, this.currentItem.id)
-      .subscribe(
-        () => {
-          this.alertService.success(
-            'Changes Discarded',
-            'Your changes to the item have been discarded.');
-
-          // Route user to dashboard
-          this.router.navigateByUrl(`/?action=commit&id=${this.currentItem.id}`);
-        }
-      );
-  }
-
-  commitItem(): void {
+  commitEditItemTransaction(): void {
     // Get the item to be created
     let item: Item;
     switch (this.currentItem.type) {
@@ -176,6 +177,47 @@ export class LoadItemComponent implements OnInit {
 
           // Route user to dashboard
           this.router.navigateByUrl(`/?action=commit&id=${item.id}`);
+        }
+      );
+  }
+
+  rollbackCreateItemTransaction(): void {
+    this.itemService
+      .rollbackTransaction(this.currentItem.createTransaction.transactionId, this.currentItem.id)
+      .subscribe(
+        () => {
+          this.alertService.success(
+            'Creation Cancelled',
+            'The item you were creating has been successfully removed.');
+
+          // Route user to dashboard
+          this.router.navigateByUrl('/');
+        }
+      );
+  }
+
+  rollbackEditItemTransaction(): void {
+    this.itemService
+      .rollbackTransaction(this.currentItem.editTransaction.transactionId, this.currentItem.id)
+      .subscribe(
+        () => {
+          this.alertService.success(
+            'Changes Discarded',
+            'Your changes to the item have been discarded.');
+
+          // Route user to dashboard
+          this.router.navigateByUrl(`/?action=commit&id=${this.currentItem.id}`);
+        }
+      );
+  }
+
+  beginEditItemTransaction(): void {
+    this.itemService
+      .beginEditTransaction(this.currentItemId, "Began edit")
+      .subscribe(
+        () => {
+          // Route user to item
+          this.router.navigateByUrl('/item-redirect/' + this.currentItemId);
         }
       );
   }
@@ -226,63 +268,5 @@ export class LoadItemComponent implements OnInit {
 
   goHome(): void {
     this.router.navigateByUrl('/');
-  }
-
-  private onSuccess(item: Item): void {
-    this.currentItem = item;
-
-    if (this.isCreate()) {
-      // Item is currently being created by logged in user
-      this.mode = 'Create';
-    }
-    if (this.isView()) {
-      this.mode = 'View';
-    }
-    if (this.isEdit()) {
-      this.mode = 'Edit';
-    }
-
-    // Load current item's type
-    this.itemTypeService
-      .findItemType(this.currentItem.type)
-      .subscribe(
-        (itemType: ItemType) => {
-          this.currentItemType = itemType;
-        }
-      );
-  }
-
-  // TODO: Remove this function - it is called in two places but only one the call from the "load" function can get 4xx errors; the call from the "edit" function will only get 500's - we need to not show an error alert when a 4xx is received
-  private onError(error): void {
-    this.serviceError = true;
-
-    switch (error.status) {
-      case 400:
-      case 404: {
-        this.errorMessage = LoadItemComponent.getErrorMessages(error);
-        break;
-      }
-      default: {
-        this.logger.error('Error Status: ' + error.status);
-        this.errorMessage = 'Internal server error';
-        break;
-      }
-    }
-  }
-
-  // TODO: Function named with "get" prefix shouldn't take parameter (and if it doesn't take parameter it should be a property getter instead of a regular method).  In this case this function should be renamed to something like "toErrorString"
-  private static getErrorMessages(error: any): string {
-    const body = error.json() || '';
-    const objMessages = JSON.parse(JSON.stringify(body));
-
-    let msgs = '';
-
-    if (objMessages instanceof Array) {
-      for (const msg of objMessages) {
-        msgs += msg.message;
-      }
-    }
-
-    return msgs;
   }
 }

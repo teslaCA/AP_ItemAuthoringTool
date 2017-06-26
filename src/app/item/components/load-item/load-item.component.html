@@ -49,7 +49,7 @@
                 </div>
                 <div *ngIf="isView()">
                   <button class="btn btn-primary" (click)="goHome()">Done</button>
-                  <button class="btn btn-primary" (click)="editItem()">Edit</button>
+                  <button class="btn btn-primary" (click)="beginEditItemTransaction()">Edit</button>
                 </div>
                 <div *ngIf="isEdit()">
                   <button class="btn btn-primary" (click)="commitModal.show()">Commit Changes
@@ -118,14 +118,14 @@
           <span>Are you sure you want to finish creating this item and add it to the item bank?</span>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary btn-small" (click)="createItem()">Yes</button>
+          <button type="button" class="btn btn-primary btn-small" (click)="commitCreateItemTransaction()">Yes</button>
           <button type="button" class="btn btn-default btn-small" data-dismiss="modal" (click)="commitModal.hide()">No
           </button>
         </div>
       </div>
 
       <div *ngIf="isEdit()">
-        <form [formGroup]="commitForm" (submit)="commitItem()">
+        <form [formGroup]="commitForm" (submit)="commitEditItemTransaction()">
           <div class="modal-body">
             <div class="row">
               <div class="col-md-12">
@@ -186,9 +186,9 @@
           *ngIf="isEdit()">Are you sure you want to discard all changes you've made since you've started editing?</span>
       </div>
       <div class="modal-footer">
-        <button *ngIf="isCreate()" type="button" class="btn btn-primary btn-small" (click)="cancelCreate()">Yes
+        <button *ngIf="isCreate()" type="button" class="btn btn-primary btn-small" (click)="rollbackCreateItemTransaction()">Yes
         </button>
-        <button *ngIf="isEdit()" type="button" class="btn btn-primary btn-small" (click)="cancelEdit()">
+        <button *ngIf="isEdit()" type="button" class="btn btn-primary btn-small" (click)="rollbackEditItemTransaction()">
           Yes
         </button>
         <button type="button" class="btn btn-default btn-small"
