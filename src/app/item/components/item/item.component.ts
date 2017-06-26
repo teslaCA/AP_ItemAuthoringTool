@@ -32,15 +32,13 @@ export class ItemComponent implements OnInit {
     if (this.isCreate()) {
       return "Create";
     }
-    else if (this.isEdit()) {
+    if (this.isEdit()) {
       return "Edit";
     }
-    else if (this.isView()) {
+    if (this.isView()) {
       return "View";
     }
-    else {
-      return "";
-    }
+    return "";
   }
 
   get formItem(): Item {
@@ -156,7 +154,7 @@ export class ItemComponent implements OnInit {
     this.rollbackTransaction(
       'Changes Discarded',
       'Your changes to the item have been discarded.',
-      `/?action=commit&id=${this.item.id}`)
+      `/?action=commit&id=${this.item.id}`);
   }
 
   beginEditTransaction(): void {
