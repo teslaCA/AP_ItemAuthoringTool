@@ -2,7 +2,7 @@
   <div class="container">
 
     <!-- Item details -->
-    <div *ngIf="!serviceError">
+    <div *ngIf="!isError">
       <div *ngIf="!isNotEditable()">
         <div *ngIf="isCreate() || isEdit() || isView()">
 
@@ -16,11 +16,11 @@
           <!-- Item title -->
           <div class="page-title">
             <h1>
-              <span class="item-type-icon"><i class="fa {{currentItemType.icon}}"></i></span>
-              <span class="item-type-name">{{currentItemType.name}}
-                <span class="item-type-abb">({{currentItemType.abbreviation}})</span></span>
+              <span class="item-type-icon"><i class="fa {{itemType.icon}}"></i></span>
+              <span class="item-type-name">{{itemType.name}}
+                <span class="item-type-abb">({{itemType.abbreviation}})</span></span>
               <span class="item-type-mode">{{mode}} Item:
-                <span class="item-type-id">{{currentItem.id}}</span></span>
+                <span class="item-type-id">{{item.id}}</span></span>
             </h1>
           </div>
 
@@ -28,14 +28,14 @@
           <div class="col-md-6">
             <!-- Item details -->
             <sa-item
-              *ngIf="currentItem.type=='sa'"
-              [item]="currentItem"
+              *ngIf="item.type=='sa'"
+              [item]="item"
               [isView]="isView()"
               (itemChanged)="autoSave.onItemChange($event)">
             </sa-item>
             <wer-item
-              *ngIf="currentItem.type=='wer'"
-              [item]="currentItem"
+              *ngIf="item.type=='wer'"
+              [item]="item"
               [isView]="isView()"
               (itemChanged)="autoSave.onItemChange($event)">
             </wer-item>
@@ -49,7 +49,7 @@
                 </div>
                 <div *ngIf="isView()">
                   <button class="btn btn-primary" (click)="goHome()">Done</button>
-                  <button class="btn btn-primary" (click)="beginEditItemTransaction()">Edit</button>
+                  <button class="btn btn-primary" (click)="beginEditTransaction()">Edit</button>
                 </div>
                 <div *ngIf="isEdit()">
                   <button class="btn btn-primary" (click)="commitModal.show()">Commit Changes
@@ -65,7 +65,7 @@
           <div class="col-md-6 ">
             <div class="item-box">
               <!-- Item history -->
-              <item-history [itemId]="currentItem.id"></item-history>
+              <item-history [itemId]="item.id"></item-history>
             </div>
           </div>
 
@@ -77,7 +77,7 @@
     <div class="row">
       <div class="col-lg-12">
         <!-- Error message -->
-        <div *ngIf="serviceError">
+        <div *ngIf="isError">
           <alert type="danger">{{errorMessage}}</alert>
           <p>
             <button class="btn btn-primary" routerLink="/">Return Home</button>
@@ -86,7 +86,7 @@
 
         <!-- "Currently being edited" message -->
         <div *ngIf="isNotEditable()">
-          <alert type="danger">Item is currently being edited by {{currentItem?.editTransaction?.username}}</alert>
+          <alert type="danger">Item is currently being edited by {{item?.editTransaction?.username}}</alert>
           <p>
             <button class="btn btn-primary" routerLink="/">Return Home</button>
           </p>
@@ -118,14 +118,14 @@
           <span>Are you sure you want to finish creating this item and add it to the item bank?</span>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary btn-small" (click)="commitCreateItemTransaction()">Yes</button>
+          <button type="button" class="btn btn-primary btn-small" (click)="commitCreateTransaction()">Yes</button>
           <button type="button" class="btn btn-default btn-small" data-dismiss="modal" (click)="commitModal.hide()">No
           </button>
         </div>
       </div>
 
       <div *ngIf="isEdit()">
-        <form [formGroup]="commitForm" (submit)="commitEditItemTransaction()">
+        <form [formGroup]="commitForm" (submit)="commitEditTransaction()">
           <div class="modal-body">
             <div class="row">
               <div class="col-md-12">
@@ -186,9 +186,9 @@
           *ngIf="isEdit()">Are you sure you want to discard all changes you've made since you've started editing?</span>
       </div>
       <div class="modal-footer">
-        <button *ngIf="isCreate()" type="button" class="btn btn-primary btn-small" (click)="rollbackCreateItemTransaction()">Yes
+        <button *ngIf="isCreate()" type="button" class="btn btn-primary btn-small" (click)="rollbackCreateTransaction()">Yes
         </button>
-        <button *ngIf="isEdit()" type="button" class="btn btn-primary btn-small" (click)="rollbackEditItemTransaction()">
+        <button *ngIf="isEdit()" type="button" class="btn btn-primary btn-small" (click)="rollbackEditTransaction()">
           Yes
         </button>
         <button type="button" class="btn btn-default btn-small"
