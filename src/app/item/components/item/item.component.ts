@@ -43,6 +43,19 @@ export class ItemComponent implements OnInit {
     }
   }
 
+  get formItem(): Item {
+    switch (this.item.type) {
+      case 'sa':
+        return this.saItemComponent.item;
+
+      case 'wer':
+        return this.werItemComponent.item;
+
+      default:
+        throw new Error(`Cannot commit changes to item of unknown type ${this.item.type}`);
+    }
+  }
+
   constructor(private logger: Logger,
               private router: Router,
               private route: ActivatedRoute,
@@ -116,101 +129,34 @@ export class ItemComponent implements OnInit {
         });
   }
 
-  // TODO: Merge with commitEditTransaction - the two functions are nearly identical
   commitCreateTransaction(): void {
-    // Get the item to be created
-    let item: Item;
-    switch (this.item.type) {
-      case 'sa':
-        item = this.saItemComponent.item;
-        break;
-
-      case 'wer':
-        item = this.werItemComponent.item;
-        break;
-
-      default:
-        throw new Error(`Cannot create unknown item type ${this.item.type}`);
-    }
-
-    // Commit the transaction
-    this.itemService
-      .commitTransaction(item.createTransaction.transactionId, item, "Finished creation")
-      .subscribe(
-        () => {
-          this.alertService.success(
-            'Item Created',
-            'The item has been successfully created and added to the item bank.');
-
-          // Route user to dashboard
-          this.router.navigateByUrl(`/?action=create&id=${item.id}`);
-        }
-      );
+    this.commitTransaction(
+      'Finished item creation',
+      'Item Created',
+      'The item has been successfully created and added to the item bank.',
+      `/?action=create&id=${this.formItem.id}`);
   }
 
   commitEditTransaction(): void {
-    // Get the item to be created
-    let item: Item;
-    switch (this.item.type) {
-      case 'sa':
-        item = this.saItemComponent.item;
-        break;
-
-      case 'wer':
-        item = this.werItemComponent.item;
-        break;
-
-      default:
-        throw new Error(`Cannot commit changes to item of unknown type ${this.item.type}`);
-    }
-
-    // Get the commit message
-    const message = this.commitForm.get('commitMsg').value.trim();
-
-    // Save the changes
-    this.itemService
-      .commitTransaction(item.editTransaction.transactionId, item, message)
-      .subscribe(
-        () => {
-          this.alertService.success(
-            'Changes Committed',
-            'Your changes to the item have been committed to the item bank.');
-
-          // Route user to dashboard
-          this.router.navigateByUrl(`/?action=commit&id=${item.id}`);
-        }
-      );
+    this.commitTransaction(
+      this.commitForm.get('commitMsg').value.trim(),
+      'Changes Committed',
+      'Your changes to the item have been committed to the item bank.',
+      `/?action=commit&id=${this.formItem.id}`);
   }
 
-  // TODO: Merge with rollbackEditTransaction - the two functions are nearly identical
   rollbackCreateTransaction(): void {
-    this.itemService
-      .rollbackTransaction(this.item.createTransaction.transactionId, this.item.id)
-      .subscribe(
-        () => {
-          this.alertService.success(
-            'Creation Cancelled',
-            'The item you were creating has been successfully removed.');
-
-          // Route user to dashboard
-          this.router.navigateByUrl('/');
-        }
-      );
+    this.rollbackTransaction(
+      'Creation Cancelled',
+      'The item you were creating has been successfully removed.',
+      '/');
   }
 
   rollbackEditTransaction(): void {
-    this.itemService
-      .rollbackTransaction(this.item.editTransaction.transactionId, this.item.id)
-      .subscribe(
-        () => {
-          this.alertService.success(
-            'Changes Discarded',
-            'Your changes to the item have been discarded.');
-
-          // Route user to dashboard
-          this.router.navigateByUrl(`/?action=commit&id=${this.item.id}`);
-        }
-      );
+    this.rollbackTransaction(
+      'Changes Discarded',
+      'Your changes to the item have been discarded.',
+      `/?action=commit&id=${this.item.id}`)
   }
 
   beginEditTransaction(): void {
@@ -218,57 +164,69 @@ export class ItemComponent implements OnInit {
       .beginEditTransaction(this.item.id, "Began edit")
       .subscribe(
         () => {
-          // Route user to item
-          this.router.navigateByUrl('/item-redirect/' + this.item.id);
-        }
-      );
+          this.router.navigateByUrl(`/item-redirect/${this.item.id}`);
+        });
   }
 
+  // TODO: Clean up
   isCreate(): boolean {
-    if (this.currentUser && this.item) {
-      if (this.item.createTransaction
-        && this.currentUser.username === this.item.createTransaction.username
-        && this.item.editTransaction === null) {
-        return true;
-      }
-    }
-    return false;
+    return !!(this.currentUser
+    && this.item
+    && this.item.createTransaction
+    && this.currentUser.username === this.item.createTransaction.username
+    && this.item.editTransaction === null);
+
   }
 
+  // TODO: Clean up
   isView(): boolean {
-    if (this.item) {
-      if (this.item.createTransaction === null
-        && this.item.editTransaction === null) {
-        return true;
-      }
-    }
-    return false;
+    return this.item
+      && this.item.createTransaction === null
+      && this.item.editTransaction === null;
   }
 
+  // TODO: Clean up
   isEdit(): boolean {
-    if (this.currentUser && this.item) {
-      if (this.item.editTransaction
-        && this.currentUser.username === this.item.editTransaction.username
-        && this.item.createTransaction === null) {
-        return true;
-      }
-    }
-    return false;
+    return !!(this.currentUser
+    && this.item
+    && this.item.editTransaction
+    && this.currentUser.username === this.item.editTransaction.username
+    && this.item.createTransaction === null);
+
   }
 
-  // TODO: Why isn't this the negation of isEdit?
+  // TODO: Clean up
   isNotEditable(): boolean {
-    if (this.currentUser && this.item) {
-      if (this.item.createTransaction === null
-        && this.item.editTransaction != null
-        && this.currentUser.username !== this.item.editTransaction.username) {
-        return true;
-      }
-    }
-    return false;
+    return this.currentUser
+      && this.item
+      && this.item.createTransaction === null
+      && this.item.editTransaction !== null
+      && this.currentUser.username !== this.item.editTransaction.username;
   }
 
   goHome(): void {
     this.router.navigateByUrl('/');
+  }
+
+  private commitTransaction(commitMessage: string, alertTitle: string, alertMessage: string, successUrl: string) {
+    this.itemService
+      .commitTransaction(this.formItem.currentTransaction.transactionId, this.formItem, commitMessage)
+      .subscribe(
+        () => {
+          this.alertService.success(alertTitle, alertMessage);
+          this.router.navigateByUrl(successUrl);
+        }
+      );
+  }
+
+  private rollbackTransaction(alertTitle: string, alertMessage: string, successUrl: string): void {
+    this.itemService
+      .rollbackTransaction(this.item.currentTransaction.transactionId, this.item.id)
+      .subscribe(
+        () => {
+          this.alertService.success(alertTitle, alertMessage);
+          this.router.navigateByUrl(successUrl);
+        }
+      );
   }
 }
