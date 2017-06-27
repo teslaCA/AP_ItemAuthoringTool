@@ -1,119 +1,131 @@
 <section class="main">
-  <div class="container">
+  <div *ngIf="!isLoading" class="container">
 
     <!-- Item details -->
     <div *ngIf="!isError">
-      <div *ngIf="!isNotEditable()">
-        <div *ngIf="isCreate() || isEdit() || isView()">
+      <!-- Auto-save -->
+      <item-auto-save #autoSave
+                      [enabled]="isBeingCreatedByCurrentUser || isBeingEditedByCurrentUser"
+                      [debounceTimeMillis]="3000">
+      </item-auto-save>
 
-          <!-- Auto-save -->
-          <item-auto-save
-            #autoSave
-            [enabled]="isCreate() || isEdit()"
-            [debounceTimeMillis]="3000">
-          </item-auto-save>
+      <!-- Item title -->
+      <div class="page-title">
+        <h1>
+          <span class="item-type-icon">
+            <i class="fa {{itemType.icon}}"></i>
+          </span>
+          <span class="item-type-name">{{itemType.name}}
+            <span class="item-type-abb">({{itemType.abbreviation}})</span>
+          </span>
+          <span class="item-type-mode">
+            {{mode}} Item:
+            <span class="item-type-id">{{item.id}}</span>
+          </span>
+        </h1>
+      </div>
 
-          <!-- Item title -->
-          <div class="page-title">
-            <h1>
-              <span class="item-type-icon"><i class="fa {{itemType.icon}}"></i></span>
-              <span class="item-type-name">{{itemType.name}}
-                <span class="item-type-abb">({{itemType.abbreviation}})</span></span>
-              <span class="item-type-mode">{{mode}} Item:
-                <span class="item-type-id">{{item.id}}</span></span>
-            </h1>
-          </div>
+      <!-- Left 6 columns -->
+      <div class="col-md-6">
+        <!-- Item details -->
+        <sa-item *ngIf="item.type=='sa'"
+                 [item]="item"
+                 [isView]="isBeingViewedByCurrentUser"
+                 (itemChanged)="autoSave.onItemChange($event)">
+        </sa-item>
+        <wer-item *ngIf="item.type=='wer'"
+                  [item]="item"
+                  [isView]="isBeingViewedByCurrentUser"
+                  (itemChanged)="autoSave.onItemChange($event)">
+        </wer-item>
 
-          <!-- Left 6 columns -->
-          <div class="col-md-6">
-            <!-- Item details -->
-            <sa-item
-              *ngIf="item.type=='sa'"
-              [item]="item"
-              [isView]="isView()"
-              (itemChanged)="autoSave.onItemChange($event)">
-            </sa-item>
-            <wer-item
-              *ngIf="item.type=='wer'"
-              [item]="item"
-              [isView]="isView()"
-              (itemChanged)="autoSave.onItemChange($event)">
-            </wer-item>
+        <!-- Action buttons -->
+        <div class="row">
+          <div class="col-lg-12">
+            <!-- Create -->
+            <div *ngIf="isBeingCreatedByCurrentUser">
+              <button class="btn btn-primary" (click)="commitModal.show()">
+                Create Item
+              </button>
+              <button class="btn btn-link" (click)="cancelModal.show()">
+                Cancel
+              </button>
+            </div>
 
-            <!-- Action buttons -->
-            <div class="row">
-              <div class="col-lg-12">
-                <div *ngIf="isCreate()">
-                  <button class="btn btn-primary" (click)="commitModal.show()">Create Item</button>
-                  <button class="btn btn-link" (click)="cancelModal.show()">Cancel</button>
-                </div>
-                <div *ngIf="isView()">
-                  <button class="btn btn-primary" (click)="goHome()">Done</button>
-                  <button class="btn btn-primary" (click)="beginEditTransaction()">Edit</button>
-                </div>
-                <div *ngIf="isEdit()">
-                  <button class="btn btn-primary" (click)="commitModal.show()">Commit Changes
-                  </button>
-                  <button class="btn btn-link" (click)="cancelModal.show()">Discard Changes
-                  </button>
-                </div>
-              </div>
+            <!-- Edit -->
+            <div *ngIf="isBeingEditedByCurrentUser">
+              <button class="btn btn-primary" (click)="commitModal.show()">
+                Commit Changes
+              </button>
+              <button class="btn btn-link" (click)="cancelModal.show()">
+                Discard Changes
+              </button>
+            </div>
+
+            <!-- View -->
+            <div *ngIf="isBeingViewedByCurrentUser">
+              <button class="btn btn-primary" (click)="goHome()">
+                Done
+              </button>
+              <!-- TODO: Disable this button and show name of editor if this item is being edited by another user -->
+              <button class="btn btn-primary" (click)="beginEditTransaction()" [disabled]="isBeingEditedByAnotherUser">
+                Edit
+              </button>
             </div>
           </div>
+        </div>
+      </div>
 
-          <!-- Right 6 columns -->
-          <div class="col-md-6 ">
-            <div class="item-box">
-              <!-- Item history -->
-              <item-history [itemId]="item.id"></item-history>
-            </div>
-          </div>
-
+      <!-- Right 6 columns -->
+      <div class="col-md-6 ">
+        <!-- Item details -->
+        <div class="item-box">
+          <!-- TODO: Show selected item details section -->
+          <!-- Item history -->
+          <item-history [itemId]="item.id"></item-history>
         </div>
       </div>
     </div>
 
-    <!-- Error messages -->
-    <div class="row">
+    <!-- Error message -->
+    <div class="row" *ngIf="isError">
       <div class="col-lg-12">
-        <!-- Error message -->
-        <div *ngIf="isError">
-          <alert type="danger">{{errorMessage}}</alert>
-          <p>
-            <button class="btn btn-primary" routerLink="/">Return Home</button>
-          </p>
-        </div>
-
-        <!-- "Currently being edited" message -->
-        <div *ngIf="isNotEditable()">
-          <alert type="danger">Item is currently being edited by {{item?.editTransaction?.username}}</alert>
-          <p>
-            <button class="btn btn-primary" routerLink="/">Return Home</button>
-          </p>
-        </div>
+        <alert>{{errorMessage}}</alert>
+        <p>
+          <button class="btn btn-primary" routerLink="/">
+            Return Home
+          </button>
+        </p>
       </div>
     </div>
-
   </div>
 </section>
 
-<!-- Modal -->
-<div id="commitModal" class="modal fade" bsModal #commitModal="bs-modal" [config]="{backdrop: 'static'}"
-     tabindex="-1" role="dialog">
-
-  <div class="modal-dialog" role="document">
+<!-- Commit modal -->
+<div #commitModal="bs-modal"
+     id="commitModal"
+     class="modal fade"
+     bsModal
+     [config]="{backdrop: 'static'}"
+     tabindex="-1"
+     role="dialog">
+  <div *ngIf="!isLoading" class="modal-dialog" role="document">
     <div class="modal-content">
-
+      <!-- Header -->
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="commitModal.hide()">
           <span aria-hidden="true">&times;</span>
         </button>
-        <h3 *ngIf="isCreate()" class="modal-title" id="commitCreateModalLabel">Finish Creating Item</h3>
-        <h3 *ngIf="isEdit()" class="modal-title" id="commitEditModalLabel">Commit Changes</h3>
+        <h3 *ngIf="isBeingCreatedByCurrentUser" class="modal-title" id="commitCreateModalLabel">
+          Finish Creating Item
+        </h3>
+        <h3 *ngIf="isBeingEditedByCurrentUser" class="modal-title" id="commitEditModalLabel">
+          Commit Changes
+        </h3>
       </div>
 
-
-      <div *ngIf="isCreate()">
+      <!-- Body (create) -->
+      <div *ngIf="isBeingCreatedByCurrentUser">
         <div class="modal-body">
           <span>Are you sure you want to finish creating this item and add it to the item bank?</span>
         </div>
@@ -124,7 +136,8 @@
         </div>
       </div>
 
-      <div *ngIf="isEdit()">
+      <!-- Body (edit) -->
+      <div *ngIf="isBeingEditedByCurrentUser">
         <form [formGroup]="commitForm" (submit)="commitEditTransaction()">
           <div class="modal-body">
             <div class="row">
@@ -133,7 +146,9 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-md-12">Please enter the reason for your changes to this item.</div>
+              <div class="col-md-12">
+                Please enter the reason for your changes to this item.
+              </div>
             </div>
             <div class="row">
               <div class="col-md-12">
@@ -153,6 +168,8 @@
               </div>
             </div>
           </div>
+
+          <!-- Footer -->
           <div class="modal-footer">
             <button type="submit" class="btn btn-primary btn-small" [disabled]="!commitForm.valid">
               Yes
@@ -162,37 +179,57 @@
           </div>
         </form>
       </div>
-
     </div>
   </div>
 </div>
 
-<div id="cancelModal" class="modal fade" bsModal #cancelModal="bs-modal" [config]="{backdrop: 'static'}"
-     tabindex="-1" role="dialog">
-
-  <div class="modal-dialog" role="document">
+<!-- Cancel modal -->
+<div #cancelModal="bs-modal"
+     id="cancelModal"
+     class="modal fade"
+     bsModal
+     [config]="{backdrop: 'static'}"
+     tabindex="-1"
+     role="dialog">
+  <div *ngIf="!isLoading" class="modal-dialog" role="document">
     <div class="modal-content">
+      <!-- Header -->
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="cancelModal.hide()">
           <span aria-hidden="true">&times;</span>
         </button>
-        <h3 *ngIf="isCreate()" class="modal-title" id="cancelCreateModalLabel">Cancel Item Creation</h3>
-        <h3 *ngIf="isEdit()" class="modal-title" id="cancelEditModalLabel">Discard Changes</h3>
+        <h3 *ngIf="isBeingCreatedByCurrentUser" class="modal-title" id="cancelCreateModalLabel">
+          Cancel Item Creation
+        </h3>
+        <h3 *ngIf="isBeingEditedByCurrentUser" class="modal-title" id="cancelEditModalLabel">
+          Discard Changes
+        </h3>
       </div>
+
+      <!-- Body -->
       <div class="modal-body">
-        <span
-          *ngIf="isCreate()">Are you sure you want to cancel creating this item and lose all changes you have made?</span>
-        <span
-          *ngIf="isEdit()">Are you sure you want to discard all changes you've made since you've started editing?</span>
+        <span *ngIf="isBeingCreatedByCurrentUser">
+          Are you sure you want to cancel creating this item and lose all changes you have made?
+        </span>
+        <span *ngIf="isBeingEditedByCurrentUser">
+          Are you sure you want to discard all changes you've made since you've started editing?
+        </span>
       </div>
       <div class="modal-footer">
-        <button *ngIf="isCreate()" type="button" class="btn btn-primary btn-small" (click)="rollbackCreateTransaction()">Yes
-        </button>
-        <button *ngIf="isEdit()" type="button" class="btn btn-primary btn-small" (click)="rollbackEditTransaction()">
+        <button *ngIf="isBeingCreatedByCurrentUser"
+                type="button"
+                class="btn btn-primary btn-small"
+                (click)="rollbackCreateTransaction()">
           Yes
         </button>
-        <button type="button" class="btn btn-default btn-small"
-                data-dismiss="modal" (click)="cancelModal.hide()">No
+        <button *ngIf="isBeingEditedByCurrentUser"
+                type="button"
+                class="btn btn-primary btn-small"
+                (click)="rollbackEditTransaction()">
+          Yes
+        </button>
+        <button type="button" class="btn btn-default btn-small" data-dismiss="modal" (click)="cancelModal.hide()">
+          No
         </button>
       </div>
     </div>
