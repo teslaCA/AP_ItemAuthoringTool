@@ -26,4 +26,22 @@ export abstract class Item {
   get currentTransaction(): ItemTransaction {
     return this.createTransaction || this.editTransaction;
   }
+
+  get isBeingCreated(): boolean {
+    return !!this.createTransaction;
+  }
+
+  get isBeingEdited(): boolean {
+    return !!this.editTransaction;
+  }
+
+  isBeingCreatedBy(username: string): boolean {
+    return this.isBeingCreated
+      && this.createTransaction.username === username;
+  }
+
+  isBeingEditedBy(username: string): boolean {
+    return this.isBeingEdited
+      && this.editTransaction.username === username;
+  }
 }

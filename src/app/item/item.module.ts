@@ -13,10 +13,13 @@ import {BrowserModule} from "@angular/platform-browser";
 import {RouterModule} from "@angular/router";
 import {Http, HttpModule} from "@angular/http";
 import {ItemHistoryComponent} from "./components/item/item-details/item-history/item-history.component";
-import {ItemAutoSaveComponent } from './components/item/item-auto-save/item-auto-save.component';
+import {ItemAutoSaveComponent} from "./components/item/item-auto-save/item-auto-save.component";
 import {AuthenticatedHttpService} from "../core/services/authenticated-http/authenticated-http.service";
 import {ItemHistoryService} from "./services/item-history/item-history.service";
 import {ItemService} from "./services/item/item.service";
+import {StimItemComponent} from "./components/item/item-types/stim-item/stim-item.component";
+import {ItemDetailsComponent} from "./components/item/item-details/item-details.component";
+import { ItemLinkedStimulusComponent } from './components/item/item-details/item-linked-stimulus/item-linked-stimulus.component';
 
 @NgModule({
   imports: [
@@ -31,17 +34,21 @@ import {ItemService} from "./services/item/item.service";
     ItemDashboardComponent,
     SaItemComponent,
     WerItemComponent,
+    StimItemComponent,
     ItemComponent,
     ItemRedirectComponent,
     FindItemComponent,
     CreateItemSelectTypeComponent,
     ItemHistoryComponent,
-    ItemAutoSaveComponent
+    ItemAutoSaveComponent,
+    ItemDetailsComponent,
+    ItemLinkedStimulusComponent
   ],
   exports: [
     ItemDashboardComponent,
     SaItemComponent,
     WerItemComponent,
+    StimItemComponent,
     ItemComponent,
     ItemRedirectComponent,
     FindItemComponent,

@@ -11,6 +11,7 @@ import {UserService} from "app/core/services/user/user.service";
 import {ItemType} from "../../services/item-type/item-type";
 import {WerItemComponent} from "./item-types/wer-item/wer-item.component";
 import {User} from "../../../core/services/user/user";
+import {StimItemComponent} from "./item-types/stim-item/stim-item.component";
 
 // TODO: Move nav bar message-related code into separate component (called ItemHeaderComponent)
 @Component({
@@ -23,35 +24,55 @@ export class ItemComponent implements OnInit {
   item: Item;
   itemType: ItemType;
   commitForm: FormGroup;
+  isLoading: boolean;
   isError = false;
   errorMessage: string;
   @ViewChild(SaItemComponent) saItemComponent;
+  @ViewChild(StimItemComponent) stimItemComponent;
   @ViewChild(WerItemComponent) werItemComponent;
-
-  get mode(): string {
-    if (this.isCreate()) {
-      return "Create";
-    }
-    if (this.isEdit()) {
-      return "Edit";
-    }
-    if (this.isView()) {
-      return "View";
-    }
-    return "";
-  }
 
   get formItem(): Item {
     switch (this.item.type) {
       case 'sa':
         return this.saItemComponent.item;
-
+      case 'stim':
+        return this.stimItemComponent.item;
       case 'wer':
         return this.werItemComponent.item;
-
       default:
         throw new Error(`Cannot commit changes to item of unknown type ${this.item.type}`);
     }
+  }
+
+  get mode(): string {
+    if (this.isBeingCreatedByCurrentUser) {
+      return "Create";
+    }
+    if (this.isBeingEditedByCurrentUser) {
+      return "Edit";
+    }
+    if (this.isBeingViewedByCurrentUser) {
+      return "View";
+    }
+    return "";
+  }
+
+  get isBeingCreatedByCurrentUser(): boolean {
+    return this.item.isBeingCreatedBy(this.currentUser.username);
+  }
+
+  get isBeingEditedByCurrentUser(): boolean {
+    return this.item.isBeingEditedBy(this.currentUser.username);
+  }
+
+  get isBeingViewedByCurrentUser(): boolean {
+    return !this.isBeingCreatedByCurrentUser
+      && !this.isBeingEditedByCurrentUser;
+  }
+
+  get isBeingEditedByAnotherUser(): boolean {
+    return this.item.isBeingEdited
+      && !this.item.isBeingEditedBy(this.currentUser.username);
   }
 
   constructor(private logger: Logger,
@@ -68,8 +89,10 @@ export class ItemComponent implements OnInit {
   }
 
   ngOnInit() {
-    // TODO: Use observable operators to chain / run-in-parallel these calls
+    // TODO: Use observable operators to chain / run-in-parallel these calls (also enhance busy service to handle parallel operations)
     // TODO: Add error handling for all calls (currently only findItem failure is handled)
+    this.isLoading = true;
+
     // Extract item ID from route
     this.route.params
       .subscribe(
@@ -94,6 +117,8 @@ export class ItemComponent implements OnInit {
                         .subscribe(
                           (itemType: ItemType) => {
                             this.itemType = itemType;
+
+                            this.isLoading = false;
                           });
                     },
                     error => {
@@ -164,42 +189,6 @@ export class ItemComponent implements OnInit {
         () => {
           this.router.navigateByUrl(`/item-redirect/${this.item.id}`);
         });
-  }
-
-  // TODO: Clean up
-  isCreate(): boolean {
-    return !!(this.currentUser
-    && this.item
-    && this.item.createTransaction
-    && this.currentUser.username === this.item.createTransaction.username
-    && this.item.editTransaction === null);
-
-  }
-
-  // TODO: Clean up
-  isView(): boolean {
-    return this.item
-      && this.item.createTransaction === null
-      && this.item.editTransaction === null;
-  }
-
-  // TODO: Clean up
-  isEdit(): boolean {
-    return !!(this.currentUser
-    && this.item
-    && this.item.editTransaction
-    && this.currentUser.username === this.item.editTransaction.username
-    && this.item.createTransaction === null);
-
-  }
-
-  // TODO: Clean up
-  isNotEditable(): boolean {
-    return this.currentUser
-      && this.item
-      && this.item.createTransaction === null
-      && this.item.editTransaction !== null
-      && this.currentUser.username !== this.item.editTransaction.username;
   }
 
   goHome(): void {

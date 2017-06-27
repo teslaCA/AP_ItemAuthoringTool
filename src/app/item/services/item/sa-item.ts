@@ -1,6 +1,5 @@
 import {JsonObject, JsonProperty} from "json2typescript";
-
-import {Item} from "./item";
+import {NormalItem} from "./normal-item";
 
 /**
  * SA Item model that can be mapped to/from JSON.
@@ -9,7 +8,7 @@ import {Item} from "./item";
  * See https://github.com/dhlab-basel/json2typescript for more info.
  */
 @JsonObject
-export class SaItem extends Item {
+export class SaItem extends NormalItem {
   @JsonProperty("exemplarResponses", [String])
   exemplarResponses: string[] = undefined;          // Initialize to undefined so that field is mapped
 

@@ -1,0 +1,29 @@
+<!-- Selector -->
+<div>
+  <button *ngIf="itemType.supportsHistory"
+          (click)="select('history')"
+          [disabled]="isSelected('history')"
+          type="button"
+          class="btn btn-default">
+    History
+  </button>
+  <button *ngIf="itemType.supportsLinkedStimulus"
+          (click)="select('stimulus')"
+          [disabled]="isSelected('stimulus')"
+          type="button"
+          class="btn btn-default">
+    Stimulus
+  </button>
+</div>
+
+<!-- Selection -->
+<div class="item-box">
+  <item-history *ngIf="isSelected('history')"
+                [itemId]="item.id">
+  </item-history>
+  <item-linked-stimulus *ngIf="isSelected('stimulus')"
+                        [isReadOnly]="isReadOnly"
+                        [linkedStimulusId]="linkedStimulusId"
+                        (linkedStimulusIdChanged)="onItemChanged()">
+  </item-linked-stimulus>
+</div>

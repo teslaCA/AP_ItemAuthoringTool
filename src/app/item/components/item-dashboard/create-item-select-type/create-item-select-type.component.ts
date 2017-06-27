@@ -11,7 +11,8 @@ import {Item} from "../../../services/item/item";
   styleUrls: ['./create-item-select-type.component.less']
 })
 export class CreateItemSelectTypeComponent implements OnInit {
-  public normalItemTypes: ItemType[];
+  normalItemTypes: ItemType[];
+  otherItemTypes: ItemType[];
 
   constructor(private router: Router,
               private itemService: ItemService,
@@ -25,6 +26,15 @@ export class CreateItemSelectTypeComponent implements OnInit {
       .subscribe(
         (itemTypes: ItemType[]) => {
           this.normalItemTypes = itemTypes;
+        }
+      );
+
+    // Load other item types
+    this.itemTypeService
+      .findOtherItemTypes()
+      .subscribe(
+        (itemTypes: ItemType[]) => {
+          this.otherItemTypes = itemTypes;
         }
       );
   }
