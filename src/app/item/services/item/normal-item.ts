@@ -12,8 +12,6 @@ import {Item} from "./item";
  * See https://github.com/dhlab-basel/json2typescript for more info.
  */
 export abstract class NormalItem extends Item {
-  // TODO: IAT-55 - Uncomment when IMS supports linkedStimulusId item property
-  //@JsonProperty("linkedStimulusId", String)
-  //linkedStimulusId: string = undefined;             // Initialize to undefined so that field is mapped
-  linkedStimulusId = "123456FAKE";
+  @JsonProperty("stimulusId", String)
+  stimulusId: string = undefined;             // Initialize to undefined so that field is mapped
 }

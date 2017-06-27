@@ -18,7 +18,7 @@ export class ItemDetailsComponent {
   @ViewChild(ItemLinkedStimulusComponent) itemLinkedStimulusComponent;
 
   get linkedStimulusId(): string {
-    return (this.item as NormalItem).linkedStimulusId;
+    return (this.item as NormalItem).stimulusId;
   }
 
   isSelected(detail: string): boolean {
@@ -36,7 +36,7 @@ export class ItemDetailsComponent {
   private prepareItem(): Item {
     // Capture changes to linkedStimulusId
     if (this.item instanceof NormalItem) {
-      this.item.linkedStimulusId = this.itemLinkedStimulusComponent.linkedStimulusId;
+      this.item.stimulusId = this.itemLinkedStimulusComponent.linkedStimulusId;
     }
 
     return this.item;
