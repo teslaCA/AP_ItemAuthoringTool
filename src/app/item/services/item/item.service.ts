@@ -15,7 +15,7 @@ import {ItemTransaction} from "./item-transaction";
 export class ItemService {
   private static serviceUrl = '/api/ims/v1/items';
 
-  // TODO: Remove after IMS supports STIM
+  // TODO: IAT-38 - Remove after IMS supports STIM
   fakeStimItem: StimItem;
 
   constructor(private http: Http,
@@ -36,7 +36,7 @@ export class ItemService {
    * @returns Observable containing the item with the given ID
    */
   findItem(itemId: string): Observable<Item> {
-    // TODO: Remove after IMS supports STIM
+    // TODO: IAT-38 - Remove after IMS supports STIM
     if (itemId === "123456FAKE") {
       return Observable.of(this.fakeStimItem);
     }
@@ -58,7 +58,7 @@ export class ItemService {
    * @returns Observable containing the item in its initial state
    */
   beginCreateTransaction(itemType: string, message: string): Observable<Item> {
-    // TODO: Remove after IMS supports STIM
+    // TODO: IAT-38 - Remove after IMS supports STIM
     if (itemType === "stim") {
       return Observable.of(this.fakeStimItem);
     }
@@ -81,7 +81,7 @@ export class ItemService {
    * @returns Observable containing the item in its current state
    */
   beginEditTransaction(itemId: string, message: string): Observable<Item> {
-    // TODO: Remove after IMS supports STIM
+    // TODO: IAT-38 - Remove after IMS supports STIM
     if (itemId === "123456FAKE") {
       return Observable.of(this.fakeStimItem);
     }
@@ -105,7 +105,7 @@ export class ItemService {
    * @returns Observable indicating when the update has completed
    */
   updateTransaction(transactionId: string, item: Item, message: string): Observable<void> {
-    // TODO: Remove after IMS supports STIM
+    // TODO: IAT-38 - Remove after IMS supports STIM
     if (transactionId === "123456FAKE") {
       return Observable.of(null);
     }
@@ -133,7 +133,7 @@ export class ItemService {
    * @returns Observable indicating when the transaction has been committed
    */
   commitTransaction(transactionId: string, item: Item, message: string): Observable<void> {
-    // TODO: Remove after IMS supports STIM
+    // TODO: IAT-38 - Remove after IMS supports STIM
     if (transactionId === "123456FAKE") {
       return Observable.of(null);
     }
@@ -157,7 +157,7 @@ export class ItemService {
    * @returns Observable indicating when the transaction has been rolled back
    */
   rollbackTransaction(transactionId: string, itemId: string): Observable<void> {
-    // TODO: Remove after IMS supports STIM
+    // TODO: IAT-38 - Remove after IMS supports STIM
     if (transactionId === "123456FAKE") {
       return Observable.of(null);
     }

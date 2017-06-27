@@ -9,6 +9,8 @@ export const itemTypes: ItemType[] = [
   //   icon: 'fa-list',
   //   name: 'Evidence-Based Select Response',
   //   type: 'ebsr',
+  //   supportsHistory: true,
+  //   supportsLinkedStimulus: true,
   // },
   // {
   //   abbreviation: 'EQ',
@@ -16,6 +18,8 @@ export const itemTypes: ItemType[] = [
   //   icon: 'fa-superscript',
   //   name: 'Equation',
   //   type: 'eq',
+  //   supportsHistory: true,
+  //   supportsLinkedStimulus: true,
   // },
   // {
   //   abbreviation: 'GI',
@@ -23,6 +27,8 @@ export const itemTypes: ItemType[] = [
   //   icon: 'fa-bar-chart',
   //   name: 'Grid Item',
   //   type: 'gi',
+  //   supportsHistory: true,
+  //   supportsLinkedStimulus: true,
   // },
   // {
   //   abbreviation: 'HT',
@@ -30,6 +36,8 @@ export const itemTypes: ItemType[] = [
   //   icon: 'fa-fire',
   //   name: 'Hot Text',
   //   type: 'ht',
+  //   supportsHistory: true,
+  //   supportsLinkedStimulus: true,
   // },
   // {
   //   abbreviation: 'MC',
@@ -37,6 +45,8 @@ export const itemTypes: ItemType[] = [
   //   icon: 'fa-list-ul',
   //   name: 'Multiple Choice',
   //   type: 'mc',
+  //   supportsHistory: true,
+  //   supportsLinkedStimulus: true,
   // },
   // {
   //   abbreviation: 'MS',
@@ -44,6 +54,8 @@ export const itemTypes: ItemType[] = [
   //   icon: 'fa-th-list',
   //   name: 'Multiple Select',
   //   type: 'ms',
+  //   supportsHistory: true,
+  //   supportsLinkedStimulus: true,
   // },
   // {
   //   abbreviation: 'MI',
@@ -51,6 +63,8 @@ export const itemTypes: ItemType[] = [
   //   icon: 'fa-list-ul',
   //   name: 'Match Interaction',
   //   type: 'mi',
+  //   supportsHistory: true,
+  //   supportsLinkedStimulus: true,
   // },
   {
     abbreviation: 'SA',
@@ -58,6 +72,8 @@ export const itemTypes: ItemType[] = [
     icon: 'fa-font',
     name: 'Short Answer',
     type: 'sa',
+    supportsHistory: true,
+    supportsLinkedStimulus: true,
   },
   {
     abbreviation: 'STIM',
@@ -65,6 +81,8 @@ export const itemTypes: ItemType[] = [
     icon: 'fa-commenting-o',
     name: 'Stimulus',
     type: 'stim',
+    supportsHistory: true,
+    supportsLinkedStimulus: false,
   },
   // {
   //   abbreviation: 'TI',
@@ -72,6 +90,8 @@ export const itemTypes: ItemType[] = [
   //   icon: 'fa-table',
   //   name: 'Table Interaction',
   //   type: 'ti',
+  //   supportsHistory: true,
+  //   supportsLinkedStimulus: true,
   // },
   // {
   //   abbreviation: 'TUT',
@@ -79,6 +99,8 @@ export const itemTypes: ItemType[] = [
   //   icon: 'fa-question-circle',
   //   name: 'Tutorial',
   //   type: 'tut',
+  //   supportsHistory: true,
+  //   supportsLinkedStimulus: false,
   // },
   {
     abbreviation: 'WER',
@@ -86,5 +108,7 @@ export const itemTypes: ItemType[] = [
     icon: 'fa-comments',
     name: 'Writing Extended Response',
     type: 'wer',
+    supportsHistory: true,
+    supportsLinkedStimulus: true,
   },
 ];

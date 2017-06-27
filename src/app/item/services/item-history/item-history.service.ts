@@ -23,7 +23,7 @@ export class ItemHistoryService {
    * @returns Observable of the list of changes to the item
    */
   findItemHistory(itemId: string): Observable<ItemChange[]> {
-    // TODO: Remove after IMS supports STIM
+    // TODO: IAT-38 - Remove after IMS supports STIM
     if (itemId === "123456FAKE") {
       return Observable.of([]);
     }

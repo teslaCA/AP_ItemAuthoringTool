@@ -6,4 +6,6 @@ export class ItemType {
   icon: string;               // Font Awesome icon name (http://fontawesome.io/)
   name: string;               // e.g. "Short Answer"
   type: string;               // e.g. "sa"
+  supportsHistory: boolean;
+  supportsLinkedStimulus: boolean;
 }

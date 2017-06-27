@@ -84,11 +84,12 @@
       <!-- Right 6 columns -->
       <div class="col-md-6 ">
         <!-- Item details -->
-        <div class="item-box">
-          <!-- TODO: Show selected item details section -->
-          <!-- Item history -->
-          <item-history [itemId]="item.id"></item-history>
-        </div>
+        <item-details [item]="item"
+                      [itemType]="itemType"
+                      [selected]="'history'"
+                      [isReadOnly]="isBeingViewedByCurrentUser"
+                      (itemChanged)="autoSave.onItemChange($event)">
+        </item-details>
       </div>
     </div>
 
