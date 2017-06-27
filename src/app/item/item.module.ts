@@ -17,6 +17,7 @@ import {ItemAutoSaveComponent } from './components/item/item-auto-save/item-auto
 import {AuthenticatedHttpService} from "../core/services/authenticated-http/authenticated-http.service";
 import {ItemHistoryService} from "./services/item-history/item-history.service";
 import {ItemService} from "./services/item/item.service";
+import { PromptComponent } from './components/item/shared/prompt/prompt.component';
 
 @NgModule({
   imports: [
@@ -36,7 +37,8 @@ import {ItemService} from "./services/item/item.service";
     FindItemComponent,
     CreateItemSelectTypeComponent,
     ItemHistoryComponent,
-    ItemAutoSaveComponent
+    ItemAutoSaveComponent,
+    PromptComponent
   ],
   exports: [
     ItemDashboardComponent,
