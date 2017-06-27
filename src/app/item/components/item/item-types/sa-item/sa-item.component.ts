@@ -1,19 +1,11 @@
 import {
-  AfterViewChecked,
-  AfterViewInit,
-  Component,
-  ElementRef,
-  EventEmitter,
-  Input,
-  OnChanges,
-  OnInit,
-  Output,
-  ViewChild
+  AfterViewChecked, AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit,
+  Output
 } from "@angular/core";
-import {FormArray, FormBuilder} from "@angular/forms";
+import {FormArray, FormBuilder, FormGroup} from "@angular/forms";
+import {Logger} from "../../../../../core/services/logger/logger.service";
 import {Item} from "../../../../services/item/item";
 import {SaItem} from "../../../../services/item/sa-item";
-import {PromptComponent} from "../../shared/prompt/prompt.component";
 
 // TODO: Refactor WER item component and SA item component to share common code, template, etc.
 @Component({
@@ -21,64 +13,64 @@ import {PromptComponent} from "../../shared/prompt/prompt.component";
   templateUrl: './sa-item.component.html',
   styleUrls: ['./sa-item.component.less']
 })
-export class SaItemComponent implements OnInit, OnChanges, AfterViewChecked, AfterViewInit {
-  responseForm = this.formBuilder.group({
-    responses: this.formBuilder.array([])
-  });
-  responseAdded = false;
-  deleteResponseIndex: number;
-  @Input() item: SaItem;
-  @Input() isView: boolean;
-  @Output() itemChanged = new EventEmitter<Item>();
+export class SaItemComponent implements OnInit, AfterViewChecked, AfterViewInit {
+  //---------------------------------------------------------------------------
+  // Stem fields
+  // TODO: Move to separate component
+  //---------------------------------------------------------------------------
+  stemForm: FormGroup;
 
-  @ViewChild(PromptComponent) promptComponent;
+  get itemStem(): string {
+    if (this.item) {
+      return this.item.prompt;
+    } else {
+      return '';
+    }
+  }
+
+  //---------------------------------------------------------------------------
+  // Exemplar responses fields
+  // TODO: Move to separate component
+  //---------------------------------------------------------------------------
+  private responseAdded = false;
+  responseForm: FormGroup;
+  deleteResponseIndex: number;
 
   get responses(): FormArray {
     return this.responseForm.get('responses') as FormArray;
   };
 
-  currentItem(): Item {
-    this.copyPromptFromFormIntoItem();
-    this.copyExemplarResponsesFromFormToItem();
+  //---------------------------------------------------------------------------
+  // General fields
+  //---------------------------------------------------------------------------
+  @Input() item: SaItem;
+  @Input() isView: boolean;
+  @Output() itemChanged = new EventEmitter<Item>();
 
-    return this.item;
+  //---------------------------------------------------------------------------
+  // Stem methods
+  // TODO: Move to separate component
+  //---------------------------------------------------------------------------
+  private initializeStemForm() {
+    this.stemForm = this.fb.group({
+      promptStem: ''
+    });
   }
 
-  constructor(private formBuilder: FormBuilder,
-              private element: ElementRef) {
+  private copyStemFromFormIntoItem(): void {
+    this.item.prompt = this.stemForm.get('promptStem').value;
   }
 
-  ngOnInit() {
-    // Disable the form if we're in "view" mode
-    if (this.isView) {
-      this.responseForm.disable();
-    }
-  }
-
-  ngOnChanges() {
-    // Copy model to form
-    this.copyExemplarResponsesFromItemToForm();
-  }
-
+  //---------------------------------------------------------------------------
+  // Exemplar responses methods
+  // TODO: Move to separate component
+  //---------------------------------------------------------------------------
   ngAfterViewChecked() {
     this.setFocusOnNewlyAddedResponse();
   }
 
-  ngAfterViewInit() {
-    // Wire up changes to the exemplar responses form to trigger an auto-save
-    this.responseForm.valueChanges.subscribe(
-      () => {
-        this.itemChanged.emit(this.currentItem());
-      });
-  }
-
-  onPromptChanged(prompt: string) {
-    this.item.prompt = prompt;
-    this.itemChanged.emit(this.currentItem());
-  }
-
   addResponse(value: string): void {
-    this.responses.push(this.formBuilder.group({samplecontent: value}));
+    this.responses.push(this.fb.group({samplecontent: value}));
     this.responseAdded = true;
   }
 
@@ -87,10 +79,6 @@ export class SaItemComponent implements OnInit, OnChanges, AfterViewChecked, Aft
       this.responses.removeAt(this.deleteResponseIndex);
       this.deleteResponseIndex = -1;
     }
-  }
-
-  private copyPromptFromFormIntoItem(): void {
-    this.item.prompt = this.promptComponent.value;
   }
 
   private setFocusOnNewlyAddedResponse(): void {
@@ -106,6 +94,12 @@ export class SaItemComponent implements OnInit, OnChanges, AfterViewChecked, Aft
     }
   }
 
+  private initializeExemplarResponsesForm(): void {
+    this.responseForm = this.fb.group({
+      responses: this.fb.array([])
+    });
+  }
+
   private copyExemplarResponsesFromItemToForm(): void {
     if (this.item) {
       for (const response of this.item.exemplarResponses) {
@@ -119,5 +113,46 @@ export class SaItemComponent implements OnInit, OnChanges, AfterViewChecked, Aft
     for (let i = 0; i < this.responses.length; ++i) {
       this.item.exemplarResponses.push(this.responses.at(i).get('samplecontent').value);
     }
+  }
+
+  //---------------------------------------------------------------------------
+  // General methods
+  //---------------------------------------------------------------------------
+  constructor(private logger: Logger,
+              private fb: FormBuilder,
+              private element: ElementRef) {
+    this.initializeStemForm();
+    this.initializeExemplarResponsesForm();
+  }
+
+  ngOnInit() {
+    this.copyExemplarResponsesFromItemToForm();
+
+    // Disable the form if we're in "view" mode
+    if (this.isView) {
+      this.stemForm.disable();
+      this.responseForm.disable();
+    }
+  }
+
+  ngAfterViewInit() {
+    // Wire up changes to the stem form to trigger an auto-save
+    this.stemForm.valueChanges.subscribe(
+      () => {
+        this.itemChanged.emit(this.currentItem());
+      });
+
+    // Wire up changes to the exemplar responses form to trigger an auto-save
+    this.responseForm.valueChanges.subscribe(
+      () => {
+        this.itemChanged.emit(this.currentItem());
+      });
+  }
+
+  public currentItem(): Item {
+    this.copyStemFromFormIntoItem();
+    this.copyExemplarResponsesFromFormToItem();
+
+    return this.item;
   }
 }
