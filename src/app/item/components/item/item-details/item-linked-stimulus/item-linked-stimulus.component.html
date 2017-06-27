@@ -3,7 +3,7 @@
   <div>
     Stimulus ID <span class="text-primary">{{linkedStimulusId}}</span> is linked to this item.
   </div>
-  <div>
+  <div *ngIf="!isReadOnly">
     <a (click)="unlink()" class="btn btn-link"><i class="fa fa-chain-broken"></i> Unlink stimulus</a>
   </div>
 </div>
@@ -13,7 +13,7 @@
   <div>
     No stimulus is linked to this item.
   </div>
-  <div class="form-group">
+  <div *ngIf="!isReadOnly" class="form-group">
     <form [formGroup]="form" novalidate>
       <!-- Stimulus ID input -->
       <input #stimulusId formControlName="stimulusId" title="stimulusId" type="text" placeholder="Stimulus ID">
