@@ -36,10 +36,12 @@ export abstract class Item {
   }
 
   isBeingCreatedBy(username: string): boolean {
-    return this.isBeingCreated && this.createTransaction.username === username;
+    return this.isBeingCreated
+      && this.createTransaction.username === username;
   }
 
   isBeingEditedBy(username: string): boolean {
-    return this.isBeingEdited && this.editTransaction.username === username;
+    return this.isBeingEdited
+      && this.editTransaction.username === username;
   }
 }

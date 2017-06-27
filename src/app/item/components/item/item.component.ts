@@ -56,13 +56,11 @@ export class ItemComponent implements OnInit {
   }
 
   get isBeingCreatedByCurrentUser(): boolean {
-    return this.item.isBeingCreated
-      && this.item.isBeingCreatedBy(this.currentUser.username);
+    return this.item.isBeingCreatedBy(this.currentUser.username);
   }
 
   get isBeingEditedByCurrentUser(): boolean {
-    return this.item.isBeingEdited
-      && this.item.isBeingEditedBy(this.currentUser.username);
+    return this.item.isBeingEditedBy(this.currentUser.username);
   }
 
   get isBeingViewedByCurrentUser(): boolean {
