@@ -11,6 +11,7 @@ import {UserService} from "app/core/services/user/user.service";
 import {ItemType} from "../../services/item-type/item-type";
 import {WerItemComponent} from "./item-types/wer-item/wer-item.component";
 import {User} from "../../../core/services/user/user";
+import {StimItemComponent} from "./item-types/stim-item/stim-item.component";
 
 // TODO: Move nav bar message-related code into separate component (called ItemHeaderComponent)
 @Component({
@@ -27,16 +28,17 @@ export class ItemComponent implements OnInit {
   isError = false;
   errorMessage: string;
   @ViewChild(SaItemComponent) saItemComponent;
+  @ViewChild(StimItemComponent) stimItemComponent;
   @ViewChild(WerItemComponent) werItemComponent;
 
   get formItem(): Item {
     switch (this.item.type) {
       case 'sa':
         return this.saItemComponent.item;
-
+      case 'stim':
+        return this.stimItemComponent.item;
       case 'wer':
         return this.werItemComponent.item;
-
       default:
         throw new Error(`Cannot commit changes to item of unknown type ${this.item.type}`);
     }

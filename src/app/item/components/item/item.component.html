@@ -33,6 +33,11 @@
                  [isView]="isBeingViewedByCurrentUser"
                  (itemChanged)="autoSave.onItemChange($event)">
         </sa-item>
+        <stim-item *ngIf="item.type=='stim'"
+                 [item]="item"
+                 [isView]="isBeingViewedByCurrentUser"
+                 (itemChanged)="autoSave.onItemChange($event)">
+        </stim-item>
         <wer-item *ngIf="item.type=='wer'"
                   [item]="item"
                   [isView]="isBeingViewedByCurrentUser"

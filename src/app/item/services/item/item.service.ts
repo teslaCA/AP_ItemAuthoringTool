@@ -8,13 +8,26 @@ import "rxjs/add/observable/fromPromise";
 import {Item} from "app/item/services/item/item";
 import {HttpUtility} from "../../../core/services/http-utility/http-utility";
 import {ItemFactory} from "app/item/services/item/item-factory";
+import {StimItem} from "./stim-item";
+import {ItemTransaction} from "./item-transaction";
 
 @Injectable()
 export class ItemService {
   private static serviceUrl = '/api/ims/v1/items';
 
+  // TODO: Remove after IMS supports STIM
+  fakeStimItem: StimItem;
+
   constructor(private http: Http,
               private httpUtility: HttpUtility) {
+    this.fakeStimItem = new StimItem();
+    this.fakeStimItem.passage = "Sample passage";
+    this.fakeStimItem.createTransaction = new ItemTransaction();
+    this.fakeStimItem.createTransaction.username = "rmitchell@fairwaytech.com";
+    this.fakeStimItem.createTransaction.transactionId = "123456FAKE";
+    this.fakeStimItem.editTransaction = null;
+    this.fakeStimItem.id = "123456FAKE";
+    this.fakeStimItem.type = "stim";
   }
 
   /**
@@ -23,6 +36,11 @@ export class ItemService {
    * @returns Observable containing the item with the given ID
    */
   findItem(itemId: string): Observable<Item> {
+    // TODO: Remove after IMS supports STIM
+    if (itemId === "123456FAKE") {
+      return Observable.of(this.fakeStimItem);
+    }
+
     const url = `${ItemService.serviceUrl}/${encodeURIComponent(itemId.trim())}`;
     return this.httpUtility.applyAsyncHandling(
       "Finding item",
@@ -40,6 +58,11 @@ export class ItemService {
    * @returns Observable containing the item in its initial state
    */
   beginCreateTransaction(itemType: string, message: string): Observable<Item> {
+    // TODO: Remove after IMS supports STIM
+    if (itemType === "stim") {
+      return Observable.of(this.fakeStimItem);
+    }
+
     const url = `${ItemService.serviceUrl}/transactions`;
     return this.httpUtility.applyAsyncHandling(
       "Creating item",
@@ -58,6 +81,11 @@ export class ItemService {
    * @returns Observable containing the item in its current state
    */
   beginEditTransaction(itemId: string, message: string): Observable<Item> {
+    // TODO: Remove after IMS supports STIM
+    if (itemId === "123456FAKE") {
+      return Observable.of(this.fakeStimItem);
+    }
+
     const url = `${ItemService.serviceUrl}/${itemId}/transactions`;
     return this.httpUtility.applyAsyncHandling(
       "Opening item for edit",
@@ -77,6 +105,11 @@ export class ItemService {
    * @returns Observable indicating when the update has completed
    */
   updateTransaction(transactionId: string, item: Item, message: string): Observable<void> {
+    // TODO: Remove after IMS supports STIM
+    if (transactionId === "123456FAKE") {
+      return Observable.of(null);
+    }
+
     const url = `${ItemService.serviceUrl}/${item.id}/transactions/${transactionId}`;
     return this.httpUtility.applyAsyncHandling(
       "Saving changes",
@@ -100,6 +133,11 @@ export class ItemService {
    * @returns Observable indicating when the transaction has been committed
    */
   commitTransaction(transactionId: string, item: Item, message: string): Observable<void> {
+    // TODO: Remove after IMS supports STIM
+    if (transactionId === "123456FAKE") {
+      return Observable.of(null);
+    }
+
     const url = `${ItemService.serviceUrl}/${item.id}/transactions/${transactionId}`;
     return this.httpUtility.applyAsyncHandling(
       "Committing changes",
@@ -119,6 +157,11 @@ export class ItemService {
    * @returns Observable indicating when the transaction has been rolled back
    */
   rollbackTransaction(transactionId: string, itemId: string): Observable<void> {
+    // TODO: Remove after IMS supports STIM
+    if (transactionId === "123456FAKE") {
+      return Observable.of(null);
+    }
+
     const url = `${ItemService.serviceUrl}/${itemId}/transactions/${transactionId}`;
     return this.httpUtility.applyAsyncHandling(
       "Discarding changes",

@@ -17,6 +17,7 @@ import {ItemAutoSaveComponent } from './components/item/item-auto-save/item-auto
 import {AuthenticatedHttpService} from "../core/services/authenticated-http/authenticated-http.service";
 import {ItemHistoryService} from "./services/item-history/item-history.service";
 import {ItemService} from "./services/item/item.service";
+import {StimItemComponent} from "./components/item/item-types/stim-item/stim-item.component";
 
 @NgModule({
   imports: [
@@ -31,6 +32,7 @@ import {ItemService} from "./services/item/item.service";
     ItemDashboardComponent,
     SaItemComponent,
     WerItemComponent,
+    StimItemComponent,
     ItemComponent,
     ItemRedirectComponent,
     FindItemComponent,
@@ -42,6 +44,7 @@ import {ItemService} from "./services/item/item.service";
     ItemDashboardComponent,
     SaItemComponent,
     WerItemComponent,
+    StimItemComponent,
     ItemComponent,
     ItemRedirectComponent,
     FindItemComponent,

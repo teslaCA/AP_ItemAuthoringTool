@@ -59,13 +59,13 @@ export const itemTypes: ItemType[] = [
     name: 'Short Answer',
     type: 'sa',
   },
-  // {
-  //   abbreviation: 'STIM',
-  //   category: ItemTypeCategory.OtherResource,
-  //   icon: 'fa-commenting-o',
-  //   name: 'Stimulus',
-  //   type: 'stim',
-  // },
+  {
+    abbreviation: 'STIM',
+    category: ItemTypeCategory.Other,
+    icon: 'fa-commenting-o',
+    name: 'Stimulus',
+    type: 'stim',
+  },
   // {
   //   abbreviation: 'TI',
   //   category: ItemTypeCategory.Normal,
@@ -75,7 +75,7 @@ export const itemTypes: ItemType[] = [
   // },
   // {
   //   abbreviation: 'TUT',
-  //   category: ItemTypeCategory.OtherResource,
+  //   category: ItemTypeCategory.Other,
   //   icon: 'fa-question-circle',
   //   name: 'Tutorial',
   //   type: 'tut',

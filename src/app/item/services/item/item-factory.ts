@@ -3,6 +3,7 @@ import {JsonConvert} from "json2typescript";
 import {SaItem} from "./sa-item";
 import {WerItem} from "./wer-item";
 import {Item} from "./item";
+import {StimItem} from "./stim-item";
 
 export class ItemFactory {
   /**
@@ -18,10 +19,10 @@ export class ItemFactory {
     switch (jsonObject.type) {
       case "sa":
         return JsonConvert.deserializeObject(jsonObject, SaItem);
-
+      case "stim":
+        return JsonConvert.deserializeObject(jsonObject, StimItem);
       case "wer":
         return JsonConvert.deserializeObject(jsonObject, WerItem);
-
       default:
         throw new Error(`Cannot map unsupported item type "${jsonObject.type}" from JSON "${jsonObject}"`);
     }
