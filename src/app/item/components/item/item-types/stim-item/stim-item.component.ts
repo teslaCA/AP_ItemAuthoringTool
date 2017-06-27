@@ -9,14 +9,14 @@ import {StimItem} from "../../../../services/item/stim-item";
   styleUrls: ['./stim-item.component.less']
 })
 export class StimItemComponent implements OnInit {
-  passageForm: FormGroup;
+  form: FormGroup;
   @Input() item: StimItem;
   @Input() isView: boolean;
   @Output() itemChanged = new EventEmitter<Item>();
 
   get currentItem(): StimItem {
     // Copy form to model
-    this.item.passage = this.passageForm.get('passage').value;
+    this.item.prompt = this.form.get('prompt').value;
 
     return this.item;
   }
@@ -26,17 +26,17 @@ export class StimItemComponent implements OnInit {
 
   ngOnInit() {
     // Copy model to form
-    this.passageForm = this.formBuilder.group({
-      passage: this.item.passage
+    this.form = this.formBuilder.group({
+      prompt: this.item.prompt
     });
 
     // Disable if read-only
     if (this.isView) {
-      this.passageForm.disable();
+      this.form.disable();
     }
 
     // Emit event on change
-    this.passageForm.valueChanges.subscribe(
+    this.form.valueChanges.subscribe(
       () => {
         this.itemChanged.emit(this.currentItem);
       });

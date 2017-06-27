@@ -10,6 +10,6 @@ import {Item} from "./item";
  */
 @JsonObject
 export class StimItem extends Item {
-  @JsonProperty("passage", [String])
-  passage: string = undefined;          // Initialize to undefined so that field is mapped
+  @JsonProperty("prompt", String)
+  prompt: string = undefined;          // Initialize to undefined so that field is mapped
 }
