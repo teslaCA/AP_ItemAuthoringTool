@@ -123,6 +123,7 @@ export class ItemComponent implements OnInit {
                     },
                     error => {
                       this.isError = true;
+                      this.isLoading = false;
 
                       switch (error.status) {
                         case 400:
