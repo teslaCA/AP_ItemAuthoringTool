@@ -61,10 +61,23 @@ h1 {
     text-decoration: none;
   }
 }
+.btn-tab {  /* hack for ngx-bootstrap since there is no tab dropdown */
+    background: @white;
+    border-radius: 5px 5px 0 0;
+    border: 1px solid @gray-light;
+    padding: 5px 10px;
+    margin-bottom: -1px;
+    margin-top: 5px;
+    border-bottom-color: @white;
+}
+.dropdown a {
+    padding: 6px 17px !important;
+    margin-top: 4px;
+}
 .item-box {
     border-left: 1px solid #e1e1e1;
     border-radius: 5px;
-    padding: 0 0 0 30px;
+    padding: 12px;
     margin-left: -10px;
 }
 .box{
