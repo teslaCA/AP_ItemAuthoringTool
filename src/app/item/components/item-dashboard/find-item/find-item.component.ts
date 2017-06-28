@@ -54,7 +54,7 @@ export class FindItemComponent implements OnInit {
   }
 
   handleKeypress(event: any) {
-    const pattern = /^[\s]+$/;
+    const pattern = /^[ ]+$/;
     const inputChar = String.fromCharCode(event.charCode);
     if (pattern.test(inputChar)) {
       // invalid character, prevent input
@@ -64,7 +64,7 @@ export class FindItemComponent implements OnInit {
 
   handlePaste(event: any) {
     const inputChar = event.clipboardData.getData('text/plain');
-    console.log('pasted values: ' + inputChar);
+    //console.log('pasted values: ' + inputChar);
     //Add a timeout to allow screen lifecycle to finish and new input value to render on screen
     setTimeout(() => {
       const exp = '[ ]';
