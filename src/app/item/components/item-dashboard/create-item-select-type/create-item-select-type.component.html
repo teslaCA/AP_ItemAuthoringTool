@@ -1,0 +1,45 @@
+<section class="main">
+  <div class="container">
+    <div class="well well-top">
+      <!-- Title -->
+      <h1>
+        Create Item or Stimulus
+      </h1>
+
+      <!-- Normal item types -->
+      <h4>
+        Item Types
+      </h4>
+      <div class="col btn-group btn-block">
+        <div class="row">
+          <a *ngFor="let type of normalItemTypes" (click)="createItem(type.type)">
+            <div class="btn btn-items teal">
+              <p>{{type.name}}</p>
+              <p>{{type.abbreviation}}</p>
+              <div><i class="fa {{type.icon}} fa-2x"></i></div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Other item types -->
+      <h4>
+        Other Resources
+      </h4>
+      <div class="col btn-group btn-block">
+        <div class="row">
+          <a *ngFor="let type of otherItemTypes" (click)="createItem(type.type)">
+            <div class="btn btn-items teal">
+              <p>{{type.name}}</p>
+              <p>{{type.abbreviation}}</p>
+              <div><i class="fa {{type.icon}} fa-2x"></i></div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Button -->
+      <button class="btn btn-link" [routerLink]="['/']">Cancel</button>
+    </div>
+  </div>
+</section>

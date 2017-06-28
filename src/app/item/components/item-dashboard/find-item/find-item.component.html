@@ -1,0 +1,31 @@
+<form [formGroup]="complexForm" (ngSubmit)="submitForm(complexForm.value)">
+  <div class="col-md-8">
+    <div class="input-group" [class.has-error]="complexForm.invalid">
+      <input type="text"
+             class="form-control"
+             placeholder="Item or stimulus ID"
+             pattern="^\d{10}$"
+             required
+             formControlName="query"
+             id="query"
+             [formControl]="complexForm.controls['query']"
+             (focus)="queryFocused=true"
+             (blur)="queryFocused=false"
+             (paste)="handlePaste($event)"
+             (keypress)="handleKeypress($event)"/>
+      <span class="input-group-btn">
+       <button class="btn btn-primary" type="submit" [disabled]="!complexForm.valid">
+         <i class="fa fa-search" aria-hidden="true"></i>
+         Search
+       </button>
+      </span>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div *ngIf="this.showErrorMessage(complexForm.controls['query'])">
+          <div class="label label-danger border-only">The ID must contain exactly 10 digits</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

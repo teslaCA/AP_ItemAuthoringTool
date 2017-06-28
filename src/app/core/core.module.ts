@@ -1,16 +1,16 @@
 import {NgModule} from "@angular/core";
 import {CommonModule} from "@angular/common";
 
-import {AlertService} from "./alert.service";
-import {Logger} from "./logger.service";
-import {BuildInfoService} from "./build-info.service";
-import {ItemService} from "../item/services/item.service";
-import {ItemTypeService} from "../item/services/item-type.service";
-import {UserService} from "./user.service";
+import {AlertService} from "./services/alert/alert.service";
+import {Logger} from "./services/logger/logger.service";
+import {ItemTypeService} from "../item/services/item-type/item-type.service";
+import {UserService} from "./services/user/user.service";
 import {HttpModule} from "@angular/http";
 import {AlertModule} from "ngx-bootstrap";
-import {BusyService} from "./busy.service/busy.service";
-import {BusyOverlayComponent} from "./busy.service/busy-overlay.component";
+import {BusyService} from "./services/busy/busy.service";
+import {BusyOverlayComponent} from "./services/busy/busy-overlay.component";
+import {AppInfoService} from "./services/app-info/app-info.service";
+import {HttpUtility} from "./services/http-utility/http-utility";
 
 @NgModule({
   declarations: [
@@ -26,12 +26,12 @@ import {BusyOverlayComponent} from "./busy.service/busy-overlay.component";
   ],
   providers: [
     AlertService,
-    BuildInfoService,
-    ItemService,
+    AppInfoService,
     ItemTypeService,
     BusyService,
     Logger,
-    UserService
+    UserService,
+    HttpUtility
   ]
 })
 export class CoreModule {

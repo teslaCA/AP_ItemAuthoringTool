@@ -1,0 +1,34 @@
+<!-- Linked stimulus -->
+<div *ngIf="hasLinkedStimulus">
+  <div>
+    Stimulus ID <span class="text-primary">{{linkedStimulusId}}</span> is linked to this item.
+  </div>
+  <div *ngIf="!isReadOnly">
+    <a (click)="unlink()" class="btn btn-link"><i class="fa fa-chain-broken"></i> Unlink stimulus</a>
+  </div>
+</div>
+
+<!-- No linked stimulus -->
+<div *ngIf="!hasLinkedStimulus">
+  <div>
+    No stimulus is linked to this item.
+  </div>
+  <div *ngIf="!isReadOnly" class="form-group">
+    <form [formGroup]="form" novalidate>
+      <!-- Stimulus ID input -->
+      <input #stimulusId formControlName="stimulusId" title="stimulusId" type="text" placeholder="Stimulus ID">
+
+      <!-- Enabled link button -->
+      <a *ngIf="form.valid"
+         (click)="link(stimulusId.value)"
+         class="btn btn-link">
+        <i class="fa fa-chain"></i> Link stimulus
+      </a>
+      <!-- Disabled link button -->
+      <a *ngIf="!form.valid"
+         class="btn btn-link disabled">
+        <i class="fa fa-chain"></i> Link stimulus
+      </a>
+    </form>
+  </div>
+</div>

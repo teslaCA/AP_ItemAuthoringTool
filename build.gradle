@@ -19,6 +19,7 @@ buildscript {
         springBootVersion = '1.5.2.RELEASE'
     }
     repositories {
+        mavenLocal()
         mavenCentral()
         jcenter()
     }
@@ -46,11 +47,14 @@ apply plugin: 'io.github.robwin.jgitflow'
  ***************************/
 
 repositories {
+    mavenLocal()
     mavenCentral()
     maven { url "https://repo.spring.io/milestone" }
 }
 
 dependencies {
+    compile 'org.opentestsystem.ap:ap-common:0.1.6'
+
     compile 'org.springframework.boot:spring-boot-starter-actuator'
     compile 'org.springframework.boot:spring-boot-starter-security'
     compile 'org.springframework.boot:spring-boot-starter-web'
@@ -162,7 +166,7 @@ artifactory {
     resolve {
         repository {
             repoKey = 'libs-releases'
-            maven = true
+            maven	= true
         }
     }
 }

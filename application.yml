@@ -13,12 +13,6 @@
 # working directory is the project root.
 # --------------------------------------------------------
 
-logging:
-  level:
-    org:
-      springframework:
-        web: DEBUG
-
 management:
   security:
     enabled: "false"
@@ -47,3 +41,14 @@ server:
 spring:
   thymeleaf:
     cache: false
+
+logging:
+  level:
+    org:
+      springframework:
+        web: DEBUG
+        security:
+          saml: DEBUG
+      opentestsystem:
+        ap:
+          iat: DEBUG

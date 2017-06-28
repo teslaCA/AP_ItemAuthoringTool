@@ -1,0 +1,85 @@
+<!--<div class="well">-->
+<div class="row">
+  <div class="col-lg-12">
+    <div class="form-group">
+      <h4>
+        <span>Prompt / Stem</span>
+      </h4>
+
+      <form [formGroup]="stemForm">
+        <textarea formControlName="promptStem"
+                  ngModel="{{itemStem}}"
+                  class="form-control form95"
+                  rows="6"
+                  autofocus="true"></textarea>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-12">
+    <div class="form-group">
+      <h4>
+        <span>Exemplar Responses</span>
+      </h4>
+
+      <form [formGroup]="responseForm">
+        <div formArrayName="responses">
+          <div *ngFor="let sample of responses.controls; let i=index" [formGroupName]="i">
+                        <span class="pull-right">
+                            <a *ngIf="!isView"
+                               (click)="deleteResponseIndex = i; deleteExemplarResponse.show()">
+                              <i class="fa fa-trash"></i></a>
+                        </span>
+            <textarea formControlName="samplecontent"
+                      id="samplecontent-{{i}}"
+                      class="form-control form95"
+                      rows="3"></textarea>
+          </div>
+        </div>
+      </form>
+
+      <div *ngIf="responses.length === 0">
+        <em>No exemplar responses</em>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-12">
+        <button *ngIf="!isView" class="btn btn-info" (click)="addResponse('')">
+          <i class="fa fa-plus" aria-hidden="true"></i>
+          Add Exemplar Response
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- TODO: Move dialog to separate component: DialogComponent -->
+<!-- Modal -->
+<div id="deleteExemplarResponse" class="modal fade" bsModal #deleteExemplarResponse="bs-modal"
+     [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="deleteExemplarResponseLabel">
+
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                (click)="deleteExemplarResponse.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h3 class="modal-title" id="deleteExemplarResponseLabel">Delete Exemplar Response</h3>
+      </div>
+      <div class="modal-body">
+        <span>Are you sure you want to delete this exemplar response?</span>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary btn-small"
+                (click)="removeResponse(); deleteExemplarResponse.hide()">Yes
+        </button>
+        <button type="button" class="btn btn-default btn-small" data-dismiss="modal"
+                (click)="deleteExemplarResponse.hide()">No
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

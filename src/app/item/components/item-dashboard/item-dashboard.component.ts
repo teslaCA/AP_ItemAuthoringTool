@@ -1,6 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
-import {Logger} from "../../../core/logger.service";
+import {Logger} from "../../../core/services/logger/logger.service";
 
 @Component({
   selector: 'item-dashboard',
@@ -27,9 +27,6 @@ export class ItemDashboardComponent implements OnInit {
         this.action = params['action'];
         this.id = params['id'];
       });
-
-    this.logger.debug('action: ' + this.action);
-    this.logger.debug('id: ' + this.id);
 
     if (this.action !== '') {
       this.itemUrl = '/item/' + this.id;
