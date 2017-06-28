@@ -1,6 +1,6 @@
 <form [formGroup]="complexForm" (ngSubmit)="submitForm(complexForm.value)">
   <div class="col-md-8">
-    <div class="input-group" [ngClass]="{'has-error':!complexForm.controls['query'].valid}">
+    <div class="input-group" [class.has-error]="complexForm.controls['query'].invalid">
       <input type="text"
              class="form-control"
              placeholder="Item or stimulus ID"
