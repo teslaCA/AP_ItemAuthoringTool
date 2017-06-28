@@ -5,9 +5,7 @@
       <h4>
         <span>Prompt / Stem</span>
       </h4>
-      <!--
-      TODO: Rich Text editor goes here
-      -->
+
       <form [formGroup]="stemForm">
         <textarea formControlName="promptStem"
                   ngModel="{{itemStem}}"
@@ -24,13 +22,9 @@
       <h4>
         <span>Exemplar Responses</span>
       </h4>
-      <!--
-      TODO: Rich Text editor goes here
-      -->
 
       <form [formGroup]="responseForm">
         <div formArrayName="responses">
-
           <div *ngFor="let sample of responses.controls; let i=index" [formGroupName]="i">
                         <span class="pull-right">
                             <a *ngIf="!isView"
@@ -42,9 +36,12 @@
                       class="form-control form95"
                       rows="3"></textarea>
           </div>
-
         </div>
       </form>
+
+      <div *ngIf="responses.length === 0">
+        <em>No exemplar responses</em>
+      </div>
     </div>
 
     <div class="row">
