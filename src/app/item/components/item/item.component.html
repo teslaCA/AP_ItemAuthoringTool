@@ -72,10 +72,12 @@
               <button class="btn btn-primary" (click)="goHome()">
                 Done
               </button>
-              <!-- TODO: Disable this button and show name of editor if this item is being edited by another user -->
               <button class="btn btn-primary" (click)="beginEditTransaction()" [disabled]="isBeingEditedByAnotherUser">
-                Edit
+                Edit<span *ngIf="isBeingEditedByAnotherUser">*</span>
               </button>
+              <div *ngIf="isBeingEditedByAnotherUser" class="small">
+                *Being edited by ({{item.currentTransaction.username}})
+              </div>
             </div>
           </div>
         </div>
