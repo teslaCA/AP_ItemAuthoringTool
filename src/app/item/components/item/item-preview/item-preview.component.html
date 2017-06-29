@@ -13,11 +13,12 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="previewModal.hide()">
           <span aria-hidden="true">&times;</span>
         </button>
+        <h3 class="modal-title" id="deleteExemplarResponseLabel">Item Preview</h3>
       </div>
 
       <!-- Body -->
       <div class="modal-body">
-        Preview iframe goes here
+        <iframe *ngIf="!loading" frameborder="0" height="500" width="800" [src]="getTrustedUrl()"></iframe>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default btn-small" data-dismiss="modal" (click)="previewModal.hide()">
