@@ -20,6 +20,7 @@ import {ItemService} from "./services/item/item.service";
 import {StimItemComponent} from "./components/item/item-types/stim-item/stim-item.component";
 import {ItemDetailsComponent} from "./components/item/item-details/item-details.component";
 import { ItemLinkedStimulusComponent } from './components/item/item-details/item-linked-stimulus/item-linked-stimulus.component';
+import { ItemPreviewComponent } from './components/item/item-preview/item-preview.component';
 
 @NgModule({
   imports: [
@@ -42,7 +43,8 @@ import { ItemLinkedStimulusComponent } from './components/item/item-details/item
     ItemHistoryComponent,
     ItemAutoSaveComponent,
     ItemDetailsComponent,
-    ItemLinkedStimulusComponent
+    ItemLinkedStimulusComponent,
+    ItemPreviewComponent
   ],
   exports: [
     ItemDashboardComponent,

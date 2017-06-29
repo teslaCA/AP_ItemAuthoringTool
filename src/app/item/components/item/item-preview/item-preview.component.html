@@ -1,0 +1,29 @@
+<!-- Preview modal -->
+<div #previewModal="bs-modal"
+     id="previewModal"
+     class="modal fade"
+     bsModal
+     [config]="{backdrop: 'static'}"
+     tabindex="-1"
+     role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <!-- Header -->
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="previewModal.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <!-- Body -->
+      <div class="modal-body">
+        Preview iframe goes here
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default btn-small" data-dismiss="modal" (click)="previewModal.hide()">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

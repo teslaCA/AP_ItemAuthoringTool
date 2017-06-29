@@ -22,6 +22,10 @@
             {{mode}} Item:
             <span class="item-type-id">{{item.id}}</span>
           </span>
+          <span>
+           <app-item-preview #itemPreview></app-item-preview>
+           <button class="btn btn-primary" (click)="itemPreview.showModal(item.id)">Preview</button>
+          </span>
         </h1>
       </div>
 
@@ -243,3 +247,4 @@
     </div>
   </div>
 </div>
+
