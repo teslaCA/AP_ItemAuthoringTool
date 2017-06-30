@@ -1,6 +1,6 @@
-import {Component, ViewChild} from '@angular/core';
-import {ModalDirective} from 'ngx-bootstrap';
-import {DomSanitizer} from "@angular/platform-browser";
+import {Component, ViewChild} from "@angular/core";
+import {ModalDirective} from "ngx-bootstrap";
+import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
 import {ItemRenderingService} from "../../../services/item-rendering/item-rendering.service";
 import {ItemRenderingResponse} from "../../../services/item-rendering/item-rendering-response";
 import {Logger} from "../../../../core/services/logger/logger.service";
@@ -11,34 +11,33 @@ import {Logger} from "../../../../core/services/logger/logger.service";
   styleUrls: ['./item-preview.component.less'],
 })
 export class ItemPreviewComponent {
-  isLoading: boolean;
+  showIframe: boolean;
   isError = false;
   errorMessage: string;
   itemId: string;
-  renderResponse: ItemRenderingResponse = null;
+  itemRenderUrl: SafeResourceUrl;
   @ViewChild('previewModal') modal: ModalDirective;
 
   constructor(private logger: Logger,
               private domSanitizer: DomSanitizer,
-              private itemRenderingService: ItemRenderingService) { }
+              private itemRenderingService: ItemRenderingService) {
+  }
 
   show(id: string) {
     console.log("item preview id:" + id);
     this.modal.show();
-
-    this.isLoading = true;
+    this.showIframe = false;
     this.itemId = id;
 
     //Call IRS to return Render Url
     this.itemRenderingService.renderItem(this.itemId)
       .subscribe(
         resp => {
-          this.renderResponse = resp;
+          this.handleResponse(resp);
         },
         error => {
           this.isError = true;
-          this.isLoading = false;
-
+          this.showIframe = false;
           switch (error.status) {
             case 400:
             case 404: {
@@ -64,17 +63,24 @@ export class ItemPreviewComponent {
           }
         });
 
-    this.isLoading = false;
-
   }
 
-  getTrustedUrl() {
-    let sanitizedUrl;
-    if (this.renderResponse) {
-      sanitizedUrl = this.domSanitizer.bypassSecurityTrustResourceUrl(this.renderResponse.renderUrl);
+  private handleResponse(response: ItemRenderingResponse) {
+    if (response && response.renderUrl !== '') {
+      this.itemRenderUrl = this.domSanitizer.bypassSecurityTrustResourceUrl(response.renderUrl);
+      this.isError = false;
+      this.showIframe = true;
     }
-    this.renderResponse = null;
-    return sanitizedUrl;
+    else {
+      this.isError = true;
+      this.errorMessage = 'Unable to obtain item rendering Url';
+      this.showIframe = false;
+    }
+  }
+
+  hidePreview() {
+    this.modal.hide();
+    this.showIframe = false;
   }
 
 }
