@@ -211,6 +211,7 @@ task dockerCopyFiles(type: Copy) {
         filter(ReplaceTokens, tokens: [USER_HOME                  : System.env.HOME,
                                        configServerVersion        : configServerVersion,
                                        apIMSVersion               : apIMSVersion,
+                                       apIRSVersion               : apIRSVersion,
                                        version                    : version,
                                        dockerTagBase              : dockerTagBase,
                                        samlKeyStorePassword       : project.samlKeyStorePassword,

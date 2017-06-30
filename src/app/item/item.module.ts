@@ -19,8 +19,10 @@ import {ItemHistoryService} from "./services/item-history/item-history.service";
 import {ItemService} from "./services/item/item.service";
 import {StimItemComponent} from "./components/item/item-types/stim-item/stim-item.component";
 import {ItemDetailsComponent} from "./components/item/item-details/item-details.component";
-import { ItemLinkedStimulusComponent } from './components/item/item-details/item-linked-stimulus/item-linked-stimulus.component';
-import { ItemPreviewComponent } from './components/item/item-preview/item-preview.component';
+import {ItemLinkedStimulusComponent} from './components/item/item-details/item-linked-stimulus/item-linked-stimulus.component';
+import {ItemPreviewComponent} from './components/item/item-preview/item-preview.component';
+import {ItemRenderingService} from "./services/item-rendering/item-rendering.service";
+
 
 @NgModule({
   imports: [
@@ -60,7 +62,8 @@ import { ItemPreviewComponent } from './components/item/item-preview/item-previe
   providers: [
     {provide: Http, useClass: AuthenticatedHttpService},
     ItemService,
-    ItemHistoryService
+    ItemHistoryService,
+    ItemRenderingService
   ]
 })
 export class ItemModule {

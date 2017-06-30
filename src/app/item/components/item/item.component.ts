@@ -12,7 +12,6 @@ import {ItemType} from "../../services/item-type/item-type";
 import {WerItemComponent} from "./item-types/wer-item/wer-item.component";
 import {User} from "../../../core/services/user/user";
 import {StimItemComponent} from "./item-types/stim-item/stim-item.component";
-import {ItemPreviewComponent} from "./item-preview/item-preview.component";
 
 // TODO: Move nav bar message-related code into separate component (called ItemHeaderComponent)
 @Component({
