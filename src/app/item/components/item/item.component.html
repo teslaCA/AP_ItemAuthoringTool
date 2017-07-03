@@ -3,12 +3,16 @@
 
     <!-- Item details -->
     <div *ngIf="!isError">
-      <!-- Auto-save -->
-      <item-auto-save #autoSave
-                      [enabled]="isBeingCreatedByCurrentUser || isBeingEditedByCurrentUser"
-                      [debounceTimeMillis]="3000">
-      </item-auto-save>
 
+      <!-- Auto-save -->
+      <div class="pull-right">
+        <item-preview #itemPreview></item-preview>
+        <button class="btn btn-default preview" (click)="itemPreview.show(item.id)">Preview</button>
+        <item-auto-save #autoSave
+                        [enabled]="isBeingCreatedByCurrentUser || isBeingEditedByCurrentUser"
+                        [debounceTimeMillis]="3000">
+        </item-auto-save>
+      </div>
       <!-- Item title -->
       <div class="page-title">
         <h1>

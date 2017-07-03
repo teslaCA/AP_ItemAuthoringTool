@@ -32,6 +32,9 @@ zuul:
     ims-api:
       path: /api/ims/**
       url: http://localhost:8081/api
+    irs-api:
+      path: /api/irs/**
+      url: http://localhost:8083/api
 
 # session timeout in seconds
 server:
