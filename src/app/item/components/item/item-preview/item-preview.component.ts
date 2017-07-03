@@ -4,9 +4,10 @@ import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
 import {ItemRenderingService} from "../../../services/item-rendering/item-rendering.service";
 import {ItemRenderingResponse} from "../../../services/item-rendering/item-rendering-response";
 import {Logger} from "../../../../core/services/logger/logger.service";
+import {HttpUtility} from "../../../../core/services/http-utility/http-utility";
 
 @Component({
-  selector: 'app-item-preview',
+  selector: 'item-preview',
   templateUrl: './item-preview.component.html',
   styleUrls: ['./item-preview.component.less'],
 })
@@ -20,53 +21,32 @@ export class ItemPreviewComponent {
 
   constructor(private logger: Logger,
               private domSanitizer: DomSanitizer,
-              private itemRenderingService: ItemRenderingService) {
+              private itemRenderingService: ItemRenderingService,
+              private httpUtility: HttpUtility) {
   }
 
-  show(id: string) {
-    console.log("item preview id:" + id);
+  show(itemId: string) {
+    this.logger.debug("item preview id:" + itemId);
     this.modal.show();
     this.showIframe = false;
-    this.itemId = id;
+    this.itemId = itemId;
 
     //Call IRS to return Render Url
     this.itemRenderingService.renderItem(this.itemId)
       .subscribe(
-        resp => {
-          this.handleResponse(resp);
+        response => {
+          this.handleResponse(response);
         },
         error => {
           this.isError = true;
           this.showIframe = false;
-          switch (error.status) {
-            case 400:
-            case 404: {
-              const body = error.json() || '';
-              const objMessages = JSON.parse(JSON.stringify(body));
-
-              let msgs = '';
-
-              if (objMessages instanceof Array) {
-                for (const msg of objMessages) {
-                  msgs += msg.message;
-                }
-              }
-
-              this.errorMessage = msgs;
-              break;
-            }
-            default: {
-              this.logger.error('Error Status: ' + error.status);
-              this.errorMessage = 'Internal server error';
-              break;
-            }
-          }
+          this.errorMessage = this.httpUtility.
+            getErrorMessageText(error);
         });
-
   }
 
   private handleResponse(response: ItemRenderingResponse) {
-    if (response && response.renderUrl !== '') {
+    if (response.renderUrl !== '') {
       this.itemRenderUrl = this.domSanitizer.bypassSecurityTrustResourceUrl(response.renderUrl);
       this.isError = false;
       this.showIframe = true;
@@ -81,6 +61,6 @@ export class ItemPreviewComponent {
   hidePreview() {
     this.modal.hide();
     this.showIframe = false;
+    this.isError = false;
   }
-
 }

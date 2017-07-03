@@ -65,6 +65,35 @@ export class HttpUtility {
   }
 
   /**
+   * Extract error messages into a string that is usable to display on the application
+   * @param error response. Contains an array of errors.
+   * @returns {string} containing error message descriptions
+   */
+  getErrorMessageText(error: Response | any): string {
+    let errorMessages: string;
+    switch (error.status) {
+      case 400:
+      case 404: {
+        const body = error.json() || '';
+        const objMessages = JSON.parse(JSON.stringify(body));
+        let msgs = '';
+        if (objMessages instanceof Array) {
+          for (const msg of objMessages) {
+            msgs += msg.message + ' ';
+          }
+        }
+        errorMessages = msgs;
+        break;
+      }
+      default: {
+        errorMessages = 'Internal server error';
+        break;
+      }
+    }
+    return errorMessages;
+  }
+
+  /**
    * Convert the error into a message
    * @param error to be stringified
    * @returns the stringified error message

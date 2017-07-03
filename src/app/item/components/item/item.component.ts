@@ -12,6 +12,8 @@ import {ItemType} from "../../services/item-type/item-type";
 import {WerItemComponent} from "./item-types/wer-item/wer-item.component";
 import {User} from "../../../core/services/user/user";
 import {StimItemComponent} from "./item-types/stim-item/stim-item.component";
+import {HttpUtility} from "../../../core/services/http-utility/http-utility";
+
 
 // TODO: Move nav bar message-related code into separate component (called ItemHeaderComponent)
 @Component({
@@ -75,14 +77,14 @@ export class ItemComponent implements OnInit {
       && !this.item.isBeingEditedBy(this.currentUser.username);
   }
 
-  constructor(private logger: Logger,
-              private router: Router,
+  constructor(private router: Router,
               private route: ActivatedRoute,
               private userService: UserService,
               private itemService: ItemService,
               private itemTypeService: ItemTypeService,
               private alertService: AlertService,
-              public fb: FormBuilder) {
+              public fb: FormBuilder,
+              public httpUtility: HttpUtility) {
     this.commitForm = this.fb.group({
       commitMsg: [null, Validators.required]
     });
@@ -124,30 +126,8 @@ export class ItemComponent implements OnInit {
                     error => {
                       this.isError = true;
                       this.isLoading = false;
-
-                      switch (error.status) {
-                        case 400:
-                        case 404: {
-                          const body = error.json() || '';
-                          const objMessages = JSON.parse(JSON.stringify(body));
-
-                          let msgs = '';
-
-                          if (objMessages instanceof Array) {
-                            for (const msg of objMessages) {
-                              msgs += msg.message;
-                            }
-                          }
-
-                          this.errorMessage = msgs;
-                          break;
-                        }
-                        default: {
-                          this.logger.error('Error Status: ' + error.status);
-                          this.errorMessage = 'Internal server error';
-                          break;
-                        }
-                      }
+                      this.errorMessage = this.httpUtility.
+                        getErrorMessageText(error);
                     });
               });
         });

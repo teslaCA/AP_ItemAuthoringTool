@@ -19,7 +19,7 @@ export class ItemRenderingService {
   /**
    * Calls IRS service to prepare Item content to be rendered (previewed)
    * @param itemId ID of the item to return
-   * @returns Observable containing the item with the given ID
+   * @returns Observable containing the item rendering response
    */
   renderItem(itemId: string): Observable<ItemRenderingResponse> {
     const url = `${ItemRenderingService.serviceUrl}/${encodeURIComponent(itemId.trim())}`;
@@ -30,5 +30,4 @@ export class ItemRenderingService {
         .map(response => response.json())
     );
   }
-
 }
