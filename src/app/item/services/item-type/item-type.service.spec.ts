@@ -1,7 +1,7 @@
 import {inject, TestBed} from "@angular/core/testing";
 
 import {ItemTypeService} from "./item-type.service";
-import {Logger} from "../../../core/services/logger/logger.service";
+import {Logger} from "../../../core/logger.service/logger.service";
 
 describe('ItemTypeService', () => {
   beforeEach(() => {

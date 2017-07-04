@@ -4,7 +4,7 @@ import {Observable} from "rxjs/Observable";
 import {JsonConvert} from "json2typescript";
 
 import {AppInfo} from "./app-info";
-import {HttpUtility} from "../http-utility/http-utility";
+import {HttpUtility} from "../http-utility.service/http-utility";
 
 @Injectable()
 export class AppInfoService {

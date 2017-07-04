@@ -1,6 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
-import {Logger} from "../../../core/services/logger/logger.service";
+import {Logger} from "../../../core/logger.service/logger.service";
 
 @Component({
   selector: 'item-dashboard',

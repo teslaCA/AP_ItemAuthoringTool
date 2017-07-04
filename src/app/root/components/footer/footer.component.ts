@@ -1,6 +1,6 @@
 import {Component, OnInit} from "@angular/core";
-import {AppInfoService} from "../../../core/services/app-info/app-info.service";
-import {AppInfo} from "../../../core/services/app-info/app-info";
+import {AppInfoService} from "../../../core/app-info.service/app-info.service";
+import {AppInfo} from "../../../core/app-info.service/app-info";
 
 @Component({
   selector: 'app-footer',

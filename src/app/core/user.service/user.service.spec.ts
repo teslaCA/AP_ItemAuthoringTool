@@ -2,11 +2,11 @@ import {inject, TestBed} from "@angular/core/testing";
 import {HttpModule} from "@angular/http";
 
 import {UserService} from "./user.service";
-import {Logger} from "../logger/logger.service";
-import {HttpUtility} from "../http-utility/http-utility";
+import {Logger} from "../logger.service/logger.service";
+import {HttpUtility} from "../http-utility.service/http-utility";
 import {ToastyConfig, ToastyService} from "ng2-toasty";
-import {AlertService} from "../alert/alert.service";
-import {BusyService} from "../busy/busy.service";
+import {AlertService} from "../alert.service/alert.service";
+import {BusyService} from "../busy.service/busy.service";
 
 describe('UserService', () => {
   beforeEach(() => {

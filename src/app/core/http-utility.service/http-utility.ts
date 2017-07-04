@@ -1,9 +1,9 @@
 import {Headers, RequestOptions, Response} from "@angular/http";
 
-import {Logger} from "../logger/logger.service";
+import {Logger} from "../logger.service/logger.service";
 import {Observable} from "rxjs/Observable";
-import {AlertService} from "../alert/alert.service";
-import {BusyService} from "../busy/busy.service";
+import {AlertService} from "../alert.service/alert.service";
+import {BusyService} from "../busy.service/busy.service";
 import {Injectable} from "@angular/core";
 import {Subject} from "rxjs/Subject";
 import "rxjs/add/operator/multicast";

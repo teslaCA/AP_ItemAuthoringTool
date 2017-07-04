@@ -15,9 +15,9 @@ import {ItemDashboardComponent} from "../../../item/components/item-dashboard/it
 import {SaItemComponent} from "../../../item/components/item/item-types/sa-item/sa-item.component";
 import {ToastyModule} from "ng2-toasty";
 import {FindItemComponent} from "../../../item/components/item-dashboard/find-item/find-item.component";
-import {Logger} from "../../../core/services/logger/logger.service";
-import {UserService} from "../../../core/services/user/user.service";
-import {AppInfoService} from "../../../core/services/app-info/app-info.service";
+import {Logger} from "../../../core/logger.service/logger.service";
+import {UserService} from "../../../core/user.service/user.service";
+import {AppInfoService} from "../../../core/app-info.service/app-info.service";
 import {CoreModule} from "../../../core/core.module";
 import {WerItemComponent} from "../../../item/components/item/item-types/wer-item/wer-item.component";
 

@@ -5,7 +5,7 @@ import "rxjs/add/operator/catch";
 import "rxjs/add/operator/map";
 import "rxjs/add/observable/throw";
 import "rxjs/add/observable/fromPromise";
-import {HttpUtility} from "../../../core/services/http-utility/http-utility";
+import {HttpUtility} from "../../../core/http-utility.service/http-utility";
 import {ItemRenderingResponse} from "./item-rendering-response";
 
 @Injectable()

@@ -3,16 +3,16 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ItemService} from "../../services/item/item.service";
 import {SaItemComponent} from "./item-types/sa-item/sa-item.component";
-import {Logger} from "../../../core/services/logger/logger.service";
-import {AlertService} from "../../../core/services/alert/alert.service";
+import {Logger} from "../../../core/logger.service/logger.service";
+import {AlertService} from "../../../core/alert.service/alert.service";
 import {Item} from "../../services/item/item";
 import {ItemTypeService} from "../../services/item-type/item-type.service";
-import {UserService} from "app/core/services/user/user.service";
+import {UserService} from "app/core/user.service/user.service";
 import {ItemType} from "../../services/item-type/item-type";
 import {WerItemComponent} from "./item-types/wer-item/wer-item.component";
-import {User} from "../../../core/services/user/user";
+import {User} from "../../../core/user.service/user";
 import {StimItemComponent} from "./item-types/stim-item/stim-item.component";
-import {HttpUtility} from "../../../core/services/http-utility/http-utility";
+import {HttpUtility} from "../../../core/http-utility.service/http-utility";
 
 
 // TODO: Move nav bar message-related code into separate component (called ItemHeaderComponent)

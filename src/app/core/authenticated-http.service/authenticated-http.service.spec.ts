@@ -1,7 +1,7 @@
 import { TestBed, inject } from '@angular/core/testing';
 
 import { AuthenticatedHttpService } from './authenticated-http.service';
-import {CoreModule} from "../../core.module";
+import {CoreModule} from "../core.module";
 import {ToastyConfig, ToastyService} from "ng2-toasty";
 
 describe('AuthenticatedHttpService', () => {

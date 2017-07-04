@@ -3,10 +3,10 @@ import {HttpModule} from "@angular/http";
 import {ToastyConfig, ToastyModule, ToastyService} from "ng2-toasty";
 
 import {ItemService} from "./item.service";
-import {Logger} from "../../../core/services/logger/logger.service";
-import {BusyService} from "../../../core/services/busy/busy.service";
-import {AlertService} from "../../../core/services/alert/alert.service";
-import {HttpUtility} from "../../../core/services/http-utility/http-utility";
+import {Logger} from "../../../core/logger.service/logger.service";
+import {BusyService} from "../../../core/busy.service/busy.service";
+import {AlertService} from "../../../core/alert.service/alert.service";
+import {HttpUtility} from "../../../core/http-utility.service/http-utility";
 
 describe('ItemService', () => {
   beforeEach(() => {

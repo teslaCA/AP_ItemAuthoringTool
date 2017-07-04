@@ -6,7 +6,7 @@ import "rxjs/add/operator/map";
 import "rxjs/add/observable/throw";
 import "rxjs/add/observable/fromPromise";
 import {Item} from "app/item/services/item/item";
-import {HttpUtility} from "../../../core/services/http-utility/http-utility";
+import {HttpUtility} from "../../../core/http-utility.service/http-utility";
 import {ItemFactory} from "app/item/services/item/item-factory";
 import {StimItem} from "./stim-item";
 import {ItemTransaction} from "./item-transaction";

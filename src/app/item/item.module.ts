@@ -14,7 +14,7 @@ import {RouterModule} from "@angular/router";
 import {Http, HttpModule} from "@angular/http";
 import {ItemHistoryComponent} from "./components/item/item-details/item-history/item-history.component";
 import {ItemAutoSaveComponent} from "./components/item/item-auto-save/item-auto-save.component";
-import {AuthenticatedHttpService} from "../core/services/authenticated-http/authenticated-http.service";
+import {AuthenticatedHttpService} from "../core/authenticated-http.service/authenticated-http.service";
 import {ItemHistoryService} from "./services/item-history/item-history.service";
 import {ItemService} from "./services/item/item.service";
 import {StimItemComponent} from "./components/item/item-types/stim-item/stim-item.component";

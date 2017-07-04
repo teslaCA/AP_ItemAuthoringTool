@@ -2,7 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from "@angular/core";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ItemService} from "../../../../services/item/item.service";
 import {Item} from "../../../../services/item/item";
-import {AlertService} from "../../../../../core/services/alert/alert.service";
+import {AlertService} from "../../../../../core/alert.service/alert.service";
 
 @Component({
   selector: 'item-linked-stimulus',

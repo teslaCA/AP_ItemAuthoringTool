@@ -3,8 +3,8 @@ import {ModalDirective} from "ngx-bootstrap";
 import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
 import {ItemRenderingService} from "../../../services/item-rendering/item-rendering.service";
 import {ItemRenderingResponse} from "../../../services/item-rendering/item-rendering-response";
-import {Logger} from "../../../../core/services/logger/logger.service";
-import {HttpUtility} from "../../../../core/services/http-utility/http-utility";
+import {Logger} from "../../../../core/logger.service/logger.service";
+import {HttpUtility} from "../../../../core/http-utility.service/http-utility";
 
 @Component({
   selector: 'item-preview',

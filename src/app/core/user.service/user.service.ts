@@ -4,7 +4,7 @@ import {Http} from "@angular/http";
 import {JsonConvert} from "json2typescript";
 
 import {User} from "./user";
-import {HttpUtility} from "../http-utility/http-utility";
+import {HttpUtility} from "../http-utility.service/http-utility";
 
 @Injectable()
 export class UserService {

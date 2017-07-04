@@ -6,7 +6,7 @@ import "rxjs/add/operator/map";
 import "rxjs/add/observable/throw";
 import "rxjs/add/observable/fromPromise";
 import {JsonConvert} from "json2typescript";
-import {HttpUtility} from "../../../core/services/http-utility/http-utility";
+import {HttpUtility} from "../../../core/http-utility.service/http-utility";
 import {ItemChange} from "./item-change";
 
 @Injectable()

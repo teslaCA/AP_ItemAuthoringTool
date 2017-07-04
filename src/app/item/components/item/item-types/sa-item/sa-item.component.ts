@@ -3,7 +3,7 @@ import {
   Output
 } from "@angular/core";
 import {FormArray, FormBuilder, FormGroup} from "@angular/forms";
-import {Logger} from "../../../../../core/services/logger/logger.service";
+import {Logger} from "../../../../../core/logger.service/logger.service";
 import {Item} from "../../../../services/item/item";
 import {SaItem} from "../../../../services/item/sa-item";
 
