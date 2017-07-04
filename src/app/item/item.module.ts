@@ -1,28 +1,27 @@
 import {NgModule} from "@angular/core";
 import {CommonModule} from "@angular/common";
-import {CreateItemSelectTypeComponent} from "./components/item-dashboard/create-item-select-type/create-item-select-type.component";
-import {FindItemComponent} from "./components/item-dashboard/find-item/find-item.component";
-import {ItemRedirectComponent} from "./components/item/item-redirect/item-redirect.component";
-import {ItemComponent} from "./components/item/item.component";
-import {SaItemComponent} from "./components/item/item-types/sa-item/sa-item.component";
-import {WerItemComponent} from "./components/item/item-types/wer-item/wer-item.component";
-import {ItemDashboardComponent} from "./components/item-dashboard/item-dashboard.component";
+import {CreateItemComponent} from "./dashboard/create-item.component/create-item.component";
+import {FindItemComponent} from "./dashboard/find-item.component/find-item.component";
+import {ItemRedirectComponent} from "./details/item-redirect.component/item-redirect.component";
+import {ItemDetailsComponent} from "./details/item-details.component";
+import {SaItemComponent} from "./details/types/sa-item.component/sa-item.component";
+import {WerItemComponent} from "./details/types/wer-item.component/wer-item.component";
+import {ItemDashboardComponent} from "./dashboard/item-dashboard.component";
 import {ReactiveFormsModule} from "@angular/forms";
 import {Ng2BootstrapModule} from "ngx-bootstrap";
 import {BrowserModule} from "@angular/platform-browser";
 import {RouterModule} from "@angular/router";
 import {Http, HttpModule} from "@angular/http";
-import {ItemHistoryComponent} from "./components/item/item-details/item-history/item-history.component";
-import {ItemAutoSaveComponent} from "./components/item/item-auto-save/item-auto-save.component";
+import {ItemHistoryTabComponent} from "./details/tabs/item-history-tab.component/item-history-tab.component";
+import {ItemAutoSaveComponent} from "./details/item-auto-save.component/item-auto-save.component";
 import {AuthenticatedHttpService} from "../core/authenticated-http.service/authenticated-http.service";
-import {ItemHistoryService} from "./services/item-history/item-history.service";
-import {ItemService} from "./services/item/item.service";
-import {StimItemComponent} from "./components/item/item-types/stim-item/stim-item.component";
-import {ItemDetailsComponent} from "./components/item/item-details/item-details.component";
-import {ItemLinkedStimulusComponent} from './components/item/item-details/item-linked-stimulus/item-linked-stimulus.component';
-import {ItemPreviewComponent} from './components/item/item-preview/item-preview.component';
-import {ItemRenderingService} from "./services/item-rendering/item-rendering.service";
-
+import {ItemHistoryService} from "./services/item-history.service/item-history.service";
+import {ItemService} from "./services/item.service/item.service";
+import {StimItemComponent} from "./details/types/stim-item.component/stim-item.component";
+import {ItemTabsComponent} from "./details/tabs/item-tabs.component";
+import {ItemStimulusTabComponent} from './details/tabs/item-stimulus-tab.component/item-stimulus-tab.component';
+import {ItemPreviewComponent} from './details/item-preview.component/item-preview.component';
+import {ItemPreviewService} from "./services/item-preview.service/item-preview.service";
 
 @NgModule({
   imports: [
@@ -38,14 +37,14 @@ import {ItemRenderingService} from "./services/item-rendering/item-rendering.ser
     SaItemComponent,
     WerItemComponent,
     StimItemComponent,
-    ItemComponent,
+    ItemDetailsComponent,
     ItemRedirectComponent,
     FindItemComponent,
-    CreateItemSelectTypeComponent,
-    ItemHistoryComponent,
+    CreateItemComponent,
+    ItemHistoryTabComponent,
     ItemAutoSaveComponent,
-    ItemDetailsComponent,
-    ItemLinkedStimulusComponent,
+    ItemTabsComponent,
+    ItemStimulusTabComponent,
     ItemPreviewComponent
   ],
   exports: [
@@ -53,17 +52,17 @@ import {ItemRenderingService} from "./services/item-rendering/item-rendering.ser
     SaItemComponent,
     WerItemComponent,
     StimItemComponent,
-    ItemComponent,
+    ItemDetailsComponent,
     ItemRedirectComponent,
     FindItemComponent,
-    CreateItemSelectTypeComponent,
-    ItemHistoryComponent
+    CreateItemComponent,
+    ItemHistoryTabComponent
   ],
   providers: [
     {provide: Http, useClass: AuthenticatedHttpService},
     ItemService,
     ItemHistoryService,
-    ItemRenderingService
+    ItemPreviewService
   ]
 })
 export class ItemModule {

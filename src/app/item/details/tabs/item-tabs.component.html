@@ -1,0 +1,33 @@
+<!-- Selector -->
+<div class="btn-group" dropdown>
+  <button dropdownToggle type="button" class="btn-tab dropdown-toggle">
+    <span *ngIf="isSelected('history')">History</span>
+    <span *ngIf="isSelected('stimulus')">Stimulus</span>
+    <span class="caret"></span>
+  </button>
+  <ul *dropdownMenu class="dropdown-menu" role="menu">
+    <li role="menuitem" *ngIf="itemType.supportsHistory && !isSelected('history')">
+      <a class="dropdown-item"
+         (click)="select('history')">
+        History</a>
+    </li>
+    <li role="menuitem" *ngIf="itemType.supportsLinkedStimulus && !isSelected('stimulus')">
+      <a class="dropdown-item"
+         (click)="select('stimulus')">
+        Stimulus</a>
+    </li>
+  </ul>
+</div>
+
+
+<!-- Selection -->
+<div class="item-box tab-content well">
+  <item-history-tab *ngIf="isSelected('history')"
+                    [itemId]="item.id">
+  </item-history-tab>
+  <item-stimulus-tab *ngIf="isSelected('stimulus')"
+                     [isReadOnly]="isReadOnly"
+                     [stimulusId]="linkedStimulusId"
+                     (stimulusIdChanged)="onItemChanged()">
+  </item-stimulus-tab>
+</div>

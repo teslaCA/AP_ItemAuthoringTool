@@ -3,7 +3,7 @@ import {CommonModule} from "@angular/common";
 
 import {AlertService} from "./alert.service/alert.service";
 import {Logger} from "./logger.service/logger.service";
-import {ItemTypeService} from "../item/services/item-type/item-type.service";
+import {ItemTypeService} from "../item/services/item-type.service/item-type.service";
 import {UserService} from "./user.service/user.service";
 import {HttpModule} from "@angular/http";
 import {AlertModule} from "ngx-bootstrap";
