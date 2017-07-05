@@ -14,18 +14,18 @@ export class ItemDetailsComponent {
   @Input() item: Item;
   @Input() isReadOnly: boolean;
   @Output() itemChanged = new EventEmitter<Item>();
-  @ViewChild(ItemSaDetailsComponent) saItemDetailsComponent;
-  @ViewChild(ItemStimDetailsComponent) stimItemDetailsComponent;
-  @ViewChild(ItemWerDetailsComponent) werItemDetailsComponent;
+  @ViewChild(ItemSaDetailsComponent) itemSaDetailsComponent;
+  @ViewChild(ItemStimDetailsComponent) itemStimDetailsComponent;
+  @ViewChild(ItemWerDetailsComponent) itemWerDetailsComponent;
 
   get currentItem(): Item {
     switch (this.item.type) {
       case 'sa':
-        return this.saItemDetailsComponent.item;
+        return this.itemSaDetailsComponent.item;
       case 'stim':
-        return this.stimItemDetailsComponent.item;
+        return this.itemStimDetailsComponent.item;
       case 'wer':
-        return this.werItemDetailsComponent.item;
+        return this.itemWerDetailsComponent.item;
       default:
         throw new Error(`Cannot get current item of unknown type ${this.item.type}`);
     }
