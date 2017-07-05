@@ -2,7 +2,6 @@ import {NgModule} from "@angular/core";
 import {CommonModule} from "@angular/common";
 import {ItemCreateComponent} from "./dashboard/item-create.component/item-create.component";
 import {ItemSearchComponent} from "./dashboard/item-search.component/item-search.component";
-import {ItemRedirectComponent} from "./crud/item-redirect.component/item-redirect.component";
 import {ItemCrudComponent} from "./crud/item-crud.component";
 import {ItemSaDetailsComponent} from "./crud/details/item-sa-details.component/item-sa-details.component";
 import {ItemWerDetailsComponent} from "./crud/details/item-wer-details.component/item-wer-details.component";
@@ -39,7 +38,6 @@ import {ItemDetailsComponent} from "./crud/details/item-details.component";
     ItemWerDetailsComponent,
     ItemStimDetailsComponent,
     ItemCrudComponent,
-    ItemRedirectComponent,
     ItemSearchComponent,
     ItemCreateComponent,
     ItemHistoryTabComponent,
@@ -55,7 +53,6 @@ import {ItemDetailsComponent} from "./crud/details/item-details.component";
     ItemWerDetailsComponent,
     ItemStimDetailsComponent,
     ItemCrudComponent,
-    ItemRedirectComponent,
     ItemSearchComponent,
     ItemCreateComponent,
     ItemHistoryTabComponent,

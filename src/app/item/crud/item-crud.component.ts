@@ -18,7 +18,7 @@ import {ItemDetailsComponent} from "./details/item-details.component";
   styleUrls: ['./item-crud.component.less']
 })
 export class ItemCrudComponent implements OnInit {
-  currentUser: User;      // TODO: Remove, replace all usages with call to itemService
+  currentUser: User;
   item: Item;
   itemType: ItemType;
   commitForm: FormGroup;  // TODO: Rename to "form"
@@ -72,6 +72,53 @@ export class ItemCrudComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loadItem();
+  }
+
+  commitCreateTransaction(): void {
+    this.commitTransaction(
+      'Finished item creation',
+      'Item Created',
+      'The item has been successfully created and added to the item bank.',
+      `/?action=create&id=${this.itemDetailsComponent.currentItem.id}`);
+  }
+
+  commitEditTransaction(): void {
+    this.commitTransaction(
+      this.commitForm.get('commitMsg').value.trim(),
+      'Changes Committed',
+      'Your changes to the item have been committed to the item bank.',
+      `/?action=commit&id=${this.itemDetailsComponent.currentItem.id}`);
+  }
+
+  rollbackCreateTransaction(): void {
+    this.rollbackTransaction(
+      'Creation Cancelled',
+      'The item you were creating has been successfully removed.',
+      '/');
+  }
+
+  rollbackEditTransaction(): void {
+    this.rollbackTransaction(
+      'Changes Discarded',
+      'Your changes to the item have been discarded.',
+      `/?action=commit&id=${this.item.id}`);
+  }
+
+  beginEditTransaction(): void {
+    this.itemService
+      .beginEditTransaction(this.item.id, "Began edit")
+      .subscribe(
+        () => {
+          this.loadItem();
+        });
+  }
+
+  goHome(): void {
+    this.router.navigateByUrl('/');
+  }
+
+  private loadItem() {
     // TODO: Use observable operators to chain / run-in-parallel these calls (also enhance busy service to handle parallel operations)
     // TODO: Add error handling for all calls (currently only findItem failure is handled)
     this.isLoading = true;
@@ -111,49 +158,6 @@ export class ItemCrudComponent implements OnInit {
                     });
               });
         });
-  }
-
-  commitCreateTransaction(): void {
-    this.commitTransaction(
-      'Finished item creation',
-      'Item Created',
-      'The item has been successfully created and added to the item bank.',
-      `/?action=create&id=${this.itemDetailsComponent.currentItem.id}`);
-  }
-
-  commitEditTransaction(): void {
-    this.commitTransaction(
-      this.commitForm.get('commitMsg').value.trim(),
-      'Changes Committed',
-      'Your changes to the item have been committed to the item bank.',
-      `/?action=commit&id=${this.itemDetailsComponent.currentItem.id}`);
-  }
-
-  rollbackCreateTransaction(): void {
-    this.rollbackTransaction(
-      'Creation Cancelled',
-      'The item you were creating has been successfully removed.',
-      '/');
-  }
-
-  rollbackEditTransaction(): void {
-    this.rollbackTransaction(
-      'Changes Discarded',
-      'Your changes to the item have been discarded.',
-      `/?action=commit&id=${this.item.id}`);
-  }
-
-  beginEditTransaction(): void {
-    this.itemService
-      .beginEditTransaction(this.item.id, "Began edit")
-      .subscribe(
-        () => {
-          this.router.navigateByUrl(`/item-redirect/${this.item.id}`);
-        });
-  }
-
-  goHome(): void {
-    this.router.navigateByUrl('/');
   }
 
   private commitTransaction(commitMessage: string, alertTitle: string, alertMessage: string, successUrl: string) {
