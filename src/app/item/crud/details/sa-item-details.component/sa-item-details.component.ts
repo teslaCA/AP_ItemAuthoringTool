@@ -5,15 +5,15 @@ import {
 import {FormArray, FormBuilder, FormGroup} from "@angular/forms";
 import {Logger} from "../../../../core/logger.service/logger.service";
 import {Item} from "../../../services/item.service/item";
-import {WerItem} from "../../../services/item.service/wer-item";
+import {SaItem} from "../../../services/item.service/sa-item";
 
 // TODO: Refactor WER item component and SA item component to share common code, template, etc.
 @Component({
-  selector: 'wer-item',
-  templateUrl: './wer-item.component.html',
-  styleUrls: ['./wer-item.component.less']
+  selector: 'sa-item-details',
+  templateUrl: './sa-item-details.component.html',
+  styleUrls: ['./sa-item-details.component.less']
 })
-export class WerItemComponent implements OnInit, AfterViewChecked, AfterViewInit {
+export class SaItemDetailsComponent implements OnInit, AfterViewChecked, AfterViewInit {
   //---------------------------------------------------------------------------
   // Stem fields
   // TODO: Move to separate component
@@ -43,8 +43,8 @@ export class WerItemComponent implements OnInit, AfterViewChecked, AfterViewInit
   //---------------------------------------------------------------------------
   // General fields
   //---------------------------------------------------------------------------
-  @Input() item: WerItem;
-  @Input() isView: boolean;
+  @Input() item: SaItem;
+  @Input() isReadOnly: boolean;
   @Output() itemChanged = new EventEmitter<Item>();
 
   //---------------------------------------------------------------------------
@@ -129,7 +129,7 @@ export class WerItemComponent implements OnInit, AfterViewChecked, AfterViewInit
     this.copyExemplarResponsesFromItemToForm();
 
     // Disable the form if we're in "view" mode
-    if (this.isView) {
+    if (this.isReadOnly) {
       this.stemForm.disable();
       this.responseForm.disable();
     }
@@ -149,6 +149,7 @@ export class WerItemComponent implements OnInit, AfterViewChecked, AfterViewInit
       });
   }
 
+  // TODO: Current item should be clone of input item plus changes in form.  @Input fields should be immutable.
   public currentItem(): Item {
     this.copyStemFromFormIntoItem();
     this.copyExemplarResponsesFromFormToItem();

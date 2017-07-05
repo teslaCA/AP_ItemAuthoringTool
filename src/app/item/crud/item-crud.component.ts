@@ -2,25 +2,22 @@ import {Component, OnInit, ViewChild} from "@angular/core";
 import {ActivatedRoute, Router} from "@angular/router";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ItemService} from "../services/item.service/item.service";
-import {SaItemComponent} from "./type/sa-item.component/sa-item.component";
 import {AlertService} from "../../core/alert.service/alert.service";
 import {Item} from "../services/item.service/item";
 import {ItemTypeService} from "../services/item-type.service/item-type.service";
 import {UserService} from "app/core/user.service/user.service";
 import {ItemType} from "../services/item-type.service/item-type";
-import {WerItemComponent} from "./type/wer-item.component/wer-item.component";
 import {User} from "../../core/user.service/user";
-import {StimItemComponent} from "./type/stim-item.component/stim-item.component";
 import {HttpUtility} from "../../core/http-utility.service/http-utility";
-import {ItemTypeComponent} from "./type/item-type.component";
+import {ItemDetailsComponent} from "./details/item-details.component";
 
 // TODO: Move nav bar message-related code into separate component (called ItemHeaderComponent)
 @Component({
-  selector: 'item-details',
-  templateUrl: './item-details.component.html',
-  styleUrls: ['./item-details.component.less']
+  selector: 'item-crud',
+  templateUrl: './item-crud.component.html',
+  styleUrls: ['./item-crud.component.less']
 })
-export class ItemDetailsComponent implements OnInit {
+export class ItemCrudComponent implements OnInit {
   currentUser: User;      // TODO: Remove, replace all usages with call to itemService
   item: Item;
   itemType: ItemType;
@@ -28,7 +25,7 @@ export class ItemDetailsComponent implements OnInit {
   isLoading: boolean;
   isError = false;
   errorMessage: string;
-  @ViewChild(ItemTypeComponent) itemComponent;
+  @ViewChild(ItemDetailsComponent) itemDetailsComponent;
 
   get mode(): string {
     if (this.isBeingCreatedByCurrentUser) {
@@ -121,7 +118,7 @@ export class ItemDetailsComponent implements OnInit {
       'Finished item creation',
       'Item Created',
       'The item has been successfully created and added to the item bank.',
-      `/?action=create&id=${this.itemComponent.currentItem.id}`);
+      `/?action=create&id=${this.itemDetailsComponent.currentItem.id}`);
   }
 
   commitEditTransaction(): void {
@@ -129,7 +126,7 @@ export class ItemDetailsComponent implements OnInit {
       this.commitForm.get('commitMsg').value.trim(),
       'Changes Committed',
       'Your changes to the item have been committed to the item bank.',
-      `/?action=commit&id=${this.itemComponent.currentItem.id}`);
+      `/?action=commit&id=${this.itemDetailsComponent.currentItem.id}`);
   }
 
   rollbackCreateTransaction(): void {
@@ -162,8 +159,8 @@ export class ItemDetailsComponent implements OnInit {
   private commitTransaction(commitMessage: string, alertTitle: string, alertMessage: string, successUrl: string) {
     this.itemService
       .commitTransaction(
-        this.itemComponent.currentItem.currentTransaction.transactionId,
-        this.itemComponent.currentItem,
+        this.itemDetailsComponent.currentItem.currentTransaction.transactionId,
+        this.itemDetailsComponent.currentItem,
         commitMessage)
       .subscribe(
         () => {

@@ -4,14 +4,14 @@ import {Item} from "../../../services/item.service/item";
 import {StimItem} from "../../../services/item.service/stim-item";
 
 @Component({
-  selector: 'stim-item',
-  templateUrl: './stim-item.component.html',
-  styleUrls: ['./stim-item.component.less']
+  selector: 'stim-item-details',
+  templateUrl: './stim-item-details.component.html',
+  styleUrls: ['./stim-item-details.component.less']
 })
-export class StimItemComponent implements OnInit {
+export class StimItemDetailsComponent implements OnInit {
   form: FormGroup;
   @Input() item: StimItem;
-  @Input() isView: boolean;
+  @Input() isReadOnly: boolean;
   @Output() itemChanged = new EventEmitter<Item>();
 
   get currentItem(): StimItem {
@@ -31,7 +31,7 @@ export class StimItemComponent implements OnInit {
     });
 
     // Disable if read-only
-    if (this.isView) {
+    if (this.isReadOnly) {
       this.form.disable();
     }
 

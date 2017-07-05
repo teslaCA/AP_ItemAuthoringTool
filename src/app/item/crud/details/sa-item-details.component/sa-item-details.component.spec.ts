@@ -1,13 +1,12 @@
 import {async, ComponentFixture, TestBed} from "@angular/core/testing";
+import {SaItemDetailsComponent} from "./sa-item-details.component";
+import {Logger} from "../../../../core/logger.service/logger.service";
+import {AppModule} from "../../../../app.module";
 import {APP_BASE_HREF} from "@angular/common";
-import {AppModule} from "../../app.module";
-import {Logger} from "../../core/logger.service/logger.service";
-import {AlertService} from "../../core/alert.service/alert.service";
-import {ItemDetailsComponent} from "./item-details.component";
 
-describe('ItemDetailsComponent', () => {
-  let component: ItemDetailsComponent;
-  let fixture: ComponentFixture<ItemDetailsComponent>;
+describe('SaItemDetailsComponent', () => {
+  let component: SaItemDetailsComponent;
+  let fixture: ComponentFixture<SaItemDetailsComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -17,15 +16,13 @@ describe('ItemDetailsComponent', () => {
       declarations: [],
       providers: [
         Logger,
-        AlertService,
         {provide: APP_BASE_HREF, useValue: '/'}
       ]
-    })
-      .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ItemDetailsComponent);
+    fixture = TestBed.createComponent(SaItemDetailsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

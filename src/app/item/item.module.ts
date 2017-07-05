@@ -2,27 +2,27 @@ import {NgModule} from "@angular/core";
 import {CommonModule} from "@angular/common";
 import {CreateItemComponent} from "./dashboard/create-item.component/create-item.component";
 import {FindItemComponent} from "./dashboard/find-item.component/find-item.component";
-import {ItemRedirectComponent} from "./details/item-redirect.component/item-redirect.component";
-import {ItemDetailsComponent} from "./details/item-details.component";
-import {SaItemComponent} from "./details/type/sa-item.component/sa-item.component";
-import {WerItemComponent} from "./details/type/wer-item.component/wer-item.component";
+import {ItemRedirectComponent} from "./crud/item-redirect.component/item-redirect.component";
+import {ItemCrudComponent} from "./crud/item-crud.component";
+import {SaItemDetailsComponent} from "./crud/details/sa-item-details.component/sa-item-details.component";
+import {WerItemDetailsComponent} from "./crud/details/wer-item-details.component/wer-item-details.component";
 import {ItemDashboardComponent} from "./dashboard/item-dashboard.component";
 import {ReactiveFormsModule} from "@angular/forms";
 import {Ng2BootstrapModule} from "ngx-bootstrap";
 import {BrowserModule} from "@angular/platform-browser";
 import {RouterModule} from "@angular/router";
 import {Http, HttpModule} from "@angular/http";
-import {ItemHistoryTabComponent} from "./details/tabs/item-history-tab.component/item-history-tab.component";
-import {ItemAutoSaveComponent} from "./details/item-auto-save.component/item-auto-save.component";
+import {ItemHistoryTabComponent} from "./crud/tabs/item-history-tab.component/item-history-tab.component";
+import {ItemAutoSaveComponent} from "./crud/item-auto-save.component/item-auto-save.component";
 import {AuthenticatedHttpService} from "../core/authenticated-http.service/authenticated-http.service";
 import {ItemHistoryService} from "./services/item-history.service/item-history.service";
 import {ItemService} from "./services/item.service/item.service";
-import {StimItemComponent} from "./details/type/stim-item.component/stim-item.component";
-import {ItemTabsComponent} from "./details/tabs/item-tabs.component";
-import {ItemStimulusTabComponent} from './details/tabs/item-stimulus-tab.component/item-stimulus-tab.component';
-import {ItemPreviewComponent} from './details/item-preview.component/item-preview.component';
+import {StimItemDetailsComponent} from "./crud/details/stim-item-details.component/stim-item-details.component";
+import {ItemTabsComponent} from "./crud/tabs/item-tabs.component";
+import {ItemStimulusTabComponent} from './crud/tabs/item-stimulus-tab.component/item-stimulus-tab.component';
+import {ItemPreviewComponent} from './crud/item-preview.component/item-preview.component';
 import {ItemPreviewService} from "./services/item-preview.service/item-preview.service";
-import {ItemTypeComponent} from "./details/type/item-type.component";
+import {ItemDetailsComponent} from "./crud/details/item-details.component";
 
 @NgModule({
   imports: [
@@ -35,10 +35,10 @@ import {ItemTypeComponent} from "./details/type/item-type.component";
   ],
   declarations: [
     ItemDashboardComponent,
-    SaItemComponent,
-    WerItemComponent,
-    StimItemComponent,
-    ItemDetailsComponent,
+    SaItemDetailsComponent,
+    WerItemDetailsComponent,
+    StimItemDetailsComponent,
+    ItemCrudComponent,
     ItemRedirectComponent,
     FindItemComponent,
     CreateItemComponent,
@@ -47,19 +47,19 @@ import {ItemTypeComponent} from "./details/type/item-type.component";
     ItemTabsComponent,
     ItemStimulusTabComponent,
     ItemPreviewComponent,
-    ItemTypeComponent
+    ItemDetailsComponent
   ],
   exports: [
     ItemDashboardComponent,
-    SaItemComponent,
-    WerItemComponent,
-    StimItemComponent,
-    ItemDetailsComponent,
+    SaItemDetailsComponent,
+    WerItemDetailsComponent,
+    StimItemDetailsComponent,
+    ItemCrudComponent,
     ItemRedirectComponent,
     FindItemComponent,
     CreateItemComponent,
     ItemHistoryTabComponent,
-    ItemTypeComponent
+    ItemDetailsComponent
   ],
   providers: [
     {provide: Http, useClass: AuthenticatedHttpService},

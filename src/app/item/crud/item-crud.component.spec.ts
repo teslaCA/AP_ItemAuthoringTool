@@ -1,12 +1,13 @@
 import {async, ComponentFixture, TestBed} from "@angular/core/testing";
-import {WerItemComponent} from "./wer-item.component";
 import {APP_BASE_HREF} from "@angular/common";
-import {AppModule} from "../../../../app.module";
-import {Logger} from "../../../../core/logger.service/logger.service";
+import {AppModule} from "../../app.module";
+import {Logger} from "../../core/logger.service/logger.service";
+import {AlertService} from "../../core/alert.service/alert.service";
+import {ItemCrudComponent} from "./item-crud.component";
 
-describe('WerItemComponent', () => {
-  let component: WerItemComponent;
-  let fixture: ComponentFixture<WerItemComponent>;
+describe('ItemCrudComponent', () => {
+  let component: ItemCrudComponent;
+  let fixture: ComponentFixture<ItemCrudComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -16,13 +17,15 @@ describe('WerItemComponent', () => {
       declarations: [],
       providers: [
         Logger,
+        AlertService,
         {provide: APP_BASE_HREF, useValue: '/'}
       ]
-    }).compileComponents();
+    })
+      .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(WerItemComponent);
+    fixture = TestBed.createComponent(ItemCrudComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

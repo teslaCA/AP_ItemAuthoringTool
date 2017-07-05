@@ -31,10 +31,10 @@
       <!-- Left 6 columns -->
       <div class="col-md-6">
         <!-- Item type details -->
-        <item-type [item]="item"
-                   [isReadOnly]="isBeingViewedByCurrentUser"
-                   (itemChanged)="autoSave.onItemChange($event)">
-        </item-type>
+        <item-details [item]="item"
+                      [isReadOnly]="isBeingViewedByCurrentUser"
+                      (itemChanged)="autoSave.onItemChange($event)">
+        </item-details>
 
         <!-- Action buttons -->
         <div class="row">

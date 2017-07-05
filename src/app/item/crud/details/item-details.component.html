@@ -1,0 +1,15 @@
+<sa-item-details *ngIf="item.type=='sa'"
+                 [item]="item"
+                 [isReadOnly]="isReadOnly"
+                 (itemChanged)="onItemChanged($event)">
+</sa-item-details>
+<stim-item-details *ngIf="item.type=='stim'"
+                   [item]="item"
+                   [isReadOnly]="isReadOnly"
+                   (itemChanged)="onItemChanged($event)">
+</stim-item-details>
+<wer-item-details *ngIf="item.type=='wer'"
+                  [item]="item"
+                  [isReadOnly]="isReadOnly"
+                  (itemChanged)="onItemChanged($event)">
+</wer-item-details>

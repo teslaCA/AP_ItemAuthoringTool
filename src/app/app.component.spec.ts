@@ -12,8 +12,8 @@ import {ToastyModule} from "ng2-toasty";
 import {AppFooterComponent} from "./app-footer.component/app-footer.component";
 import {ItemDashboardComponent} from "./item/dashboard/item-dashboard.component";
 import {CreateItemComponent} from "./item/dashboard/create-item.component/create-item.component";
-import {SaItemComponent} from "./item/details/type/sa-item.component/sa-item.component";
-import {WerItemComponent} from "./item/details/type/wer-item.component/wer-item.component";
+import {SaItemDetailsComponent} from "./item/crud/details/sa-item-details.component/sa-item-details.component";
+import {WerItemDetailsComponent} from "./item/crud/details/wer-item-details.component/wer-item-details.component";
 import {FindItemComponent} from "./item/dashboard/find-item.component/find-item.component";
 import {AppInfoService} from "./core/app-info.service/app-info.service";
 import {Logger} from "./core/logger.service/logger.service";
@@ -33,8 +33,8 @@ describe('AppComponent', () => {
         AppFooterComponent,
         ItemDashboardComponent,
         CreateItemComponent,
-        SaItemComponent,
-        WerItemComponent,
+        SaItemDetailsComponent,
+        WerItemDetailsComponent,
         FindItemComponent
       ],
       providers: [

@@ -27,7 +27,7 @@
         <div formArrayName="responses">
           <div *ngFor="let sample of responses.controls; let i=index" [formGroupName]="i">
                         <span class="pull-right">
-                            <a *ngIf="!isView"
+                            <a *ngIf="!isReadOnly"
                                (click)="deleteResponseIndex = i; deleteExemplarResponse.show()">
                               <i class="fa fa-trash"></i></a>
                         </span>
@@ -46,7 +46,7 @@
 
     <div class="row">
       <div class="col-lg-12">
-        <button *ngIf="!isView" class="btn btn-info" (click)="addResponse('')">
+        <button *ngIf="!isReadOnly" class="btn btn-info" (click)="addResponse('')">
           <i class="fa fa-plus" aria-hidden="true"></i>
           Add Exemplar Response
         </button>
