@@ -4,11 +4,11 @@ import {Item} from "../../../services/item.service/item";
 import {StimItem} from "../../../services/item.service/stim-item";
 
 @Component({
-  selector: 'stim-item-details',
-  templateUrl: './stim-item-details.component.html',
-  styleUrls: ['./stim-item-details.component.less']
+  selector: 'item-stim-details',
+  templateUrl: './item-stim-details.component.html',
+  styleUrls: ['./item-stim-details.component.less']
 })
-export class StimItemDetailsComponent implements OnInit {
+export class ItemStimDetailsComponent implements OnInit {
   form: FormGroup;
   @Input() item: StimItem;
   @Input() isReadOnly: boolean;

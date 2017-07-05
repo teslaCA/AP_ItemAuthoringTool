@@ -6,11 +6,11 @@ import {AbstractControl, FormBuilder, FormControl, FormGroup} from "@angular/for
 import {isNumeric} from "rxjs/util/isNumeric";
 
 @Component({
-  selector: 'find-item',
-  templateUrl: './find-item.component.html',
-  styleUrls: ['./find-item.component.less'],
+  selector: 'item-search',
+  templateUrl: './item-search.component.html',
+  styleUrls: ['./item-search.component.less'],
 })
-export class FindItemComponent implements OnInit {
+export class ItemSearchComponent implements OnInit {
   complexForm: FormGroup;
   SPECIAL_CHARS = '~!@#$%^&*()';
   queryFocused = false;

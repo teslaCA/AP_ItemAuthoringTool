@@ -9,11 +9,11 @@ import {SaItem} from "../../../services/item.service/sa-item";
 
 // TODO: Refactor WER item component and SA item component to share common code, template, etc.
 @Component({
-  selector: 'sa-item-details',
-  templateUrl: './sa-item-details.component.html',
-  styleUrls: ['./sa-item-details.component.less']
+  selector: 'item-sa-details',
+  templateUrl: './item-sa-details.component.html',
+  styleUrls: ['./item-sa-details.component.less']
 })
-export class SaItemDetailsComponent implements OnInit, AfterViewChecked, AfterViewInit {
+export class ItemSaDetailsComponent implements OnInit, AfterViewChecked, AfterViewInit {
   //---------------------------------------------------------------------------
   // Stem fields
   // TODO: Move to separate component

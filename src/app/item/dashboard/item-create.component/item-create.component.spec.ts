@@ -1,6 +1,6 @@
 import {async, TestBed} from "@angular/core/testing";
 import {HttpModule} from "@angular/http";
-import {CreateItemComponent} from "./create-item.component";
+import {ItemCreateComponent} from "./item-create.component";
 import {AppInfoService} from "../../../core/app-info.service/app-info.service";
 import {RouterTestingModule} from "@angular/router/testing";
 import {Logger} from "../../../core/logger.service/logger.service";
@@ -10,12 +10,12 @@ import {ToastyConfig, ToastyService} from "ng2-toasty";
 import {CoreModule} from "../../../core/core.module";
 import {ItemService} from "../../services/item.service/item.service";
 
-describe('CreateItemComponent', () => {
+describe('ItemCreateComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        CreateItemComponent
+        ItemCreateComponent
       ],
       imports: [
         CoreModule,
@@ -35,7 +35,7 @@ describe('CreateItemComponent', () => {
   }));
 
   it('should be created', () => {
-    const fixture = TestBed.createComponent(CreateItemComponent);
+    const fixture = TestBed.createComponent(ItemCreateComponent);
     const app = fixture.debugElement.componentInstance;
     expect(app).toBeTruthy();
   });

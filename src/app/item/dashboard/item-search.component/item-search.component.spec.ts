@@ -3,11 +3,11 @@ import {RouterTestingModule} from "@angular/router/testing";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {AlertService} from "../../../core/alert.service/alert.service";
 import {Logger} from "../../../core/logger.service/logger.service";
-import {FindItemComponent} from "./find-item.component";
+import {ItemSearchComponent} from "./item-search.component";
 import {ToastyConfig, ToastyService} from "ng2-toasty";
 import {CoreModule} from "../../../core/core.module";
 
-describe('FindItemComponent', () => {
+describe('ItemSearchComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -17,7 +17,7 @@ describe('FindItemComponent', () => {
         FormsModule
       ],
       declarations: [
-        FindItemComponent
+        ItemSearchComponent
       ],
       providers: [
         Logger,
@@ -30,7 +30,7 @@ describe('FindItemComponent', () => {
   }));
 
   it('should be created', () => {
-    const fixture = TestBed.createComponent(FindItemComponent);
+    const fixture = TestBed.createComponent(ItemSearchComponent);
     const app = fixture.debugElement.componentInstance;
     expect(app).toBeTruthy();
   });

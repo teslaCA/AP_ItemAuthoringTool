@@ -1,9 +1,9 @@
 import {Component, EventEmitter, Input, Output, ViewChild} from "@angular/core";
 
 import {Item} from "../../services/item.service/item";
-import {SaItemDetailsComponent} from "./sa-item-details.component/sa-item-details.component";
-import {StimItemDetailsComponent} from "./stim-item-details.component/stim-item-details.component";
-import {WerItemDetailsComponent} from "./wer-item-details.component/wer-item-details.component";
+import {ItemSaDetailsComponent} from "./item-sa-details.component/item-sa-details.component";
+import {ItemStimDetailsComponent} from "./item-stim-details.component/item-stim-details.component";
+import {ItemWerDetailsComponent} from "./item-wer-details.component/item-wer-details.component";
 
 @Component({
   selector: 'item-details',
@@ -14,9 +14,9 @@ export class ItemDetailsComponent {
   @Input() item: Item;
   @Input() isReadOnly: boolean;
   @Output() itemChanged = new EventEmitter<Item>();
-  @ViewChild(SaItemDetailsComponent) saItemDetailsComponent;
-  @ViewChild(StimItemDetailsComponent) stimItemDetailsComponent;
-  @ViewChild(WerItemDetailsComponent) werItemDetailsComponent;
+  @ViewChild(ItemSaDetailsComponent) saItemDetailsComponent;
+  @ViewChild(ItemStimDetailsComponent) stimItemDetailsComponent;
+  @ViewChild(ItemWerDetailsComponent) werItemDetailsComponent;
 
   get currentItem(): Item {
     switch (this.item.type) {

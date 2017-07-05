@@ -1,11 +1,11 @@
 import {NgModule} from "@angular/core";
 import {CommonModule} from "@angular/common";
-import {CreateItemComponent} from "./dashboard/create-item.component/create-item.component";
-import {FindItemComponent} from "./dashboard/find-item.component/find-item.component";
+import {ItemCreateComponent} from "./dashboard/item-create.component/item-create.component";
+import {ItemSearchComponent} from "./dashboard/item-search.component/item-search.component";
 import {ItemRedirectComponent} from "./crud/item-redirect.component/item-redirect.component";
 import {ItemCrudComponent} from "./crud/item-crud.component";
-import {SaItemDetailsComponent} from "./crud/details/sa-item-details.component/sa-item-details.component";
-import {WerItemDetailsComponent} from "./crud/details/wer-item-details.component/wer-item-details.component";
+import {ItemSaDetailsComponent} from "./crud/details/item-sa-details.component/item-sa-details.component";
+import {ItemWerDetailsComponent} from "./crud/details/item-wer-details.component/item-wer-details.component";
 import {ItemDashboardComponent} from "./dashboard/item-dashboard.component";
 import {ReactiveFormsModule} from "@angular/forms";
 import {Ng2BootstrapModule} from "ngx-bootstrap";
@@ -17,7 +17,7 @@ import {ItemAutoSaveComponent} from "./crud/item-auto-save.component/item-auto-s
 import {AuthenticatedHttpService} from "../core/authenticated-http.service/authenticated-http.service";
 import {ItemHistoryService} from "./services/item-history.service/item-history.service";
 import {ItemService} from "./services/item.service/item.service";
-import {StimItemDetailsComponent} from "./crud/details/stim-item-details.component/stim-item-details.component";
+import {ItemStimDetailsComponent} from "./crud/details/item-stim-details.component/item-stim-details.component";
 import {ItemTabsComponent} from "./crud/tabs/item-tabs.component";
 import {ItemStimulusTabComponent} from './crud/tabs/item-stimulus-tab.component/item-stimulus-tab.component';
 import {ItemPreviewComponent} from './crud/item-preview.component/item-preview.component';
@@ -35,13 +35,13 @@ import {ItemDetailsComponent} from "./crud/details/item-details.component";
   ],
   declarations: [
     ItemDashboardComponent,
-    SaItemDetailsComponent,
-    WerItemDetailsComponent,
-    StimItemDetailsComponent,
+    ItemSaDetailsComponent,
+    ItemWerDetailsComponent,
+    ItemStimDetailsComponent,
     ItemCrudComponent,
     ItemRedirectComponent,
-    FindItemComponent,
-    CreateItemComponent,
+    ItemSearchComponent,
+    ItemCreateComponent,
     ItemHistoryTabComponent,
     ItemAutoSaveComponent,
     ItemTabsComponent,
@@ -51,13 +51,13 @@ import {ItemDetailsComponent} from "./crud/details/item-details.component";
   ],
   exports: [
     ItemDashboardComponent,
-    SaItemDetailsComponent,
-    WerItemDetailsComponent,
-    StimItemDetailsComponent,
+    ItemSaDetailsComponent,
+    ItemWerDetailsComponent,
+    ItemStimDetailsComponent,
     ItemCrudComponent,
     ItemRedirectComponent,
-    FindItemComponent,
-    CreateItemComponent,
+    ItemSearchComponent,
+    ItemCreateComponent,
     ItemHistoryTabComponent,
     ItemDetailsComponent
   ],

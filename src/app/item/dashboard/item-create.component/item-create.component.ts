@@ -6,11 +6,11 @@ import {Router} from "@angular/router";
 import {Item} from "../../services/item.service/item";
 
 @Component({
-  selector: 'create-item',
-  templateUrl: './create-item.component.html',
-  styleUrls: ['./create-item.component.less']
+  selector: 'item-create',
+  templateUrl: './item-create.component.html',
+  styleUrls: ['./item-create.component.less']
 })
-export class CreateItemComponent implements OnInit {
+export class ItemCreateComponent implements OnInit {
   normalItemTypes: ItemType[];
   otherItemTypes: ItemType[];
 
