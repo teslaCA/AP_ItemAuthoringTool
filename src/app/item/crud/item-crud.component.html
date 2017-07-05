@@ -3,9 +3,11 @@
     <div *ngIf="!isError">
 
       <!-- Auto-save -->
-      <div class="pull-right">
+      <div *ngIf="!isStimulusItem" class="pull-right">
         <item-preview #itemPreview></item-preview>
         <button class="btn btn-default preview" (click)="itemPreview.show(item.id)">Preview</button>
+      </div>
+      <div class="pull-right">
         <item-auto-save #autoSave
                         [enabled]="isBeingCreatedByCurrentUser || isBeingEditedByCurrentUser"
                         [debounceTimeMillis]="3000">
