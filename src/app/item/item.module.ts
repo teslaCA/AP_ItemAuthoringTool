@@ -1,25 +1,28 @@
 import {NgModule} from "@angular/core";
 import {CommonModule} from "@angular/common";
-import {CreateItemSelectTypeComponent} from "./components/item-dashboard/create-item-select-type/create-item-select-type.component";
-import {FindItemComponent} from "./components/item-dashboard/find-item/find-item.component";
-import {ItemRedirectComponent} from "./components/item/item-redirect/item-redirect.component";
-import {ItemComponent} from "./components/item/item.component";
-import {SaItemComponent} from "./components/item/item-types/sa-item/sa-item.component";
-import {WerItemComponent} from "./components/item/item-types/wer-item/wer-item.component";
-import {ItemDashboardComponent} from "./components/item-dashboard/item-dashboard.component";
+import {ItemCreateComponent} from "./dashboard/item-create.component/item-create.component";
+import {ItemSearchComponent} from "./dashboard/item-search.component/item-search.component";
+import {ItemRedirectComponent} from "./crud/item-redirect.component/item-redirect.component";
+import {ItemCrudComponent} from "./crud/item-crud.component";
+import {ItemSaDetailsComponent} from "./crud/details/item-sa-details.component/item-sa-details.component";
+import {ItemWerDetailsComponent} from "./crud/details/item-wer-details.component/item-wer-details.component";
+import {ItemDashboardComponent} from "./dashboard/item-dashboard.component";
 import {ReactiveFormsModule} from "@angular/forms";
 import {Ng2BootstrapModule} from "ngx-bootstrap";
 import {BrowserModule} from "@angular/platform-browser";
 import {RouterModule} from "@angular/router";
 import {Http, HttpModule} from "@angular/http";
-import {ItemHistoryComponent} from "./components/item/item-details/item-history/item-history.component";
-import {ItemAutoSaveComponent} from "./components/item/item-auto-save/item-auto-save.component";
-import {AuthenticatedHttpService} from "../core/services/authenticated-http/authenticated-http.service";
-import {ItemHistoryService} from "./services/item-history/item-history.service";
-import {ItemService} from "./services/item/item.service";
-import {StimItemComponent} from "./components/item/item-types/stim-item/stim-item.component";
-import {ItemDetailsComponent} from "./components/item/item-details/item-details.component";
-import { ItemLinkedStimulusComponent } from './components/item/item-details/item-linked-stimulus/item-linked-stimulus.component';
+import {ItemHistoryTabComponent} from "./crud/tabs/item-history-tab.component/item-history-tab.component";
+import {ItemAutoSaveComponent} from "./crud/item-auto-save.component/item-auto-save.component";
+import {AuthenticatedHttpService} from "../core/authenticated-http.service/authenticated-http.service";
+import {ItemHistoryService} from "./services/item-history.service/item-history.service";
+import {ItemService} from "./services/item.service/item.service";
+import {ItemStimDetailsComponent} from "./crud/details/item-stim-details.component/item-stim-details.component";
+import {ItemTabsComponent} from "./crud/tabs/item-tabs.component";
+import {ItemStimulusTabComponent} from './crud/tabs/item-stimulus-tab.component/item-stimulus-tab.component';
+import {ItemPreviewComponent} from './crud/item-preview.component/item-preview.component';
+import {ItemPreviewService} from "./services/item-preview.service/item-preview.service";
+import {ItemDetailsComponent} from "./crud/details/item-details.component";
 
 @NgModule({
   imports: [
@@ -32,33 +35,37 @@ import { ItemLinkedStimulusComponent } from './components/item/item-details/item
   ],
   declarations: [
     ItemDashboardComponent,
-    SaItemComponent,
-    WerItemComponent,
-    StimItemComponent,
-    ItemComponent,
+    ItemSaDetailsComponent,
+    ItemWerDetailsComponent,
+    ItemStimDetailsComponent,
+    ItemCrudComponent,
     ItemRedirectComponent,
-    FindItemComponent,
-    CreateItemSelectTypeComponent,
-    ItemHistoryComponent,
+    ItemSearchComponent,
+    ItemCreateComponent,
+    ItemHistoryTabComponent,
     ItemAutoSaveComponent,
-    ItemDetailsComponent,
-    ItemLinkedStimulusComponent
+    ItemTabsComponent,
+    ItemStimulusTabComponent,
+    ItemPreviewComponent,
+    ItemDetailsComponent
   ],
   exports: [
     ItemDashboardComponent,
-    SaItemComponent,
-    WerItemComponent,
-    StimItemComponent,
-    ItemComponent,
+    ItemSaDetailsComponent,
+    ItemWerDetailsComponent,
+    ItemStimDetailsComponent,
+    ItemCrudComponent,
     ItemRedirectComponent,
-    FindItemComponent,
-    CreateItemSelectTypeComponent,
-    ItemHistoryComponent
+    ItemSearchComponent,
+    ItemCreateComponent,
+    ItemHistoryTabComponent,
+    ItemDetailsComponent
   ],
   providers: [
     {provide: Http, useClass: AuthenticatedHttpService},
     ItemService,
-    ItemHistoryService
+    ItemHistoryService,
+    ItemPreviewService
   ]
 })
 export class ItemModule {

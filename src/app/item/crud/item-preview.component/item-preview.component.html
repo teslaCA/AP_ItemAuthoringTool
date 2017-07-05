@@ -1,0 +1,35 @@
+<div #previewModal="bs-modal"
+     id="previewModal"
+     class="modal fade"
+     bsModal
+     [config]="{backdrop: 'static'}"
+     tabindex="-1"
+     role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <!-- Header -->
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="hidePreview()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h3 class="modal-title" id="deleteExemplarResponseLabel">Item Preview</h3>
+      </div>
+      <!-- Body -->
+      <div class="modal-body">
+        <iframe *ngIf="showIframe" frameborder="0" height="500" width="800" [src]="itemRenderUrl"></iframe>
+        <!-- Error message -->
+        <div class="row" *ngIf="isError">
+          <div class="col-lg-12">
+            <alert>{{errorMessage}}</alert>
+          </div>
+        </div>
+      </div>
+      <!-- Footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default btn-small" data-dismiss="modal" (click)="hidePreview()">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
