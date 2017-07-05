@@ -4,8 +4,8 @@ import {CreateItemComponent} from "./dashboard/create-item.component/create-item
 import {FindItemComponent} from "./dashboard/find-item.component/find-item.component";
 import {ItemRedirectComponent} from "./details/item-redirect.component/item-redirect.component";
 import {ItemDetailsComponent} from "./details/item-details.component";
-import {SaItemComponent} from "./details/types/sa-item.component/sa-item.component";
-import {WerItemComponent} from "./details/types/wer-item.component/wer-item.component";
+import {SaItemComponent} from "./details/type/sa-item.component/sa-item.component";
+import {WerItemComponent} from "./details/type/wer-item.component/wer-item.component";
 import {ItemDashboardComponent} from "./dashboard/item-dashboard.component";
 import {ReactiveFormsModule} from "@angular/forms";
 import {Ng2BootstrapModule} from "ngx-bootstrap";
@@ -17,11 +17,12 @@ import {ItemAutoSaveComponent} from "./details/item-auto-save.component/item-aut
 import {AuthenticatedHttpService} from "../core/authenticated-http.service/authenticated-http.service";
 import {ItemHistoryService} from "./services/item-history.service/item-history.service";
 import {ItemService} from "./services/item.service/item.service";
-import {StimItemComponent} from "./details/types/stim-item.component/stim-item.component";
+import {StimItemComponent} from "./details/type/stim-item.component/stim-item.component";
 import {ItemTabsComponent} from "./details/tabs/item-tabs.component";
 import {ItemStimulusTabComponent} from './details/tabs/item-stimulus-tab.component/item-stimulus-tab.component';
 import {ItemPreviewComponent} from './details/item-preview.component/item-preview.component';
 import {ItemPreviewService} from "./services/item-preview.service/item-preview.service";
+import {ItemTypeComponent} from "./details/type/item-type.component";
 
 @NgModule({
   imports: [
@@ -45,7 +46,8 @@ import {ItemPreviewService} from "./services/item-preview.service/item-preview.s
     ItemAutoSaveComponent,
     ItemTabsComponent,
     ItemStimulusTabComponent,
-    ItemPreviewComponent
+    ItemPreviewComponent,
+    ItemTypeComponent
   ],
   exports: [
     ItemDashboardComponent,
@@ -56,7 +58,8 @@ import {ItemPreviewService} from "./services/item-preview.service/item-preview.s
     ItemRedirectComponent,
     FindItemComponent,
     CreateItemComponent,
-    ItemHistoryTabComponent
+    ItemHistoryTabComponent,
+    ItemTypeComponent
   ],
   providers: [
     {provide: Http, useClass: AuthenticatedHttpService},

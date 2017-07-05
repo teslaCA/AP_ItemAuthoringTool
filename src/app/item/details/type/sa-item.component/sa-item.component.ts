@@ -149,6 +149,7 @@ export class SaItemComponent implements OnInit, AfterViewChecked, AfterViewInit 
       });
   }
 
+  // TODO: Current item should be clone of input item plus changes in form.  @Input fields should be immutable.
   public currentItem(): Item {
     this.copyStemFromFormIntoItem();
     this.copyExemplarResponsesFromFormToItem();

@@ -2,16 +2,17 @@ import {Component, OnInit, ViewChild} from "@angular/core";
 import {ActivatedRoute, Router} from "@angular/router";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ItemService} from "../services/item.service/item.service";
-import {SaItemComponent} from "./types/sa-item.component/sa-item.component";
+import {SaItemComponent} from "./type/sa-item.component/sa-item.component";
 import {AlertService} from "../../core/alert.service/alert.service";
 import {Item} from "../services/item.service/item";
 import {ItemTypeService} from "../services/item-type.service/item-type.service";
 import {UserService} from "app/core/user.service/user.service";
 import {ItemType} from "../services/item-type.service/item-type";
-import {WerItemComponent} from "./types/wer-item.component/wer-item.component";
+import {WerItemComponent} from "./type/wer-item.component/wer-item.component";
 import {User} from "../../core/user.service/user";
-import {StimItemComponent} from "./types/stim-item.component/stim-item.component";
+import {StimItemComponent} from "./type/stim-item.component/stim-item.component";
 import {HttpUtility} from "../../core/http-utility.service/http-utility";
+import {ItemTypeComponent} from "./type/item-type.component";
 
 // TODO: Move nav bar message-related code into separate component (called ItemHeaderComponent)
 @Component({
@@ -20,29 +21,14 @@ import {HttpUtility} from "../../core/http-utility.service/http-utility";
   styleUrls: ['./item-details.component.less']
 })
 export class ItemDetailsComponent implements OnInit {
-  currentUser: User;
+  currentUser: User;      // TODO: Remove, replace all usages with call to itemService
   item: Item;
   itemType: ItemType;
-  commitForm: FormGroup;
+  commitForm: FormGroup;  // TODO: Rename to "form"
   isLoading: boolean;
   isError = false;
   errorMessage: string;
-  @ViewChild(SaItemComponent) saItemComponent;
-  @ViewChild(StimItemComponent) stimItemComponent;
-  @ViewChild(WerItemComponent) werItemComponent;
-
-  get formItem(): Item {
-    switch (this.item.type) {
-      case 'sa':
-        return this.saItemComponent.item;
-      case 'stim':
-        return this.stimItemComponent.item;
-      case 'wer':
-        return this.werItemComponent.item;
-      default:
-        throw new Error(`Cannot commit changes to item of unknown type ${this.item.type}`);
-    }
-  }
+  @ViewChild(ItemTypeComponent) itemComponent;
 
   get mode(): string {
     if (this.isBeingCreatedByCurrentUser) {
@@ -135,7 +121,7 @@ export class ItemDetailsComponent implements OnInit {
       'Finished item creation',
       'Item Created',
       'The item has been successfully created and added to the item bank.',
-      `/?action=create&id=${this.formItem.id}`);
+      `/?action=create&id=${this.itemComponent.currentItem.id}`);
   }
 
   commitEditTransaction(): void {
@@ -143,7 +129,7 @@ export class ItemDetailsComponent implements OnInit {
       this.commitForm.get('commitMsg').value.trim(),
       'Changes Committed',
       'Your changes to the item have been committed to the item bank.',
-      `/?action=commit&id=${this.formItem.id}`);
+      `/?action=commit&id=${this.itemComponent.currentItem.id}`);
   }
 
   rollbackCreateTransaction(): void {
@@ -175,7 +161,10 @@ export class ItemDetailsComponent implements OnInit {
 
   private commitTransaction(commitMessage: string, alertTitle: string, alertMessage: string, successUrl: string) {
     this.itemService
-      .commitTransaction(this.formItem.currentTransaction.transactionId, this.formItem, commitMessage)
+      .commitTransaction(
+        this.itemComponent.currentItem.currentTransaction.transactionId,
+        this.itemComponent.currentItem,
+        commitMessage)
       .subscribe(
         () => {
           this.alertService.success(alertTitle, alertMessage);
