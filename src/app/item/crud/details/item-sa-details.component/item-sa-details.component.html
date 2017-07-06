@@ -2,6 +2,7 @@
 <div class="row">
   <div class="col-lg-12">
     <item-prompt [isReadOnly]="isReadOnly"
+                 [rows]="6"
                  [prompt]="item.prompt"
                  (promptChange)="onItemChange()">
     </item-prompt>
