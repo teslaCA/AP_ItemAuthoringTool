@@ -1,16 +1,11 @@
 <div class="row">
   <div class="col-lg-12">
-    <div class="form-group">
-      <h4>
-        <span>Content</span>
-      </h4>
-      <form [formGroup]="form">
-        <textarea formControlName="prompt"
-                  title="Content"
-                  class="form-control form95"
-                  rows="12"
-                  autofocus></textarea>
-      </form>
-    </div>
+    <item-labeled-textarea [label]="'Content'"
+                           [rows]="12"
+                           [isFocused]="true"
+                           [isReadOnly]="isReadOnly"
+                           [text]="item.prompt"
+                           (textChange)="onItemChange()">
+    </item-labeled-textarea>
   </div>
 </div>

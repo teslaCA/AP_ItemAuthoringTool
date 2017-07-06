@@ -18,10 +18,11 @@ import {ItemHistoryService} from "./services/item-history.service/item-history.s
 import {ItemService} from "./services/item.service/item.service";
 import {ItemStimDetailsComponent} from "./crud/details/item-stim-details.component/item-stim-details.component";
 import {ItemTabsComponent} from "./crud/tabs/item-tabs.component";
-import {ItemStimulusTabComponent} from './crud/tabs/item-stimulus-tab.component/item-stimulus-tab.component';
-import {ItemPreviewComponent} from './crud/item-preview.component/item-preview.component';
+import {ItemStimulusTabComponent} from "./crud/tabs/item-stimulus-tab.component/item-stimulus-tab.component";
+import {ItemPreviewComponent} from "./crud/item-preview.component/item-preview.component";
 import {ItemPreviewService} from "./services/item-preview.service/item-preview.service";
 import {ItemDetailsComponent} from "./crud/details/item-details.component";
+import {ItemLabeledTextAreaComponent} from "./crud/details/shared/item-labeled-textarea.component/item-labeled-textarea.component";
 
 @NgModule({
   imports: [
@@ -45,7 +46,8 @@ import {ItemDetailsComponent} from "./crud/details/item-details.component";
     ItemTabsComponent,
     ItemStimulusTabComponent,
     ItemPreviewComponent,
-    ItemDetailsComponent
+    ItemDetailsComponent,
+    ItemLabeledTextAreaComponent
   ],
   exports: [
     ItemDashboardComponent,
@@ -56,7 +58,8 @@ import {ItemDetailsComponent} from "./crud/details/item-details.component";
     ItemSearchComponent,
     ItemCreateComponent,
     ItemHistoryTabComponent,
-    ItemDetailsComponent
+    ItemDetailsComponent,
+    ItemLabeledTextAreaComponent
   ],
   providers: [
     {provide: Http, useClass: AuthenticatedHttpService},

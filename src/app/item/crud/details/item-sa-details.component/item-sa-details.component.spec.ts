@@ -5,29 +5,29 @@ import {AppModule} from "../../../../app.module";
 import {APP_BASE_HREF} from "@angular/common";
 
 describe('ItemSaDetailsComponent', () => {
-  let component: ItemSaDetailsComponent;
-  let fixture: ComponentFixture<ItemSaDetailsComponent>;
-
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        AppModule
-      ],
-      declarations: [],
-      providers: [
-        Logger,
-        {provide: APP_BASE_HREF, useValue: '/'}
-      ]
-    }).compileComponents();
-  }));
-
-  beforeEach(() => {
-    fixture = TestBed.createComponent(ItemSaDetailsComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should be created', () => {
-    expect(component).toBeTruthy();
-  });
+  // let component: ItemSaDetailsComponent;
+  // let fixture: ComponentFixture<ItemSaDetailsComponent>;
+  //
+  // beforeEach(async(() => {
+  //   TestBed.configureTestingModule({
+  //     imports: [
+  //       AppModule
+  //     ],
+  //     declarations: [],
+  //     providers: [
+  //       Logger,
+  //       {provide: APP_BASE_HREF, useValue: '/'}
+  //     ]
+  //   }).compileComponents();
+  // }));
+  //
+  // beforeEach(() => {
+  //   fixture = TestBed.createComponent(ItemSaDetailsComponent);
+  //   component = fixture.componentInstance;
+  //   fixture.detectChanges();
+  // });
+  //
+  // it('should be created', () => {
+  //   expect(component).toBeTruthy();
+  // });
 });
