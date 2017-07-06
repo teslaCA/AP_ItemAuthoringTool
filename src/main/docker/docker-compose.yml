@@ -101,7 +101,7 @@ services:
           redis-server:
             condition: service_healthy
         volumes:
-            - @USER_HOME@/smarter_app:/tmp
+            - @USER_HOME@:/tmp
         logging:
             driver: json-file
 #    ap-iat-service:
