@@ -7,8 +7,9 @@ import {FormBuilder} from "@angular/forms";
   styleUrls: ['./item-prompt.component.less']
 })
 export class ItemPromptComponent implements OnChanges {
-  @Input() readonly isReadOnly: boolean;
+  @Input() readonly label: string;
   @Input() readonly rows: number;
+  @Input() readonly isReadOnly: boolean;
   @Input() readonly prompt: string;
   @Output() readonly promptChange = new EventEmitter<string>();
   readonly form = this.formBuilder.group({
