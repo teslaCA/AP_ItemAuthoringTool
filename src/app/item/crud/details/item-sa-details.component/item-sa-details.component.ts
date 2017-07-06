@@ -1,11 +1,12 @@
 import {
   AfterViewChecked, AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit,
-  Output
+  Output, ViewChild
 } from "@angular/core";
 import {FormArray, FormBuilder, FormGroup} from "@angular/forms";
 import {Logger} from "../../../../core/logger.service/logger.service";
 import {Item} from "../../../services/item.service/item";
 import {SaItem} from "../../../services/item.service/sa-item";
+import {ItemPromptComponent} from "../shared/item-prompt.component/item-prompt.component";
 
 // TODO: Refactor WER item component and SA item component to share common code, template, etc.
 @Component({
@@ -46,6 +47,11 @@ export class ItemSaDetailsComponent implements OnInit, AfterViewChecked, AfterVi
   @Input() item: SaItem;
   @Input() isReadOnly: boolean;
   @Output() itemChanged = new EventEmitter<Item>();
+  @ViewChild(ItemPromptComponent) itemPromptComponent;
+
+  onItemChange() {
+    this.itemChanged.emit(this.currentItem())
+  }
 
   //---------------------------------------------------------------------------
   // Stem methods
@@ -58,7 +64,7 @@ export class ItemSaDetailsComponent implements OnInit, AfterViewChecked, AfterVi
   }
 
   private copyStemFromFormIntoItem(): void {
-    this.item.prompt = this.stemForm.get('promptStem').value;
+    this.item.prompt = this.itemPromptComponent.currentPrompt;
   }
 
   //---------------------------------------------------------------------------
