@@ -10,6 +10,7 @@ import {ItemType} from "../services/item-type.service/item-type";
 import {User} from "../../core/user.service/user";
 import {HttpUtility} from "../../core/http-utility.service/http-utility";
 import {ItemDetailsComponent} from "./details/item-details.component";
+import {itemTypes} from "../services/item-type.service/item-types";
 
 // TODO: Move nav bar message-related code into separate component (called ItemHeaderComponent)
 @Component({
@@ -56,6 +57,10 @@ export class ItemCrudComponent implements OnInit {
   get isBeingEditedByAnotherUser(): boolean {
     return this.item.isBeingEdited
       && !this.item.isBeingEditedBy(this.currentUser.username);
+  }
+
+  get isStimulusItem(): boolean {
+    return this.item.type === 'stim';
   }
 
   constructor(private router: Router,
