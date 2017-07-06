@@ -2,23 +2,23 @@ import {Component, EventEmitter, Input, OnChanges, Output} from "@angular/core";
 import {FormBuilder} from "@angular/forms";
 
 @Component({
-  selector: 'item-prompt',
-  templateUrl: './item-prompt.component.html',
-  styleUrls: ['./item-prompt.component.less']
+  selector: 'item-labeled-textarea',
+  templateUrl: './item-labeled-textarea.component.html',
+  styleUrls: ['./item-labeled-textarea.component.less']
 })
-export class ItemPromptComponent implements OnChanges {
+export class ItemLabeledTextAreaComponent implements OnChanges {
   @Input() readonly label: string;
   @Input() readonly rows: number;
   @Input() readonly isReadOnly: boolean;
-  @Input() readonly isAutoFocus: boolean;
-  @Input() readonly prompt: string;
-  @Output() readonly promptChange = new EventEmitter<string>();
+  @Input() readonly isFocused: boolean;   // TODO: Fix focus (consider https://www.npmjs.com/package/angular2-focus)
+  @Input() readonly text: string;
+  @Output() readonly textChange = new EventEmitter<string>();
   readonly form = this.formBuilder.group({
-    prompt: ''
+    text: ''
   });
 
-  get currentPrompt(): string {
-    return this.form.value.prompt;
+  get currentText(): string {
+    return this.form.value.text;
   }
 
   constructor(private formBuilder: FormBuilder) {
@@ -27,7 +27,7 @@ export class ItemPromptComponent implements OnChanges {
   ngOnChanges() {
     // Reset form data and flags
     this.form.reset({
-      prompt: this.prompt
+      text: this.text
     });
 
     // Disable form if read-only
@@ -35,10 +35,10 @@ export class ItemPromptComponent implements OnChanges {
       this.form.disable();
     }
 
-    // Wire up to fire event on changes
+    // Fire event on changes
     this.form.valueChanges.subscribe(
       () => {
-        this.promptChange.emit(this.currentPrompt);
+        this.textChange.emit(this.currentText);
       });
   }
 }

@@ -1,12 +1,18 @@
 import {
-  AfterViewChecked, AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit,
-  Output, ViewChild
+  AfterViewChecked,
+  AfterViewInit,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild
 } from "@angular/core";
 import {FormArray, FormBuilder, FormGroup} from "@angular/forms";
-import {Logger} from "../../../../core/logger.service/logger.service";
 import {Item} from "../../../services/item.service/item";
 import {SaItem} from "../../../services/item.service/sa-item";
-import {ItemPromptComponent} from "../shared/item-prompt.component/item-prompt.component";
+import {ItemLabeledTextAreaComponent} from "../shared/item-labeled-textarea.component/item-labeled-textarea.component";
 
 // TODO: Refactor WER item component and SA item component to share common code, template, etc.
 @Component({
@@ -18,7 +24,7 @@ export class ItemSaDetailsComponent implements OnInit, AfterViewChecked, AfterVi
   @Input() item: SaItem;
   @Input() isReadOnly: boolean;
   @Output() itemChanged = new EventEmitter<Item>();
-  @ViewChild(ItemPromptComponent) itemPromptComponent;
+  @ViewChild(ItemLabeledTextAreaComponent) itemPromptComponent;
   private responseAdded = false;
   responseForm: FormGroup;
   deleteResponseIndex: number;
@@ -63,7 +69,7 @@ export class ItemSaDetailsComponent implements OnInit, AfterViewChecked, AfterVi
   }
 
   onItemChange() {
-    this.itemChanged.emit(this.currentItem())
+    this.itemChanged.emit(this.currentItem());
   }
 
   addResponse(value: string): void {
@@ -79,7 +85,7 @@ export class ItemSaDetailsComponent implements OnInit, AfterViewChecked, AfterVi
   }
 
   private copyStemFromFormIntoItem(): void {
-    this.item.prompt = this.itemPromptComponent.currentPrompt;
+    this.item.prompt = this.itemPromptComponent.currentText;
   }
 
   private setFocusOnNewlyAddedResponse(): void {

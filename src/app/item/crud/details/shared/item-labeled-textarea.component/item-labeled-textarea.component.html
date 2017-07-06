@@ -3,11 +3,11 @@
     <span>{{label}}</span>
   </h4>
   <form [formGroup]="form">
-    <textarea formControlName="prompt"
+    <textarea formControlName="text"
               class="form-control form95"
-              [title]="label"
+              title="{{label}}"
               [rows]="rows"
-              [autofocus]="isAutoFocus ? 'autofocus' : null">
+              [autofocus]="isFocused">
     </textarea>
   </form>
 </div>

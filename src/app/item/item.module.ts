@@ -22,7 +22,7 @@ import {ItemStimulusTabComponent} from "./crud/tabs/item-stimulus-tab.component/
 import {ItemPreviewComponent} from "./crud/item-preview.component/item-preview.component";
 import {ItemPreviewService} from "./services/item-preview.service/item-preview.service";
 import {ItemDetailsComponent} from "./crud/details/item-details.component";
-import {ItemPromptComponent} from "./crud/details/shared/item-prompt.component/item-prompt.component";
+import {ItemLabeledTextAreaComponent} from "./crud/details/shared/item-labeled-textarea.component/item-labeled-textarea.component";
 
 @NgModule({
   imports: [
@@ -47,7 +47,7 @@ import {ItemPromptComponent} from "./crud/details/shared/item-prompt.component/i
     ItemStimulusTabComponent,
     ItemPreviewComponent,
     ItemDetailsComponent,
-    ItemPromptComponent
+    ItemLabeledTextAreaComponent
   ],
   exports: [
     ItemDashboardComponent,
@@ -59,7 +59,7 @@ import {ItemPromptComponent} from "./crud/details/shared/item-prompt.component/i
     ItemCreateComponent,
     ItemHistoryTabComponent,
     ItemDetailsComponent,
-    ItemPromptComponent
+    ItemLabeledTextAreaComponent
   ],
   providers: [
     {provide: Http, useClass: AuthenticatedHttpService},

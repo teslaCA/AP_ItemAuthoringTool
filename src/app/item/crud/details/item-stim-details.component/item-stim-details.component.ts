@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, Output, ViewChild} from "@angular/core";
 import {Item} from "../../../services/item.service/item";
 import {StimItem} from "../../../services/item.service/stim-item";
-import {ItemPromptComponent} from "../shared/item-prompt.component/item-prompt.component";
+import {ItemLabeledTextAreaComponent} from "../shared/item-labeled-textarea.component/item-labeled-textarea.component";
 
 @Component({
   selector: 'item-stim-details',
@@ -12,14 +12,14 @@ export class ItemStimDetailsComponent {
   @Input() readonly isReadOnly: boolean;
   @Input() readonly item: StimItem;
   @Output() readonly itemChanged = new EventEmitter<Item>();
-  @ViewChild(ItemPromptComponent) itemPromptComponent;
+  @ViewChild(ItemLabeledTextAreaComponent) itemPromptComponent;
 
   get currentItem(): StimItem {
-    this.item.prompt = this.itemPromptComponent.currentPrompt;
+    this.item.prompt = this.itemPromptComponent.currentText;
     return this.item;
   }
 
   onItemChange() {
-    this.itemChanged.emit(this.currentItem)
+    this.itemChanged.emit(this.currentItem);
   }
 }
