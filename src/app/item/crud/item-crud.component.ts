@@ -136,7 +136,7 @@ export class ItemCrudComponent implements OnInit {
                 this.currentUser = user;
 
                 // Load current item
-                this.itemService.findItem(itemId)
+                this.itemService.findItem(itemId, false /* showAlertOnError */)
                   .subscribe(
                     item => {
                       this.item = item;

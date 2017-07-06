@@ -14,12 +14,15 @@ export class AppInfoService {
               private httpUtility: HttpUtility) {
   }
 
-  findAppInfo(): Observable<AppInfo> {
+  findAppInfo(showAlertOnError = true,
+              showBusyIndicator = true): Observable<AppInfo> {
     return this.httpUtility.applyAsyncHandling(
       "Finding app info",
       this.http
         .request(this.serviceUrl)
-        .map(response => JsonConvert.deserializeObject(response.json(), AppInfo))
+        .map(response => JsonConvert.deserializeObject(response.json(), AppInfo)),
+      showAlertOnError,
+      showBusyIndicator
     );
   }
 }
