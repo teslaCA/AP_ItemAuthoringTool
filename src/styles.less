@@ -116,6 +116,43 @@ h1 {
     font-family: @font-family-sans-serif;
     border: none;
     padding: 25px 25px 10px;
+    &.preview {
+      background: @gray-lighter;
+      border-bottom: 1px @gray-light solid;
+      padding: 15px 0 10px 15px;
+      margin-bottom: 10px;
+      color: @gray-darker;
+      .modal-title {
+          font-size: large;
+      }
+      span {
+          font-size: 14px;
+      }
+      i {
+          margin-left: 10px;
+          font-size: 20px;
+          color: @gray-darker;
+          &.active {
+            color: @black;
+          }
+      }
+      .author {
+        color: @black;
+        font-weight: bold;
+      }
+      .close {
+          background: @white;
+          padding: 11px 0;
+          opacity: 1;
+          margin: -15px -8px;
+          border-left: 1px @gray-light solid;
+          color: @gray-darker;
+          span {
+            font-size: 30px;
+            padding: 20px;
+          }
+      }
+    }
 }
 .modal-body {
     padding: 0 25px;
