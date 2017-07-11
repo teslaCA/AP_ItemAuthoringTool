@@ -8,6 +8,13 @@
   <div class="modal-dialog modal-full" role="document">
     <div class="modal-content">
       <!-- Header -->
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="hidePreview()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h3 class="modal-title" id="deleteExemplarResponseLabel">Item Preview</h3>
+      </div>
+      <!-- New Collapsed Header
       <div class="modal-header preview">
         <div class="col-sm-1">
           <h3 class="modal-title" id="deleteExemplarResponseLabel">Preview<i class="fa fa-chevron-right" aria-hidden="true"></i></h3>
@@ -37,8 +44,10 @@
           </button>
         </div>
       </div>
+      -->
 
-      <div class="preview-over" style="display:none;">
+      <!-- New Expanded Header
+      <div class="preview-over">
         <div class="col-sm-1">
           <h3 class="modal-title" id="deleteExemplarResponseLabel">Preview</h3>
         </div>
@@ -88,6 +97,7 @@
           </div>
         </div>
       </div>
+      -->
       <!-- Body -->
       <div class="modal-body">
         <iframe *ngIf="showIframe" frameborder="0" height="500" width="800" [src]="itemRenderUrl"></iframe>
