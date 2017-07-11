@@ -40,6 +40,7 @@ export class ItemFactory {
     // Inject item type
     item.itemType = itemTypes.find(type => type.code === item.type);
 
+    // TODO: IAT-224: Remove after service API sets default workflowStatusCode to "Draft" instead of null
     // Set default workflow status
     if (!item.workflowStatusCode) {
       item.workflowStatusCode = "Draft";

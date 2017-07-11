@@ -16,6 +16,7 @@ export class ItemWorkflowService {
 
   findItemWorkflowStatuses(showAlertOnError = true,
                            showBusyIndicator = true): Observable<ItemWorkflowStatus[]> {
+    // TODO: IAT-224: Change to workflow-statuses after service API changed
     const url = ItemWorkflowService.serviceUrl + '/' + 'workflowstatuses';
     return this.httpUtility.applyAsyncHandling(
       "Finding item workflow statuses",
