@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnChanges, Output} from "@angular/core";
+import {Component, EventEmitter, Input, OnInit, Output} from "@angular/core";
 import {FormBuilder} from "@angular/forms";
 
 @Component({
@@ -6,7 +6,7 @@ import {FormBuilder} from "@angular/forms";
   templateUrl: './item-labeled-textarea.component.html',
   styleUrls: ['./item-labeled-textarea.component.less']
 })
-export class ItemLabeledTextAreaComponent implements OnChanges {
+export class ItemLabeledTextAreaComponent implements OnInit {
   @Input() readonly label: string;
   @Input() readonly rows: number;
   @Input() readonly isReadOnly: boolean;
@@ -24,7 +24,7 @@ export class ItemLabeledTextAreaComponent implements OnChanges {
   constructor(private formBuilder: FormBuilder) {
   }
 
-  ngOnChanges() {
+  ngOnInit() {
     // Reset form data and flags
     this.form.reset({
       text: this.text

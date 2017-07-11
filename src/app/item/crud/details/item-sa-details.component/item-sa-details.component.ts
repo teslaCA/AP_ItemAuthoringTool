@@ -62,7 +62,7 @@ export class ItemSaDetailsComponent implements OnInit, AfterViewChecked, AfterVi
   // TODO: Change to getter
   // TODO: Current item should be clone of input item plus changes in form.  @Input fields should be immutable.
   public currentItem(): Item {
-    this.copyStemFromFormIntoItem();
+    this.copyPromptFromFormIntoItem();
     this.copyExemplarResponsesFromFormToItem();
 
     return this.item;
@@ -84,7 +84,7 @@ export class ItemSaDetailsComponent implements OnInit, AfterViewChecked, AfterVi
     }
   }
 
-  private copyStemFromFormIntoItem(): void {
+  private copyPromptFromFormIntoItem(): void {
     this.item.prompt = this.itemPromptComponent.currentText;
   }
 

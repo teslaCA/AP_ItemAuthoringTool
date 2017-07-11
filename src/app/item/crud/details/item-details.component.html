@@ -1,13 +1,25 @@
+<!-- MC -->
+<item-mc-details *ngIf="item.type=='mc'"
+                 [item]="item"
+                 [isReadOnly]="isReadOnly"
+                 (itemChanged)="onItemChanged($event)">
+</item-mc-details>
+
+<!-- SA -->
 <item-sa-details *ngIf="item.type=='sa'"
                  [item]="item"
                  [isReadOnly]="isReadOnly"
                  (itemChanged)="onItemChanged($event)">
 </item-sa-details>
+
+<!-- STIM -->
 <item-stim-details *ngIf="item.type=='stim'"
                    [item]="item"
                    [isReadOnly]="isReadOnly"
                    (itemChanged)="onItemChanged($event)">
 </item-stim-details>
+
+<!-- WER -->
 <item-wer-details *ngIf="item.type=='wer'"
                   [item]="item"
                   [isReadOnly]="isReadOnly"

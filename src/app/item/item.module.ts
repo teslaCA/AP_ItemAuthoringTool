@@ -25,6 +25,8 @@ import {ItemDetailsComponent} from "./crud/details/item-details.component";
 import {ItemLabeledTextAreaComponent} from "./crud/details/shared/item-labeled-textarea.component/item-labeled-textarea.component";
 import {ItemWorkflowTabComponent} from "./crud/tabs/item-workflow-tab.component/item-workflow-tab.component";
 import {ItemWorkflowService} from "./services/item-workflow.service/item-workflow.service";
+import {ItemMcDetailsComponent} from "./crud/details/item-mc-details.component/item-mc-details.component";
+import {ItemMcOptionsComponent} from "./crud/details/shared/item-mc-options.component/item-mc-options.component";
 
 @NgModule({
   imports: [
@@ -37,6 +39,7 @@ import {ItemWorkflowService} from "./services/item-workflow.service/item-workflo
   ],
   declarations: [
     ItemDashboardComponent,
+    ItemMcDetailsComponent,
     ItemSaDetailsComponent,
     ItemWerDetailsComponent,
     ItemStimDetailsComponent,
@@ -50,10 +53,12 @@ import {ItemWorkflowService} from "./services/item-workflow.service/item-workflo
     ItemPreviewComponent,
     ItemDetailsComponent,
     ItemLabeledTextAreaComponent,
+    ItemMcOptionsComponent,
     ItemWorkflowTabComponent
   ],
   exports: [
     ItemDashboardComponent,
+    ItemMcDetailsComponent,
     ItemSaDetailsComponent,
     ItemWerDetailsComponent,
     ItemStimDetailsComponent,
@@ -62,7 +67,8 @@ import {ItemWorkflowService} from "./services/item-workflow.service/item-workflo
     ItemCreateComponent,
     ItemHistoryTabComponent,
     ItemDetailsComponent,
-    ItemLabeledTextAreaComponent
+    ItemLabeledTextAreaComponent,
+    ItemMcOptionsComponent
   ],
   providers: [
     {provide: Http, useClass: AuthenticatedHttpService},

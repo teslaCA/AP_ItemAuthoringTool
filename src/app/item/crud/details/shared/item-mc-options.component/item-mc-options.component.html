@@ -1,0 +1,48 @@
+<!-- Label -->
+<h4>
+  <span>Options <small>(indicate correct answer by selecting a radio button on the left)</small></span>
+</h4>
+
+<form [formGroup]="form">
+  <!-- Options -->
+  <div formArrayName="options">
+    <div *ngFor="let optionControl of formOptions.controls; let i=index" [formGroupName]="i" class="row">
+      <!-- Correct answer radio button -->
+      <div class="col-lg-1">
+        <input type="radio"
+               name="correctAnswer"
+               formControlName="correctAnswer"
+               title="Correct Answer"
+               [checked]="optionControl.value.correctAnswer"
+               [value]="true">  <!-- Value will be bound if the radio button is selected, otherwise false is bound -->
+      </div>
+
+      <!-- Text -->
+      <div class="col-lg-10">
+        <input type="text" class="form-control" formControlName="text" title="Text">
+      </div>
+
+      <!-- Remove option trash can -->
+      <div class="col-lg-1">
+        <a *ngIf="!isReadOnly" (click)="removeOption(i)">
+          <i class="fa fa-trash"></i>
+        </a>
+      </div>
+    </div>
+
+    <!-- "No options" message -->
+    <div *ngIf="formOptions.length === 0">
+      <em>No options</em>
+    </div>
+
+    <!-- Add options button -->
+    <div class="row">
+      <div class="col-lg-12">
+        <button *ngIf="!isReadOnly" class="btn btn-info" (click)="addOption()">
+          <i class="fa fa-plus" aria-hidden="true"></i>
+          Add Option
+        </button>
+      </div>
+    </div>
+  </div>
+</form>
