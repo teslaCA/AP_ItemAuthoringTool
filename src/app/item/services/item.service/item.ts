@@ -48,7 +48,7 @@ export abstract class Item {
   }
 
   get supportsWorkflow(): boolean {
-    return true /* !this.isBeingCreated */; // TODO: Uncomment when done developing workflow
+    return true;
   }
 
   isBeingCreatedBy(username: string): boolean {
