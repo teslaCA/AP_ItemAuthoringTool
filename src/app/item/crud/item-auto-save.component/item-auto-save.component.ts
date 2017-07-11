@@ -107,15 +107,22 @@ export class ItemAutoSaveComponent implements OnInit, OnDestroy {
    */
   private saveChanges(item: Item): void {
     this.mode = AutoSaveMode.Saving;
-    this.itemService.updateTransaction(item.currentTransaction.transactionId, item, "Auto-save").subscribe(
-      () => {
-        // Item successfully saved
-        this.mode = AutoSaveMode.Saved;
-      },
-      () => {
-        // Re-enqueue for retry after debounce period
-        this.changesSubject.next(item);
-      }
-    );
+    this.itemService
+      .updateTransaction(
+        item.currentTransaction.transactionId,
+        item,
+        "Auto-save",
+        false /* showAlertOnError */,
+        false /* showBusyIndicator */)
+      .subscribe(
+        () => {
+          // Item successfully saved
+          this.mode = AutoSaveMode.Saved;
+        },
+        () => {
+          // Re-enqueue for retry after debounce period
+          this.changesSubject.next(item);
+        }
+      );
   }
 }

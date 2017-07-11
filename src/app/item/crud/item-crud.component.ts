@@ -19,10 +19,9 @@ import {itemTypes} from "../services/item-type.service/item-types";
   styleUrls: ['./item-crud.component.less']
 })
 export class ItemCrudComponent implements OnInit {
-  currentUser: User;      // TODO: Remove, replace all usages with call to itemService
+  currentUser: User;
   item: Item;
-  itemType: ItemType;
-  commitForm: FormGroup;  // TODO: Rename to "form"
+  form: FormGroup;
   isLoading: boolean;
   isError = false;
   errorMessage: string;
@@ -59,63 +58,20 @@ export class ItemCrudComponent implements OnInit {
       && !this.item.isBeingEditedBy(this.currentUser.username);
   }
 
-  get isStimulusItem(): boolean {
-    return this.item.type === 'stim';
-  }
-
   constructor(private router: Router,
               private route: ActivatedRoute,
               private userService: UserService,
               private itemService: ItemService,
-              private itemTypeService: ItemTypeService,
               private alertService: AlertService,
-              public fb: FormBuilder,
-              public httpUtility: HttpUtility) {
-    this.commitForm = this.fb.group({
+              private formBuilder: FormBuilder,
+              private httpUtility: HttpUtility) {
+    this.form = this.formBuilder.group({
       commitMsg: [null, Validators.required]
     });
   }
 
   ngOnInit() {
-    // TODO: Use observable operators to chain / run-in-parallel these calls (also enhance busy service to handle parallel operations)
-    // TODO: Add error handling for all calls (currently only findItem failure is handled)
-    this.isLoading = true;
-
-    // Extract item ID from route
-    this.route.params
-      .subscribe(
-        params => {
-          const itemId = params['id'];
-
-          // Load current user
-          this.userService.findCurrentUser()
-            .subscribe(
-              (user: User) => {
-                this.currentUser = user;
-
-                // Load current item
-                this.itemService.findItem(itemId)
-                  .subscribe(
-                    item => {
-                      this.item = item;
-
-                      // Load current item's type
-                      this.itemTypeService
-                        .findItemType(this.item.type)
-                        .subscribe(
-                          (itemType: ItemType) => {
-                            this.itemType = itemType;
-
-                            this.isLoading = false;
-                          });
-                    },
-                    error => {
-                      this.isError = true;
-                      this.isLoading = false;
-                      this.errorMessage = this.httpUtility.getErrorMessageText(error);
-                    });
-              });
-        });
+    this.loadItem();
   }
 
   commitCreateTransaction(): void {
@@ -128,7 +84,7 @@ export class ItemCrudComponent implements OnInit {
 
   commitEditTransaction(): void {
     this.commitTransaction(
-      this.commitForm.get('commitMsg').value.trim(),
+      this.form.get('commitMsg').value.trim(),
       'Changes Committed',
       'Your changes to the item have been committed to the item bank.',
       `/?action=commit&id=${this.itemDetailsComponent.currentItem.id}`);
@@ -153,12 +109,45 @@ export class ItemCrudComponent implements OnInit {
       .beginEditTransaction(this.item.id, "Began edit")
       .subscribe(
         () => {
-          this.router.navigateByUrl(`/item-redirect/${this.item.id}`);
+          this.loadItem();
         });
   }
 
   goHome(): void {
     this.router.navigateByUrl('/');
+  }
+
+  private loadItem() {
+    // TODO: Use observable operators to chain / run-in-parallel these calls (also enhance busy service to handle parallel operations)
+    // TODO: Add error handling for all calls (currently only findItem failure is handled)
+    this.isLoading = true;
+
+    // Extract item ID from route
+    this.route.params
+      .subscribe(
+        params => {
+          const itemId = params['id'];
+
+          // Load current user
+          this.userService.findCurrentUser()
+            .subscribe(
+              (user: User) => {
+                this.currentUser = user;
+
+                // Load current item
+                this.itemService.findItem(itemId, false /* showAlertOnError */)
+                  .subscribe(
+                    item => {
+                      this.item = item;
+                      this.isLoading = false;
+                    },
+                    error => {
+                      this.isError = true;
+                      this.isLoading = false;
+                      this.errorMessage = this.httpUtility.getErrorMessageText(error);
+                    });
+              });
+        });
   }
 
   private commitTransaction(commitMessage: string, alertTitle: string, alertMessage: string, successUrl: string) {

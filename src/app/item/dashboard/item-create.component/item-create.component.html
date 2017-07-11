@@ -12,11 +12,11 @@
       </h4>
       <div class="col btn-group btn-block">
         <div class="row">
-          <a *ngFor="let type of normalItemTypes" (click)="createItem(type.type)">
+          <a *ngFor="let type of normalItemTypes" (click)="createItem(type.code)">
             <div class="btn btn-items teal">
               <div class="btn blue-dark"><i class="fa {{type.icon}} fa-2x"></i></div>
               <br/>{{type.name}}
-              <br/>({{type.abbreviation}})
+              <br/>({{type.code | uppercase}})
             </div>
           </a>
         </div>
@@ -28,11 +28,11 @@
       </h4>
       <div class="col btn-group btn-block">
         <div class="row">
-          <a *ngFor="let type of otherItemTypes" (click)="createItem(type.type)">
+          <a *ngFor="let type of otherItemTypes" (click)="createItem(type.code)">
             <div class="btn btn-items teal">
               <div class="btn blue-dark"><i class="fa {{type.icon}} fa-2x"></i></div>
               <br/>{{type.name}}
-              <br/>({{type.abbreviation}})
+              <br/>({{type.code | uppercase}})
             </div>
           </a>
         </div>

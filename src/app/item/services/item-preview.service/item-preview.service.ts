@@ -19,15 +19,21 @@ export class ItemPreviewService {
   /**
    * Calls IRS service to prepare Item content to be rendered (previewed)
    * @param itemId ID of the item to return
+   * @param showAlertOnError whether to show alert on error
+   * @param showBusyIndicator whether to show busy indicator while executing
    * @returns Observable containing the item rendering response
    */
-  previewItem(itemId: string): Observable<ItemPreviewResponse> {
+  previewItem(itemId: string,
+              showAlertOnError = true,
+              showBusyIndicator = true): Observable<ItemPreviewResponse> {
     const url = `${ItemPreviewService.serviceUrl}/${encodeURIComponent(itemId.trim())}`;
     return this.httpUtility.applyAsyncHandling(
       "Cloning item",
       this.http
         .get(url, HttpUtility.jsonRequestOptions)
-        .map(response => response.json())
+        .map(response => response.json()),
+      showAlertOnError,
+      showBusyIndicator
     );
   }
 }

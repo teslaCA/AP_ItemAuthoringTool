@@ -1,10 +1,10 @@
 import {async, ComponentFixture, TestBed} from "@angular/core/testing";
-import {ItemSaDetailsComponent} from "./item-sa-details.component";
+import {ItemMcDetailsComponent} from "./item-mc-details.component";
 import {Logger} from "../../../../core/logger.service/logger.service";
 import {AppModule} from "../../../../app.module";
 import {APP_BASE_HREF} from "@angular/common";
 
-describe('ItemSaDetailsComponent', () => {
+describe('ItemMcDetailsComponent', () => {
   // let component: ItemSaDetailsComponent;
   // let fixture: ComponentFixture<ItemSaDetailsComponent>;
   //

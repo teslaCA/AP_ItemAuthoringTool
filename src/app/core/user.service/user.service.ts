@@ -14,12 +14,15 @@ export class UserService {
               private httpUtility: HttpUtility) {
   }
 
-  findCurrentUser(): Observable<User> {
+  findCurrentUser(showAlertOnError = true,
+                  showBusyIndicator = true): Observable<User> {
     return this.httpUtility.applyAsyncHandling(
       "Finding current user",
       this.http
         .request(this.serviceUrl)
-        .map(response => JsonConvert.deserializeObject(response.json(), User))
+        .map(response => JsonConvert.deserializeObject(response.json(), User)),
+      showAlertOnError,
+      showBusyIndicator
     );
   }
 }

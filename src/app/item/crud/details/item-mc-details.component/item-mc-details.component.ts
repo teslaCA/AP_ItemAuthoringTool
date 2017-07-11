@@ -1,21 +1,24 @@
 import {Component, EventEmitter, Input, Output, ViewChild} from "@angular/core";
 import {Item} from "../../../services/item.service/item";
-import {StimItem} from "../../../services/item.service/stim-item";
 import {ItemLabeledTextAreaComponent} from "../shared/item-labeled-textarea.component/item-labeled-textarea.component";
+import {McItem} from "../../../services/item.service/mc-item";
+import {ItemMcOptionsComponent} from "../shared/item-mc-options.component/item-mc-options.component";
 
 @Component({
-  selector: 'item-stim-details',
-  templateUrl: './item-stim-details.component.html',
-  styleUrls: ['./item-stim-details.component.less']
+  selector: 'item-mc-details',
+  templateUrl: './item-mc-details.component.html',
+  styleUrls: ['./item-mc-details.component.less']
 })
-export class ItemStimDetailsComponent {
+export class ItemMcDetailsComponent {
   @Input() readonly isReadOnly: boolean;
-  @Input() readonly item: StimItem;
+  @Input() readonly item: McItem;
   @Output() readonly itemChanged = new EventEmitter<Item>();
   @ViewChild(ItemLabeledTextAreaComponent) itemPromptComponent;
+  @ViewChild(ItemMcOptionsComponent) itemMcOptionsComponent;
 
-  get currentItem(): StimItem {
+  get currentItem(): McItem {
     this.item.prompt = this.itemPromptComponent.currentText;
+    this.item.options = this.itemMcOptionsComponent.currentOptions;
     return this.item;
   }
 

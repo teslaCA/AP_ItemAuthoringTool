@@ -2,7 +2,6 @@ import {NgModule} from "@angular/core";
 import {CommonModule} from "@angular/common";
 import {ItemCreateComponent} from "./dashboard/item-create.component/item-create.component";
 import {ItemSearchComponent} from "./dashboard/item-search.component/item-search.component";
-import {ItemRedirectComponent} from "./crud/item-redirect.component/item-redirect.component";
 import {ItemCrudComponent} from "./crud/item-crud.component";
 import {ItemSaDetailsComponent} from "./crud/details/item-sa-details.component/item-sa-details.component";
 import {ItemWerDetailsComponent} from "./crud/details/item-wer-details.component/item-wer-details.component";
@@ -19,10 +18,15 @@ import {ItemHistoryService} from "./services/item-history.service/item-history.s
 import {ItemService} from "./services/item.service/item.service";
 import {ItemStimDetailsComponent} from "./crud/details/item-stim-details.component/item-stim-details.component";
 import {ItemTabsComponent} from "./crud/tabs/item-tabs.component";
-import {ItemStimulusTabComponent} from './crud/tabs/item-stimulus-tab.component/item-stimulus-tab.component';
-import {ItemPreviewComponent} from './crud/item-preview.component/item-preview.component';
+import {ItemStimulusTabComponent} from "./crud/tabs/item-stimulus-tab.component/item-stimulus-tab.component";
+import {ItemPreviewComponent} from "./crud/item-preview.component/item-preview.component";
 import {ItemPreviewService} from "./services/item-preview.service/item-preview.service";
 import {ItemDetailsComponent} from "./crud/details/item-details.component";
+import {ItemLabeledTextAreaComponent} from "./crud/details/shared/item-labeled-textarea.component/item-labeled-textarea.component";
+import {ItemWorkflowTabComponent} from "./crud/tabs/item-workflow-tab.component/item-workflow-tab.component";
+import {ItemWorkflowService} from "./services/item-workflow.service/item-workflow.service";
+import {ItemMcDetailsComponent} from "./crud/details/item-mc-details.component/item-mc-details.component";
+import {ItemMcOptionsComponent} from "./crud/details/shared/item-mc-options.component/item-mc-options.component";
 
 @NgModule({
   imports: [
@@ -35,11 +39,11 @@ import {ItemDetailsComponent} from "./crud/details/item-details.component";
   ],
   declarations: [
     ItemDashboardComponent,
+    ItemMcDetailsComponent,
     ItemSaDetailsComponent,
     ItemWerDetailsComponent,
     ItemStimDetailsComponent,
     ItemCrudComponent,
-    ItemRedirectComponent,
     ItemSearchComponent,
     ItemCreateComponent,
     ItemHistoryTabComponent,
@@ -47,25 +51,31 @@ import {ItemDetailsComponent} from "./crud/details/item-details.component";
     ItemTabsComponent,
     ItemStimulusTabComponent,
     ItemPreviewComponent,
-    ItemDetailsComponent
+    ItemDetailsComponent,
+    ItemLabeledTextAreaComponent,
+    ItemMcOptionsComponent,
+    ItemWorkflowTabComponent
   ],
   exports: [
     ItemDashboardComponent,
+    ItemMcDetailsComponent,
     ItemSaDetailsComponent,
     ItemWerDetailsComponent,
     ItemStimDetailsComponent,
     ItemCrudComponent,
-    ItemRedirectComponent,
     ItemSearchComponent,
     ItemCreateComponent,
     ItemHistoryTabComponent,
-    ItemDetailsComponent
+    ItemDetailsComponent,
+    ItemLabeledTextAreaComponent,
+    ItemMcOptionsComponent
   ],
   providers: [
     {provide: Http, useClass: AuthenticatedHttpService},
     ItemService,
     ItemHistoryService,
-    ItemPreviewService
+    ItemPreviewService,
+    ItemWorkflowService
   ]
 })
 export class ItemModule {

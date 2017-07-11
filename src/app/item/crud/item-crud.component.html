@@ -2,11 +2,15 @@
   <div *ngIf="!isLoading" class="container">
     <div *ngIf="!isError">
 
-      <!-- Auto-save -->
-      <div *ngIf="!isStimulusItem" class="pull-right">
+      <!-- Preview -->
+      <div *ngIf="item.supportsPreview" class="pull-right">
         <item-preview #itemPreview></item-preview>
-        <button class="btn btn-default preview" (click)="itemPreview.show(item.id)">Preview</button>
+        <button class="btn btn-default preview" (click)="itemPreview.show(item.id)">
+          Preview
+        </button>
       </div>
+
+      <!-- Auto-save -->
       <div class="pull-right">
         <item-auto-save #autoSave
                         [enabled]="isBeingCreatedByCurrentUser || isBeingEditedByCurrentUser"
@@ -18,10 +22,10 @@
       <div class="page-title">
         <h1>
           <span class="item-type-icon">
-            <i class="fa {{itemType.icon}}"></i>
+            <i class="fa {{item.itemType.icon}}"></i>
           </span>
-          <span class="item-type-name">{{itemType.name}}
-            <span class="item-type-abb">({{itemType.abbreviation}})</span>
+          <span class="item-type-name">{{item.itemType.name}}
+            <span class="item-type-abb">({{item.itemType.code | uppercase}})</span>
           </span>
           <span class="item-type-mode">
             {{mode}} Item:
@@ -81,7 +85,7 @@
       <div class="col-md-6 ">
         <!-- Item tabs -->
         <item-tabs [item]="item"
-                   [itemType]="itemType"
+                   [itemType]="item.itemType"
                    [selected]="'history'"
                    [isReadOnly]="isBeingViewedByCurrentUser"
                    (itemChanged)="autoSave.onItemChange($event)">
@@ -140,7 +144,7 @@
 
       <!-- Body (edit) -->
       <div *ngIf="isBeingEditedByCurrentUser">
-        <form [formGroup]="commitForm" (submit)="commitEditTransaction()">
+        <form [formGroup]="form" (submit)="commitEditTransaction()">
           <div class="modal-body">
             <div class="row">
               <div class="col-md-12">
@@ -156,7 +160,7 @@
               <div class="col-md-12">
                 <div class="form-group">
                   <span>Reason (required): </span>
-                  <div class="input-group" [ngClass]="{'has-error':!commitForm.controls['commitMsg'].valid}">
+                  <div class="input-group" [ngClass]="{'has-error':!form.controls['commitMsg'].valid}">
                     <input formControlName="commitMsg"
                            type="text"
                            placeholder="Reason for change"
@@ -164,7 +168,7 @@
                            maxlength="100"
                            size="50"
                            pattern=".*\S.*"
-                           [formControl]="commitForm.controls['commitMsg']">
+                           [formControl]="form.controls['commitMsg']">
                   </div>
                 </div>
               </div>
@@ -173,7 +177,7 @@
 
           <!-- Footer -->
           <div class="modal-footer">
-            <button type="submit" class="btn btn-primary btn-small" [disabled]="!commitForm.valid">
+            <button type="submit" class="btn btn-primary btn-small" [disabled]="!form.valid">
               Yes
             </button>
             <button type="button" class="btn btn-default btn-small" data-dismiss="modal" (click)="commitModal.hide()">No
