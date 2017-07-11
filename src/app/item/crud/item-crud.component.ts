@@ -21,8 +21,7 @@ import {itemTypes} from "../services/item-type.service/item-types";
 export class ItemCrudComponent implements OnInit {
   currentUser: User;
   item: Item;
-  itemType: ItemType;
-  commitForm: FormGroup;  // TODO: Rename to "form"
+  form: FormGroup;
   isLoading: boolean;
   isError = false;
   errorMessage: string;
@@ -59,19 +58,14 @@ export class ItemCrudComponent implements OnInit {
       && !this.item.isBeingEditedBy(this.currentUser.username);
   }
 
-  get isStimulusItem(): boolean {
-    return this.item.type === 'stim';
-  }
-
   constructor(private router: Router,
               private route: ActivatedRoute,
               private userService: UserService,
               private itemService: ItemService,
-              private itemTypeService: ItemTypeService,
               private alertService: AlertService,
-              public fb: FormBuilder,
-              public httpUtility: HttpUtility) {
-    this.commitForm = this.fb.group({
+              private formBuilder: FormBuilder,
+              private httpUtility: HttpUtility) {
+    this.form = this.formBuilder.group({
       commitMsg: [null, Validators.required]
     });
   }
@@ -90,7 +84,7 @@ export class ItemCrudComponent implements OnInit {
 
   commitEditTransaction(): void {
     this.commitTransaction(
-      this.commitForm.get('commitMsg').value.trim(),
+      this.form.get('commitMsg').value.trim(),
       'Changes Committed',
       'Your changes to the item have been committed to the item bank.',
       `/?action=commit&id=${this.itemDetailsComponent.currentItem.id}`);
@@ -145,16 +139,7 @@ export class ItemCrudComponent implements OnInit {
                   .subscribe(
                     item => {
                       this.item = item;
-
-                      // Load current item's type
-                      this.itemTypeService
-                        .findItemType(this.item.type)
-                        .subscribe(
-                          (itemType: ItemType) => {
-                            this.itemType = itemType;
-
-                            this.isLoading = false;
-                          });
+                      this.isLoading = false;
                     },
                     error => {
                       this.isError = true;

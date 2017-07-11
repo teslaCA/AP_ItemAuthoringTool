@@ -23,6 +23,10 @@ import {ItemPreviewComponent} from "./crud/item-preview.component/item-preview.c
 import {ItemPreviewService} from "./services/item-preview.service/item-preview.service";
 import {ItemDetailsComponent} from "./crud/details/item-details.component";
 import {ItemLabeledTextAreaComponent} from "./crud/details/shared/item-labeled-textarea.component/item-labeled-textarea.component";
+import {ItemWorkflowTabComponent} from "./crud/tabs/item-workflow-tab.component/item-workflow-tab.component";
+import {ItemWorkflowService} from "./services/item-workflow.service/item-workflow.service";
+import {ItemMcDetailsComponent} from "./crud/details/item-mc-details.component/item-mc-details.component";
+import {ItemMcOptionsComponent} from "./crud/details/shared/item-mc-options.component/item-mc-options.component";
 
 @NgModule({
   imports: [
@@ -35,6 +39,7 @@ import {ItemLabeledTextAreaComponent} from "./crud/details/shared/item-labeled-t
   ],
   declarations: [
     ItemDashboardComponent,
+    ItemMcDetailsComponent,
     ItemSaDetailsComponent,
     ItemWerDetailsComponent,
     ItemStimDetailsComponent,
@@ -47,10 +52,13 @@ import {ItemLabeledTextAreaComponent} from "./crud/details/shared/item-labeled-t
     ItemStimulusTabComponent,
     ItemPreviewComponent,
     ItemDetailsComponent,
-    ItemLabeledTextAreaComponent
+    ItemLabeledTextAreaComponent,
+    ItemMcOptionsComponent,
+    ItemWorkflowTabComponent
   ],
   exports: [
     ItemDashboardComponent,
+    ItemMcDetailsComponent,
     ItemSaDetailsComponent,
     ItemWerDetailsComponent,
     ItemStimDetailsComponent,
@@ -59,13 +67,15 @@ import {ItemLabeledTextAreaComponent} from "./crud/details/shared/item-labeled-t
     ItemCreateComponent,
     ItemHistoryTabComponent,
     ItemDetailsComponent,
-    ItemLabeledTextAreaComponent
+    ItemLabeledTextAreaComponent,
+    ItemMcOptionsComponent
   ],
   providers: [
     {provide: Http, useClass: AuthenticatedHttpService},
     ItemService,
     ItemHistoryService,
-    ItemPreviewService
+    ItemPreviewService,
+    ItemWorkflowService
   ]
 })
 export class ItemModule {

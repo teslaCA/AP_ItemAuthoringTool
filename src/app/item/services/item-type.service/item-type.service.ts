@@ -22,10 +22,4 @@ export class ItemTypeService {
       itemTypes.filter(itemType => itemType.category === ItemTypeCategory.Other)
     );
   }
-
-  findItemType(type: string): Observable<ItemType> {
-    return Observable.of(
-      itemTypes.find(itemType => itemType.type === type)
-    );
-  }
 }
