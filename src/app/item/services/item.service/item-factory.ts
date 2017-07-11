@@ -40,6 +40,11 @@ export class ItemFactory {
     // Inject item type
     item.itemType = itemTypes.find(type => type.code === item.type);
 
+    // Set default workflow status
+    if (!item.workflowStatusCode) {
+      item.workflowStatusCode = "Draft";
+    }
+
     return item;
   }
 }

@@ -22,6 +22,9 @@ export abstract class Item {
   @JsonProperty("type", String)
   type: string = undefined;                         // Initialize to undefined so that field is mapped
 
+  @JsonProperty("workflowStatusCode", String)
+  workflowStatusCode: string = undefined;           // Initialize to undefined so that field is mapped
+
   itemType: ItemType;
 
   get currentTransaction(): ItemTransaction {
@@ -45,7 +48,7 @@ export abstract class Item {
   }
 
   get supportsWorkflow(): boolean {
-    return !this.isBeingCreated;
+    return true /* !this.isBeingCreated */; // TODO: Uncomment when done developing workflow
   }
 
   isBeingCreatedBy(username: string): boolean {

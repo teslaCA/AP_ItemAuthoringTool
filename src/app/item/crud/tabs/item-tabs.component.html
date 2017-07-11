@@ -1,33 +1,52 @@
-<!-- Selector -->
+<!-- Tab selector dropdown -->
 <div class="btn-group" dropdown>
+  <!-- Selected option -->
   <button dropdownToggle type="button" class="btn-tab dropdown-toggle">
     <span *ngIf="isSelected('history')">History</span>
     <span *ngIf="isSelected('stimulus')">Stimulus</span>
+    <span *ngIf="isSelected('workflow')">Workflow</span>
     <span class="caret"></span>
   </button>
+
+  <!-- Dropdown options -->
   <ul *dropdownMenu class="dropdown-menu" role="menu">
-    <li role="menuitem" *ngIf="!isSelected('history')">
+    <li role="menuitem">
       <a class="dropdown-item"
          (click)="select('history')">
         History</a>
     </li>
-    <li role="menuitem" *ngIf="item.supportsStimulus && !isSelected('stimulus')">
+    <li role="menuitem" *ngIf="item.supportsStimulus">
       <a class="dropdown-item"
          (click)="select('stimulus')">
         Stimulus</a>
+    </li>
+    <li role="menuitem" *ngIf="item.supportsWorkflow">
+      <a class="dropdown-item"
+         (click)="select('workflow')">
+        Workflow</a>
     </li>
   </ul>
 </div>
 
 
-<!-- Selection -->
+<!-- Selected tab -->
 <div class="item-box tab-content well">
+  <!-- History -->
   <item-history-tab *ngIf="isSelected('history')"
                     [itemId]="item.id">
   </item-history-tab>
+
+  <!-- Stimulus -->
   <item-stimulus-tab *ngIf="isSelected('stimulus')"
                      [isReadOnly]="isReadOnly"
                      [stimulusId]="linkedStimulusId"
                      (stimulusIdChanged)="onItemChanged()">
   </item-stimulus-tab>
+
+  <!-- Workflow -->
+  <item-workflow-tab *ngIf="isSelected('workflow')"
+                     [isReadOnly]="isReadOnly"
+                     [workflowStatusCode]="item.workflowStatusCode"
+                     (workflowStatusCodeChange)="onItemChanged()">
+  </item-workflow-tab>
 </div>
