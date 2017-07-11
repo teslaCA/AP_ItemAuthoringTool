@@ -6,12 +6,12 @@
     <span class="caret"></span>
   </button>
   <ul *dropdownMenu class="dropdown-menu" role="menu">
-    <li role="menuitem" *ngIf="itemType.supportsHistory && !isSelected('history')">
+    <li role="menuitem" *ngIf="!isSelected('history')">
       <a class="dropdown-item"
          (click)="select('history')">
         History</a>
     </li>
-    <li role="menuitem" *ngIf="itemType.supportsLinkedStimulus && !isSelected('stimulus')">
+    <li role="menuitem" *ngIf="item.supportsStimulus && !isSelected('stimulus')">
       <a class="dropdown-item"
          (click)="select('stimulus')">
         Stimulus</a>

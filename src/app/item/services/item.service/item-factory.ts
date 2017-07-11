@@ -4,6 +4,7 @@ import {SaItem} from "./sa-item";
 import {WerItem} from "./wer-item";
 import {Item} from "./item";
 import {StimItem} from "./stim-item";
+import {itemTypes} from "../item-type.service/item-types";
 
 export class ItemFactory {
   /**
@@ -16,15 +17,29 @@ export class ItemFactory {
    * @returns the new Item
    */
   static fromJson(jsonObject: {type: string}): Item {
+    let item: Item;
+
+    // Initialize item from JSON
     switch (jsonObject.type) {
       case "sa":
-        return JsonConvert.deserializeObject(jsonObject, SaItem);
+        item = JsonConvert.deserializeObject(jsonObject, SaItem);
+        break;
+
       case "stim":
-        return JsonConvert.deserializeObject(jsonObject, StimItem);
+        item = JsonConvert.deserializeObject(jsonObject, StimItem);
+        break;
+
       case "wer":
-        return JsonConvert.deserializeObject(jsonObject, WerItem);
+        item = JsonConvert.deserializeObject(jsonObject, WerItem);
+        break;
+
       default:
         throw new Error(`Cannot map unsupported item type "${jsonObject.type}" from JSON "${jsonObject}"`);
     }
+
+    // Inject item type
+    item.itemType = itemTypes.find(type => type.code === item.type);
+
+    return item;
   }
 }

@@ -1,6 +1,7 @@
 import {JsonProperty} from "json2typescript";
 
 import {ItemTransaction} from "./item-transaction";
+import {ItemType} from "../item-type.service/item-type";
 
 /**
  * Item base class for models that can be mapped to/from JSON.
@@ -21,6 +22,8 @@ export abstract class Item {
   @JsonProperty("type", String)
   type: string = undefined;                         // Initialize to undefined so that field is mapped
 
+  itemType: ItemType;
+
   get currentTransaction(): ItemTransaction {
     return this.createTransaction || this.editTransaction;
   }
@@ -31,6 +34,18 @@ export abstract class Item {
 
   get isBeingEdited(): boolean {
     return !!this.editTransaction;
+  }
+
+  get supportsPreview(): boolean {
+    return true;
+  }
+
+  get supportsStimulus(): boolean {
+    return true;
+  }
+
+  get supportsWorkflow(): boolean {
+    return !this.isBeingCreated;
   }
 
   isBeingCreatedBy(username: string): boolean {
