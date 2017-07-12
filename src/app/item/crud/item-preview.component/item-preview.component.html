@@ -14,6 +14,90 @@
         </button>
         <h3 class="modal-title" id="deleteExemplarResponseLabel">Item Preview</h3>
       </div>
+      <!-- New Collapsed Header
+      <div class="modal-header preview">
+        <div class="col-sm-1">
+          <h3 class="modal-title" id="deleteExemplarResponseLabel">Preview<i class="fa fa-chevron-right" aria-hidden="true"></i></h3>
+        </div>
+        <div class="col-sm-4">
+          <span class="gray-darker">Item:</span>
+          <span class="date">6/29/2017 - 10:31 PM - </span>
+          <span class="author">DW Test</span>
+        </div>
+        <div class="col-sm-4">
+          <span class="gray-darker">Stimulus:</span>
+          <span class="label label-default">Most Recent</span>
+          <span class="date">6/29/2017 - 10:31 PM - </span>
+          <span class="author">DW Test</span>
+        </div>
+        <div class="col-sm-2">
+          <i class="fa fa-sign-language" aria-hidden="true"></i>
+          <i class="fa fa-braille" aria-hidden="true"></i>
+          <i class="fa fa-cc active" aria-hidden="true"></i>
+          <i class="fa fa-list" aria-hidden="true"></i>
+          <span class="spanish">sp</span>
+          <i class="fa fa-language" aria-hidden="true"></i>
+        </div>
+        <div class="col-sm-1">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="hidePreview()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      </div>
+      -->
+
+      <!-- New Expanded Header
+      <div class="preview-over">
+        <div class="col-sm-1">
+          <h3 class="modal-title" id="deleteExemplarResponseLabel">Preview</h3>
+        </div>
+        <div class="col-sm-8">
+          <div>Item:</div>
+          <div class="btn-group" dropdown>
+            <button dropdownToggle type="button" class="btn btn-default dropdown-toggle">
+              Button dropdown <span class="caret"></span>
+            </button>
+            <ul *dropdownMenu class="dropdown-menu" role="menu">
+              <li role="menuitem"><a class="dropdown-item" href="#">Action</a></li>
+              <li role="menuitem"><a class="dropdown-item" href="#">Another action</a>
+              </li>
+              <li role="menuitem"><a class="dropdown-item" href="#">Something else
+                here</a></li>
+            </ul>
+          </div>
+          <div class="">Stimulus:</div>
+          <div class="btn-group" dropdown>
+            <button dropdownToggle type="button" class="btn btn-default dropdown-toggle">
+              Button dropdown <span class="caret"></span>
+            </button>
+            <ul *dropdownMenu class="dropdown-menu" role="menu">
+              <li role="menuitem"><a class="dropdown-item" href="#">Action</a></li>
+              <li role="menuitem"><a class="dropdown-item" href="#">Another action</a>
+              </li>
+              <li role="menuitem"><a class="dropdown-item" href="#">Something else
+                here</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="">Accessibility:</div>
+          <ul>
+            <li><i class="fa fa-sign-language" aria-hidden="true"></i> American Sign language</li>
+            <li><i class="fa fa-braille" aria-hidden="true"></i> Brail</li>
+            <li><i class="fa fa-cc active" aria-hidden="true"></i> Closed Captioning</li>
+            <li><i class="fa fa-list" aria-hidden="true"></i> English Glossory</li>
+            <li><span class="spanish">sp</span> Stacked Spanish Translation</li>
+            <li><i class="fa fa-language" aria-hidden="true"></i> Translated Glossory</li>
+          </ul>
+        </div>
+        <div class="row">
+          <div class="pull-right">
+            <button class="btn btn-link">Cancel</button>
+            <button class="btn btn-primary">Apply</button>
+          </div>
+        </div>
+      </div>
+      -->
       <!-- Body -->
       <div class="modal-body">
         <iframe *ngIf="showIframe" frameborder="0" height="500" width="800" [src]="itemRenderUrl"></iframe>

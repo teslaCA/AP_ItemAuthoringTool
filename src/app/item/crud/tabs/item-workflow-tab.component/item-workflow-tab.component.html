@@ -1,10 +1,8 @@
 <div [formGroup]="form" class="form-group">
-  <label class="center-block">
     Workflow Status
     <select class="form-control" formControlName="workflowStatusCode">
       <option *ngFor="let workflowStatus of workflowStatuses" [value]="workflowStatus.code">
         {{workflowStatus.label}}
       </option>
     </select>
-  </label>
 </div>

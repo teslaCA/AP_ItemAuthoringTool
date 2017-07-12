@@ -50,6 +50,8 @@ repositories {
     mavenLocal()
     mavenCentral()
     maven { url "https://repo.spring.io/milestone" }
+    maven { url "https://airdev.jfrog.io/airdev/libs-releases/" }
+    maven { url "https://airdev.jfrog.io/airdev/libs-snapshots/" }
 }
 
 dependencies {
@@ -160,13 +162,6 @@ artifactory {
         }
         defaults {
             publications('mavenJava')
-        }
-    }
-
-    resolve {
-        repository {
-            repoKey = 'libs-releases'
-            maven	= true
         }
     }
 }

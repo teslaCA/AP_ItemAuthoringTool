@@ -8,25 +8,28 @@
   <div formArrayName="options">
     <div *ngFor="let optionControl of formOptions.controls; let i=index" [formGroupName]="i" class="row">
       <!-- Correct answer radio button -->
-      <div class="col-lg-1">
-        <input type="radio"
-               name="correctAnswer"
-               formControlName="correctAnswer"
-               title="Correct Answer"
-               [checked]="optionControl.value.correctAnswer"
-               [value]="true">  <!-- Value will be bound if the radio button is selected, otherwise false is bound -->
-      </div>
+      <div class="form-group mc">
+        <div class="col-lg-1">
+          <input type="radio"
+                 name="correctAnswer"
+                 formControlName="correctAnswer"
+                 title="Correct Answer"
+                 [checked]="optionControl.value.correctAnswer"
+                 [value]="true">  <!-- Value will be bound if the radio button is selected, otherwise false is bound -->
+        </div>
 
-      <!-- Text -->
-      <div class="col-lg-10">
-        <input type="text" class="form-control" formControlName="text" title="Text">
-      </div>
+        <!-- Text -->
+        <div class="col-lg-10">
+          <input type="text" class="form-control" formControlName="text" title="Text">
+        </div>
 
-      <!-- Remove option trash can -->
-      <div class="col-lg-1">
-        <a *ngIf="!isReadOnly" (click)="removeOption(i)">
-          <i class="fa fa-trash"></i>
-        </a>
+        <!-- Remove option trash can -->
+        <div class="col-lg-1">
+          <a *ngIf="!isReadOnly" (click)="removeOption(i)">
+            <i class="fa fa-trash"></i>
+          </a>
+        </div>
+
       </div>
     </div>
 
