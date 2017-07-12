@@ -2,10 +2,16 @@
   <div *ngIf="!isLoading" class="container">
     <div *ngIf="!isError">
 
+      <!-- Preview -->
+      <div *ngIf="item.supportsPreview" class="pull-right">
+        <item-preview #itemPreview></item-preview>
+        <button class="btn btn-default preview" (click)="itemPreview.show(item.id)">
+          Preview
+        </button>
+      </div>
+
       <!-- Auto-save -->
       <div class="pull-right">
-        <item-preview #itemPreview></item-preview>
-        <button class="btn btn-default preview" (click)="itemPreview.show(item.id)">Preview</button>
         <item-auto-save #autoSave
                         [enabled]="isBeingCreatedByCurrentUser || isBeingEditedByCurrentUser"
                         [debounceTimeMillis]="3000">
@@ -16,13 +22,13 @@
       <div class="page-title">
         <h1>
           <span class="item-type-icon">
-            <i class="fa {{itemType.icon}}"></i>
+            <i class="fa {{item.itemType.icon}}"></i>
           </span>
-          <span class="item-type-name">{{itemType.name}}
-            <span class="item-type-abb">({{itemType.abbreviation}})</span>
+          <span class="item-type-name">{{item.itemType.name}}
+            <span class="item-type-abb">({{item.itemType.code | uppercase}})</span>
           </span>
           <span class="item-type-mode">
-            {{mode}} Item:
+            {{mode}} {{item.itemType.categoryName}}:
             <span class="item-type-id">{{item.id}}</span>
           </span>
         </h1>
@@ -42,7 +48,7 @@
             <!-- Create -->
             <div *ngIf="isBeingCreatedByCurrentUser">
               <button class="btn btn-primary" (click)="commitModal.show()">
-                Create Item
+                Create {{item.itemType.categoryName}}
               </button>
               <button class="btn btn-link" (click)="cancelModal.show()">
                 Cancel
@@ -79,7 +85,7 @@
       <div class="col-md-6 ">
         <!-- Item tabs -->
         <item-tabs [item]="item"
-                   [itemType]="itemType"
+                   [itemType]="item.itemType"
                    [selected]="'history'"
                    [isReadOnly]="isBeingViewedByCurrentUser"
                    (itemChanged)="autoSave.onItemChange($event)">
@@ -117,7 +123,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
         <h3 *ngIf="isBeingCreatedByCurrentUser" class="modal-title" id="commitCreateModalLabel">
-          Finish Creating Item
+          Finish Creating {{item.itemType.categoryName}}
         </h3>
         <h3 *ngIf="isBeingEditedByCurrentUser" class="modal-title" id="commitEditModalLabel">
           Commit Changes
@@ -127,7 +133,7 @@
       <!-- Body (create) -->
       <div *ngIf="isBeingCreatedByCurrentUser">
         <div class="modal-body">
-          <span>Are you sure you want to finish creating this item and add it to the item bank?</span>
+          <span>Are you sure you want to finish creating this {{item.itemType.categoryName | lowercase}} and add it to the item bank?</span>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-primary btn-small" (click)="commitCreateTransaction()">Yes</button>
@@ -138,7 +144,7 @@
 
       <!-- Body (edit) -->
       <div *ngIf="isBeingEditedByCurrentUser">
-        <form [formGroup]="commitForm" (submit)="commitEditTransaction()">
+        <form [formGroup]="form" (submit)="commitEditTransaction()">
           <div class="modal-body">
             <div class="row">
               <div class="col-md-12">
@@ -147,14 +153,14 @@
             </div>
             <div class="row">
               <div class="col-md-12">
-                Please enter the reason for your changes to this item.
+                Please enter the reason for your changes to this {{item.itemType.categoryName | lowercase}}.
               </div>
             </div>
             <div class="row">
               <div class="col-md-12">
                 <div class="form-group">
                   <span>Reason (required): </span>
-                  <div class="input-group" [ngClass]="{'has-error':!commitForm.controls['commitMsg'].valid}">
+                  <div class="input-group" [ngClass]="{'has-error':!form.controls['commitMsg'].valid}">
                     <input formControlName="commitMsg"
                            type="text"
                            placeholder="Reason for change"
@@ -162,7 +168,7 @@
                            maxlength="100"
                            size="50"
                            pattern=".*\S.*"
-                           [formControl]="commitForm.controls['commitMsg']">
+                           [formControl]="form.controls['commitMsg']">
                   </div>
                 </div>
               </div>
@@ -171,7 +177,7 @@
 
           <!-- Footer -->
           <div class="modal-footer">
-            <button type="submit" class="btn btn-primary btn-small" [disabled]="!commitForm.valid">
+            <button type="submit" class="btn btn-primary btn-small" [disabled]="!form.valid">
               Yes
             </button>
             <button type="button" class="btn btn-default btn-small" data-dismiss="modal" (click)="commitModal.hide()">No
@@ -199,7 +205,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
         <h3 *ngIf="isBeingCreatedByCurrentUser" class="modal-title" id="cancelCreateModalLabel">
-          Cancel Item Creation
+          Cancel {{item.itemType.categoryName}} Creation
         </h3>
         <h3 *ngIf="isBeingEditedByCurrentUser" class="modal-title" id="cancelEditModalLabel">
           Discard Changes
@@ -209,7 +215,7 @@
       <!-- Body -->
       <div class="modal-body">
         <span *ngIf="isBeingCreatedByCurrentUser">
-          Are you sure you want to cancel creating this item and lose all changes you have made?
+          Are you sure you want to cancel creating this {{item.itemType.categoryName | lowercase}} and lose all changes you have made?
         </span>
         <span *ngIf="isBeingEditedByCurrentUser">
           Are you sure you want to discard all changes you've made since you've started editing?

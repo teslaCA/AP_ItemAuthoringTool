@@ -1,7 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import {Router} from "@angular/router";
 import {AlertService} from "../../../core/alert.service/alert.service";
-import {Logger} from "../../../core/logger.service/logger.service";
 import {AbstractControl, FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {isNumeric} from "rxjs/util/isNumeric";
 
@@ -15,8 +14,7 @@ export class ItemSearchComponent implements OnInit {
   SPECIAL_CHARS = '~!@#$%^&*()';
   queryFocused = false;
 
-  constructor(private logger: Logger,
-              private router: Router,
+  constructor(private router: Router,
               private fb: FormBuilder,
               private alertService: AlertService) {
   }
@@ -43,9 +41,8 @@ export class ItemSearchComponent implements OnInit {
 
   showErrorMessage(control: AbstractControl): boolean {
     if ((!control.valid && !control.pristine
-      && !isNumeric(control.value)
       && control.value.trim() !== ''
-      || control.value.length > 10)
+      || control.value.length > 14)
       && this.queryFocused
     ) {
       return true;

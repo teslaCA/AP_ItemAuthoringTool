@@ -10,6 +10,7 @@ import {ItemType} from "../services/item-type.service/item-type";
 import {User} from "../../core/user.service/user";
 import {HttpUtility} from "../../core/http-utility.service/http-utility";
 import {ItemDetailsComponent} from "./details/item-details.component";
+import {itemTypes} from "../services/item-type.service/item-types";
 
 // TODO: Move nav bar message-related code into separate component (called ItemHeaderComponent)
 @Component({
@@ -18,10 +19,9 @@ import {ItemDetailsComponent} from "./details/item-details.component";
   styleUrls: ['./item-crud.component.less']
 })
 export class ItemCrudComponent implements OnInit {
-  currentUser: User;      // TODO: Remove, replace all usages with call to itemService
+  currentUser: User;
   item: Item;
-  itemType: ItemType;
-  commitForm: FormGroup;  // TODO: Rename to "form"
+  form: FormGroup;
   isLoading: boolean;
   isError = false;
   errorMessage: string;
@@ -29,13 +29,13 @@ export class ItemCrudComponent implements OnInit {
 
   get mode(): string {
     if (this.isBeingCreatedByCurrentUser) {
-      return "Create";
+      return "Creating";
     }
     if (this.isBeingEditedByCurrentUser) {
-      return "Edit";
+      return "Editing";
     }
     if (this.isBeingViewedByCurrentUser) {
-      return "View";
+      return "Viewing";
     }
     return "";
   }
@@ -62,16 +62,62 @@ export class ItemCrudComponent implements OnInit {
               private route: ActivatedRoute,
               private userService: UserService,
               private itemService: ItemService,
-              private itemTypeService: ItemTypeService,
               private alertService: AlertService,
-              public fb: FormBuilder,
-              public httpUtility: HttpUtility) {
-    this.commitForm = this.fb.group({
+              private formBuilder: FormBuilder,
+              private httpUtility: HttpUtility) {
+    this.form = this.formBuilder.group({
       commitMsg: [null, Validators.required]
     });
   }
 
   ngOnInit() {
+    this.loadItem();
+  }
+
+  commitCreateTransaction(): void {
+    this.commitTransaction(
+      'Finished creation',
+      'Item Created',
+      'The item has been successfully created and added to the item bank.',
+      `/?id=${this.itemDetailsComponent.currentItem.id}`);
+  }
+
+  commitEditTransaction(): void {
+    this.commitTransaction(
+      this.form.get('commitMsg').value.trim(),
+      'Changes Committed',
+      'Your changes to the item have been committed to the item bank.',
+      `/?id=${this.itemDetailsComponent.currentItem.id}`);
+  }
+
+  rollbackCreateTransaction(): void {
+    this.rollbackTransaction(
+      'Creation Cancelled',
+      'The item you were creating has been successfully removed.',
+      '/');
+  }
+
+  rollbackEditTransaction(): void {
+    this.rollbackTransaction(
+      'Changes Discarded',
+      'Your changes to the item have been discarded.',
+      `/?id=${this.item.id}`);
+  }
+
+  beginEditTransaction(): void {
+    this.itemService
+      .beginEditTransaction(this.item.id, "Began edit")
+      .subscribe(
+        () => {
+          this.loadItem();
+        });
+  }
+
+  goHome(): void {
+    this.router.navigateByUrl('/');
+  }
+
+  private loadItem() {
     // TODO: Use observable operators to chain / run-in-parallel these calls (also enhance busy service to handle parallel operations)
     // TODO: Add error handling for all calls (currently only findItem failure is handled)
     this.isLoading = true;
@@ -89,20 +135,11 @@ export class ItemCrudComponent implements OnInit {
                 this.currentUser = user;
 
                 // Load current item
-                this.itemService.findItem(itemId)
+                this.itemService.findItem(itemId, false /* showAlertOnError */)
                   .subscribe(
                     item => {
                       this.item = item;
-
-                      // Load current item's type
-                      this.itemTypeService
-                        .findItemType(this.item.type)
-                        .subscribe(
-                          (itemType: ItemType) => {
-                            this.itemType = itemType;
-
-                            this.isLoading = false;
-                          });
+                      this.isLoading = false;
                     },
                     error => {
                       this.isError = true;
@@ -111,49 +148,6 @@ export class ItemCrudComponent implements OnInit {
                     });
               });
         });
-  }
-
-  commitCreateTransaction(): void {
-    this.commitTransaction(
-      'Finished item creation',
-      'Item Created',
-      'The item has been successfully created and added to the item bank.',
-      `/?action=create&id=${this.itemDetailsComponent.currentItem.id}`);
-  }
-
-  commitEditTransaction(): void {
-    this.commitTransaction(
-      this.commitForm.get('commitMsg').value.trim(),
-      'Changes Committed',
-      'Your changes to the item have been committed to the item bank.',
-      `/?action=commit&id=${this.itemDetailsComponent.currentItem.id}`);
-  }
-
-  rollbackCreateTransaction(): void {
-    this.rollbackTransaction(
-      'Creation Cancelled',
-      'The item you were creating has been successfully removed.',
-      '/');
-  }
-
-  rollbackEditTransaction(): void {
-    this.rollbackTransaction(
-      'Changes Discarded',
-      'Your changes to the item have been discarded.',
-      `/?action=commit&id=${this.item.id}`);
-  }
-
-  beginEditTransaction(): void {
-    this.itemService
-      .beginEditTransaction(this.item.id, "Began edit")
-      .subscribe(
-        () => {
-          this.router.navigateByUrl(`/item-redirect/${this.item.id}`);
-        });
-  }
-
-  goHome(): void {
-    this.router.navigateByUrl('/');
   }
 
   private commitTransaction(commitMessage: string, alertTitle: string, alertMessage: string, successUrl: string) {

@@ -8,38 +8,26 @@ import {Logger} from "../../core/logger.service/logger.service";
   styleUrls: ['./item-dashboard.component.less']
 })
 export class ItemDashboardComponent implements OnInit {
-  private action = '';
   private id: number;
   public itemUrl = '';
   public itemLink = '';
 
   get showLink(): boolean {
-    return this.action === 'create' || this.action === 'commit';
+    return !!this.id;
   }
 
-  constructor(private logger: Logger,
-              private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute) {
   }
 
   ngOnInit() {
     this.route.queryParams
       .subscribe(params => {
-        this.action = params['action'];
         this.id = params['id'];
       });
 
-    if (this.action !== '') {
+    if (!!this.id) {
       this.itemUrl = '/item/' + this.id;
-      switch (this.action) {
-        case 'create' : {
-          this.itemLink = 'View Newly Created Item';
-          break;
-        }
-        case 'commit' : {
-          this.itemLink = 'View Last Edited Item';
-          break;
-        }
-      }
+      this.itemLink = 'Return to Last Item or Resource';
     }
   }
 }

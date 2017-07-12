@@ -50,10 +50,12 @@ repositories {
     mavenLocal()
     mavenCentral()
     maven { url "https://repo.spring.io/milestone" }
+    maven { url "https://airdev.jfrog.io/airdev/libs-releases/" }
+    maven { url "https://airdev.jfrog.io/airdev/libs-snapshots/" }
 }
 
 dependencies {
-    compile 'org.opentestsystem.ap:ap-common:0.1.7'
+    compile 'org.opentestsystem.ap:ap-common:0.1.10'
 
     compile 'org.springframework.boot:spring-boot-starter-actuator'
     compile 'org.springframework.boot:spring-boot-starter-security'
@@ -160,13 +162,6 @@ artifactory {
         }
         defaults {
             publications('mavenJava')
-        }
-    }
-
-    resolve {
-        repository {
-            repoKey = 'libs-releases'
-            maven	= true
         }
     }
 }

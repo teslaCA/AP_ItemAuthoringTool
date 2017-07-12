@@ -50,7 +50,7 @@ export class ItemStimulusTabComponent implements OnInit {
           else {
             this.alertService.error(
               "Cannot Link",
-              `The item having ID ${stimulusId} is not a STIM`);
+              `The item or resource having ID ${stimulusId} is not a STIM`);
           }
         });
   }

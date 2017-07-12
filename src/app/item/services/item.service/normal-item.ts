@@ -1,8 +1,4 @@
-import {JsonConvert, JsonProperty} from "json2typescript";
-
-import {ItemTransaction} from "./item-transaction";
-import {SaItem} from "./sa-item";
-import {WerItem} from "./wer-item";
+import {JsonProperty} from "json2typescript";
 import {Item} from "./item";
 
 /**

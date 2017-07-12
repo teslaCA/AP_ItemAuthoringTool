@@ -12,20 +12,15 @@ export class ItemTypeService {
   }
 
   findNormalItemTypes(): Observable<ItemType[]> {
-    return Observable.of(
-      itemTypes.filter(itemType => itemType.category === ItemTypeCategory.Normal)
+    return Observable.of(itemTypes.filter(itemType =>
+      itemType.category === ItemTypeCategory.Item)
     );
   }
 
   findOtherItemTypes(): Observable<ItemType[]> {
-    return Observable.of(
-      itemTypes.filter(itemType => itemType.category === ItemTypeCategory.Other)
-    );
-  }
-
-  findItemType(type: string): Observable<ItemType> {
-    return Observable.of(
-      itemTypes.find(itemType => itemType.type === type)
+    return Observable.of(itemTypes.filter(itemType =>
+      itemType.category === ItemTypeCategory.Stimulus
+      || itemType.category === ItemTypeCategory.Tutorial)
     );
   }
 }

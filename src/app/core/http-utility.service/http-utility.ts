@@ -26,13 +26,13 @@ export class HttpUtility {
    * @param requestDescription description of the HTTP request
    * @param source containing the HTTP request execution
    * @param showBusyIndicator whether to show the busy indicator while the call is in progress
-   * @param showErrorAlert whether to show an alert when an error occurs
+   * @param showAlertOnError whether to show an alert when an error occurs
    * @returns observable containing the HTTP request execution
    */
   applyAsyncHandling<T>(requestDescription: string,
                         source: Observable<T>,
-                        showBusyIndicator: boolean = true,
-                        showErrorAlert: boolean = true): Observable<T> {
+                        showAlertOnError: boolean,
+                        showBusyIndicator: boolean): Observable<T> {
     // Make source a multicast observable to allow more than one subscriber for a single execution
     const refCounted = source.multicast(new Subject).refCount();
 
@@ -53,7 +53,7 @@ export class HttpUtility {
         if (showBusyIndicator) {
           this.busyService.hide();
         }
-        if (showErrorAlert) {
+        if (showAlertOnError) {
           this.alertService.error(
             `Error ${requestDescription.toLowerCase()}`,
             `An error occurred ${requestDescription.toLowerCase()}, error: ${HttpUtility.stringifyError(error)}`);
