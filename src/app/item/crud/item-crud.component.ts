@@ -29,13 +29,13 @@ export class ItemCrudComponent implements OnInit {
 
   get mode(): string {
     if (this.isBeingCreatedByCurrentUser) {
-      return "Create";
+      return "Creating";
     }
     if (this.isBeingEditedByCurrentUser) {
-      return "Edit";
+      return "Editing";
     }
     if (this.isBeingViewedByCurrentUser) {
-      return "View";
+      return "Viewing";
     }
     return "";
   }
@@ -76,10 +76,10 @@ export class ItemCrudComponent implements OnInit {
 
   commitCreateTransaction(): void {
     this.commitTransaction(
-      'Finished item creation',
+      'Finished creation',
       'Item Created',
       'The item has been successfully created and added to the item bank.',
-      `/?action=create&id=${this.itemDetailsComponent.currentItem.id}`);
+      `/?id=${this.itemDetailsComponent.currentItem.id}`);
   }
 
   commitEditTransaction(): void {
@@ -87,7 +87,7 @@ export class ItemCrudComponent implements OnInit {
       this.form.get('commitMsg').value.trim(),
       'Changes Committed',
       'Your changes to the item have been committed to the item bank.',
-      `/?action=commit&id=${this.itemDetailsComponent.currentItem.id}`);
+      `/?id=${this.itemDetailsComponent.currentItem.id}`);
   }
 
   rollbackCreateTransaction(): void {
@@ -101,7 +101,7 @@ export class ItemCrudComponent implements OnInit {
     this.rollbackTransaction(
       'Changes Discarded',
       'Your changes to the item have been discarded.',
-      `/?action=commit&id=${this.item.id}`);
+      `/?id=${this.item.id}`);
   }
 
   beginEditTransaction(): void {

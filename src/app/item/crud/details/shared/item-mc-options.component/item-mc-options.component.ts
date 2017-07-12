@@ -18,9 +18,9 @@ export class ItemMcOptionsComponent implements OnInit {
   }
 
   get currentOptions(): ItemOption[] {
-    return this.form.get('options').value.map((object: {correctAnswer: boolean, text: string}) => {
+    return this.form.get('options').value.map((object: {isCorrectAnswer: boolean, text: string}) => {
       const option = new ItemOption();
-      option.correctAnswer = object.correctAnswer;
+      option.isCorrectAnswer = object.isCorrectAnswer;
       option.text = object.text;
       return option;
     });
@@ -48,7 +48,7 @@ export class ItemMcOptionsComponent implements OnInit {
 
   addOption(): void {
     const option = new ItemOption();
-    option.correctAnswer = false;
+    option.isCorrectAnswer = false;
     option.text = '';
     this.formOptions.push(this.fb.group(option));
   }
