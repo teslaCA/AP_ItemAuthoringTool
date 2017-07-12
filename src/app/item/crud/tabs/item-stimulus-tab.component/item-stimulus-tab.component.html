@@ -16,7 +16,7 @@
   <div *ngIf="!isReadOnly" class="form-group">
     <form [formGroup]="form" novalidate>
       <!-- Stimulus ID input -->
-      <input #stimulusId formControlName="stimulusId" title="stimulusId" type="text" placeholder="Stimulus ID">
+      <input #stimulusId formControlName="stimulusId" title="stimulusId" type="text" placeholder="Stimulus ID" [maxlength]="15">
 
       <!-- Enabled link button -->
       <a *ngIf="form.valid"
