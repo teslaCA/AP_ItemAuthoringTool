@@ -28,7 +28,7 @@ export class ItemPreviewService {
               showBusyIndicator = true): Observable<ItemPreviewResponse> {
     const url = `${ItemPreviewService.serviceUrl}/${encodeURIComponent(itemId.trim())}`;
     return this.httpUtility.applyAsyncHandling(
-      "Cloning item",
+      "Loading preview",
       this.http
         .get(url, HttpUtility.jsonRequestOptions)
         .map(response => response.json()),

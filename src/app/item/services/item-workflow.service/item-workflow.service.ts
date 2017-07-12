@@ -18,7 +18,7 @@ export class ItemWorkflowService {
                            showBusyIndicator = true): Observable<ItemWorkflowStatus[]> {
     const url = ItemWorkflowService.serviceUrl + '/' + 'workflow-statuses';
     return this.httpUtility.applyAsyncHandling(
-      "Finding item workflow statuses",
+      "Loading workflow statuses",
       this.http
         .get(url, HttpUtility.jsonRequestOptions)
         .map(response => JsonConvert.deserializeArray(response.json(), ItemWorkflowStatus)),

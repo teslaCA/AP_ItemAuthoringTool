@@ -29,7 +29,7 @@ export class ItemService {
            showBusyIndicator = true): Observable<Item> {
     const url = `${ItemService.serviceUrl}/${encodeURIComponent(itemId.trim())}`;
     return this.httpUtility.applyAsyncHandling(
-      "Finding item",
+      "Loading",
       this.http
         .get(url, HttpUtility.jsonRequestOptions)
         .map(response => ItemFactory.fromJson(response.json())),
@@ -53,7 +53,7 @@ export class ItemService {
                          showBusyIndicator = true): Observable<Item> {
     const url = `${ItemService.serviceUrl}/transactions`;
     return this.httpUtility.applyAsyncHandling(
-      "Creating item",
+      "Creating",
       this.http
         .post(url, {'type': itemType, message: message}, HttpUtility.jsonRequestOptions)
         .map(response => ItemFactory.fromJson(response.json())),
@@ -78,7 +78,7 @@ export class ItemService {
                        showBusyIndicator = true): Observable<Item> {
     const url = `${ItemService.serviceUrl}/${itemId}/transactions`;
     return this.httpUtility.applyAsyncHandling(
-      "Opening item for edit",
+      "Opening for edit",
       this.http
         .post(url, {message: message}, HttpUtility.jsonRequestOptions)
         .map(response => ItemFactory.fromJson(response.json())),

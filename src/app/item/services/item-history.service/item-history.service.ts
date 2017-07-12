@@ -29,7 +29,7 @@ export class ItemHistoryService {
                   showBusyIndicator = true): Observable<ItemChange[]> {
     const url = ItemHistoryService.serviceUrl + '/' + itemId + '/history';
     return this.httpUtility.applyAsyncHandling(
-      "Finding item history",
+      "Loading history",
       this.http
         .get(url, HttpUtility.jsonRequestOptions)
         .map(response => JsonConvert.deserializeArray(response.json(), ItemChange)),
