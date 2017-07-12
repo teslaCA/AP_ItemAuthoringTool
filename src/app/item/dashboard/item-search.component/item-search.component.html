@@ -4,11 +4,12 @@
       <input type="text"
              class="form-control"
              placeholder="Item or resource ID"
-             pattern="^\d{10}$"
+             pattern="^[A-Z]{1,4}\d+$"
              required
              formControlName="query"
              id="query"
              [formControl]="complexForm.controls['query']"
+             [maxlength]="14"
              (focus)="queryFocused=true"
              (blur)="queryFocused=false"
              (paste)="handlePaste($event)"
@@ -23,7 +24,7 @@
     <div class="row">
       <div class="col-md-12">
         <div *ngIf="this.showErrorMessage(complexForm.controls['query'])">
-          <div class="label label-danger border-only">The ID must contain exactly 10 digits</div>
+          <div class="label label-danger border-only">Must be the item or resource type (e.g. SA) followed by one or more digits</div>
         </div>
       </div>
     </div>

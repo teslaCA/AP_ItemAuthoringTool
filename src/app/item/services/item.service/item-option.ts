@@ -9,9 +9,8 @@ import {JsonObject, JsonProperty} from "json2typescript";
 @JsonObject
 export class ItemOption {
   @JsonProperty("text", String)
-  text: string = undefined;               // Initialize to undefined so that field is mapped
+  text: string = undefined;                 // Initialize to undefined so that field is mapped
 
-  // TODO: IAT-32: Rename to "isCorrectAnswer" when corresponding changes have been made to IMS
-  @JsonProperty("correctAnswer", Boolean)
-  correctAnswer: boolean = undefined;     // Initialize to undefined so that field is mapped
+  @JsonProperty("isCorrectAnswer", Boolean)
+  isCorrectAnswer: boolean = undefined;     // Initialize to undefined so that field is mapped
 }
