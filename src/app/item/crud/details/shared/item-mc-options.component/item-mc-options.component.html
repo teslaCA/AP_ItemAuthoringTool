@@ -6,15 +6,15 @@
 <form [formGroup]="form">
   <!-- Options -->
   <div formArrayName="options">
-    <div *ngFor="let optionControl of formOptions.controls; let i=index" [formGroupName]="i" class="row">
-      <!-- Correct answer radio button -->
+    <div *ngFor="let control of formOptions.controls; let i=index" [formGroupName]="i" class="row">
       <div class="form-group mc">
+        <!-- Correct answer radio button -->
         <div class="col-lg-1">
           <input type="radio"
                  name="isCorrectAnswer"
                  formControlName="isCorrectAnswer"
                  title="Correct Answer"
-                 [checked]="optionControl.value.isCorrectAnswer"
+                 [checked]="control.value.isCorrectAnswer"
                  [value]="true">  <!-- Value will be bound if the radio button is selected, otherwise false is bound -->
         </div>
 
@@ -23,13 +23,12 @@
           <input type="text" class="form-control" formControlName="text" title="Text">
         </div>
 
-        <!-- Remove option trash can -->
+        <!-- Remove trash can -->
         <div class="col-lg-1">
           <a *ngIf="!isReadOnly" (click)="removeOption(i)">
             <i class="fa fa-trash"></i>
           </a>
         </div>
-
       </div>
     </div>
 

@@ -14,10 +14,12 @@
 <!-- Exemplar responses -->
 <div class="row">
   <div class="col-lg-12">
+
     <div class="form-group">
       <h4>
         <span>Exemplar Responses</span>
       </h4>
+
       <form [formGroup]="responseForm">
         <div formArrayName="responses">
           <div *ngFor="let sample of responses.controls; let i=index" [formGroupName]="i">
@@ -34,10 +36,12 @@
           </div>
         </div>
       </form>
+
       <div *ngIf="responses.length === 0">
         <em>No exemplar responses</em>
       </div>
     </div>
+
     <div class="row">
       <div class="col-lg-12">
         <button *ngIf="!isReadOnly" class="btn btn-info" (click)="addResponse('')">
@@ -46,6 +50,7 @@
         </button>
       </div>
     </div>
+
   </div>
 </div>
 

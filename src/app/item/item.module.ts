@@ -27,6 +27,7 @@ import {ItemWorkflowTabComponent} from "./crud/tabs/item-workflow-tab.component/
 import {ItemWorkflowService} from "./services/item-workflow.service/item-workflow.service";
 import {ItemMcDetailsComponent} from "./crud/details/item-mc-details.component/item-mc-details.component";
 import {ItemMcOptionsComponent} from "./crud/details/shared/item-mc-options.component/item-mc-options.component";
+import {ItemExemplarResponsesComponent} from "./crud/details/shared/item-exemplar-responses.component/item-exemplar-responses.component";
 
 @NgModule({
   imports: [
@@ -52,6 +53,7 @@ import {ItemMcOptionsComponent} from "./crud/details/shared/item-mc-options.comp
     ItemStimulusTabComponent,
     ItemPreviewComponent,
     ItemDetailsComponent,
+    ItemExemplarResponsesComponent,
     ItemPromptComponent,
     ItemMcOptionsComponent,
     ItemWorkflowTabComponent
@@ -68,6 +70,7 @@ import {ItemMcOptionsComponent} from "./crud/details/shared/item-mc-options.comp
     ItemHistoryTabComponent,
     ItemDetailsComponent,
     ItemPromptComponent,
+    ItemExemplarResponsesComponent,
     ItemMcOptionsComponent
   ],
   providers: [

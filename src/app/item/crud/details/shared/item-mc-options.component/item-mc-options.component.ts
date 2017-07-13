@@ -39,7 +39,7 @@ export class ItemMcOptionsComponent implements OnInit {
       this.form.disable();
     }
 
-    // // Fire event on changes
+    // Fire event on changes
     this.form.valueChanges.subscribe(
       () => {
         this.optionsChange.emit(this.currentOptions);
