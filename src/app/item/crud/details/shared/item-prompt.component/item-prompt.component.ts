@@ -2,11 +2,11 @@ import {Component, EventEmitter, Input, OnInit, Output} from "@angular/core";
 import {FormBuilder} from "@angular/forms";
 
 @Component({
-  selector: 'item-labeled-textarea',
-  templateUrl: './item-labeled-textarea.component.html',
-  styleUrls: ['./item-labeled-textarea.component.less']
+  selector: 'item-prompt',
+  templateUrl: './item-prompt.component.html',
+  styleUrls: ['./item-prompt.component.less']
 })
-export class ItemLabeledTextAreaComponent implements OnInit {
+export class ItemPromptComponent implements OnInit {
   @Input() readonly label: string;
   @Input() readonly rows: number;
   @Input() readonly isReadOnly: boolean;

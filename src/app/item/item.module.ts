@@ -22,11 +22,12 @@ import {ItemStimulusTabComponent} from "./crud/tabs/item-stimulus-tab.component/
 import {ItemPreviewComponent} from "./crud/item-preview.component/item-preview.component";
 import {ItemPreviewService} from "./services/item-preview.service/item-preview.service";
 import {ItemDetailsComponent} from "./crud/details/item-details.component";
-import {ItemLabeledTextAreaComponent} from "./crud/details/shared/item-labeled-textarea.component/item-labeled-textarea.component";
+import {ItemPromptComponent} from "./crud/details/shared/item-prompt.component/item-prompt.component";
 import {ItemWorkflowTabComponent} from "./crud/tabs/item-workflow-tab.component/item-workflow-tab.component";
 import {ItemWorkflowService} from "./services/item-workflow.service/item-workflow.service";
 import {ItemMcDetailsComponent} from "./crud/details/item-mc-details.component/item-mc-details.component";
 import {ItemMcOptionsComponent} from "./crud/details/shared/item-mc-options.component/item-mc-options.component";
+import {ItemExemplarResponsesComponent} from "./crud/details/shared/item-exemplar-responses.component/item-exemplar-responses.component";
 
 @NgModule({
   imports: [
@@ -52,7 +53,8 @@ import {ItemMcOptionsComponent} from "./crud/details/shared/item-mc-options.comp
     ItemStimulusTabComponent,
     ItemPreviewComponent,
     ItemDetailsComponent,
-    ItemLabeledTextAreaComponent,
+    ItemExemplarResponsesComponent,
+    ItemPromptComponent,
     ItemMcOptionsComponent,
     ItemWorkflowTabComponent
   ],
@@ -67,7 +69,8 @@ import {ItemMcOptionsComponent} from "./crud/details/shared/item-mc-options.comp
     ItemCreateComponent,
     ItemHistoryTabComponent,
     ItemDetailsComponent,
-    ItemLabeledTextAreaComponent,
+    ItemPromptComponent,
+    ItemExemplarResponsesComponent,
     ItemMcOptionsComponent
   ],
   providers: [

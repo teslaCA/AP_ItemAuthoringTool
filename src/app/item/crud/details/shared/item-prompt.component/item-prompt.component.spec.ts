@@ -1,8 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { ItemLabeledTextAreaComponent } from './item-labeled-textarea.component';
-
-describe('ItemLabeledTextAreaComponent', () => {
+describe('ItemPromptComponent', () => {
   // let component: ItemLabeledTextAreaComponent;
   // let fixture: ComponentFixture<ItemLabeledTextAreaComponent>;
   //
