@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, Output, ViewChild} from "@angular/core";
 import {Item} from "../../../services/item.service/item";
-import {ItemLabeledTextAreaComponent} from "../shared/item-labeled-textarea.component/item-labeled-textarea.component";
+import {ItemPromptComponent} from "../shared/item-prompt.component/item-prompt.component";
 import {McItem} from "../../../services/item.service/mc-item";
 import {ItemMcOptionsComponent} from "../shared/item-mc-options.component/item-mc-options.component";
 
@@ -13,7 +13,7 @@ export class ItemMcDetailsComponent {
   @Input() readonly isReadOnly: boolean;
   @Input() readonly item: McItem;
   @Output() readonly itemChanged = new EventEmitter<Item>();
-  @ViewChild(ItemLabeledTextAreaComponent) itemPromptComponent;
+  @ViewChild(ItemPromptComponent) itemPromptComponent;
   @ViewChild(ItemMcOptionsComponent) itemMcOptionsComponent;
 
   get currentItem(): McItem {

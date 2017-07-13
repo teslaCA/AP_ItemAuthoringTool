@@ -1,13 +1,13 @@
 <!-- Prompt -->
 <div class="row">
   <div class="col-lg-12">
-    <item-labeled-textarea [label]="'Prompt / Stem'"
-                           [rows]="6"
-                           [isFocused]="true"
-                           [isReadOnly]="isReadOnly"
-                           [text]="item.prompt"
-                           (textChange)="onItemChange()">
-    </item-labeled-textarea>
+    <item-prompt [label]="'Prompt / Stem'"
+                 [rows]="6"
+                 [isFocused]="true"
+                 [isReadOnly]="isReadOnly"
+                 [text]="item.prompt"
+                 (textChange)="onItemChange()">
+    </item-prompt>
   </div>
 </div>
 

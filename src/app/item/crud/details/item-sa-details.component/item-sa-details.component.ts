@@ -12,7 +12,7 @@ import {
 import {FormArray, FormBuilder, FormGroup} from "@angular/forms";
 import {Item} from "../../../services/item.service/item";
 import {SaItem} from "../../../services/item.service/sa-item";
-import {ItemLabeledTextAreaComponent} from "../shared/item-labeled-textarea.component/item-labeled-textarea.component";
+import {ItemPromptComponent} from "../shared/item-prompt.component/item-prompt.component";
 
 // TODO: Refactor WER item component and SA item component to share common code, template, etc.
 @Component({
@@ -24,7 +24,7 @@ export class ItemSaDetailsComponent implements OnInit, AfterViewChecked, AfterVi
   @Input() item: SaItem;
   @Input() isReadOnly: boolean;
   @Output() itemChanged = new EventEmitter<Item>();
-  @ViewChild(ItemLabeledTextAreaComponent) itemPromptComponent;
+  @ViewChild(ItemPromptComponent) itemPromptComponent;
   private responseAdded = false;
   responseForm: FormGroup;
   deleteResponseIndex: number;
