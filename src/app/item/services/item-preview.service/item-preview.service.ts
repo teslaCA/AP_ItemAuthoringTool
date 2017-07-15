@@ -24,9 +24,13 @@ export class ItemPreviewService {
    * @returns Observable containing the item rendering response
    */
   previewItem(itemId: string,
+              itemHistoryId: string,
               showAlertOnError = true,
               showBusyIndicator = true): Observable<ItemPreviewResponse> {
-    const url = `${ItemPreviewService.serviceUrl}/${encodeURIComponent(itemId.trim())}`;
+    let url = `${ItemPreviewService.serviceUrl}/${encodeURIComponent(itemId.trim())}`;
+    if (itemHistoryId != null) {
+      url += "/" + itemHistoryId;
+    }
     return this.httpUtility.applyAsyncHandling(
       "Loading preview",
       this.http
