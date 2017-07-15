@@ -38,13 +38,13 @@ export const itemTypes: ItemType[] = [
     name: 'Multiple Choice',
     code: 'mc',
   },
-  // {
-  //   category: ItemTypeCategory.Item,
-  //   categoryName: 'Item',
-  //   icon: 'fa-th-list',
-  //   name: 'Multiple Select',
-  //   code: 'ms',
-  // },
+  {
+    category: ItemTypeCategory.Item,
+    categoryName: 'Item',
+    icon: 'fa-th-list',
+    name: 'Multiple Select',
+    code: 'ms',
+  },
   // {
   //   category: ItemTypeCategory.Item,
   //   categoryName: 'Item',
