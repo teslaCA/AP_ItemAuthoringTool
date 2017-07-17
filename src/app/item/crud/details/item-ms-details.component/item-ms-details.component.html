@@ -1,0 +1,20 @@
+<div class="row">
+  <div class="col-lg-12">
+    <item-prompt [label]="'Prompt / Stem'"
+                 [rows]="6"
+                 [isFocused]="true"
+                 [isReadOnly]="isReadOnly"
+                 [text]="item.prompt"
+                 (textChange)="onItemChange()">
+    </item-prompt>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-12">
+    <item-ms-options [isReadOnly]="isReadOnly"
+                     [options]="item.options"
+                     (optionsChange)="onItemChange()">
+    </item-ms-options>
+  </div>
+</div>
