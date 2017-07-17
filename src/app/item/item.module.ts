@@ -26,7 +26,9 @@ import {ItemPromptComponent} from "./crud/details/shared/item-prompt.component/i
 import {ItemWorkflowTabComponent} from "./crud/tabs/item-workflow-tab.component/item-workflow-tab.component";
 import {ItemWorkflowService} from "./services/item-workflow.service/item-workflow.service";
 import {ItemMcDetailsComponent} from "./crud/details/item-mc-details.component/item-mc-details.component";
+import {ItemMsDetailsComponent} from "./crud/details/item-ms-details.component/item-ms-details.component";
 import {ItemMcOptionsComponent} from "./crud/details/shared/item-mc-options.component/item-mc-options.component";
+import {ItemMsOptionsComponent} from "./crud/details/shared/item-ms-options.component/item-ms-options.component";
 import {ItemExemplarResponsesComponent} from "./crud/details/shared/item-exemplar-responses.component/item-exemplar-responses.component";
 
 @NgModule({
@@ -41,6 +43,7 @@ import {ItemExemplarResponsesComponent} from "./crud/details/shared/item-exempla
   declarations: [
     ItemDashboardComponent,
     ItemMcDetailsComponent,
+    ItemMsDetailsComponent,
     ItemSaDetailsComponent,
     ItemWerDetailsComponent,
     ItemStimDetailsComponent,
@@ -56,6 +59,7 @@ import {ItemExemplarResponsesComponent} from "./crud/details/shared/item-exempla
     ItemExemplarResponsesComponent,
     ItemPromptComponent,
     ItemMcOptionsComponent,
+    ItemMsOptionsComponent,
     ItemWorkflowTabComponent
   ],
   exports: [
@@ -71,7 +75,8 @@ import {ItemExemplarResponsesComponent} from "./crud/details/shared/item-exempla
     ItemDetailsComponent,
     ItemPromptComponent,
     ItemExemplarResponsesComponent,
-    ItemMcOptionsComponent
+    ItemMcOptionsComponent,
+    ItemMsOptionsComponent
   ],
   providers: [
     {provide: Http, useClass: AuthenticatedHttpService},

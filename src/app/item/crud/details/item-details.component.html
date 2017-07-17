@@ -5,6 +5,13 @@
                  (itemChanged)="onItemChanged($event)">
 </item-mc-details>
 
+<!-- MS -->
+<item-ms-details *ngIf="item.type=='ms'"
+                 [item]="item"
+                 [isReadOnly]="isReadOnly"
+                 (itemChanged)="onItemChanged($event)">
+</item-ms-details>
+
 <!-- SA -->
 <item-sa-details *ngIf="item.type=='sa'"
                  [item]="item"
