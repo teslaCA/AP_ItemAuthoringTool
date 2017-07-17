@@ -176,12 +176,19 @@ task k8sCopyFiles(type: Copy) {
         filter(ReplaceTokens, tokens: [version                    : project.version,
                                        dockerTagBase              : project.dockerTagBase,
                                        kubecfgState               : project.kubecfgState,
-                                       kubecfgName                : project.kubecfgName,
-                                       samlKeyStorePassword       : project.samlKeyStorePassword,
-                                       samlPrivateKeyEntryAlias   : project.samlPrivateKeyEntryAlias,
-                                       samlPrivateKeyEntryPassword: project.samlPrivateKeyEntryPassword,
-                                       samlIdpMetadataUrl         : project.samlIdpMetadataUrl,
-                                       samlSpEntityId             : project.samlSpEntityId])
+                                       kubecfgName                : project.kubecfgName])
+    }
+
+    into 'build/kubernetes'
+}
+
+task k8sCopyFilesUat(type: Copy) {
+
+    from('src/main/kubernetes/') {
+        filter(ReplaceTokens, tokens: [version: project.version,
+                                       dockerTagBase: project.dockerTagBase,
+                                       kubecfgState: project.kubecfgState,
+                                       kubecfgName: project.kubecfgNameUat])
     }
 
     into 'build/kubernetes'
