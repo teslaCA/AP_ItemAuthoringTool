@@ -4,10 +4,11 @@
 
       <!-- Preview -->
       <div *ngIf="item.supportsPreview" class="pull-right">
-        <item-preview #itemPreview></item-preview>
-        <button class="btn btn-default preview" (click)="itemPreview.show(item.id)">
-          Preview
-        </button>
+        <item-preview #itemPreview
+                      [itemId]="item.id"
+                      [isBeingEditedByCurrentUser]="isBeingEditedByCurrentUser"
+                      [isBeingCreatedByCurrentUser]="isBeingCreatedByCurrentUser">
+        </item-preview>
       </div>
 
       <!-- Auto-save -->
