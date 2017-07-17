@@ -6,6 +6,7 @@ import {Item} from "./item";
 import {StimItem} from "./stim-item";
 import {itemTypes} from "../item-type.service/item-types";
 import {McItem} from "./mc-item";
+import {MsItem} from "./ms-item";
 
 export class ItemFactory {
   /**
@@ -24,6 +25,10 @@ export class ItemFactory {
     switch (jsonObject.type) {
       case 'mc':
         item = JsonConvert.deserializeObject(jsonObject, McItem);
+        break;
+
+      case 'ms':
+        item = JsonConvert.deserializeObject(jsonObject, MsItem);
         break;
 
       case 'sa':

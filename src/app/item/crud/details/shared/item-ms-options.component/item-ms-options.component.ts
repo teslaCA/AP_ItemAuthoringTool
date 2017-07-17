@@ -3,11 +3,11 @@ import {FormArray, FormBuilder} from "@angular/forms";
 import {ItemOption} from "../../../../services/item.service/item-option";
 
 @Component({
-  selector: 'item-mc-options',
-  templateUrl: './item-mc-options.component.html',
-  styleUrls: ['./item-mc-options.component.less']
+  selector: 'item-ms-options',
+  templateUrl: './item-ms-options.component.html',
+  styleUrls: ['./item-ms-options.component.less']
 })
-export class ItemMcOptionsComponent implements OnInit {
+export class ItemMsOptionsComponent implements OnInit {
   @Input() readonly isReadOnly: boolean;
   @Input() readonly options: ItemOption[];
   @Output() readonly optionsChange = new EventEmitter<ItemOption[]>();

@@ -1,8 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {ItemMsOptionsComponent} from "./item-ms-options.component";
 
-import { ItemLabeledTextAreaComponent } from './item-labeled-textarea.component';
-
-describe('ItemLabeledTextAreaComponent', () => {
+describe('ItemMsOptionsComponent', () => {
   // let component: ItemLabeledTextAreaComponent;
   // let fixture: ComponentFixture<ItemLabeledTextAreaComponent>;
   //
