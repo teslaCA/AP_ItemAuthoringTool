@@ -16,18 +16,19 @@
       <div class="modal-header preview">
         <!-- Title -->
         <div class="col-sm-1">
-          <h3 class="modal-title" id="">Preview<i class="fa fa-chevron-right" aria-hidden="true"></i></h3>
+          <h3 class="modal-title" id="">Preview<!--i class="fa fa-chevron-right" aria-hidden="true"></i--></h3>
         </div>
 
         <!-- Version selection -->
         <div class="col-sm-10">
           <!-- Dropdown -->
-          <div *ngIf="showVersionList" class="btn-group" dropdown>
+          <label class="pull-left">Version: </label>
 
-            <button *ngIf="itemChanges && isBeingEditedByCurrentUser" dropdownToggle type="button" class="btn btn-default dropdown-toggle">
+          <div *ngIf="showVersionList" class="btn-group" dropdown>
+            <button *ngIf="itemChanges && !selectedItemChange.changedOn" dropdownToggle type="button" class="btn btn-default dropdown-toggle">
               {{selectedItemChange.message}} <span class="caret"></span>
             </button>
-            <button *ngIf="itemChanges && !isBeingEditedByCurrentUser" dropdownToggle type="button" class="btn btn-default dropdown-toggle">
+            <button *ngIf="itemChanges && selectedItemChange.changedOn" dropdownToggle type="button" class="btn btn-default dropdown-toggle">
               {{selectedItemChange.changedOn | date:'short'}} - {{selectedItemChange.changedBy}} - {{selectedItemChange.message}} <span class="caret"></span>
             </button>
 
@@ -57,10 +58,10 @@
       </div>
 
       <!-- Body -->
-      <div class="modal-body">
+      <div class="modal-body preview">
         <iframe *ngIf="showIframe" frameborder="0" height="500" width="800" [src]="itemRenderUrl"></iframe>
         <div class="center-block">
-          <i *ngIf="!showIframe" class="fa fa-refresh fa-spin fa-3x fa-fw"></i>
+          <i *ngIf="!showIframe" class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
         </div>
         <!-- Error message -->
         <div class="row" *ngIf="isError">
@@ -70,7 +71,7 @@
         </div>
       </div>
       <!-- Footer -->
-      <div class="modal-footer">
+      <div class="modal-footer preview">
         <!-- Close button -->
         <button type="button" class="btn btn-default btn-small" data-dismiss="modal" (click)="hidePreview()">
           Close
