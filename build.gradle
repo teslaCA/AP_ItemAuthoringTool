@@ -248,7 +248,9 @@ task dockerPushImage(type: DockerPushImage) {
  * Checkstyle
  ***************************/
 
-clean.dependsOn(ngCleanBuild)
+checkstyle {
+    ignoreFailures = true
+}
 
 /***************************
  * PMD
