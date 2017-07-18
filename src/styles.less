@@ -132,6 +132,9 @@ select {
     max-width: 95%;
     margin-bottom: 10px;
 }
+.dropdown-menu > li > a {
+    color: @gray-darker;
+}
 .modal-header {
     font-family: @font-family-sans-serif;
     border: none;
@@ -142,8 +145,17 @@ select {
       padding: 15px 0 10px 15px;
       margin-bottom: 10px;
       color: @gray-darker;
+      .dropdown-toggle {
+          margin: -10px 0 -5px;
+          padding: 5px 10px;
+      }
       .modal-title {
           font-size: large;
+      }
+      label {
+          margin: 4px 10px 0 0;
+          color: @gray-darker;
+          font-weight: normal;
       }
       span {
           font-size: 14px;
@@ -196,13 +208,30 @@ select {
 }
 .modal-body {
     padding: 0 25px;
+    &.preview{
+      text-align: center;
+      height: 100%;
+    }
     .form-group {
       margin-top: 15px;
+    }
+    iframe {
+        border: 1px solid @gray-light;
+        padding: 20px;
+        width: 100%;
+        margin-top: 15px;
+        height: 75%;
+        background: @white;
     }
 }
 .modal-footer {
     border: none;
-    padding: 10px 25px 25px;
+    padding: 0 25px 25px;
+    &.preview{
+      position: absolute;
+      bottom: 0;
+      right: 0;
+    }
 }
 .modal-full {
     width: 100% !important;
@@ -228,6 +257,11 @@ select {
   display: inline-block;
   margin: -2px auto 0;
   border-radius: 0 0 5px 5px;
+}
+.center-block {
+  position: absolute;
+  top: 40%;
+  left: 47%;
 }
 .item-type-icon {
     background: @blue-dark;
