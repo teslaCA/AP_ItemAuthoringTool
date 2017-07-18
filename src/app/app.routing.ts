@@ -8,6 +8,7 @@ import {AppResourceNotFoundComponent} from "./app-resource-not-found.component/a
 const routes: Routes = [
   {path: '', component: ItemDashboardComponent},
   {path: 'item/:id', component: ItemCrudComponent},
+  {path: 'item/:id/:tab', component: ItemCrudComponent},
   {path: 'item/create/select-type', component: ItemCreateComponent},
   {path: 'unavailable', component: AppResourceNotFoundComponent},
   {path: '**', component: AppResourceNotFoundComponent}

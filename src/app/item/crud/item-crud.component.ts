@@ -25,6 +25,7 @@ export class ItemCrudComponent implements OnInit {
   isLoading: boolean;
   isError = false;
   errorMessage: string;
+  selectedTab: string;
   @ViewChild(ItemDetailsComponent) itemDetailsComponent;
 
   get mode(): string {
@@ -127,7 +128,7 @@ export class ItemCrudComponent implements OnInit {
       .subscribe(
         params => {
           const itemId = params['id'];
-
+          this.selectedTab = params['tab'];
           // Load current user
           this.userService.findCurrentUser()
             .subscribe(
