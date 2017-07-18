@@ -17,6 +17,7 @@ export class ItemTabsComponent {
   @Input() itemType: ItemType;
   @Input() selected: string;
   @Input() isReadOnly: boolean;
+  @Output() tabChanged = new EventEmitter<String>();
   @Output() itemChanged = new EventEmitter<Item>();
   @ViewChild(ItemStimulusTabComponent) itemStimulusTabComponent;
   @ViewChild(ItemWorkflowTabComponent) itemWorkflowTabComponent;
@@ -44,6 +45,7 @@ export class ItemTabsComponent {
     this.selected = tab;
     // Update URL to reflect new tab. This does NOT cause the entire page to reload
     this.location.go("/item/" + this.item.id + "/" + tab);
+    this.tabChanged.emit(this.selected);
   }
 
   onItemChanged(): void {

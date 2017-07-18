@@ -4,13 +4,10 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ItemService} from "../services/item.service/item.service";
 import {AlertService} from "../../core/alert.service/alert.service";
 import {Item} from "../services/item.service/item";
-import {ItemTypeService} from "../services/item-type.service/item-type.service";
 import {UserService} from "app/core/user.service/user.service";
-import {ItemType} from "../services/item-type.service/item-type";
 import {User} from "../../core/user.service/user";
 import {HttpUtility} from "../../core/http-utility.service/http-utility";
 import {ItemDetailsComponent} from "./details/item-details.component";
-import {itemTypes} from "../services/item-type.service/item-types";
 
 // TODO: Move nav bar message-related code into separate component (called ItemHeaderComponent)
 @Component({
@@ -72,7 +69,12 @@ export class ItemCrudComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loadItem();
+    this.route.params
+      .subscribe(
+        params => {
+          // Extract item ID and selected Tab from route
+          this.loadItem(params['id'], params['tab']);
+        });
   }
 
   commitCreateTransaction(): void {
@@ -110,7 +112,7 @@ export class ItemCrudComponent implements OnInit {
       .beginEditTransaction(this.item.id, "Began edit")
       .subscribe(
         () => {
-          this.loadItem();
+          this.loadItem(this.item.id, this.selectedTab);
         });
   }
 
@@ -118,35 +120,33 @@ export class ItemCrudComponent implements OnInit {
     this.router.navigateByUrl('/');
   }
 
-  private loadItem() {
+  onTabChanged(selectedTab: string): void {
+    this.selectedTab = selectedTab;
+  }
+
+  private loadItem(itemId: string, selectTab: string) {
     // TODO: Use observable operators to chain / run-in-parallel these calls (also enhance busy service to handle parallel operations)
     // TODO: Add error handling for all calls (currently only findItem failure is handled)
     this.isLoading = true;
+    this.selectedTab = selectTab;
 
-    // Extract item ID from route
-    this.route.params
+    // Load current user
+    this.userService.findCurrentUser()
       .subscribe(
-        params => {
-          const itemId = params['id'];
-          this.selectedTab = params['tab'];
-          // Load current user
-          this.userService.findCurrentUser()
-            .subscribe(
-              (user: User) => {
-                this.currentUser = user;
+        (user: User) => {
+          this.currentUser = user;
 
-                // Load current item
-                this.itemService.findItem(itemId, false /* showAlertOnError */)
-                  .subscribe(
-                    item => {
-                      this.item = item;
-                      this.isLoading = false;
-                    },
-                    error => {
-                      this.isError = true;
-                      this.isLoading = false;
-                      this.errorMessage = this.httpUtility.getErrorMessageText(error);
-                    });
+          // Load current item
+          this.itemService.findItem(itemId, false /* showAlertOnError */)
+            .subscribe(
+              item => {
+                this.item = item;
+                this.isLoading = false;
+              },
+              error => {
+                this.isError = true;
+                this.isLoading = false;
+                this.errorMessage = this.httpUtility.getErrorMessageText(error);
               });
         });
   }

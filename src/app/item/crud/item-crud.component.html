@@ -89,6 +89,7 @@
                    [itemType]="item.itemType"
                    [selected]="selectedTab"
                    [isReadOnly]="isBeingViewedByCurrentUser"
+                   (tabChanged)="onTabChanged($event)"
                    (itemChanged)="autoSave.onItemChange($event)">
         </item-tabs>
       </div>
