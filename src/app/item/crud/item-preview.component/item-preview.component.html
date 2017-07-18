@@ -25,10 +25,10 @@
           <label class="pull-left">Version: </label>
 
           <div *ngIf="showVersionList" class="btn-group" dropdown>
-            <button *ngIf="itemChanges && isBeingEditedByCurrentUser" dropdownToggle type="button" class="btn btn-default dropdown-toggle">
+            <button *ngIf="itemChanges && !selectedItemChange.changedOn" dropdownToggle type="button" class="btn btn-default dropdown-toggle">
               {{selectedItemChange.message}} <span class="caret"></span>
             </button>
-            <button *ngIf="itemChanges && !isBeingEditedByCurrentUser" dropdownToggle type="button" class="btn btn-default dropdown-toggle">
+            <button *ngIf="itemChanges && selectedItemChange.changedOn" dropdownToggle type="button" class="btn btn-default dropdown-toggle">
               {{selectedItemChange.changedOn | date:'short'}} - {{selectedItemChange.changedBy}} - {{selectedItemChange.message}} <span class="caret"></span>
             </button>
 
