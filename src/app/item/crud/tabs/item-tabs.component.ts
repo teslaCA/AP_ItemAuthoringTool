@@ -1,9 +1,9 @@
 import {Component, EventEmitter, Input, Output, ViewChild} from "@angular/core";
+import {Location} from "@angular/common";
 import {Item} from "../../services/item.service/item";
 import {ItemType} from "../../services/item-type.service/item-type";
 import {NormalItem} from "../../services/item.service/normal-item";
 import {ItemStimulusTabComponent} from "./item-stimulus-tab.component/item-stimulus-tab.component";
-import {ItemWorkflowService} from "../../services/item-workflow.service/item-workflow.service";
 import {ItemWorkflowTabComponent} from "./item-workflow-tab.component/item-workflow-tab.component";
 
 @Component({
@@ -12,6 +12,7 @@ import {ItemWorkflowTabComponent} from "./item-workflow-tab.component/item-workf
   styleUrls: ['./item-tabs.component.less']
 })
 export class ItemTabsComponent {
+  validTabs = ['history', 'stimulus', 'workflow'];
   @Input() item: Item;
   @Input() itemType: ItemType;
   @Input() selected: string;
@@ -24,12 +25,25 @@ export class ItemTabsComponent {
     return (this.item as NormalItem).stimulusId;
   }
 
+  constructor(private location: Location) {
+  }
+
   isSelected(tab: string): boolean {
-    return this.selected === tab;
+    let validSelected = this.selected;
+    // Check if selected tab name is supported
+    if (this.validTabs.indexOf(this.selected) < 0) {
+      // Default to first valid tab name
+      validSelected = this.validTabs[0];
+    }
+
+    return validSelected === tab;
   }
 
   select(tab: string): void {
+    // Reload tab content
     this.selected = tab;
+    // Update URL to reflect new tab. This does NOT cause the entire page to reload
+    this.location.go("/item/" + this.item.id + "/" + tab);
   }
 
   onItemChanged(): void {
