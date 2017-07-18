@@ -43,7 +43,7 @@ export class ItemTabsComponent {
     // Reload tab content
     this.selected = tab;
     // Update URL to reflect new tab. This does NOT cause the entire page to reload
-    this.location.go("/item/" + this.item.id + "/" + tab)
+    this.location.go("/item/" + this.item.id + "/" + tab);
   }
 
   onItemChanged(): void {
