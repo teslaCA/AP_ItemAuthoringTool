@@ -2,7 +2,6 @@ import {Component, OnInit} from "@angular/core";
 import {Router} from "@angular/router";
 import {AlertService} from "../../../core/alert.service/alert.service";
 import {AbstractControl, FormBuilder, FormControl, FormGroup} from "@angular/forms";
-import {isNumeric} from "rxjs/util/isNumeric";
 
 @Component({
   selector: 'item-search',
@@ -29,7 +28,7 @@ export class ItemSearchComponent implements OnInit {
     if (this.containsSpecialCharacters(value.query)) {
       this.alertService.error("Invalid Search Term", "Your search term contains one or more of these special characters " + this.SPECIAL_CHARS + ". Please remove them and try again");
     } else {
-      this.router.navigateByUrl('/item/' + encodeURIComponent(value.query.trim()));
+      this.router.navigateByUrl('/item/' + encodeURIComponent(value.query.toUpperCase().trim()));
     }
   }
 
@@ -64,7 +63,7 @@ export class ItemSearchComponent implements OnInit {
     //console.log('pasted values: ' + inputChar);
     //Add a timeout to allow screen lifecycle to finish and new input value to render on screen
     setTimeout(() => {
-      const exp = '[ ]';
+      const exp = '[\r\n]|[ ]';
       const spaceRe = new RegExp(exp, "g");
       this.complexForm.controls['query'].setValue(inputChar.replace(spaceRe, ""));
     });

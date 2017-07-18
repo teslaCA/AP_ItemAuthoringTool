@@ -55,7 +55,7 @@ repositories {
 }
 
 dependencies {
-    compile 'org.opentestsystem.ap:ap-common:0.1.12-SNAPSHOT'
+    compile 'org.opentestsystem.ap:ap-common:0.1.12'
 
     compile 'org.springframework.boot:spring-boot-starter-actuator'
     compile 'org.springframework.boot:spring-boot-starter-security'
@@ -176,12 +176,19 @@ task k8sCopyFiles(type: Copy) {
         filter(ReplaceTokens, tokens: [version                    : project.version,
                                        dockerTagBase              : project.dockerTagBase,
                                        kubecfgState               : project.kubecfgState,
-                                       kubecfgName                : project.kubecfgName,
-                                       samlKeyStorePassword       : project.samlKeyStorePassword,
-                                       samlPrivateKeyEntryAlias   : project.samlPrivateKeyEntryAlias,
-                                       samlPrivateKeyEntryPassword: project.samlPrivateKeyEntryPassword,
-                                       samlIdpMetadataUrl         : project.samlIdpMetadataUrl,
-                                       samlSpEntityId             : project.samlSpEntityId])
+                                       kubecfgName                : project.kubecfgName])
+    }
+
+    into 'build/kubernetes'
+}
+
+task k8sCopyFilesUat(type: Copy) {
+
+    from('src/main/kubernetes/') {
+        filter(ReplaceTokens, tokens: [version: project.version,
+                                       dockerTagBase: project.dockerTagBase,
+                                       kubecfgState: project.kubecfgState,
+                                       kubecfgName: project.kubecfgNameUat])
     }
 
     into 'build/kubernetes'
