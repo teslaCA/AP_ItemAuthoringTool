@@ -87,7 +87,7 @@
         <!-- Item tabs -->
         <item-tabs [item]="item"
                    [itemType]="item.itemType"
-                   [selected]="'history'"
+                   [selected]="selectedTab"
                    [isReadOnly]="isBeingViewedByCurrentUser"
                    (itemChanged)="autoSave.onItemChange($event)">
         </item-tabs>
