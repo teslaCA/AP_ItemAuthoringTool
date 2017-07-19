@@ -6,7 +6,10 @@ import {ItemCrudComponent} from "./item/crud/item-crud.component";
 import {AppResourceNotFoundComponent} from "./app-resource-not-found.component/app-resource-not-found.component";
 
 const routes: Routes = [
-  {path: '', component: ItemDashboardComponent},
+  {
+    path: '',
+    component: ItemDashboardComponent
+  },
   {
     path: 'item',
     children: [
@@ -27,8 +30,14 @@ const routes: Routes = [
       },
     ]
   },
-  {path: 'unavailable', component: AppResourceNotFoundComponent},
-  {path: '**', component: AppResourceNotFoundComponent}
+  {
+    path: 'unavailable',
+    component: AppResourceNotFoundComponent
+  },
+  {
+    path: '**',
+    component: AppResourceNotFoundComponent
+  }
 ];
 
 @NgModule({

@@ -20,7 +20,7 @@
 
       <!-- Enabled link button -->
       <a *ngIf="form.valid"
-         (click)="link(stimulusId.value)"
+         (click)="link(stimulusId.value.toUpperCase())"
          class="btn btn-link">
         <i class="fa fa-chain"></i> Link stimulus
       </a>
