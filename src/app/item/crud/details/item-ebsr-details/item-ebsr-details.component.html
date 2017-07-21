@@ -1,0 +1,44 @@
+<div class="row">
+  <div class="col-lg-12">
+    <item-prompt [label]="'Prompt / Stem'"
+                 [rows]="6"
+                 [isFocused]="true"
+                 [isReadOnly]="isReadOnly"
+                 [text]="item.prompt"
+                 (textChange)="onItemChange()">
+    </item-prompt>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-12">
+    <item-prompt [label]="'Prompt / Stem'"
+                 [rows]="6"
+                 [isFocused]="true"
+                 [isReadOnly]="isReadOnly"
+                 [text]="item.partA.prompt"
+                 (textChange)="onItemChange()">
+    </item-prompt>
+    <item-mc-options [isReadOnly]="isReadOnly"
+                     [options]="item.partA.options"
+                     (optionsChange)="onItemChange()">
+    </item-mc-options>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-12">
+    <item-prompt [label]="'Prompt / Stem'"
+                 [rows]="6"
+                 [isFocused]="true"
+                 [isReadOnly]="isReadOnly"
+                 [text]="item.partB.prompt"
+                 (textChange)="onItemChange()">
+    </item-prompt>
+    <item-ms-options [isReadOnly]="isReadOnly"
+                     [options]="item.partB.options"
+                     (optionsChange)="onItemChange()">
+    </item-ms-options>
+  </div>
+</div>
+
