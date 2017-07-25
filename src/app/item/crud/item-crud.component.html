@@ -2,6 +2,27 @@
   <div *ngIf="!isLoading" class="container">
     <div *ngIf="!isError">
 
+    <!-- Item title -->
+  <div class="row">
+    <div class="col-md-9">
+      <div class="page-title">
+        <h1>
+          <span class="item-type-icon">
+            <i class="fa {{item.itemType.icon}}"></i>
+          </span>
+          <span class="item-type-name">{{item.itemType.name}}
+            <span class="item-type-abb">({{item.itemType.code | uppercase}})</span>
+          </span>
+          <span class="item-type-mode">
+            {{mode}} {{item.itemType.categoryName}}:
+            <span class="item-type-id">{{item.id}}</span>
+          </span>
+        </h1>
+      </div>
+    </div>
+
+
+    <div class="col-md-3">
       <!-- Preview -->
       <div *ngIf="item.supportsPreview" class="pull-right">
         <item-preview #itemPreview
@@ -18,22 +39,8 @@
                         [debounceTimeMillis]="3000">
         </item-auto-save>
       </div>
-
-      <!-- Item title -->
-      <div class="page-title">
-        <h1>
-          <span class="item-type-icon">
-            <i class="fa {{item.itemType.icon}}"></i>
-          </span>
-          <span class="item-type-name">{{item.itemType.name}}
-            <span class="item-type-abb">({{item.itemType.code | uppercase}})</span>
-          </span>
-          <span class="item-type-mode">
-            {{mode}} {{item.itemType.categoryName}}:
-            <span class="item-type-id">{{item.id}}</span>
-          </span>
-        </h1>
-      </div>
+    </div>
+  </div>
 
       <!-- Left 6 columns -->
       <div class="col-md-6">
