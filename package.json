@@ -6,7 +6,7 @@
     "ng": "ng",
     "ng-build": "ng build",
     "dev": "ng build --output-path=build/resources/main/static --watch",
-    "ng-build-prod": "ng build -prod",
+    "ng-build-prod": "ng build --env=prod",
     "start": "ng serve  --proxy-config proxy.conf.json",
     "start-prod": "ng serve --proxy-config proxy.conf.json --prod",
     "lint": "ng lint",
