@@ -24,24 +24,24 @@ export class ItemFactory {
 
     // Initialize item from JSON
     switch (jsonObject.type) {
-      case 'sa':
-        item = JsonConvert.deserializeObject(jsonObject, SaItem);
-        break;
-
-      case 'wer':
-        item = JsonConvert.deserializeObject(jsonObject, WerItem);
-        break;
-
-      case 'stim':
-        item = JsonConvert.deserializeObject(jsonObject, StimItem);
-        break;
-
       case 'mc':
         item = JsonConvert.deserializeObject(jsonObject, McItem);
         break;
 
       case 'ms':
         item = JsonConvert.deserializeObject(jsonObject, MsItem);
+        break;
+
+      case 'sa':
+        item = JsonConvert.deserializeObject(jsonObject, SaItem);
+        break;
+
+      case 'stim':
+        item = JsonConvert.deserializeObject(jsonObject, StimItem);
+        break;
+
+      case 'wer':
+        item = JsonConvert.deserializeObject(jsonObject, WerItem);
         break;
 
       case 'tut':
