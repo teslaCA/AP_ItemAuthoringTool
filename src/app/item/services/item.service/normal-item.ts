@@ -10,4 +10,7 @@ import {Item} from "./item";
 export abstract class NormalItem extends Item {
   @JsonProperty("stimulusId", String)
   stimulusId: string = undefined;             // Initialize to undefined so that field is mapped
+
+  @JsonProperty("tutorialId", String)
+  tutorialId: string = undefined;             // Initialize to undefined so that field is mapped
 }
