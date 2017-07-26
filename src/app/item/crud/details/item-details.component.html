@@ -32,3 +32,10 @@
                   [isReadOnly]="isReadOnly"
                   (itemChanged)="onItemChanged($event)">
 </item-wer-details>
+
+<!-- TUT -->
+<item-tut-details *ngIf="item.type=='tut'"
+                   [item]="item"
+                   [isReadOnly]="isReadOnly"
+                   (itemChanged)="onItemChanged($event)">
+</item-tut-details>
