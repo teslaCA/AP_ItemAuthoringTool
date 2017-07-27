@@ -73,13 +73,13 @@ export const itemTypes: ItemType[] = [
   //   name: 'Table Interaction',
   //   code: 'ti',
   // },
-  // {
-  //   category: ItemTypeCategory.Tutorial,
-  //   categoryName: 'Tutorial',
-  //   icon: 'fa-question-circle',
-  //   name: 'Tutorial',
-  //   code: 'tut',
-  // },
+  {
+    category: ItemTypeCategory.Tutorial,
+    categoryName: 'Tutorial',
+    icon: 'fa-question-circle',
+    name: 'Tutorial',
+    code: 'tut',
+  },
   {
     category: ItemTypeCategory.Item,
     categoryName: 'Item',

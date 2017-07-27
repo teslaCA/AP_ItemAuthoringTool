@@ -8,21 +8,17 @@
       </div>
 
       <!-- Create item -->
-      <div class="col-sm-6">
-        <div class="pull-right">
-          <button class="btn btn-primary" routerLink="/item/create/select-type">
+      <div class="col-md-6">
+          <div *ngIf="showLink">
+            <button class="btn btn-info pull-right" routerLink="{{itemUrl}}">
+              {{itemLink}}
+            </button>
+          </div>
+
+          <button class="btn btn-primary pull-right" routerLink="/item/create/select-type">
             <i class="fa fa-plus" aria-hidden="true"></i>
             Create Item or Resource
           </button>
-        </div>
-        <div class="pull-right">
-          <div *ngIf="showLink">
-            <button class="btn btn-info" routerLink="{{itemUrl}}">
-              {{itemLink}}
-            </button>
-            &nbsp;&nbsp;
-          </div>
-        </div>
       </div>
 
     </div>
