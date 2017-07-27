@@ -13,15 +13,21 @@ import {ItemMsOptionsComponent} from "../shared/item-ms-options.component/item-m
 export class ItemEbsrDetailsComponent {
   @Input() readonly isReadOnly: boolean;
   @Input() readonly item: EbsrItem;
+
   @Output() readonly itemChanged = new EventEmitter<Item>();
-  @ViewChild(ItemPromptComponent) itemPromptComponent;
+
+  @ViewChild("mainPrompt") itemPromptComponent: ItemPromptComponent;
+  @ViewChild("mcPrompt") itemMcPromptComponent: ItemPromptComponent;
+  @ViewChild("msPrompt") itemMsPromptComponent: ItemPromptComponent;
   @ViewChild(ItemMcOptionsComponent) itemMcOptionsComponent;
   @ViewChild(ItemMsOptionsComponent) itemMsOptionsComponent;
 
   get currentItem(): EbsrItem {
     this.item.prompt = this.itemPromptComponent.currentText;
-    this.item.partA = this.itemMcOptionsComponent.currentOptions;
-    this.item.partB = this.itemMsOptionsComponent.currentOptions;
+    this.item.multipleChoice.prompt = this.itemMcPromptComponent.currentText;
+    this.item.multipleChoice.options = this.itemMcOptionsComponent.currentOptions;
+    this.item.multipleSelect.prompt = this.itemMsPromptComponent.currentText;
+    this.item.multipleSelect.options = this.itemMsOptionsComponent.currentOptions;
     return this.item;
   }
 

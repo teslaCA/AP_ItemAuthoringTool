@@ -12,9 +12,9 @@ export class EbsrItem extends NormalItem {
   @JsonProperty("prompt", String)
   prompt: string = undefined;               // Initialize to undefined so that field is mapped
 
-  @JsonProperty("partA", ItemPart)
-  partA: ItemPart = undefined;      // Initialize to undefined so that field is mapped
+  @JsonProperty("multipleChoice", ItemPart)
+  multipleChoice: ItemPart = undefined;      // Initialize to undefined so that field is mapped
 
-  @JsonProperty("partB", ItemPart)
-  partB: ItemPart = undefined;      // Initialize to undefined so that field is mapped
+  @JsonProperty("multipleSelect", ItemPart)
+  multipleSelect: ItemPart = undefined;      // Initialize to undefined so that field is mapped
 }

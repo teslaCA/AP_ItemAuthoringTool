@@ -8,7 +8,7 @@ export const itemTypes: ItemType[] = [
     categoryName: 'Item',
     icon: 'fa-list',
     name: 'Evidence-Based Select Response',
-    code: 'ebsr',
+    code: 'EBSR',
   },
   // {
   //   category: ItemTypeCategory.Item,

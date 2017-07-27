@@ -26,7 +26,7 @@ export class ItemDetailsComponent {
 
   get currentItem(): Item {
     switch (this.item.type) {
-      case 'ebsr':
+      case 'EBSR':
         return this.itemEbsrDetailsComponent.item;
       case 'mc':
         return this.itemMcDetailsComponent.item;

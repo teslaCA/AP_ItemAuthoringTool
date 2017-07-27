@@ -24,7 +24,7 @@ export class ItemFactory {
 
     // Initialize item from JSON
     switch (jsonObject.type) {
-      case 'ebsr':
+      case 'EBSR':
         item = JsonConvert.deserializeObject(jsonObject, EbsrItem);
         break;
 
