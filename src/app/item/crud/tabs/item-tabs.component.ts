@@ -5,6 +5,7 @@ import {ItemType} from "../../services/item-type.service/item-type";
 import {NormalItem} from "../../services/item.service/normal-item";
 import {ItemStimulusTabComponent} from "./item-stimulus-tab.component/item-stimulus-tab.component";
 import {ItemWorkflowTabComponent} from "./item-workflow-tab.component/item-workflow-tab.component";
+import {ItemTutorialTabComponent} from "./item-tutorial-tab.component/item-tutorial-tab.component";
 
 @Component({
   selector: 'item-tabs',
@@ -12,7 +13,7 @@ import {ItemWorkflowTabComponent} from "./item-workflow-tab.component/item-workf
   styleUrls: ['./item-tabs.component.less']
 })
 export class ItemTabsComponent {
-  validTabs = ['history', 'stimulus', 'workflow'];
+  validTabs = ['history', 'stimulus', 'tutorial', 'workflow'];
   @Input() item: Item;
   @Input() itemType: ItemType;
   @Input() selected: string;
@@ -21,9 +22,14 @@ export class ItemTabsComponent {
   @Output() itemChanged = new EventEmitter<Item>();
   @ViewChild(ItemStimulusTabComponent) itemStimulusTabComponent;
   @ViewChild(ItemWorkflowTabComponent) itemWorkflowTabComponent;
+  @ViewChild(ItemTutorialTabComponent) itemTutorialTabComponent;
 
   get linkedStimulusId(): string {
     return (this.item as NormalItem).stimulusId;
+  }
+
+  get linkedTutorialId(): string {
+    return (this.item as NormalItem).tutorialId;
   }
 
   constructor(private location: Location) {
@@ -61,6 +67,10 @@ export class ItemTabsComponent {
     // Capture changes to workflowStatusCode
     if (this.itemWorkflowTabComponent) {
       this.item.workflowStatusCode = this.itemWorkflowTabComponent.currentWorkflowStatusCode;
+    }
+
+    if (this.itemTutorialTabComponent && this.item instanceof NormalItem) {
+      this.item.tutorialId = this.itemTutorialTabComponent.tutorialId;
     }
 
     return this.item;

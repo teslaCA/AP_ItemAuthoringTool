@@ -15,4 +15,8 @@ export class StimItem extends OtherItem {
   get supportsStimulus(): boolean {
     return false;
   }
+
+  get supportsTutorial(): boolean {
+    return false;
+  }
 }

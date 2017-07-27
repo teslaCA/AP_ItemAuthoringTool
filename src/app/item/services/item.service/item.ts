@@ -51,6 +51,10 @@ export abstract class Item {
     return true;
   }
 
+  get supportsTutorial(): boolean {
+    return true;
+  }
+
   isBeingCreatedBy(username: string): boolean {
     return this.isBeingCreated
       && this.createTransaction.username === username;
