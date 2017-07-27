@@ -23,6 +23,4 @@ export class ItemTutDetailsComponent {
   onItemChange() {
     this.itemChanged.emit(this.currentItem);
   }
-
-
 }

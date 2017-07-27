@@ -31,6 +31,7 @@ import {ItemMcOptionsComponent} from "./crud/details/shared/item-mc-options.comp
 import {ItemMsOptionsComponent} from "./crud/details/shared/item-ms-options.component/item-ms-options.component";
 import {ItemExemplarResponsesComponent} from "./crud/details/shared/item-exemplar-responses.component/item-exemplar-responses.component";
 import {ItemTutDetailsComponent} from './crud/details/item-tut-details.component/item-tut-details.component';
+import {ItemTutorialTabComponent} from './crud/tabs/item-tutorial-tab.component/item-tutorial-tab.component';
 
 @NgModule({
   imports: [
@@ -62,7 +63,8 @@ import {ItemTutDetailsComponent} from './crud/details/item-tut-details.component
     ItemMcOptionsComponent,
     ItemMsOptionsComponent,
     ItemWorkflowTabComponent,
-    ItemTutDetailsComponent
+    ItemTutDetailsComponent,
+    ItemTutorialTabComponent
   ],
   exports: [
     ItemDashboardComponent,
