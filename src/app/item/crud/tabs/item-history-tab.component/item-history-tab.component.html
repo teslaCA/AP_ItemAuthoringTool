@@ -1,6 +1,8 @@
 <div *ngIf="itemChanges">
   <div class="text-center">
-    <button class="btn btn-sm btn-info">Export to CSV</button>
+    <a href="/api/ims/v1/items/{{itemId}}/history/csv">
+      <button class="btn btn-sm btn-info" >Export to CSV</button>
+    </a>
   </div>
   <div *ngFor="let history of itemChanges;
                let index = index;
