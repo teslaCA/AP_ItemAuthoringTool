@@ -19,15 +19,18 @@ export class ItemEbsrDetailsComponent {
   @ViewChild("mainPrompt") itemPromptComponent: ItemPromptComponent;
   @ViewChild("mcPrompt") itemMcPromptComponent: ItemPromptComponent;
   @ViewChild("msPrompt") itemMsPromptComponent: ItemPromptComponent;
-  @ViewChild(ItemMcOptionsComponent) itemMcOptionsComponent;
-  @ViewChild(ItemMsOptionsComponent) itemMsOptionsComponent;
+  @ViewChild("mcOptions") itemMcOptionsComponent: ItemMcOptionsComponent;
+  @ViewChild("msOptions") itemMsOptionsComponent: ItemMsOptionsComponent;
 
   get currentItem(): EbsrItem {
     this.item.prompt = this.itemPromptComponent.currentText;
+
     this.item.multipleChoice.prompt = this.itemMcPromptComponent.currentText;
     this.item.multipleChoice.options = this.itemMcOptionsComponent.currentOptions;
+
     this.item.multipleSelect.prompt = this.itemMsPromptComponent.currentText;
     this.item.multipleSelect.options = this.itemMsOptionsComponent.currentOptions;
+
     return this.item;
   }
 

@@ -24,7 +24,8 @@
                  [text]="item.multipleChoice.prompt"
                  (textChange)="onItemChange()">
     </item-prompt>
-    <item-mc-options [isReadOnly]="isReadOnly"
+    <item-mc-options #mcOptions
+                     [isReadOnly]="isReadOnly"
                      [options]="item.multipleChoice.options"
                      (optionsChange)="onItemChange()">
     </item-mc-options>
@@ -44,7 +45,8 @@
                  [text]="item.multipleSelect.prompt"
                  (textChange)="onItemChange()">
     </item-prompt>
-    <item-ms-options [isReadOnly]="isReadOnly"
+    <item-ms-options #msOptions
+                     [isReadOnly]="isReadOnly"
                      [options]="item.multipleSelect.options"
                      (optionsChange)="onItemChange()">
     </item-ms-options>
