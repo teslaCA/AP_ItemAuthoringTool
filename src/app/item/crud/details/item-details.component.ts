@@ -7,6 +7,7 @@ import {ItemWerDetailsComponent} from "./item-wer-details.component/item-wer-det
 import {ItemMcDetailsComponent} from "./item-mc-details.component/item-mc-details.component";
 import {ItemMsDetailsComponent} from "./item-ms-details.component/item-ms-details.component";
 import {ItemTutDetailsComponent} from "./item-tut-details.component/item-tut-details.component";
+import {ItemEbsrDetailsComponent} from "./item-ebsr-details/item-ebsr-details.component";
 
 @Component({
   selector: 'item-details',
@@ -17,6 +18,7 @@ export class ItemDetailsComponent {
   @Input() item: Item;
   @Input() isReadOnly: boolean;
   @Output() itemChanged = new EventEmitter<Item>();
+  @ViewChild(ItemEbsrDetailsComponent) itemEbsrDetailsComponent;
   @ViewChild(ItemTutDetailsComponent) itemTutDetailsComponent;
   @ViewChild(ItemMcDetailsComponent) itemMcDetailsComponent;
   @ViewChild(ItemMsDetailsComponent) itemMsDetailsComponent;
@@ -26,6 +28,8 @@ export class ItemDetailsComponent {
 
   get currentItem(): Item {
     switch (this.item.type) {
+      case 'EBSR':
+        return this.itemEbsrDetailsComponent.item;
       case 'tut':
         return this.itemTutDetailsComponent.item;
       case 'mc':

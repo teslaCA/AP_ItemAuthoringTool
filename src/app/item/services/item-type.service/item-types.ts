@@ -3,13 +3,13 @@ import {ItemTypeCategory} from "./item-type-category";
 
 export const itemTypes: ItemType[] = [
   // TODO: Do not delete the commented-out item types; uncomment them as they are implemented
-  // {
-  //   category: ItemTypeCategory.Item,
-  //   categoryName: 'Item',
-  //   icon: 'fa-list',
-  //   name: 'Evidence-Based Select Response',
-  //   code: 'ebsr',
-  // },
+  {
+    category: ItemTypeCategory.Item,
+    categoryName: 'Item',
+    icon: 'fa-list',
+    name: 'Evidence-Based Select Response',
+    code: 'EBSR',
+  },
   // {
   //   category: ItemTypeCategory.Item,
   //   categoryName: 'Item',

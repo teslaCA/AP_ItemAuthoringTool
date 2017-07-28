@@ -1,0 +1,55 @@
+<div class="row">
+  <div class="col-lg-12">
+    <item-prompt #mainPrompt
+                 [label]="'Prompt / Stem'"
+                 [rows]="6"
+                 [isFocused]="true"
+                 [isReadOnly]="isReadOnly"
+                 [text]="item.prompt"
+                 (textChange)="onItemChange()">
+    </item-prompt>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-12 even">
+    <h4>
+      <span>Part A: Multiple Choice</span>
+    </h4>
+    <item-prompt #mcPrompt
+                 [label]="'Stem'"
+                 [rows]="6"
+                 [isFocused]="true"
+                 [isReadOnly]="isReadOnly"
+                 [text]="item.multipleChoice.prompt"
+                 (textChange)="onItemChange()">
+    </item-prompt>
+    <item-mc-options #mcOptions
+                     [isReadOnly]="isReadOnly"
+                     [options]="item.multipleChoice.options"
+                     (optionsChange)="onItemChange()">
+    </item-mc-options>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-12">
+    <h4>
+      <span>Part B: Multiple Select</span>
+    </h4>
+    <item-prompt #msPrompt
+                 [label]="'Stem'"
+                 [rows]="6"
+                 [isFocused]="true"
+                 [isReadOnly]="isReadOnly"
+                 [text]="item.multipleSelect.prompt"
+                 (textChange)="onItemChange()">
+    </item-prompt>
+    <item-ms-options #msOptions
+                     [isReadOnly]="isReadOnly"
+                     [options]="item.multipleSelect.options"
+                     (optionsChange)="onItemChange()">
+    </item-ms-options>
+  </div>
+</div>
+

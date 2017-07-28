@@ -1,3 +1,10 @@
+<!-- EBSR -->
+<item-ebsr-details *ngIf="item.type=='EBSR'"
+                   [item]="item"
+                   [isReadOnly]="isReadOnly"
+                   (itemChanged)="onItemChanged($event)">
+</item-ebsr-details>
+
 <!-- MC -->
 <item-mc-details *ngIf="item.type=='mc'"
                  [item]="item"

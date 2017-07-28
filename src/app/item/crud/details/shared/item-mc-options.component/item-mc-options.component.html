@@ -15,7 +15,8 @@
                  formControlName="isCorrectAnswer"
                  title="Correct Answer"
                  [checked]="control.value.isCorrectAnswer"
-                 [value]="true">  <!-- Value will be bound if the radio button is selected, otherwise false is bound -->
+                 [value]="true"
+                 (change)="onOptionSelected(i)">
         </div>
 
         <!-- Text -->
