@@ -30,12 +30,12 @@ export class ItemTutorialTabComponent implements OnInit {
     }
   }
 
-  unlink() {
+  disassociate() {
     this.tutorialId = null;
     this.tutorialIdChanged.emit(this.tutorialId);
   }
 
-  link(tutorialId: string) {
+  associate(tutorialId: string) {
     // Find item
     this.itemService
       .findItem(tutorialId)

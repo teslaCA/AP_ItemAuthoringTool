@@ -1,33 +1,33 @@
 <!-- Linked tutorial -->
 <div *ngIf="hasLinkedTutorial">
   <div>
-    Tutorial ID <span class="text-primary">{{tutorialId}}</span> is linked to this item.
+    Tutorial ID <span class="text-primary">{{tutorialId}}</span> is associated to this item.
   </div>
   <div *ngIf="!isReadOnly">
-    <a (click)="unlink()" class="btn btn-link"><i class="fa fa-chain-broken"></i> Unlink tutorial</a>
+    <a (click)="disassociate()" class="btn btn-link"><i class="fa fa-chain-broken"></i> Disassociate tutorial</a>
   </div>
 </div>
 
-<!-- No linked tutorial -->
+<!-- No associated tutorial -->
 <div *ngIf="!hasLinkedTutorial">
   <div>
-    No tutorial is linked to this item.
+    No tutorial is associated to this item.
   </div>
   <div *ngIf="!isReadOnly" class="form-group">
     <form [formGroup]="form" novalidate>
       <!-- Tutorial ID input -->
       <input #tutorialId formControlName="tutorialId" title="tutorialId" type="text" placeholder="Tutorial ID" [maxlength]="15">
 
-      <!-- Enabled link button -->
+      <!-- Enabled associate button -->
       <a *ngIf="form.valid"
-         (click)="link(tutorialId.value.toUpperCase())"
+         (click)="associate(tutorialId.value.toUpperCase())"
          class="btn btn-link">
-        <i class="fa fa-chain"></i> Link tutorial
+        <i class="fa fa-chain"></i> Associate tutorial
       </a>
-      <!-- Disabled link button -->
+      <!-- Disabled associate button -->
       <a *ngIf="!form.valid"
          class="btn btn-link disabled">
-        <i class="fa fa-chain"></i> Link tutorial
+        <i class="fa fa-chain"></i> Associate tutorial
       </a>
     </form>
   </div>

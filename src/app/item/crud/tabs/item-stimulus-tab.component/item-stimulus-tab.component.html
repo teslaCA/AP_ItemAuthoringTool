@@ -1,33 +1,33 @@
 <!-- Linked stimulus -->
 <div *ngIf="hasLinkedStimulus">
   <div>
-    Stimulus ID <span class="text-primary">{{stimulusId}}</span> is linked to this item.
+    Stimulus ID <span class="text-primary">{{stimulusId}}</span> is associated to this item.
   </div>
   <div *ngIf="!isReadOnly">
-    <a (click)="unlink()" class="btn btn-link"><i class="fa fa-chain-broken"></i> Unlink stimulus</a>
+    <a (click)="disassociate()" class="btn btn-link"><i class="fa fa-chain-broken"></i> Disassociate stimulus</a>
   </div>
 </div>
 
-<!-- No linked stimulus -->
+<!-- No associated stimulus -->
 <div *ngIf="!hasLinkedStimulus">
   <div>
-    No stimulus is linked to this item.
+    No stimulus is associated to this item.
   </div>
   <div *ngIf="!isReadOnly" class="form-group">
     <form [formGroup]="form" novalidate>
       <!-- Stimulus ID input -->
       <input #stimulusId formControlName="stimulusId" title="stimulusId" type="text" placeholder="Stimulus ID" [maxlength]="15">
 
-      <!-- Enabled link button -->
+      <!-- Enabled associate button -->
       <a *ngIf="form.valid"
-         (click)="link(stimulusId.value.toUpperCase())"
+         (click)="associate(stimulusId.value.toUpperCase())"
          class="btn btn-link">
-        <i class="fa fa-chain"></i> Link stimulus
+        <i class="fa fa-chain"></i> Associate stimulus
       </a>
-      <!-- Disabled link button -->
+      <!-- Disabled associate button -->
       <a *ngIf="!form.valid"
          class="btn btn-link disabled">
-        <i class="fa fa-chain"></i> Link stimulus
+        <i class="fa fa-chain"></i> Associate stimulus
       </a>
     </form>
   </div>

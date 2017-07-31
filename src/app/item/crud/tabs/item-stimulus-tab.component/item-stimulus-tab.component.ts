@@ -30,12 +30,12 @@ export class ItemStimulusTabComponent implements OnInit {
     }
   }
 
-  unlink() {
+  disassociate() {
     this.stimulusId = null;
     this.stimulusIdChanged.emit(this.stimulusId);
   }
 
-  link(stimulusId: string) {
+  associate(stimulusId: string) {
     // Find item
     this.itemService
       .findItem(stimulusId)
