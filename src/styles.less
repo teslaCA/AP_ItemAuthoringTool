@@ -97,6 +97,13 @@ section.main {
     padding-top: 34px;
     padding-bottom: 60px;
 }
+.section-hdr {
+    display: block;
+    width: 95%;
+    border-top: 2px solid #e1e1e1;
+    padding-top: 20px;
+    margin-top: 20px;
+}
 select {
     font-weight: normal;
     margin: 10px 0;
@@ -147,7 +154,7 @@ select {
       color: @gray-darker;
       .dropdown-toggle {
           margin: -10px 0 -5px;
-          padding: 5px 10px;
+          padding: 5px 10px 5px 20px;
           width: 100%;
           text-align: left;
           overflow: hidden;
@@ -155,6 +162,12 @@ select {
               float: right;
               margin: 10px;
           }
+      }
+      .date {
+          font-weight: bold;
+      }
+      .owner {
+          color: #999;
       }
       .modal-title {
           font-size: large;
