@@ -56,4 +56,11 @@ export class ItemMcOptionsComponent implements OnInit {
   removeOption(index: number): void {
     this.formOptions.removeAt(index);
   }
+
+  onOptionSelected(selectedIndex: number): void {
+    this.form.get('options').value.forEach( (opt: ItemOption, i: number) => {
+      opt.isCorrectAnswer = selectedIndex === i;
+    });
+    this.optionsChange.emit(this.currentOptions);
+  }
 }

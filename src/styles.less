@@ -39,7 +39,7 @@ div.txt-alert {
 h1 {
   margin: 5px 0 30px;
 }
-.btn {margin: 10px 0;
+.btn {margin: 10px 5px 10px 0;
   &.preview {
     float: right;
     margin: 0 10px;
@@ -86,7 +86,7 @@ h1 {
     border-left: 1px solid #e1e1e1;
     border-radius: 5px;
     padding: 12px;
-    margin-left: -10px;
+    margin-left: -6px;
     float: left;
     width: 100%;
 }
@@ -148,6 +148,13 @@ select {
       .dropdown-toggle {
           margin: -10px 0 -5px;
           padding: 5px 10px;
+          width: 100%;
+          text-align: left;
+          overflow: hidden;
+          .caret {
+              float: right;
+              margin: 10px;
+          }
       }
       .modal-title {
           font-size: large;
@@ -171,6 +178,9 @@ select {
       .author {
         color: @black;
         font-weight: bold;
+      }
+      .btn-group {
+        width: 80%
       }
       .close {
           background: @white;

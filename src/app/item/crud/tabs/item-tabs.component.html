@@ -4,6 +4,7 @@
   <button dropdownToggle type="button" class="btn-tab dropdown-toggle">
     <span *ngIf="isSelected('history')">History</span>
     <span *ngIf="isSelected('stimulus')">Stimulus</span>
+    <span *ngIf="isSelected('tutorial')">Tutorial</span>
     <span *ngIf="isSelected('workflow')">Workflow</span>
     <span class="caret"></span>
   </button>
@@ -19,6 +20,11 @@
       <a class="dropdown-item"
          (click)="select('stimulus')">
         Stimulus</a>
+    </li>
+    <li role="menuitem" *ngIf="item.supportsTutorial">
+      <a class="dropdown-item"
+         (click)="select('tutorial')">
+        Tutorial</a>
     </li>
     <li role="menuitem" *ngIf="item.supportsWorkflow">
       <a class="dropdown-item"
@@ -42,6 +48,13 @@
                      [stimulusId]="linkedStimulusId"
                      (stimulusIdChanged)="onItemChanged()">
   </item-stimulus-tab>
+
+  <!-- Tutorial -->
+  <item-tutorial-tab *ngIf="isSelected('tutorial')"
+                     [isReadOnly]="isReadOnly"
+                     [tutorialId]="linkedTutorialId"
+                     (tutorialIdChanged)="onItemChanged()">
+  </item-tutorial-tab>
 
   <!-- Workflow -->
   <item-workflow-tab *ngIf="isSelected('workflow')"

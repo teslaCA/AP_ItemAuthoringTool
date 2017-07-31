@@ -1,22 +1,22 @@
-import {Component, EventEmitter, Input, OnInit, Output} from "@angular/core";
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ItemService} from "../../../services/item.service/item.service";
 import {Item} from "../../../services/item.service/item";
 import {AlertService} from "../../../../core/alert.service/alert.service";
 
 @Component({
-  selector: 'item-stimulus-tab',
-  templateUrl: './item-stimulus-tab.component.html',
-  styleUrls: ['./item-stimulus-tab.component.less']
+  selector: 'item-tutorial-tab',
+  templateUrl: './item-tutorial-tab.component.html',
+  styleUrls: ['./item-tutorial-tab.component.less']
 })
-export class ItemStimulusTabComponent implements OnInit {
+export class ItemTutorialTabComponent implements OnInit {
   form = this.buildForm();
   @Input() isReadOnly: boolean;
-  @Input() stimulusId: string;
-  @Output() stimulusIdChanged = new EventEmitter<string>();
+  @Input() tutorialId: string;
+  @Output() tutorialIdChanged = new EventEmitter<string>();
 
-  get hasLinkedStimulus(): boolean {
-    return !!this.stimulusId;
+  get hasLinkedTutorial(): boolean {
+    return !!this.tutorialId;
   }
 
   constructor(private formBuilder: FormBuilder,
@@ -31,33 +31,33 @@ export class ItemStimulusTabComponent implements OnInit {
   }
 
   disassociate() {
-    this.stimulusId = null;
-    this.stimulusIdChanged.emit(this.stimulusId);
+    this.tutorialId = null;
+    this.tutorialIdChanged.emit(this.tutorialId);
   }
 
-  associate(stimulusId: string) {
+  associate(tutorialId: string) {
     // Find item
     this.itemService
-      .findItem(stimulusId)
+      .findItem(tutorialId)
       .subscribe(
         (item: Item) => {
-          // Verify item is a STIM
-          if (item.type === "stim") {
-            this.stimulusId = stimulusId;
-            this.stimulusIdChanged.emit(this.stimulusId);
+          // Verify item is a TUT
+          if (item.type === "tut") {
+            this.tutorialId = tutorialId;
+            this.tutorialIdChanged.emit(this.tutorialId);
             this.form = this.buildForm();
           }
           else {
             this.alertService.error(
               "Cannot Link",
-              `The item or resource having ID ${stimulusId} is not a STIM`);
+              `The item or resource having ID ${tutorialId} is not a Tutorial`);
           }
         });
   }
 
   private buildForm(): FormGroup {
     return this.formBuilder.group({
-      stimulusId: [null, Validators.required]
+      tutorialId: [null, Validators.required]
     });
   }
 }

@@ -7,6 +7,8 @@ import {StimItem} from "./stim-item";
 import {itemTypes} from "../item-type.service/item-types";
 import {McItem} from "./mc-item";
 import {MsItem} from "./ms-item";
+import {TutItem} from "./tut-item";
+import {EbsrItem} from "./ebsr-item";
 
 export class ItemFactory {
   /**
@@ -23,6 +25,10 @@ export class ItemFactory {
 
     // Initialize item from JSON
     switch (jsonObject.type) {
+      case 'EBSR':
+        item = JsonConvert.deserializeObject(jsonObject, EbsrItem);
+        break;
+
       case 'mc':
         item = JsonConvert.deserializeObject(jsonObject, McItem);
         break;
@@ -41,6 +47,10 @@ export class ItemFactory {
 
       case 'wer':
         item = JsonConvert.deserializeObject(jsonObject, WerItem);
+        break;
+
+      case 'tut':
+        item = JsonConvert.deserializeObject(jsonObject, TutItem);
         break;
 
       default:
