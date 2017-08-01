@@ -4,7 +4,7 @@ import {Item} from "../../services/item.service/item";
 import {ItemType} from "../../services/item-type.service/item-type";
 import {NormalItem} from "../../services/item.service/normal-item";
 import {ItemWorkflowTabComponent} from "./item-workflow-tab.component/item-workflow-tab.component";
-import {itemTypes} from "../../services/item-type.service/item-types";
+import {itemTypes, STIM, TUT} from "../../services/item-type.service/item-types";
 import {ItemAssociationTabComponent} from "./item-association-tab.component/item-association-tab.component";
 
 @Component({
@@ -33,11 +33,11 @@ export class ItemTabsComponent {
   }
 
   get itemTypeStimulus() {
-    return itemTypes.find(type => type.code === 'stim');
+    return STIM;
   }
 
   get itemTypeTutorial() {
-    return itemTypes.find(type => type.code === 'tut');
+    return TUT;
   }
 
   constructor(private location: Location) {
