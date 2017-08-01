@@ -1,4 +1,4 @@
-<!-- Linked tutorial -->
+<!-- Associate resource -->
 <div *ngIf="hasLinkedAssociation">
   <div>
     {{associationType.name}} ID <span class="text-primary">{{associationId}}</span> is associated to this item.
@@ -8,7 +8,7 @@
   </div>
 </div>
 
-<!-- No associated tutorial -->
+<!-- No associated resource -->
 <div *ngIf="!hasLinkedAssociation">
   <div>
     No {{associationType.name | lowercase}} is associated to this item.
