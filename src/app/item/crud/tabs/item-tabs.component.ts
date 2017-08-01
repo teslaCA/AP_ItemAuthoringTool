@@ -6,6 +6,8 @@ import {NormalItem} from "../../services/item.service/normal-item";
 import {ItemStimulusTabComponent} from "./item-stimulus-tab.component/item-stimulus-tab.component";
 import {ItemWorkflowTabComponent} from "./item-workflow-tab.component/item-workflow-tab.component";
 import {ItemTutorialTabComponent} from "./item-tutorial-tab.component/item-tutorial-tab.component";
+import {itemTypes} from "../../services/item-type.service/item-types";
+import {ItemAssociationTabComponent} from "./item-association-tab.component/item-association-tab.component";
 
 @Component({
   selector: 'item-tabs',
@@ -20,16 +22,24 @@ export class ItemTabsComponent {
   @Input() isReadOnly: boolean;
   @Output() tabChanged = new EventEmitter<String>();
   @Output() itemChanged = new EventEmitter<Item>();
-  @ViewChild(ItemStimulusTabComponent) itemStimulusTabComponent;
+  @ViewChild("stimulus") itemStimulusTabComponent: ItemAssociationTabComponent;
   @ViewChild(ItemWorkflowTabComponent) itemWorkflowTabComponent;
-  @ViewChild(ItemTutorialTabComponent) itemTutorialTabComponent;
+  @ViewChild("tutorial") itemTutorialTabComponent: ItemAssociationTabComponent;
 
-  get linkedStimulusId(): string {
+  get associatedStimulusId(): string {
     return (this.item as NormalItem).stimulusId;
   }
 
-  get linkedTutorialId(): string {
+  get associatedTutorialId(): string {
     return (this.item as NormalItem).tutorialId;
+  }
+
+  get itemTypeStimulus() {
+    return itemTypes.find(type => type.code === 'stim');
+  }
+
+  get itemTypeTutorial() {
+    return itemTypes.find(type => type.code === 'tut');
   }
 
   constructor(private location: Location) {
@@ -61,7 +71,7 @@ export class ItemTabsComponent {
   private prepareItem(): Item {
     // Capture changes to stimulusId
     if (this.itemStimulusTabComponent && this.item instanceof NormalItem) {
-      this.item.stimulusId = this.itemStimulusTabComponent.stimulusId;
+      this.item.stimulusId = this.itemStimulusTabComponent.associationId;
     }
 
     // Capture changes to workflowStatusCode
@@ -69,8 +79,9 @@ export class ItemTabsComponent {
       this.item.workflowStatusCode = this.itemWorkflowTabComponent.currentWorkflowStatusCode;
     }
 
+    // Capture changes to tutorialId
     if (this.itemTutorialTabComponent && this.item instanceof NormalItem) {
-      this.item.tutorialId = this.itemTutorialTabComponent.tutorialId;
+      this.item.tutorialId = this.itemTutorialTabComponent.associationId;
     }
 
     return this.item;

@@ -1,0 +1,33 @@
+<!-- Linked tutorial -->
+<div *ngIf="hasLinkedAssociation">
+  <div>
+    {{associationType.name}} ID <span class="text-primary">{{associationId}}</span> is associated to this item.
+  </div>
+  <div *ngIf="!isReadOnly">
+    <a (click)="disassociate()" class="btn btn-link"><i class="fa fa-chain-broken"></i> Disassociate {{associationType.name | lowercase}}</a>
+  </div>
+</div>
+
+<!-- No associated tutorial -->
+<div *ngIf="!hasLinkedAssociation">
+  <div>
+    No {{associationType.name | lowercase}} is associated to this item.
+  </div>
+  <div *ngIf="!isReadOnly" class="form-group">
+    <form [formGroup]="form" novalidate>
+      <input #associationId formControlName="associationId" title="associationId" type="text" placeholder="Association ID" [maxlength]="15">
+
+      <!-- Enabled associate button -->
+      <a *ngIf="form.valid"
+         (click)="associate(associationId.value.toUpperCase())"
+         class="btn btn-link">
+        <i class="fa fa-chain"></i> Associate {{associationType.name | lowercase}}
+      </a>
+      <!-- Disabled associate button -->
+      <a *ngIf="!form.valid"
+         class="btn btn-link disabled">
+        <i class="fa fa-chain"></i> Associate {{associationType.name | lowercase}}
+      </a>
+    </form>
+  </div>
+</div>

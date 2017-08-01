@@ -18,7 +18,6 @@ import {ItemHistoryService} from "./services/item-history.service/item-history.s
 import {ItemService} from "./services/item.service/item.service";
 import {ItemStimDetailsComponent} from "./crud/details/item-stim-details.component/item-stim-details.component";
 import {ItemTabsComponent} from "./crud/tabs/item-tabs.component";
-import {ItemStimulusTabComponent} from "./crud/tabs/item-stimulus-tab.component/item-stimulus-tab.component";
 import {ItemPreviewComponent} from "./crud/item-preview.component/item-preview.component";
 import {ItemPreviewService} from "./services/item-preview.service/item-preview.service";
 import {ItemDetailsComponent} from "./crud/details/item-details.component";
@@ -31,8 +30,8 @@ import {ItemMcOptionsComponent} from "./crud/details/shared/item-mc-options.comp
 import {ItemMsOptionsComponent} from "./crud/details/shared/item-ms-options.component/item-ms-options.component";
 import {ItemExemplarResponsesComponent} from "./crud/details/shared/item-exemplar-responses.component/item-exemplar-responses.component";
 import {ItemTutDetailsComponent} from './crud/details/item-tut-details.component/item-tut-details.component';
-import {ItemTutorialTabComponent} from './crud/tabs/item-tutorial-tab.component/item-tutorial-tab.component';
-import { ItemEbsrDetailsComponent } from './crud/details/item-ebsr-details/item-ebsr-details.component';
+import {ItemEbsrDetailsComponent} from './crud/details/item-ebsr-details/item-ebsr-details.component';
+import {ItemAssociationTabComponent} from './crud/tabs/item-association-tab.component/item-association-tab.component';
 
 @NgModule({
   imports: [
@@ -56,7 +55,6 @@ import { ItemEbsrDetailsComponent } from './crud/details/item-ebsr-details/item-
     ItemHistoryTabComponent,
     ItemAutoSaveComponent,
     ItemTabsComponent,
-    ItemStimulusTabComponent,
     ItemPreviewComponent,
     ItemDetailsComponent,
     ItemExemplarResponsesComponent,
@@ -65,8 +63,8 @@ import { ItemEbsrDetailsComponent } from './crud/details/item-ebsr-details/item-
     ItemMsOptionsComponent,
     ItemWorkflowTabComponent,
     ItemTutDetailsComponent,
-    ItemTutorialTabComponent,
-    ItemEbsrDetailsComponent
+    ItemEbsrDetailsComponent,
+    ItemAssociationTabComponent
   ],
   exports: [
     ItemDashboardComponent,
