@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ItemTutorialTabComponent } from './item-tutorial-tab.component';
+import { ItemAssociationTabComponent } from './item-association-tab.component';
 
-describe('ItemTutorialTabComponent', () => {
-  // let component: ItemTutorialTabComponent;
-  // let fixture: ComponentFixture<ItemTutorialTabComponent>;
+describe('ItemAssociationTabComponent', () => {
+  // let component: ItemAssociationTabComponent;
+  // let fixture: ComponentFixture<ItemAssociationTabComponent>;
   //
   // beforeEach(async(() => {
   //   TestBed.configureTestingModule({
-  //     declarations: [ ItemTutorialTabComponent ]
+  //     declarations: [ ItemAssociationTabComponent ]
   //   })
   //   .compileComponents();
   // }));
   //
   // beforeEach(() => {
-  //   fixture = TestBed.createComponent(ItemTutorialTabComponent);
+  //   fixture = TestBed.createComponent(ItemAssociationTabComponent);
   //   component = fixture.componentInstance;
   //   fixture.detectChanges();
   // });

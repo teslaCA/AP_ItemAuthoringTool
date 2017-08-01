@@ -29,7 +29,10 @@
               {{selectedItemChange.message}} <span class="caret"></span>
             </button>
             <button *ngIf="itemChanges && selectedItemChange.changedOn" dropdownToggle type="button" class="btn btn-default dropdown-toggle">
-              {{selectedItemChange.changedOn | date:'short'}} - {{selectedItemChange.changedBy}} - {{selectedItemChange.message}} <span class="caret"></span>
+              <span class="date">{{selectedItemChange.changedOn | date:'short'}}</span> -
+              <span class="owner">{{selectedItemChange.changedBy}}</span> -
+              <span class="message">{{selectedItemChange.message}}</span>
+              <span class="caret"></span>
             </button>
 
             <ul *dropdownMenu class="dropdown-menu" role="menu">
@@ -38,7 +41,9 @@
                   {{history.message}}
                 </a>
                 <a *ngIf="history.changedOn" class="dropdown-item" (click)="renderItem(history.historyId)">
-                  {{history.changedOn | date:'short'}} - {{history.changedBy}} - {{history.message}}
+                  <span class="date">{{history.changedOn | date:'short'}}</span> -
+                  <span class="owner">{{history.changedBy}}</span> -
+                  <span class="message">{{history.message}}</span>
                 </a>
               </li>
             </ul>
