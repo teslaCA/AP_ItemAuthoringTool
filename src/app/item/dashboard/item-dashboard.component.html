@@ -9,16 +9,17 @@
 
       <!-- Create item -->
       <div class="col-md-6">
-          <div *ngIf="showLink">
-            <button class="btn btn-info pull-right" routerLink="{{itemUrl}}">
-              {{itemLink}}
-            </button>
-          </div>
 
           <button class="btn btn-primary pull-right" routerLink="/item/create/select-type">
             <i class="fa fa-plus" aria-hidden="true"></i>
             Create Item or Resource
           </button>
+
+          <div *ngIf="showLink">
+            <button class="btn btn-info pull-right" routerLink="{{itemUrl}}">
+              {{itemLink}}
+            </button>
+          </div>
       </div>
 
     </div>
