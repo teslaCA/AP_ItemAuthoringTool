@@ -43,18 +43,22 @@
   </item-history-tab>
 
   <!-- Stimulus -->
-  <item-stimulus-tab *ngIf="isSelected('stimulus')"
-                     [isReadOnly]="isReadOnly"
-                     [stimulusId]="linkedStimulusId"
-                     (stimulusIdChanged)="onItemChanged()">
-  </item-stimulus-tab>
+  <item-association-tab #stimulus
+                        *ngIf="isSelected('stimulus')"
+                        [isReadOnly]="isReadOnly"
+                        [associationId]="associatedStimulusId"
+                        [associationType]="itemTypeStimulus"
+                        (associationIdChanged)="onItemChanged()">
+  </item-association-tab>
 
   <!-- Tutorial -->
-  <item-tutorial-tab *ngIf="isSelected('tutorial')"
-                     [isReadOnly]="isReadOnly"
-                     [tutorialId]="linkedTutorialId"
-                     (tutorialIdChanged)="onItemChanged()">
-  </item-tutorial-tab>
+  <item-association-tab #tutorial
+                        *ngIf="isSelected('tutorial')"
+                        [isReadOnly]="isReadOnly"
+                        [associationId]="associatedTutorialId"
+                        [associationType]="itemTypeTutorial"
+                        (associationIdChanged)="onItemChanged()">
+  </item-association-tab>
 
   <!-- Workflow -->
   <item-workflow-tab *ngIf="isSelected('workflow')"
