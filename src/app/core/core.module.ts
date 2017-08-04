@@ -1,6 +1,7 @@
 import {NgModule} from "@angular/core";
 import {CommonModule} from "@angular/common";
 import {NgIdleKeepaliveModule} from '@ng-idle/keepalive';
+import {Ng2BootstrapModule} from "ngx-bootstrap";
 
 import {AlertService} from "./alert.service/alert.service";
 import {Logger} from "./logger.service/logger.service";
@@ -12,21 +13,23 @@ import {BusyService} from "./busy.service/busy.service";
 import {BusyOverlayComponent} from "./busy.service/busy-overlay.component";
 import {AppInfoService} from "./app-info.service/app-info.service";
 import {HttpUtility} from "./http-utility.service/http-utility";
-import {SessionTimeoutComponent} from './session-timeout.service/session-timeout.component';
+import {IdleService} from "./idle.service/idle.service";
+import {IdleModalComponent} from './idle.service/idle-modal.component';
 
 @NgModule({
   declarations: [
     BusyOverlayComponent,
-    SessionTimeoutComponent
+    IdleModalComponent
   ],
   exports: [
     BusyOverlayComponent,
-    SessionTimeoutComponent
+    IdleModalComponent
   ],
   imports: [
     AlertModule,
     CommonModule,
     HttpModule,
+    Ng2BootstrapModule,
     NgIdleKeepaliveModule.forRoot()
   ],
   providers: [
@@ -36,7 +39,8 @@ import {SessionTimeoutComponent} from './session-timeout.service/session-timeout
     BusyService,
     Logger,
     UserService,
-    HttpUtility
+    HttpUtility,
+    IdleService
   ]
 })
 export class CoreModule {

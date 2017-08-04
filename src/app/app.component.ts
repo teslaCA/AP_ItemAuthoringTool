@@ -1,4 +1,5 @@
 import {Component} from "@angular/core";
+import {IdleService} from "./core/idle.service/idle.service";
 
 @Component({
   selector: 'app-root',
@@ -7,9 +8,7 @@ import {Component} from "@angular/core";
 })
 export class AppComponent {
 
+  constructor(private idleService: IdleService) {
 
-  confirmSessionExtended(value: string): void {
-    console.log(value);
   }
-
 }
