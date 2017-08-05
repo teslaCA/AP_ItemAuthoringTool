@@ -9,7 +9,7 @@ import {ToastyConfig, ToastyService} from "ng2-toasty";
 import {Logger} from "../core/logger.service/logger.service";
 import {HttpUtility} from "../core/http-utility.service/http-utility";
 import {BusyService} from "../core/busy.service/busy.service";
-import {IdleService} from "../core/idle.service/idle.service"
+import {IdleService} from "../core/idle.service/idle.service";
 
 describe('AppFooterComponent', () => {
   beforeEach(async(() => {
