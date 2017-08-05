@@ -5,6 +5,5 @@ export const environment = {
     timeoutDuration: 60,        // Duration in seconds that an alert will be presented to the user giving them an option to remain logged in
     logMessages: false,         // Log idle related messages to the console. Set to true only in development environments
     logOutAfterTimeout: true    // Log outs application after timeout. Set to false only in development environments
-
   }
 };

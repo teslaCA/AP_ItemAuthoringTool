@@ -16,6 +16,7 @@ export class IdleService {
   idleDuration = 600;
   timeoutDuration = 60;
   logMessages = true;
+  logOutAfterTimeout  = true;
 
   private subject = new Subject<boolean>();
   state = this.subject.asObservable();
@@ -29,6 +30,9 @@ export class IdleService {
 
     // Duration in seconds that an alert will be presented to the user giving them an option to remain logged in
     this.timeoutDuration = environment.idleService.timeoutDuration;
+
+    // Log outs application after timeout. Set to false only in development environments
+    this.logOutAfterTimeout = environment.idleService.logOutAfterTimeout;
 
     this.idle.setIdle(this.idleDuration);
 
@@ -57,7 +61,9 @@ export class IdleService {
       if (this.logMessages) {
         this.logger.info('Session has timed out');
       }
-      // this.logOut();
+      if (this.logOutAfterTimeout) {
+        this.logOut();
+      }
     });
 
     // Start counting idle time
