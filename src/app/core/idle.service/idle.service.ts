@@ -3,7 +3,7 @@ import {Idle} from "@ng-idle/core";
 import {Subject} from "rxjs/Subject";
 import {Logger} from "../logger.service/logger.service";
 import {Http} from "@angular/http";
-import {environment} from "../../../environments/environment"
+import {environment} from "../../../environments/environment";
 /**
  * Service for displaying a modal message alerting the user that their session is about to timeout
  * If the user responds Yes, the message goes away and a call to keep their web session alive takes place
@@ -83,7 +83,7 @@ export class IdleService {
   }
 
   /**
-   *
+   * Extend web session by calling spring boot app keepalive endpoint
    */
   extendWebSession() {
     if (this.logMessages) {

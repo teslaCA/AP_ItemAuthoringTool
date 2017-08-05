@@ -1,4 +1,5 @@
 import {async, TestBed} from "@angular/core/testing";
+import {NgIdleModule} from "@ng-idle/core";
 
 import {AppFooterComponent} from "./app-footer.component";
 import {HttpModule} from "@angular/http";
@@ -8,6 +9,7 @@ import {ToastyConfig, ToastyService} from "ng2-toasty";
 import {Logger} from "../core/logger.service/logger.service";
 import {HttpUtility} from "../core/http-utility.service/http-utility";
 import {BusyService} from "../core/busy.service/busy.service";
+import {IdleService} from "../core/idle.service/idle.service"
 
 describe('AppFooterComponent', () => {
   beforeEach(async(() => {
@@ -16,7 +18,8 @@ describe('AppFooterComponent', () => {
         AppFooterComponent
       ],
       imports: [
-        HttpModule
+        HttpModule,
+        NgIdleModule.forRoot()
       ],
       providers: [
         AppInfoService,
@@ -25,7 +28,8 @@ describe('AppFooterComponent', () => {
         AlertService,
         ToastyService,
         ToastyConfig,
-        BusyService
+        BusyService,
+        IdleService,
       ]
     }).compileComponents();
   }));
