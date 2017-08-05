@@ -1,8 +1,11 @@
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {ModalDirective} from "ngx-bootstrap";
-import {Subscription} from "rxjs";
+import {Subscription} from "rxjs/Subscription";
 import {IdleService} from "./idle.service";
 
+/**
+ * Modal message that is displayed when the user web session is about to time out
+ */
 @Component({
   selector: 'idle-modal',
   templateUrl: './idle-modal.component.html',
@@ -30,7 +33,12 @@ export class IdleModalComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  restartIdle() {
+  restartIdle(): void {
     this.idleService.restartIdle();
+    this.logoutModal.hide();
+  }
+
+  logOut(): void {
+    this.idleService.logOut();
   }
 }

@@ -9,9 +9,6 @@
     <div class="modal-content">
       <!-- Header -->
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="logoutModal.hide()">
-          <span aria-hidden="true">&times;</span>
-        </button>
         <h3 class="modal-title" id="cancelEditModalLabel">
           Session Timeout
         </h3>
@@ -25,12 +22,12 @@
       <div class="modal-footer">
         <button type="button"
                 class="btn btn-primary btn-small"
-                (click)="restartIdle()">Yes
+                (click)="this.restartIdle()">Yes
         </button>
         <button type="button"
                 class="btn btn-default btn-small"
                 data-dismiss="modal"
-                (click)="logOut()">No
+                (click)="this.logOut()">No
         </button>
       </div>
     </div>
