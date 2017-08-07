@@ -83,7 +83,6 @@ export class IdleService {
    * Extend web session by calling spring boot app keepalive endpoint
    */
   extendWebSession() {
-    this.logger.info('Calling extendWebSession');
     this.http.get('/keepalive')
       .subscribe(() => {
         this.logger.info('Keepalive successful');
