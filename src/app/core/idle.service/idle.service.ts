@@ -13,13 +13,12 @@ import {environment} from "../../../environments/environment";
  */
 @Injectable()
 export class IdleService {
-  idleDuration = 600;
-  timeoutDuration = 60;
-  logMessages = true;
-  logOutAfterTimeout  = true;
+  idleDuration: number;
+  timeoutDuration: number;
+  logOutAfterTimeout: boolean;
 
   private subject = new Subject<boolean>();
-  state = this.subject.asObservable();
+  isTimedOut = this.subject.asObservable();
 
   constructor(private idle: Idle,
               private logger: Logger,
@@ -39,28 +38,20 @@ export class IdleService {
     this.idle.setTimeout(this.timeoutDuration);
 
     this.idle.onIdleStart.subscribe(() => {
-      if (this.logMessages) {
-        this.logger.info('Idle detected');
-      }
+      this.logger.info('Idle detected');
     });
 
     this.idle.onIdleEnd.subscribe(() => {
-      if (this.logMessages) {
-        this.logger.info('No longer Idle');
-      }
+     this.logger.info('No longer Idle');
     });
 
     this.idle.onTimeoutWarning.subscribe((countdown) => {
-      if (this.logMessages) {
-        this.logger.info('You will time out in ' + countdown + ' seconds!');
-      }
+      this.logger.info('You will time out in ' + countdown + ' seconds!');
       this.subject.next(true);
     });
 
     this.idle.onTimeout.subscribe(() => {
-      if (this.logMessages) {
-        this.logger.info('Session has timed out');
-      }
+      this.logger.info('Session has timed out');
       if (this.logOutAfterTimeout) {
         this.logOut();
       }
@@ -92,14 +83,10 @@ export class IdleService {
    * Extend web session by calling spring boot app keepalive endpoint
    */
   extendWebSession() {
-    if (this.logMessages) {
-      this.logger.info('Calling extendWebSession');
-    }
+    this.logger.info('Calling extendWebSession');
     this.http.get('/keepalive')
       .subscribe(() => {
-        if (this.logMessages) {
-          this.logger.info('Keepalive successful');
-        }
+        this.logger.info('Keepalive successful');
       });
   }
 
