@@ -1,5 +1,4 @@
 import {Component} from "@angular/core";
-import {IdleService} from "./core/idle.service/idle.service";
 
 @Component({
   selector: 'app-root',
@@ -7,8 +6,4 @@ import {IdleService} from "./core/idle.service/idle.service";
   styleUrls: ['./app.component.less']
 })
 export class AppComponent {
-
-  constructor(private idleService: IdleService) {
-
-  }
 }

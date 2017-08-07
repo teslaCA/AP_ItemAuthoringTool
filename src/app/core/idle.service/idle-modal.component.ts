@@ -19,12 +19,10 @@ export class IdleModalComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.subscription = this.idleService.state
-      .subscribe((state: boolean) => {
-        if (state) {
-          if (!this.logoutModal.isShown) {
-            this.logoutModal.show();
-          }
+    this.subscription = this.idleService.isTimedOut
+      .subscribe((isTimedOut: boolean) => {
+        if (isTimedOut && !this.logoutModal.isShown) {
+          this.logoutModal.show();
         }
       });
   }
