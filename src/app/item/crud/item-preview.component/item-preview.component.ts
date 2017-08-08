@@ -129,11 +129,11 @@ export class ItemPreviewComponent {
     let queryParams = '';
 
     // Obtain a semicolon delimited list of accessibility options
-    for(let option of this.accessibilityOptions) {
+    for (const option of this.accessibilityOptions) {
       queryParams += option + ';';
     }
 
-    if (queryParams != '') {
+    if (queryParams !== '') {
       queryParams = '&isaap=' + queryParams;
     }
 
