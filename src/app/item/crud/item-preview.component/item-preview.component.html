@@ -20,7 +20,7 @@
         </div>
 
         <!-- Version selection -->
-        <div class="col-sm-10">
+        <div class="col-sm-7">
           <!-- Dropdown -->
           <label class="pull-left">Version: </label>
 
@@ -54,6 +54,32 @@
           </div>
         </div>
 
+        <!-- New Collapsed Header -->
+
+        <div class="col-sm-3">
+          <label class="pull-left">Accessibility: </label>
+          <i (click)="toggleAccessibility('TDS_ASL1')" [class.active]="isAccessibilityEnabled('TDS_ASL1')" class="fa fa-sign-language" aria-hidden="true"></i>
+          <i (click)="toggleAccessibility('TDS_BT_EXN')" [class.active]="isAccessibilityEnabled('TDS_BT_EXN')" class="fa fa-braille" aria-hidden="true"></i>
+          <i (click)="toggleAccessibility('TDS_ClosedCap1')" [class.active]="isAccessibilityEnabled('TDS_ClosedCap1')" class="fa fa-cc" aria-hidden="true"></i>
+          <i (click)="toggleAccessibility('TDS_WL_Glossary')" [class.active]="isAccessibilityEnabled('TDS_WL_Glossary')" class="fa fa-list" aria-hidden="true"></i>
+          <i (click)="toggleAccessibility('TDS_ESN')" [class.active]="isAccessibilityEnabled('TDS_ESN')" class="fa fa-globe" aria-hidden="true"></i>
+          <i (click)="toggleAccessibility('TDS_WL_ESNGloss')" [class.active]="isAccessibilityEnabled('TDS_WL_ESNGloss')" class="fa fa-language" aria-hidden="true"></i>
+        </div>
+
+        <!-- New Expanded Header
+            <div class="col-sm-3">
+              <div class="">Accessibility:</div>
+              <ul>
+                <li><i class="fa fa-sign-language" aria-hidden="true"></i> American Sign language</li>
+                <li><i class="fa fa-braille" aria-hidden="true"></i> Brail</li>
+                <li><i class="fa fa-cc active" aria-hidden="true"></i> Closed Captioning</li>
+                <li><i class="fa fa-list" aria-hidden="true"></i> English Glossory</li>
+                <li><span class="spanish">sp</span> Stacked Spanish Translation</li>
+                <li><i class="fa fa-language" aria-hidden="true"></i> Translated Glossory</li>
+              </ul>
+            </div>
+        -->
+
         <!-- Close -->
         <div class="col-sm-1">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="hidePreview()">
@@ -64,7 +90,7 @@
 
       <!-- Body -->
       <div class="modal-body preview">
-        <iframe *ngIf="showIframe" frameborder="0" height="500" width="800" [src]="itemRenderUrl"></iframe>
+        <iframe *ngIf="showIframe" frameborder="0" height="500" width="800" [src]="itemSafeResourceUrl"></iframe>
         <div class="center-block">
           <i *ngIf="!showIframe" class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
         </div>

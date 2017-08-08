@@ -16,10 +16,12 @@ export class ItemPreviewComponent {
   showIframe: boolean;
   isError = false;
   errorMessage: string;
-  itemRenderUrl: SafeResourceUrl;
+  itemSafeResourceUrl: SafeResourceUrl;
+  itemRenderUrl: string;
   itemChanges: ItemChange[];
   showVersionList = false;
   selectedItemChange =  new ItemChange();
+  accessibilityOptions: string[] = [];
   @Input() itemId: string;
   @Input() isBeingEditedByCurrentUser: boolean;
   @Input() isBeingCreatedByCurrentUser: boolean;
@@ -80,8 +82,12 @@ export class ItemPreviewComponent {
                 this.selectedItemChange = this.itemChanges.find(change => change.historyId === itemHistoryId);
               }
             }
+            // Set base item render url; This will be reused when user selects accessibility features.
+            // set readOnly=true to disable user interaction with item preview
+            this.itemRenderUrl = response.renderUrl + '?readOnly=true';
+
             // Assign response URL which is associated with the iframe source
-            this.itemRenderUrl = this.domSanitizer.bypassSecurityTrustResourceUrl(response.renderUrl);
+            this.itemSafeResourceUrl = this.domSanitizer.bypassSecurityTrustResourceUrl(this.itemRenderUrl);
             this.isError = false;
             this.showIframe = true;
           }
@@ -102,6 +108,39 @@ export class ItemPreviewComponent {
     this.modal.hide();
     this.showIframe = false;
     this.isError = false;
+  }
+
+  isAccessibilityEnabled(code: string): boolean {
+    return this.accessibilityOptions.indexOf(code) !== -1;
+  }
+
+  toggleAccessibility(code: string): void {
+    const codeIdx = this.accessibilityOptions.indexOf(code);
+    if ( codeIdx === -1) {
+      this.accessibilityOptions.push(code);
+    } else {
+      this.accessibilityOptions.splice(codeIdx, 1);
+    }
+
+    this.updateRenderUrl();
+  }
+
+  private updateRenderUrl() {
+    let queryParams = '';
+
+    // Obtain a semicolon delimited list of accessibility options
+    for(let option of this.accessibilityOptions) {
+      queryParams += option + ';';
+    }
+
+    if (queryParams != '') {
+      queryParams = '&isaap=' + queryParams;
+    }
+
+    this.logger.info(`Render Url: ${this.itemRenderUrl}${queryParams}`);
+
+    // Assign response URL which is associated with the iframe source
+    this.itemSafeResourceUrl = this.domSanitizer.bypassSecurityTrustResourceUrl(this.itemRenderUrl + queryParams);
   }
 
 }
