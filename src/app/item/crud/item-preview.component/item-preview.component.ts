@@ -36,8 +36,9 @@ export class ItemPreviewComponent {
 
   show() {
     this.logger.debug("item preview id:" + this.itemId);
-    this.modal.show();
+    this.accessibilityOptions = [];
     this.showIframe = false;
+    this.modal.show();
     // Find item history and populate the objects that display the button and list
     this.itemHistoryService.findItemHistory(this.itemId)
       .subscribe(

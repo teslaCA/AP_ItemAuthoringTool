@@ -1,4 +1,4 @@
-<button class="btn btn-default preview" (click)="show()">
+<button class="btn btn-default preview" (click)="show()" data-toggle="modal">
   Preview
 </button>
 
@@ -58,12 +58,12 @@
         <!-- TODO: Render options via configuration or service -->
         <div class="col-sm-3">
           <label class="pull-left">Accessibility: </label>
-          <i (click)="toggleAccessibility('TDS_ASL1')" [class.active]="isAccessibilityEnabled('TDS_ASL1')" class="fa fa-sign-language" aria-hidden="true"></i>
-          <i (click)="toggleAccessibility('TDS_BT_EXN')" [class.active]="isAccessibilityEnabled('TDS_BT_EXN')" class="fa fa-braille" aria-hidden="true"></i>
-          <i (click)="toggleAccessibility('TDS_ClosedCap1')" [class.active]="isAccessibilityEnabled('TDS_ClosedCap1')" class="fa fa-cc" aria-hidden="true"></i>
-          <i (click)="toggleAccessibility('TDS_WL_Glossary')" [class.active]="isAccessibilityEnabled('TDS_WL_Glossary')" class="fa fa-list" aria-hidden="true"></i>
-          <i (click)="toggleAccessibility('TDS_ESN')" [class.active]="isAccessibilityEnabled('TDS_ESN')" class="fa fa-globe" aria-hidden="true"></i>
-          <i (click)="toggleAccessibility('TDS_WL_ESNGloss')" [class.active]="isAccessibilityEnabled('TDS_WL_ESNGloss')" class="fa fa-language" aria-hidden="true"></i>
+          <a (click)="toggleAccessibility('TDS_ASL1')"><i title="American Sign Language" [class.active]="isAccessibilityEnabled('TDS_ASL1')" class="fa fa-sign-language" aria-hidden="true"></i></a>
+          <a (click)="toggleAccessibility('TDS_BT_EXN')"><i title="Braille" [class.active]="isAccessibilityEnabled('TDS_BT_EXN')" class="fa fa-braille" aria-hidden="true"></i></a>
+          <a (click)="toggleAccessibility('TDS_ClosedCap1')"><i title="Closed Captioning" [class.active]="isAccessibilityEnabled('TDS_ClosedCap1')" class="fa fa-cc" aria-hidden="true"></i></a>
+          <a (click)="toggleAccessibility('TDS_WL_Glossary')"><i title="English Glossary" [class.active]="isAccessibilityEnabled('TDS_WL_Glossary')" class="fa fa-list" aria-hidden="true"></i></a>
+          <a (click)="toggleAccessibility('TDS_ESN')"><i title="Stacked Spanish Translations" [class.active]="isAccessibilityEnabled('TDS_ESN')" class="fa fa-globe" aria-hidden="true"></i></a>
+          <a (click)="toggleAccessibility('TDS_WL_ESNGloss')"><i title="Translated Glossary" [class.active]="isAccessibilityEnabled('TDS_WL_ESNGloss')" class="fa fa-language" aria-hidden="true"></i></a>
         </div>
 
         <!-- Close -->
