@@ -32,6 +32,7 @@ import {ItemExemplarResponsesComponent} from "./crud/details/shared/item-exempla
 import {ItemTutDetailsComponent} from './crud/details/item-tut-details.component/item-tut-details.component';
 import {ItemEbsrDetailsComponent} from './crud/details/item-ebsr-details/item-ebsr-details.component';
 import {ItemAssociationTabComponent} from './crud/tabs/item-association-tab.component/item-association-tab.component';
+import {ItemBrailleTabComponent} from './crud/tabs/item-braille-tab.component/item-braille-tab.component';
 
 @NgModule({
   imports: [
@@ -64,7 +65,8 @@ import {ItemAssociationTabComponent} from './crud/tabs/item-association-tab.comp
     ItemWorkflowTabComponent,
     ItemTutDetailsComponent,
     ItemEbsrDetailsComponent,
-    ItemAssociationTabComponent
+    ItemAssociationTabComponent,
+    ItemBrailleTabComponent
   ],
   exports: [
     ItemDashboardComponent,

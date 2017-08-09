@@ -1,0 +1,28 @@
+<div [formGroup]="form" class="form-group">
+  <div class="row">
+    <div class="col-md-12">
+      Does this item require Braille?
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3">
+      <select class="form-control" formControlName="doesThisItemRequireBraille">
+        <option [value]="true">Yes</option>
+        <option [value]="false">No</option>
+      </select>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      Has all Braille content been provided?
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3">
+      <select class="form-control" formControlName="hasAllBrailleContentBeenProvided">
+        <option [value]="true">Yes</option>
+        <option [value]="false">No</option>
+      </select>
+    </div>
+  </div>
+</div>

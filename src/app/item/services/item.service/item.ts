@@ -2,6 +2,7 @@ import {JsonProperty} from "json2typescript";
 
 import {ItemTransaction} from "./item-transaction";
 import {ItemType} from "../item-type.service/item-type";
+import {ItemBraille} from "./item-braille";
 
 /**
  * Item base class for models that can be mapped to/from JSON.
@@ -24,6 +25,9 @@ export abstract class Item {
 
   @JsonProperty("workflowStatusCode", String)
   workflowStatusCode: string = undefined;           // Initialize to undefined so that field is mapped
+
+  @JsonProperty("braille", ItemBraille, false)
+  braille: ItemBraille = undefined;
 
   itemType: ItemType;
 

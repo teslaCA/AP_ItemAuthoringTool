@@ -2,10 +2,11 @@
 <div class="btn-group" dropdown>
   <!-- Selected option -->
   <button dropdownToggle type="button" class="btn-tab dropdown-toggle">
-    <span *ngIf="isSelected('history')">History</span>
-    <span *ngIf="isSelected('stimulus')">Stimulus</span>
-    <span *ngIf="isSelected('tutorial')">Tutorial</span>
-    <span *ngIf="isSelected('workflow')">Workflow</span>
+    <span *ngIf="isSelected(tab.braille)">Braille</span>
+    <span *ngIf="isSelected(tab.history)">History</span>
+    <span *ngIf="isSelected(tab.stimulus)">Stimulus</span>
+    <span *ngIf="isSelected(tab.tutorial)">Tutorial</span>
+    <span *ngIf="isSelected(tab.workflow)">Workflow</span>
     <span class="caret"></span>
   </button>
 
@@ -13,22 +14,27 @@
   <ul *dropdownMenu class="dropdown-menu" role="menu">
     <li role="menuitem">
       <a class="dropdown-item"
-         (click)="select('history')">
+         (click)="select(tab.braille)">
+        Braille</a>
+    </li>
+    <li role="menuitem">
+      <a class="dropdown-item"
+         (click)="select(tab.history)">
         History</a>
     </li>
     <li role="menuitem" *ngIf="item.supportsStimulus">
       <a class="dropdown-item"
-         (click)="select('stimulus')">
+         (click)="select(tab.stimulus)">
         Stimulus</a>
     </li>
     <li role="menuitem" *ngIf="item.supportsTutorial">
       <a class="dropdown-item"
-         (click)="select('tutorial')">
+         (click)="select(tab.tutorial)">
         Tutorial</a>
     </li>
     <li role="menuitem" *ngIf="item.supportsWorkflow">
       <a class="dropdown-item"
-         (click)="select('workflow')">
+         (click)="select(tab.workflow)">
         Workflow</a>
     </li>
   </ul>
@@ -37,14 +43,21 @@
 
 <!-- Selected tab -->
 <div class="item-box tab-content well">
+  <!-- Accessibility -->
+  <item-braille-tab *ngIf="isSelected(tab.braille)"
+                    [isReadOnly]="isReadOnly"
+                    [itemBraille]="item.braille"
+                    (itemBrailleChanged)="onItemChanged()">
+  </item-braille-tab>
+
   <!-- History -->
-  <item-history-tab *ngIf="isSelected('history')"
+  <item-history-tab *ngIf="isSelected(tab.history)"
                     [itemId]="item.id">
   </item-history-tab>
 
   <!-- Stimulus -->
   <item-association-tab #stimulus
-                        *ngIf="isSelected('stimulus')"
+                        *ngIf="isSelected(tab.stimulus)"
                         [isReadOnly]="isReadOnly"
                         [associationId]="associatedStimulusId"
                         [associationType]="itemTypeStimulus"
@@ -53,7 +66,7 @@
 
   <!-- Tutorial -->
   <item-association-tab #tutorial
-                        *ngIf="isSelected('tutorial')"
+                        *ngIf="isSelected(tab.tutorial)"
                         [isReadOnly]="isReadOnly"
                         [associationId]="associatedTutorialId"
                         [associationType]="itemTypeTutorial"
@@ -61,7 +74,7 @@
   </item-association-tab>
 
   <!-- Workflow -->
-  <item-workflow-tab *ngIf="isSelected('workflow')"
+  <item-workflow-tab *ngIf="isSelected(tab.workflow)"
                      [isReadOnly]="isReadOnly"
                      [workflowStatusCode]="item.workflowStatusCode"
                      (workflowStatusCodeChange)="onItemChanged()">
