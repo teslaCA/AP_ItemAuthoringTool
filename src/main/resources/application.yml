@@ -19,6 +19,3 @@ management:
 
 api:
   context-path: "/api"
-
-
-
