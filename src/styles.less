@@ -20,189 +20,41 @@
 // ng2 Toasty
 @import "@{library-path}/ng2-toasty/style.css";
 
-a {
-    cursor: pointer;
-}
-div.txt-alert {
-  padding: 5px 10px;
-  background: none;
-  &.green{color:@green;}
-  &.aqua{color:@aqua;}
-  &.orange{color:@orange;}
-}
-h1 {
-  margin: 5px 0 30px;
-}
-.btn {margin: 10px 5px 10px 0;
-  &.preview {
-    float: right;
-    margin: 0 10px;
+header {
+  background-color: transparent;
+  .box-shadow(none);
+  .well {
+    .border-top-radius(0px);
   }
 }
-.btn-link { padding: 6.72px;}
-.modal-footer .btn {
-    margin-bottom: 0;
+
+footer {
+  background-color: transparent;
+  padding: 0px;
+  border-top: none;
+  color: @gray-dark;
+  .box-shadow(none);
 }
-.btn-items {
-  margin: 15px;
-  background-color: @gray-lighter;
-  border: 1px @gray-light solid;
-  white-space: normal;
-  line-height: 20px;
-  height: 150px;
-  width: 150px;
-  .box-shadow(0px 3px 6px rgba(0,0,0,.16));
-}
-.btn-items:hover {
-  margin: 15px;
-  background-color: @gray-lighter;
-  border: 1px @gray solid;
-  height: 150px;
-  width: 150px;
-  a {
-    text-decoration: none;
-  }
-}
-.btn-tab {  /* hack for ngx-bootstrap since there is no tab dropdown */
-    background: @white;
-    border-radius: 5px 5px 0 0;
-    border: 1px solid @gray-light;
-    padding: 5px 10px;
-    margin-bottom: -1px;
-    margin-top: 5px;
-    border-bottom-color: @white;
-}
-.dropdown a {
-    padding: 6px 17px !important;
-    margin-top: 4px;
-}
-.item-box {
-    border-left: 1px solid #e1e1e1;
-    border-radius: 5px;
-    padding: 12px;
-    margin-left: -6px;
-    float: left;
-    width: 100%;
-}
-.mc input[type="radio"], .mc input[type="checkbox"] {
-    margin: 12px;
-}
-section.main {
-    padding-top: 34px;
-    padding-bottom: 60px;
-}
-.section-hdr {
-    display: block;
-    width: 95%;
-    border-top: 2px solid #e1e1e1;
-    padding-top: 20px;
-    margin-top: 20px;
-}
-select {
-    font-weight: normal;
-    margin: 10px 0;
-    font-size: 14px !important;
-    height: 40px !important;
-}
-.box{
-    background: #f2f2f2;
-    padding: 15px 20px 10px;
-    margin-bottom: 17px;
-    word-wrap: break-word;
-    .btn-link { margin:0}
-}
-.btn-items .blue {
-    display: inline-block;
-    padding: 5px 11px;
-    border-radius: 5px;
-    margin-bottom: 10px;
-    color: @white;
-}
-.input-group .form-control {
-    margin: 10px 0;
-}
-.form-group {
-    margin-bottom: 10px;
-    float: left;
-    width: 100%;
-}
-.form-control {
-    padding: 7.72px 13.44px; /* to match height of buttons */
-}
-.form95 {
-    max-width: 95%;
-    margin-bottom: 10px;
-}
-.dropdown-menu > li > a {
-    color: @gray-darker;
-}
-.modal-header {
-    font-family: @font-family-sans-serif;
-    border: none;
-    padding: 25px 25px 10px;
-    &.preview {
-      background: @gray-lighter;
-      border-bottom: 1px @gray-light solid;
-      padding: 15px 0 10px 15px;
-      margin-bottom: 10px;
-      color: @gray-darker;
-      .dropdown-toggle {
-          margin: -10px 0 -5px;
-          padding: 5px 10px 5px 20px;
-          width: 100%;
-          text-align: left;
-          overflow: hidden;
-          .caret {
-              float: right;
-              margin: 10px;
-          }
-      }
-      .date {
-          font-weight: bold;
-      }
-      .owner {
-          color: #999;
-      }
-      .modal-title {
-          font-size: large;
-      }
-      label {
-          margin: 4px 10px 0 0;
-          color: @gray-darker;
-          font-weight: normal;
-      }
-      span {
-          font-size: 14px;
-      }
-      i {
-          margin-left: 10px;
-          font-size: 20px;
-          color: @gray-darker;
-          &.active {
-            color: @black;
-          }
-      }
-      .author {
-        color: @black;
-        font-weight: bold;
-      }
-      .btn-group {
-        width: 80%
-      }
-      .close {
-          background: @white;
-          padding: 11px 0;
-          opacity: 1;
-          margin: -15px -8px;
-          border-left: 1px @gray-light solid;
-          color: @gray-darker;
-          span {
-            font-size: 30px;
-            padding: 20px;
-          }
-      }
-    }
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .preview-over {
     position: absolute;
     z-index: 99;
@@ -211,7 +63,7 @@ select {
     top: 0;
     padding: 20px;
     .modal-title {
-        font-size: large;
+        .h4;
     }
     ul{
       margin: 0;
@@ -220,11 +72,11 @@ select {
     li {
         list-style: none;
         margin: 10px 0;
-        font-family: @font-family-sans-serif;
+        .sans;
     }
 }
 .modal-body {
-    padding: 0 25px;
+    padding: @padding-base-vertical @padding-base-horizontal;
     &.preview{
       text-align: center;
       height: 100%;
@@ -233,37 +85,9 @@ select {
       margin-top: 15px;
     }
     iframe {
-        border: 1px solid @gray-light;
-        padding: 20px;
         width: 100%;
-        margin-top: 15px;
-        height: 75%;
-        background: @white;
+
     }
-}
-.modal-footer {
-    border: none;
-    padding: 0 25px 25px;
-    &.preview{
-      position: absolute;
-      bottom: 0;
-      right: 0;
-    }
-}
-.modal-full {
-    width: 100% !important;
-    padding: 0 15px;
-    height: 95%;
-    margin: 15px auto;
-    .modal-content {
-    width: 100% !important;
-    height: auto;
-    min-height: 100%;
-    border-radius: 0;
-    }
-}
-.form-control, .modal-form-control {
-    color: inherit !important;
 }
 .busy-overlay-content .alert-info {
   background-color: #fff;
