@@ -81,7 +81,7 @@ export class ItemPreviewComponent {
               }
             }
             // Assign response URL which is associated with the iframe source
-            this.itemRenderUrl = this.domSanitizer.bypassSecurityTrustResourceUrl(response.renderUrl);
+            this.itemRenderUrl = this.domSanitizer.bypassSecurityTrustResourceUrl(response.renderUrl + '?readOnly=true');
             this.isError = false;
             this.showIframe = true;
           }
