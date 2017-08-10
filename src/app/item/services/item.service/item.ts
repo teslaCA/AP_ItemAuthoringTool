@@ -26,7 +26,7 @@ export abstract class Item {
   @JsonProperty("workflowStatusCode", String)
   workflowStatusCode: string = undefined;           // Initialize to undefined so that field is mapped
 
-  @JsonProperty("braille", ItemBraille, false)
+  @JsonProperty("braille", ItemBraille, /* isOptional */ true)
   braille: ItemBraille = undefined;
 
   itemType: ItemType;

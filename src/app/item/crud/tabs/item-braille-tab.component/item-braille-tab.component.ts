@@ -18,7 +18,7 @@ export class ItemBrailleTabComponent implements OnChanges, OnInit {
   });
 
   get currentItemBraille(): ItemBraille {
-    let braille = new ItemBraille();
+    const braille = new ItemBraille();
     braille.doesThisItemRequireBraille = this.form.value.doesThisItemRequireBraille;
     braille.hasAllBrailleContentBeenProvided = this.form.value.hasAllBrailleContentBeenProvided;
     return braille;
