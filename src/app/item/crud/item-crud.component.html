@@ -2,115 +2,99 @@
   <div *ngIf="!isLoading" class="container">
     <div *ngIf="!isError">
 
-    <!-- Item title -->
-  <div class="row">
-    <div class="col-md-9">
-      <div class="page-title">
-        <h1>
-          <span class="item-type-icon">
-            <i class="fa {{item.itemType.icon}}"></i>
-          </span>
-          <span class="item-type-name">{{item.itemType.name}}
-            <span class="item-type-abb">({{item.itemType.code | uppercase}})</span>
-          </span>
-          <span class="item-type-mode">
-            {{mode}} {{item.itemType.categoryName}}:
-            <span class="item-type-id">{{item.id}}</span>
-          </span>
-        </h1>
-      </div>
-    </div>
+      <!-- Item title -->
+      <h1 class="h2 label-group blue">
+        <span class="label"><i class="fa {{item.itemType.icon}}"></i> {{item.id}}</span><span class="label">{{item.itemType.name}} <abbr title="{{item.itemType.name}}">( {{item.itemType.code | uppercase}} )</abbr></span>
+      </h1>
 
+      <div class="row">
+        <!-- Left 6 columns -->
+        <div class="col-md-6">
+          <div class="well-group">
+            <div class="well gray-lightest">
+              <div class="well-body">
+                <button class="btn btn-default btn-sm" (click)="goHome()">
+                  <i class="fa fa-arrow-left"></i> Search Items <i class="fa fa-search"></i>
+                </button>
+                <!-- Preview -->
+                <span *ngIf="item.supportsPreview">
+                  <item-preview #itemPreview
+                                [itemId]="item.id"
+                                [isBeingEditedByCurrentUser]="isBeingEditedByCurrentUser"
+                                [isBeingCreatedByCurrentUser]="isBeingCreatedByCurrentUser">
+                  </item-preview>
+                </span>
 
-    <div class="col-md-3">
-      <!-- Preview -->
-      <div *ngIf="item.supportsPreview" class="pull-right">
-        <item-preview #itemPreview
-                      [itemId]="item.id"
-                      [isBeingEditedByCurrentUser]="isBeingEditedByCurrentUser"
-                      [isBeingCreatedByCurrentUser]="isBeingCreatedByCurrentUser">
-        </item-preview>
-      </div>
+                <!-- View -->
+                <span *ngIf="isBeingViewedByCurrentUser">
+                  <button class="btn btn-success btn-sm" (click)="beginEditTransaction()" [disabled]="isBeingEditedByAnotherUser">
+                    <i class="fa fa-edit"></i> Edit
+                  </button>
+                </span>
 
-      <!-- Auto-save -->
-      <div class="pull-right">
-        <item-auto-save #autoSave
-                        [enabled]="isBeingCreatedByCurrentUser || isBeingEditedByCurrentUser"
-                        [debounceTimeMillis]="3000">
-        </item-auto-save>
-      </div>
-    </div>
-  </div>
+                <!-- Create -->
+                <span *ngIf="isBeingCreatedByCurrentUser">
+                  <button class="btn btn-success btn-sm" (click)="commitModal.show()">
+                    Create {{item.itemType.categoryName}}
+                  </button>
+                  <button class="btn btn-link btn-sm" (click)="cancelModal.show()">
+                    Cancel
+                  </button>
+                </span>
 
-      <!-- Left 6 columns -->
-      <div class="col-md-6">
-        <!-- Item type details -->
-        <item-details [item]="item"
-                      [isReadOnly]="isBeingViewedByCurrentUser"
-                      (itemChanged)="autoSave.onItemChange($event)">
-        </item-details>
+                <!-- Edit -->
+                <span *ngIf="isBeingEditedByCurrentUser">
+                  <button class="btn btn-success btn-sm" (click)="commitModal.show()">
+                    Commit Changes
+                  </button>
+                  <button class="btn btn-link btn-sm" (click)="cancelModal.show()">
+                    Discard Changes
+                  </button>
+                </span>
 
-        <!-- Action buttons -->
-        <div class="row">
-          <div class="col-lg-12">
-            <!-- Create -->
-            <div *ngIf="isBeingCreatedByCurrentUser">
-              <button class="btn btn-primary" (click)="commitModal.show()">
-                Create {{item.itemType.categoryName}}
-              </button>
-              <button class="btn btn-link" (click)="cancelModal.show()">
-                Cancel
-              </button>
-            </div>
+                <!-- Auto-save -->
+                <div class="mt-sm">
+                  <item-auto-save #autoSave
+                                  [enabled]="isBeingCreatedByCurrentUser || isBeingEditedByCurrentUser"
+                                  [debounceTimeMillis]="3000">
+                  </item-auto-save>
+                </div>
 
-            <!-- Edit -->
-            <div *ngIf="isBeingEditedByCurrentUser">
-              <button class="btn btn-primary" (click)="commitModal.show()">
-                Commit Changes
-              </button>
-              <button class="btn btn-link" (click)="cancelModal.show()">
-                Discard Changes
-              </button>
-            </div>
-
-            <!-- View -->
-            <div *ngIf="isBeingViewedByCurrentUser">
-              <button class="btn btn-primary" (click)="goHome()">
-                Done
-              </button>
-              <button class="btn btn-primary" (click)="beginEditTransaction()" [disabled]="isBeingEditedByAnotherUser">
-                Edit<span *ngIf="isBeingEditedByAnotherUser">*</span>
-              </button>
-              <div *ngIf="isBeingEditedByAnotherUser" class="small">
-                *Being edited by {{item.currentTransaction.username}}
+                <!-- Item being edited by another user -->
+                <div *ngIf="isBeingEditedByAnotherUser" class="alert alert-warning small mt-sm">
+                  <i class="fa fa-warning"></i> {{item.id}} is being edited by {{item.currentTransaction.username}}. Items may only be edited by one user at a time.
+                </div>
               </div>
             </div>
+
+            <!-- Item type details -->
+            <item-details [item]="item"
+                          [isReadOnly]="isBeingViewedByCurrentUser"
+                          (itemChanged)="autoSave.onItemChange($event)">
+            </item-details>
+
           </div>
+        </div>
+
+        <!-- Right 6 columns -->
+        <div class="col-md-6 ">
+          <!-- Item tabs -->
+          <item-tabs [item]="item"
+                     [itemType]="item.itemType"
+                     [selected]="selectedTab"
+                     [isReadOnly]="isBeingViewedByCurrentUser"
+                     (tabChanged)="onTabChanged($event)"
+                     (itemChanged)="autoSave.onItemChange($event)">
+          </item-tabs>
         </div>
       </div>
 
-      <!-- Right 6 columns -->
-      <div class="col-md-6 ">
-        <!-- Item tabs -->
-        <item-tabs [item]="item"
-                   [itemType]="item.itemType"
-                   [selected]="selectedTab"
-                   [isReadOnly]="isBeingViewedByCurrentUser"
-                   (tabChanged)="onTabChanged($event)"
-                   (itemChanged)="autoSave.onItemChange($event)">
-        </item-tabs>
-      </div>
-    </div>
-
-    <!-- Error message -->
-    <div class="row" *ngIf="isError">
-      <div class="col-lg-12">
-        <alert>{{errorMessage}}</alert>
-        <p>
-          <button class="btn btn-primary" routerLink="/">
-            Return Home
-          </button>
-        </p>
+      <!-- Error message -->
+      <div class="well" *ngIf="isError">
+        <div class="well-body">
+          <alert>{{errorMessage}}</alert>
+          <button class="btn btn-primary" routerLink="/"><i class="fa fa-arrow-left"></i> Go Back</button>
+        </div>
       </div>
     </div>
   </div>

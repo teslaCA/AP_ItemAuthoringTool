@@ -28,6 +28,13 @@ header {
   }
 }
 
+section.main {
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
+* .btn.btn-primary span { color: @white; }
+
 footer {
   background-color: transparent;
   padding: 0px;
@@ -75,19 +82,23 @@ footer {
         .sans;
     }
 }
-.modal-body {
+.modal-content {
+  border-radius: @border-radius-base;
+  .modal-header {
+    .gray-lightest;
+    .border-top-radius(@border-radius-base);
+  }
+  .modal-body {
     padding: @padding-base-vertical @padding-base-horizontal;
-    &.preview{
-      text-align: center;
-      height: 100%;
-    }
-    .form-group {
-      margin-top: 15px;
-    }
+    min-height: @line-height-computed * 6.5;
     iframe {
-        width: 100%;
-
+      width: 100%;
     }
+  }
+  .modal-footer {
+    .gray-lightest;
+    .border-bottom-radius(@border-radius-base);
+  }
 }
 .busy-overlay-content .alert-info {
   background-color: #fff;

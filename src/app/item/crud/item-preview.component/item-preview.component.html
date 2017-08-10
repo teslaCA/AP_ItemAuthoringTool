@@ -1,5 +1,5 @@
-<button class="btn btn-default" (click)="show()">
-  <i class="fa fa-eye"></i> Preview Item
+<button class="btn btn-primary btn-sm" (click)="show()">
+  <i class="fa fa-eye"></i> Preview
 </button>
 
 <div #previewModal="bs-modal"
@@ -13,12 +13,12 @@
     <div class="modal-content">
 
       <!-- Header -->
-      <div class="modal-header gray-lightest preview">
+      <div class="modal-header preview">
         <!-- Close Button -->
         <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="hidePreview()"><span aria-hidden="true">&times;</span></button>
 
         <!-- Title -->
-        <h4 class="modal-title">Preview {{itemId}}</h4>
+        <h4 class="modal-title">Preview of {{itemId}}</h4>
 
         <!-- Version selection dropdown -->
         <label>Showing Version: </label>

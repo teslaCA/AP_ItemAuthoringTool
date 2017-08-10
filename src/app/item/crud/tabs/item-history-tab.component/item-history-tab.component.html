@@ -1,36 +1,24 @@
 <div *ngIf="itemChanges">
-  <div class="row">
-    <div class="col-md-12">
-      <a href="/api/ims/v1/items/{{itemId}}/history/csv">
-        <button class="btn btn-default btn-xs pull-right"><i class="fa fa-bold fa-table"></i> Export to CSV</button>
-      </a>
-    </div>
-  </div>
+  <a href="/api/ims/v1/items/{{itemId}}/history/csv" class="btn btn-default btn-xs mb-sm"><i class="fa fa-cloud-download"></i> Download History</a>
   <div *ngFor="let history of itemChanges;
                let index = index;
                let isOdd = odd;
                let isEven = even;">
-    <div class="box" [class.odd]="isOdd" [class.even]="isEven">
+    <div class="thumbnail mb-sm">
       <div class="row">
-        <div class="form-group">
-          <label class="col-lg-3 control-label">User:</label>
-          <div class="col-lg-9">{{history.changedBy}}</div>
-        </div>
+        <span class="col-xs-3">User:</span>
+        <div class="col-xs-9">{{history.changedBy}}</div>
       </div>
       <div class="row">
-        <div class="form-group">
-          <label class="col-lg-3 control-label">Time:</label>
-          <div class="col-lg-9">{{history.changedOn | date:'short'}}</div>
-        </div>
+        <span class="col-xs-3">Time:</span>
+        <div class="col-xs-9">{{history.changedOn | date:'short'}}</div>
       </div>
       <div class="row">
-        <div class="form-group">
-          <label class="col-lg-3 control-label">Message:</label>
-          <div class="col-lg-9">{{history.message}}</div>
-        </div>
+        <span class="col-xs-3">Message:</span>
+        <div class="col-xs-9">{{history.message}}</div>
       </div>
-      <div *ngIf="history.parentHistoryId" class="row">
-          <button class="btn btn-link" (click)="openItemDiff($event, history.historyId)">Show Changes</button>
+      <div *ngIf="history.parentHistoryId">
+          <button class="btn btn-default btn-xs" (click)="openItemDiff($event, history.historyId)"><i class="fa fa-exchange"></i> Show Changes</button>
       </div>
     </div>
   </div>
