@@ -8,7 +8,7 @@ import {Logger} from "../../../../core/logger.service/logger.service";
   templateUrl: './item-braille-tab.component.html',
   styleUrls: ['./item-braille-tab.component.less']
 })
-export class ItemBrailleTabComponent implements OnChanges, OnInit {
+export class ItemBrailleTabComponent implements OnChanges {
   @Input() isReadOnly: boolean;
   @Input() itemBraille: ItemBraille;
   @Output() itemBrailleChanged = new EventEmitter<ItemBraille>();
@@ -26,9 +26,6 @@ export class ItemBrailleTabComponent implements OnChanges, OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private logger: Logger) { }
-
-  ngOnInit() {
-  }
 
   ngOnChanges() {
     // Reset form data and flags
