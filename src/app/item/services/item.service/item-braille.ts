@@ -9,11 +9,11 @@ import {ItemAttachment} from "./item-attachment";
  */
 @JsonObject
 export class ItemBraille {
-  @JsonProperty("doesThisItemRequireBraille", Boolean)
-  doesThisItemRequireBraille: boolean = undefined;                 // Initialize to undefined so that field is mapped;
+  @JsonProperty("isBrailleRequired", Boolean)
+  isBrailleRequired: boolean = undefined;                 // Initialize to undefined so that field is mapped;
 
-  @JsonProperty("hasAllBrailleContentBeenProvided", Boolean)
-  hasAllBrailleContentBeenProvided: boolean = undefined;            // Initialize to undefined so that field is mapped
+  @JsonProperty("isBrailleContentProvided", Boolean)
+  isBrailleContentProvided: boolean = undefined;          // Initialize to undefined so that field is mapped
 
   // @JsonProperty("attachments", [ItemAttachment])
   // attachments: ItemAttachment[] = undefined;

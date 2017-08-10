@@ -99,8 +99,8 @@ export class ItemTabsComponent {
 
     //Capture changes to Braille tab
     if (this.itemBrailleTabComponent) {
-      this.item.braille.doesThisItemRequireBraille = this.itemBrailleTabComponent.currentItemBraille.doesThisItemRequireBraille;
-      this.item.braille.hasAllBrailleContentBeenProvided = this.itemBrailleTabComponent.currentItemBraille.hasAllBrailleContentBeenProvided;
+      this.item.braille.isBrailleRequired = this.itemBrailleTabComponent.currentItemBraille.isBrailleRequired;
+      this.item.braille.isBrailleContentProvided = this.itemBrailleTabComponent.currentItemBraille.isBrailleContentProvided;
     }
 
     return this.item;

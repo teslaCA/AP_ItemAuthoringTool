@@ -13,14 +13,14 @@ export class ItemBrailleTabComponent implements OnChanges {
   @Input() itemBraille: ItemBraille;
   @Output() itemBrailleChanged = new EventEmitter<ItemBraille>();
   readonly form = this.formBuilder.group({
-    doesThisItemRequireBraille: '',
-    hasAllBrailleContentBeenProvided: ''
+    isBrailleRequired: '',
+    isBrailleContentProvided: ''
   });
 
   get currentItemBraille(): ItemBraille {
     const braille = new ItemBraille();
-    braille.doesThisItemRequireBraille = this.form.value.doesThisItemRequireBraille;
-    braille.hasAllBrailleContentBeenProvided = this.form.value.hasAllBrailleContentBeenProvided;
+    braille.isBrailleRequired = this.form.value.isBrailleRequired;
+    braille.isBrailleContentProvided = this.form.value.isBrailleContentProvided;
     return braille;
   }
 
@@ -30,8 +30,8 @@ export class ItemBrailleTabComponent implements OnChanges {
   ngOnChanges() {
     // Reset form data and flags
     this.form.reset({
-      doesThisItemRequireBraille: this.itemBraille.doesThisItemRequireBraille,
-      hasAllBrailleContentBeenProvided: this.itemBraille.hasAllBrailleContentBeenProvided
+      isBrailleRequired: this.itemBraille.isBrailleRequired,
+      isBrailleContentProvided: this.itemBraille.isBrailleContentProvided
     });
 
     // Disable form if read-only
@@ -43,8 +43,8 @@ export class ItemBrailleTabComponent implements OnChanges {
     this.form.valueChanges.subscribe(
       () => {
         this.logger.debug(`Updating Braille flags to 
-        Requires Braille: '${this.form.value.doesThisItemRequireBraille}'
-        Braille Content Provided: '${this.form.value.hasAllBrailleContentBeenProvided}'
+        Requires Braille: '${this.form.value.isBrailleRequired}'
+        Braille Content Provided: '${this.form.value.isBrailleContentProvided}'
         `);
 
         this.itemBrailleChanged.emit(this.currentItemBraille);
