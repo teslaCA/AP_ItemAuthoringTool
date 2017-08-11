@@ -8,6 +8,7 @@ import {ItemWerDetailsComponent} from "./crud/details/item-wer-details.component
 import {ItemDashboardComponent} from "./dashboard/item-dashboard.component";
 import {ReactiveFormsModule} from "@angular/forms";
 import {Ng2BootstrapModule} from "ngx-bootstrap";
+import {FileUploadModule} from 'ng2-file-upload';
 import {BrowserModule} from "@angular/platform-browser";
 import {RouterModule} from "@angular/router";
 import {Http, HttpModule} from "@angular/http";
@@ -41,7 +42,8 @@ import {ItemBrailleTabComponent} from './crud/tabs/item-braille-tab.component/it
     HttpModule,
     Ng2BootstrapModule,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,
+    FileUploadModule
   ],
   declarations: [
     ItemDashboardComponent,

@@ -1,16 +1,22 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild} from '@angular/core';
 import {ItemBraille} from "../../../services/item.service/item-braille";
 import {FormBuilder} from "@angular/forms";
 import {Logger} from "../../../../core/logger.service/logger.service";
+import {FileUploader} from "ng2-file-upload";
+import {Item} from "../../../services/item.service/item";
 
 @Component({
   selector: 'item-braille-tab',
   templateUrl: './item-braille-tab.component.html',
-  styleUrls: ['./item-braille-tab.component.less']
+  styleUrls: ['./item-braille-tab.component.less'],
 })
-export class ItemBrailleTabComponent implements OnChanges {
+export class ItemBrailleTabComponent implements OnInit, OnChanges {
+  serviceUrl = '/api/ims/v1/items';
+  uploader: FileUploader;
+  hasBaseDropZoneOver: boolean = false;
+  @ViewChild("fileDialog") fileDialog: ElementRef;
   @Input() isReadOnly: boolean;
-  @Input() itemBraille: ItemBraille;
+  @Input() item: Item;
   @Output() itemBrailleChanged = new EventEmitter<ItemBraille>();
   readonly form = this.formBuilder.group({
     isBrailleRequired: '',
@@ -27,11 +33,20 @@ export class ItemBrailleTabComponent implements OnChanges {
   constructor(private formBuilder: FormBuilder,
               private logger: Logger) { }
 
+  ngOnInit() {
+    this.uploader = new FileUploader({url: this.serviceUrl +'/'
+      + this.item.id + '/transactions/'
+      + this.item.currentTransaction.transactionId + '/braille'});
+
+    this.uploader.setOptions({autoUpload: true});
+  }
+
+
   ngOnChanges() {
     // Reset form data and flags
     this.form.reset({
-      isBrailleRequired: this.itemBraille.isBrailleRequired,
-      isBrailleContentProvided: this.itemBraille.isBrailleContentProvided
+      isBrailleRequired: this.item.braille.isBrailleRequired,
+      isBrailleContentProvided: this.item.braille.isBrailleContentProvided
     });
 
     // Disable form if read-only
@@ -49,5 +64,18 @@ export class ItemBrailleTabComponent implements OnChanges {
 
         this.itemBrailleChanged.emit(this.currentItemBraille);
       });
+  }
+
+  fileOverBase(e: any): void {
+    this.hasBaseDropZoneOver = e;
+  }
+
+  openFileDialog() {
+    this.fileDialog.nativeElement.click();
+  }
+
+  upload() {
+    console.log('queue length:' + this.uploader.queue.length)
+    this.uploader.uploadAll();
   }
 }

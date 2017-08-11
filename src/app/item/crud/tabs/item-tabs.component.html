@@ -45,7 +45,7 @@
   <!-- Accessibility -->
   <item-braille-tab *ngIf="isSelected(tab.braille)"
                     [isReadOnly]="isReadOnly"
-                    [itemBraille]="item.braille"
+                    [item]="item"
                     (itemBrailleChanged)="onItemChanged()">
   </item-braille-tab>
 

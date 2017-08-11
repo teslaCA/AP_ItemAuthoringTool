@@ -1,7 +1,7 @@
 <div [formGroup]="form" class="form-group">
   <div class="row">
     <div class="col-md-12">
-      Does this item require Braille?
+      Does this item require braille?
     </div>
   </div>
   <div class="row">
@@ -14,7 +14,7 @@
   </div>
   <div class="row">
     <div class="col-md-12">
-      Has all Braille content been provided?
+      Has all braille content been provided?
     </div>
   </div>
   <div class="row">
@@ -23,6 +23,27 @@
         <option [value]="true">Yes</option>
         <option [value]="false">No</option>
       </select>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      Braille Content
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div ng2FileDrop
+           class="well my-drop-zone point"
+           [class.nv-file-over]="hasBaseDropZoneOver"
+           [uploader]="uploader"
+           (fileOver)="fileOverBase($event)"
+           (ondrop)="upload()"
+           (click)="openFileDialog()">
+        Click or drag and drop to attach braille file(s) here
+      </div>
+      <div hidden>
+        <input #fileDialog type="file" ng2FileSelect [uploader]="uploader" multiple  />
+      </div>
     </div>
   </div>
 </div>
