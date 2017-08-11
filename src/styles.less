@@ -33,6 +33,16 @@ section.main {
   padding-bottom: 0px;
 }
 
+.well-action-bar {
+  background-color: @gray-lightest;
+}
+.well-group .well.not-first-child-well {
+  // override to fix what the extra angular elements do to .well-group's css
+  .box-shadow(0 6px 6px -6px rgba(0,0,0,.16) inset);
+  .border-top-radius(0px);
+  border-top: 1px solid @well-border;
+}
+
 * .btn.btn-primary span { color: @white; }
 
 footer {

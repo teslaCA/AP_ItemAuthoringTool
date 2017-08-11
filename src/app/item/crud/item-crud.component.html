@@ -11,7 +11,7 @@
         <!-- Left 6 columns -->
         <div class="col-md-6">
           <div class="well-group">
-            <div class="well gray-lightest">
+            <div class="well well-action-bar">
               <div class="well-body">
                 <button class="btn btn-default btn-sm" (click)="goHome()">
                   <i class="fa fa-arrow-left"></i> Search Items <i class="fa fa-search"></i>
@@ -45,20 +45,18 @@
                 <!-- Edit -->
                 <span *ngIf="isBeingEditedByCurrentUser">
                   <button class="btn btn-success btn-sm" (click)="commitModal.show()">
-                    Commit Changes
+                    <i class="fa fa-check-square"></i> Commit
                   </button>
-                  <button class="btn btn-link btn-sm" (click)="cancelModal.show()">
-                    Discard Changes
+                  <button class="btn btn-default btn-sm btn-borderless" (click)="cancelModal.show()">
+                    <i class="fa fa-undo"></i> Discard
                   </button>
                 </span>
 
                 <!-- Auto-save -->
-                <div class="mt-sm">
-                  <item-auto-save #autoSave
-                                  [enabled]="isBeingCreatedByCurrentUser || isBeingEditedByCurrentUser"
-                                  [debounceTimeMillis]="3000">
-                  </item-auto-save>
-                </div>
+                <item-auto-save #autoSave
+                                [enabled]="isBeingCreatedByCurrentUser || isBeingEditedByCurrentUser"
+                                [debounceTimeMillis]="3000">
+                </item-auto-save>
 
                 <!-- Item being edited by another user -->
                 <div *ngIf="isBeingEditedByAnotherUser" class="alert alert-warning small mt-sm">

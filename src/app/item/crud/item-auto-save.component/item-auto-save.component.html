@@ -1,14 +1,16 @@
-<!-- Changed -->
-<div *ngIf="enabled && changed" class="label border-only orange">
-  <i class="fa fa-asterisk" aria-hidden="true"></i> Changed
-</div>
+<div class="mt-sm">
+  <!-- Changed -->
+  <span *ngIf="enabled && changed" class="label orange border-only">
+    <i class="fa fa-asterisk" aria-hidden="true"></i> Changed
+  </span>
 
-<!-- Saved -->
-<div *ngIf="enabled && saved" class="label border-only green">
-  <i class="fa fa-check" aria-hidden="true"></i> Saved
-</div>
+  <!-- Saved -->
+  <span *ngIf="enabled && saved" class="label green border-only">
+    <i class="fa fa-check" aria-hidden="true"></i> Saved
+  </span>
 
-<!-- Saving -->
-<div *ngIf="enabled && saving" class="label border-only aqua">
-  <i class="fa fa-spinner fa-pulse fa-fw" aria-hidden="true"></i> Saving
+  <!-- Saving -->
+  <span *ngIf="enabled && saving" class="label gray-dark border-only">
+    <i class="fa fa-spinner fa-pulse fa-fw" aria-hidden="true"></i> Saving
+  </span>
 </div>
