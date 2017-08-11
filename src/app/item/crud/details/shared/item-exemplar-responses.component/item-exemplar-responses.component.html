@@ -7,18 +7,15 @@
     <div formArrayName="exemplarResponses">
       <!-- Exemplar response -->
       <div *ngFor="let control of formExemplarResponses.controls; let i=index">
-        <!-- Remove trash can -->
-        <span class="pull-right">
-          <a *ngIf="!isReadOnly" (click)="removeExemplarResponse(i)">
-            <i class="fa fa-trash"></i>
-          </a>
-        </span>
-
         <!-- Text -->
         <textarea formControlName="{{i}}"
                   title="Exemplar Response #{{i + 1}}"
                   class="form-control form95"
                   rows="3"></textarea>
+        <!-- Remove trash can -->
+        <a *ngIf="!isReadOnly" (click)="removeExemplarResponse(i)" class="btn btn-default btn-xs">
+          Remove <i class="fa fa-trash"></i>
+        </a>
       </div>
     </div>
   </form>
@@ -30,11 +27,8 @@
 </div>
 
 <!-- Add exemplar responses button -->
-<div class="row">
-  <div class="col-lg-12">
-    <button *ngIf="!isReadOnly" class="btn btn-info" (click)="addExemplarResponse()">
-      <i class="fa fa-plus" aria-hidden="true"></i>
-      Add Exemplar Response
-    </button>
-  </div>
+<div class="mt-sm">
+  <button *ngIf="!isReadOnly" class="btn btn-primary btn-xs" (click)="addExemplarResponse()">
+    <i class="fa fa-plus" aria-hidden="true"></i> Add Exemplar Response
+  </button>
 </div>
