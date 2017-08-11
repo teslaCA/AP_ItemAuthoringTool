@@ -54,15 +54,13 @@
       <!-- Body -->
       <div class="modal-body">
         <iframe *ngIf="showIframe" frameborder="0" height="500" width="800" [src]="itemRenderUrl"></iframe>
-        <div class="center-block">
-          <i *ngIf="!showIframe" class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
-        </div>
-        <!-- Error message -->
-        <div class="row" *ngIf="isError">
-          <div class="col-lg-12">
-            <alert>{{errorMessage}}</alert>
+        <div class="loader" *ngIf="!showIframe">
+          <div class="inner">
+            <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i><span class="text">Loading</span>
           </div>
         </div>
+        <!-- Error message -->
+        <alert *ngIf="isError">{{errorMessage}}</alert>
       </div>
       <!-- Footer -->
       <div class="modal-footer">

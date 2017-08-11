@@ -45,6 +45,14 @@ section.main {
 
 * .btn.btn-primary span { color: @white; }
 
+.modal-full {
+  width: 90%;
+}
+
+iframe {
+  max-width: 100%;
+}
+
 footer {
   background-color: transparent;
   padding: 0px;
@@ -53,121 +61,28 @@ footer {
   .box-shadow(none);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.preview-over {
-    position: absolute;
-    z-index: 99;
-    width: 100%;
-    background: rgba(242,242,242,0.9);
-    top: 0;
-    padding: 20px;
-    .modal-title {
-        .h4;
-    }
-    ul{
-      margin: 0;
-      padding: 0;
-    }
-    li {
-        list-style: none;
-        margin: 10px 0;
-        .sans;
-    }
+.busy-overlay-hidden {
+  visibility: hidden;
 }
-.modal-content {
-  border-radius: @border-radius-base;
+
+// TOOD: Style to be transparent overlay of entire window with busy indicator and message shown in center of screen.
+.busy-overlay-content {
+  position: fixed;
+  padding: 0;
+  margin: 0;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 500000;
+  background: rgba(255,255,255,.5);
+  text-align: center;
+}
+
+#cancelModal {
   .modal-header {
-    .gray-lightest;
+    background-color: @red;
+    color: @white;
     .border-top-radius(@border-radius-base);
   }
-  .modal-body {
-    padding: @padding-base-vertical @padding-base-horizontal;
-    min-height: @line-height-computed * 6.5;
-    iframe {
-      width: 100%;
-    }
-  }
-  .modal-footer {
-    .gray-lightest;
-    .border-bottom-radius(@border-radius-base);
-  }
-}
-.busy-overlay-content .alert-info {
-  background-color: #fff;
-  border-color: #ccc;
-  color: #777;
-  width: inherit;
-  text-align: center;
-  display: inline-block;
-  margin: -2px auto 0;
-  border-radius: 0 0 5px 5px;
-}
-.center-block {
-  position: absolute;
-  top: 40%;
-  left: 47%;
-}
-.item-type-icon {
-    background: @blue-dark;
-    color: #fff;
-    padding: 10px 15px;
-    border-radius: 5px 0 0 5px;
-    margin-left: 7px;
-}
-.item-type-name {
-    background: @teal;
-    padding: 10px 15px;
-    color: #fff;
-    margin-left: -8px;
-}
-.item-type-mode {
-    background: #e1e1e1;
-    padding: 10px 15px;
-    border-radius: 0 5px 5px 0;
-    margin-left: -7px;
-}
-#toasty .toast.toasty-theme-bootstrap.toasty-type-wait {
-    background-color: @aqua;
-    border: none;
-}
-#toasty .toast.toasty-theme-bootstrap.toasty-type-success {
-    background-color: @green;
-    border: none;
-}
-#toasty .toast.toasty-theme-bootstrap {
-    font-family: @font-family-sans-serif !important;
-    font-size: 16px;
-    border: none;
-}
-#toasty .toast.toasty-theme-bootstrap .toast-text .toast-title {
-    font-size: 16px;
-}
-#toasty .toast {
-    width: 340px;
-}
-@media (min-width: 768px) {
-  body {
-      line-height: 1.5;
-  }
-}
-@media (max-width: 768px) {
-  .preview div {margin: 15px 0;}
 }

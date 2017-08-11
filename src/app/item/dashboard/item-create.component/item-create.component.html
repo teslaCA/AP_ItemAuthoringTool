@@ -7,7 +7,7 @@
         <!-- Normal item types -->
         <h4>Item Types</h4>
         <div class="flex-children flex-cols-5">
-          <a *ngFor="let type of normalItemTypes" (click)="createItem(type.code)" class="btn btn-info block-children">
+          <a *ngFor="let type of normalItemTypes" (click)="createItem(type.code)" class="btn btn-primary block-children">
             <span class="btn"><i class="fa {{type.icon}} fa-3x"></i></span>
             <span class="h4">{{type.name}}</span>
             <span class="h5">({{type.code | uppercase}})</span>
@@ -18,7 +18,7 @@
         <!-- Other item types -->
         <h4>Other Resources</h4>
         <div class="flex-children flex-cols-5">
-          <a *ngFor="let type of otherItemTypes" (click)="createItem(type.code)" class="btn btn-info block-children">
+          <a *ngFor="let type of otherItemTypes" (click)="createItem(type.code)" class="btn btn-primary block-children">
             <span class="btn"><i class="fa {{type.icon}} fa-3x"></i></span>
             <span class="h4">{{type.name}}</span>
             <span class="h5">({{type.code | uppercase}})</span>
