@@ -37,11 +37,19 @@
            [class.nv-file-over]="hasDropZoneOver"
            [uploader]="uploader"
            (fileOver)="fileOverBase($event)"
-           (click)="openFileDialog()">
+           (click)="openFileDialog()"
+           (onCompleteAll)="updateFileList()">
         Click or drag and drop to attach braille file(s) here
       </div>
       <div hidden>
         <input #fileDialog type="file" ng2FileSelect [uploader]="uploader" multiple  />
+      </div>
+    </div>
+  </div>
+  <div *ngIf="uploader.isUploading" class="row">
+    <div class="col-md-12">
+      <div class="progress">
+        <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
       </div>
     </div>
   </div>

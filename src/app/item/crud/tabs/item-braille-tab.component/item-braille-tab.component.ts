@@ -2,7 +2,7 @@ import {Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, V
 import {ItemBraille} from "../../../services/item.service/item-braille";
 import {FormBuilder} from "@angular/forms";
 import {Logger} from "../../../../core/logger.service/logger.service";
-import {FileUploader} from "ng2-file-upload";
+import {FileItem, FileUploader, ParsedResponseHeaders} from "ng2-file-upload";
 import {Item} from "../../../services/item.service/item";
 import {ItemAttachment} from "../../../services/item.service/item-attachment";
 import {ItemService} from "../../../services/item.service/item.service";
@@ -33,7 +33,7 @@ export class ItemBrailleTabComponent implements OnInit, OnChanges {
   get currentItemBraille(): ItemBraille {
     const braille = new ItemBraille();
     braille.isBrailleRequired = this.form.value.isBrailleRequired;
-    braille.isBrailleProvided = this.form.value.isBrailleContentProvided;
+    braille.isBrailleProvided = this.form.value.isBrailleProvided;
     return braille;
   }
 
@@ -51,13 +51,24 @@ export class ItemBrailleTabComponent implements OnInit, OnChanges {
     this.uploader.setOptions({autoUpload: true});
 
     this.brailleAttachments = this.item.braille.attachments;
+
+    this.uploader.onCompleteAll = () => {
+      this.updateFileList();
+      this.uploader.clearQueue();
+    };
+
+    this.uploader.onErrorItem = (item:FileItem, response:string, status:number, headers:ParsedResponseHeaders) => {
+      this.alertService.error('Error Uploading File',
+        'File ' + item.file.name + ' was not uploaded. Reason: ' + response);
+    };
+
   }
 
   ngOnChanges() {
     // Reset form data and flags
     this.form.reset({
       isBrailleRequired: this.item.braille.isBrailleRequired,
-      isBrailleContentProvided: this.item.braille.isBrailleProvided
+      isBrailleProvided: this.item.braille.isBrailleProvided
     });
 
     // Disable form if read-only
@@ -85,12 +96,6 @@ export class ItemBrailleTabComponent implements OnInit, OnChanges {
     this.fileDialog.nativeElement.click();
   }
 
-  // downloadFile(fileName: string): void {
-  //   this.itemService
-  //     .downloadBrailleFile(this.item.id,
-  //       fileName, true, false);
-  // }
-
   confirmDeleteFile(fileName: string): void {
     this.deleteFileName = fileName;
     this.deleteModal.show();
@@ -102,22 +107,25 @@ export class ItemBrailleTabComponent implements OnInit, OnChanges {
         this.item.id,
         fileName, true, true)
       .subscribe(() => {
-          this.itemService.findItem(this.item.id, false, false)
-            .subscribe(
-              item => {
-                this.brailleAttachments = item.braille.attachments;
-              },
-              () => {
-                this.alertService.error('Error loading item',
-                  'Error Loading item ' + this.item.id);
-              });
-
+          this.updateFileList();
           this.alertService.success('Attachment Deleted',
             'Braille file ' + fileName + ' was successfully deleted');
         }
       );
     this.deleteFileName = "";
     this.deleteModal.hide();
+  }
+
+  updateFileList() {
+    this.itemService.findItem(this.item.id, false, true)
+      .subscribe(
+        item => {
+          this.brailleAttachments = item.braille.attachments;
+        },
+        () => {
+          this.alertService.error('Error loading item',
+            'Error Loading item ' + this.item.id);
+        });
   }
 
 }
