@@ -4,6 +4,10 @@ import {FormBuilder} from "@angular/forms";
 import {Logger} from "../../../../core/logger.service/logger.service";
 import {FileUploader} from "ng2-file-upload";
 import {Item} from "../../../services/item.service/item";
+import {ItemAttachment} from "../../../services/item.service/item-attachment";
+import {ItemService} from "../../../services/item.service/item.service";
+import {AlertService} from "../../../../core/alert.service/alert.service";
+import {ModalDirective} from "ngx-bootstrap";
 
 @Component({
   selector: 'item-braille-tab',
@@ -13,40 +17,47 @@ import {Item} from "../../../services/item.service/item";
 export class ItemBrailleTabComponent implements OnInit, OnChanges {
   serviceUrl = '/api/ims/v1/items';
   uploader: FileUploader;
-  hasBaseDropZoneOver: boolean = false;
+  hasDropZoneOver = false;
+  brailleAttachments: ItemAttachment[];
+  deleteFileName = "";
   @ViewChild("fileDialog") fileDialog: ElementRef;
+  @ViewChild('deleteModal') deleteModal: ModalDirective;
   @Input() isReadOnly: boolean;
   @Input() item: Item;
   @Output() itemBrailleChanged = new EventEmitter<ItemBraille>();
   readonly form = this.formBuilder.group({
     isBrailleRequired: '',
-    isBrailleContentProvided: ''
+    isBrailleProvided: ''
   });
 
   get currentItemBraille(): ItemBraille {
     const braille = new ItemBraille();
     braille.isBrailleRequired = this.form.value.isBrailleRequired;
-    braille.isBrailleContentProvided = this.form.value.isBrailleContentProvided;
+    braille.isBrailleProvided = this.form.value.isBrailleContentProvided;
     return braille;
   }
 
   constructor(private formBuilder: FormBuilder,
-              private logger: Logger) { }
-
-  ngOnInit() {
-    this.uploader = new FileUploader({url: this.serviceUrl +'/'
-      + this.item.id + '/transactions/'
-      + this.item.currentTransaction.transactionId + '/braille'});
-
-    this.uploader.setOptions({autoUpload: true});
+              private logger: Logger,
+              private itemService: ItemService,
+              private alertService: AlertService) {
   }
 
+  ngOnInit() {
+    const itemFileUrl = this.serviceUrl + '/'
+      + this.item.id + '/transactions/'
+      + this.item.currentTransaction.transactionId + '/braille';
+    this.uploader = new FileUploader({url: itemFileUrl});
+    this.uploader.setOptions({autoUpload: true});
+
+    this.brailleAttachments = this.item.braille.attachments;
+  }
 
   ngOnChanges() {
     // Reset form data and flags
     this.form.reset({
       isBrailleRequired: this.item.braille.isBrailleRequired,
-      isBrailleContentProvided: this.item.braille.isBrailleContentProvided
+      isBrailleContentProvided: this.item.braille.isBrailleProvided
     });
 
     // Disable form if read-only
@@ -59,7 +70,7 @@ export class ItemBrailleTabComponent implements OnInit, OnChanges {
       () => {
         this.logger.debug(`Updating Braille flags to 
         Requires Braille: '${this.form.value.isBrailleRequired}'
-        Braille Content Provided: '${this.form.value.isBrailleContentProvided}'
+        Braille Content Provided: '${this.form.value.isBrailleProvided}'
         `);
 
         this.itemBrailleChanged.emit(this.currentItemBraille);
@@ -67,15 +78,46 @@ export class ItemBrailleTabComponent implements OnInit, OnChanges {
   }
 
   fileOverBase(e: any): void {
-    this.hasBaseDropZoneOver = e;
+    this.hasDropZoneOver = e;
   }
 
   openFileDialog() {
     this.fileDialog.nativeElement.click();
   }
 
-  upload() {
-    console.log('queue length:' + this.uploader.queue.length)
-    this.uploader.uploadAll();
+  // downloadFile(fileName: string): void {
+  //   this.itemService
+  //     .downloadBrailleFile(this.item.id,
+  //       fileName, true, false);
+  // }
+
+  confirmDeleteFile(fileName: string): void {
+    this.deleteFileName = fileName;
+    this.deleteModal.show();
   }
+
+  deleteFile(fileName: string): void {
+    this.itemService
+      .deleteBrailleFile(this.item.currentTransaction.transactionId,
+        this.item.id,
+        fileName, true, true)
+      .subscribe(() => {
+          this.itemService.findItem(this.item.id, false, false)
+            .subscribe(
+              item => {
+                this.brailleAttachments = item.braille.attachments;
+              },
+              () => {
+                this.alertService.error('Error loading item',
+                  'Error Loading item ' + this.item.id);
+              });
+
+          this.alertService.success('Attachment Deleted',
+            'Braille file ' + fileName + ' was successfully deleted');
+        }
+      );
+    this.deleteFileName = "";
+    this.deleteModal.hide();
+  }
+
 }

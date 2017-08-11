@@ -12,9 +12,9 @@ export class ItemBraille {
   @JsonProperty("isBrailleRequired", Boolean)
   isBrailleRequired: boolean = undefined;                 // Initialize to undefined so that field is mapped;
 
-  @JsonProperty("isBrailleContentProvided", Boolean)
-  isBrailleContentProvided: boolean = undefined;          // Initialize to undefined so that field is mapped
+  @JsonProperty("isBrailleProvided", Boolean)
+  isBrailleProvided: boolean = undefined;          // Initialize to undefined so that field is mapped
 
-  // @JsonProperty("attachments", [ItemAttachment])
-  // attachments: ItemAttachment[] = undefined;
+  @JsonProperty("attachments", [ItemAttachment])
+  attachments: ItemAttachment[] = undefined;
 }

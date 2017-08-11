@@ -168,4 +168,37 @@ export class ItemService {
       showBusyIndicator
     );
   }
+
+  deleteBrailleFile(transactionId: string,
+                    itemId: string,
+                    fileName: string,
+                    showAlertOnError = true,
+                    showBusyIndicator = true): Observable<void> {
+    const url = `${ItemService.serviceUrl}/${itemId}/transactions/${transactionId}/braille/${fileName}`;
+    return this.httpUtility.applyAsyncHandling(
+      "Deleting braille file",
+      this.http
+        .delete(url)
+        .map(_ => null),
+      showAlertOnError,
+      showBusyIndicator
+    );
+  }
+
+  // downloadBrailleFile(itemId: string,
+  //                fileName: string,
+  //                showAlertOnError = true,
+  //                showBusyIndicator = true): Observable<any> {
+  //   const url = `${ItemService.serviceUrl}/${itemId}/braille/${fileName}`;
+  //   let param = new URLSearchParams();
+  //   param.set('type', 'text/plain');
+  //   return this.httpUtility.applyAsyncHandling(
+  //     "Downloading Braille file",
+  //     this.http
+  //       .get(url,{search: param, responseType: 2} )
+  //       .map(res => res.text()),
+  //     showAlertOnError,
+  //     showBusyIndicator
+  //   );
+  // }
 }

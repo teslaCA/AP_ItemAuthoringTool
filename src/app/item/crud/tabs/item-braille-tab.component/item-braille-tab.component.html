@@ -19,7 +19,7 @@
   </div>
   <div class="row">
     <div class="col-md-3">
-      <select class="form-control" formControlName="isBrailleContentProvided">
+      <select class="form-control" formControlName="isBrailleProvided">
         <option [value]="true">Yes</option>
         <option [value]="false">No</option>
       </select>
@@ -34,15 +34,67 @@
     <div class="col-md-12">
       <div ng2FileDrop
            class="well my-drop-zone point"
-           [class.nv-file-over]="hasBaseDropZoneOver"
+           [class.nv-file-over]="hasDropZoneOver"
            [uploader]="uploader"
            (fileOver)="fileOverBase($event)"
-           (ondrop)="upload()"
            (click)="openFileDialog()">
         Click or drag and drop to attach braille file(s) here
       </div>
       <div hidden>
         <input #fileDialog type="file" ng2FileSelect [uploader]="uploader" multiple  />
+      </div>
+    </div>
+  </div>
+  <div *ngIf="brailleAttachments.length > 0" class="row">
+    <div class="col-md-5">Filename</div>
+    <div class="col-md-5">Uploaded</div>
+    <div class="col-md-1"></div>
+    <div class="col-md-1"></div>
+  </div>
+  <div *ngIf="brailleAttachments.length === 0" class="row">
+    <div class="col-md-12"><em>No files attached</em></div>
+  </div>
+  <div *ngFor="let attachment of brailleAttachments" class="row">
+    <div class="col-md-5">{{attachment.fileName}}</div>
+    <div class="col-md-5">{{attachment.uploadedDate | date:'short'}}</div>
+    <div class="col-md-1"><a href="/api/ims/v1/items/{{item.id}}/braille/{{attachment.fileName}}">
+      <i class="fa fa-download"></i></a></div>
+    <div class="col-md-1"><a (click)="confirmDeleteFile(attachment.fileName)">
+      <i class="fa fa-trash"></i></a></div>
+  </div>
+</div>
+
+<div #deleteModal="bs-modal"
+     id="brailleModal"
+     class="modal fade"
+     bsModal
+     [config]="{backdrop: 'static'}"
+     tabindex="-1"
+     role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <!-- Header -->
+      <div class="modal-header">
+        <h3 class="modal-title" id="cancelEditModalLabel">
+          Session Timeout
+        </h3>
+      </div>
+      <!-- Body -->
+      <div class="modal-body">
+        <span>
+          Are you sure you want to delete {{deleteFileName}}?
+        </span>
+      </div>
+      <div class="modal-footer">
+        <button type="button"
+                class="btn btn-primary btn-small"
+                (click)="deleteFile(deleteFileName)">Yes
+        </button>
+        <button type="button"
+                class="btn btn-default btn-small"
+                data-dismiss="modal"
+                (click)="deleteModal.hide()">No
+        </button>
       </div>
     </div>
   </div>

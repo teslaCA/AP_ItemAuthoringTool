@@ -7,7 +7,4 @@ export class ItemAttachment {
 
   @JsonProperty("uploadedDate", String)
   uploadedDate: string = undefined;
-
-  @JsonProperty("isaapCodes", [String])
-  isaapCodes: string[] = undefined;
 }
