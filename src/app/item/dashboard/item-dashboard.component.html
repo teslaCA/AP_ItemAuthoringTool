@@ -1,18 +1,21 @@
 <section class="main">
   <div class="container">
     <div class="row">
-
-      <!-- Item search -->
-      <div class="col-sm-6">
-        <item-search></item-search>
-      </div>
-
-      <!-- Create item -->
-      <div class="col-md-6">
-
-          <button class="btn btn-primary pull-right" routerLink="/item/create/select-type">
-            <i class="fa fa-plus" aria-hidden="true"></i>
-            Create Item or Resource
+      <div class="col-md-8">
+        <!-- Item search -->
+        <div class="well">
+          <h1 class="h3">Find an Item</h1>
+          <p class="small">Please enter the item or resource type (e.g. SA) followed by one or more digits.</p>
+          <item-search></item-search>
+        </div>
+       </div>
+       <div class="col-md-4">
+        <!-- Create item -->
+        <div class="well">
+          <h2 class="h3">Create</h2>
+          <p class="small">Create a new item or resource.</p>
+          <button class="btn btn-success btn-lg" routerLink="/item/create/select-type">
+            <i class="fa fa-plus" aria-hidden="true"></i> New
           </button>
 
           <div *ngIf="showLink">
@@ -20,8 +23,8 @@
               {{itemLink}}
             </button>
           </div>
+        </div>
       </div>
-
     </div>
   </div>
 </section>
