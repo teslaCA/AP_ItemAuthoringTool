@@ -44,9 +44,12 @@ export class ItemBrailleTabComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    const itemFileUrl = this.serviceUrl + '/'
-      + this.item.id + '/transactions/'
-      + this.item.currentTransaction.transactionId + '/braille';
+    let itemFileUrl = "";
+    if (!this.isReadOnly) {
+      itemFileUrl = this.serviceUrl + '/'
+        + this.item.id + '/transactions/'
+        + this.item.currentTransaction.transactionId + '/braille';
+    }
     this.uploader = new FileUploader({url: itemFileUrl});
     this.uploader.setOptions({autoUpload: true});
 
@@ -57,11 +60,10 @@ export class ItemBrailleTabComponent implements OnInit, OnChanges {
       this.uploader.clearQueue();
     };
 
-    this.uploader.onErrorItem = (item:FileItem, response:string, status:number, headers:ParsedResponseHeaders) => {
+    this.uploader.onErrorItem = (item: FileItem, response: string, status: number, headers: ParsedResponseHeaders) => {
       this.alertService.error('Error Uploading File',
-        'File ' + item.file.name + ' was not uploaded. Reason: ' + response);
+        'File ' + item.file.name + ' was not uploaded. ' + response);
     };
-
   }
 
   ngOnChanges() {
