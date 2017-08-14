@@ -6,18 +6,14 @@
                let isEven = even;">
     <div class="thumbnail mb-sm">
       <div class="row">
-        <span class="col-xs-3">User:</span>
-        <div class="col-xs-9">{{history.changedBy}}</div>
+        <div class="col-xs-12">
+          <p>
+            <strong>{{history.changedOn | date:'short'}}</strong><br />
+            {{history.changedBy}} <em>{{history.message}}</em>
+          </p>
+        </div>
       </div>
-      <div class="row">
-        <span class="col-xs-3">Time:</span>
-        <div class="col-xs-9">{{history.changedOn | date:'short'}}</div>
-      </div>
-      <div class="row">
-        <span class="col-xs-3">Message:</span>
-        <div class="col-xs-9">{{history.message}}</div>
-      </div>
-      <div *ngIf="history.parentHistoryId" class="mt-sm mb-xs">
+      <div *ngIf="history.parentHistoryId" class="mb-sm">
           <button class="btn btn-default btn-xs" (click)="openItemDiff($event, history.historyId)"><i class="fa fa-exchange"></i> Show Changes</button>
       </div>
     </div>
