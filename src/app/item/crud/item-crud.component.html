@@ -12,7 +12,7 @@
         <div class="col-md-6">
           <div class="well-group">
             <div class="well well-action-bar">
-              <div class="well-body">
+              <div class="well-body pt-xs">
                 <button class="btn btn-default btn-sm" (click)="goHome()">
                   <i class="fa fa-arrow-left"></i> Search Items <i class="fa fa-search"></i>
                 </button>
@@ -59,8 +59,8 @@
                 </item-auto-save>
 
                 <!-- Item being edited by another user -->
-                <div *ngIf="isBeingEditedByAnotherUser" class="alert alert-warning small mt-sm">
-                  <i class="fa fa-warning"></i> {{item.id}} is being edited by {{item.currentTransaction.username}}. Items may only be edited by one user at a time.
+                <div *ngIf="isBeingEditedByAnotherUser" class="alert alert-warning small">
+                  <div class="mt-sm"><i class="fa fa-warning"></i> {{item.id}} is being edited by {{item.currentTransaction.username}}. Items may only be edited by one user at a time.</div>
                 </div>
               </div>
             </div>

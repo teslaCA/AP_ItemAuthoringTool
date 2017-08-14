@@ -86,3 +86,64 @@ footer {
     .border-top-radius(@border-radius-base);
   }
 }
+
+// Item edit page header margin change
+section.main h1.h2 {
+  margin-top: 0px;
+}
+
+/* Change Autocomplete styles in Chrome*/
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  border: 1px solid @aqua;
+  -webkit-text-fill-color: @aqua;
+  -webkit-box-shadow: 0 0 0px 1000px @white inset;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+.input-combo {
+  display: flex;
+  justify-content: flex-start;
+  label {
+    flex-grow: 1;
+    padding-right: @grid-gutter-width / 2;
+    input[type="radio"],
+    input[type="checkbox"] {
+      margin-top: 0px;
+    }
+  }
+  .btn {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.item-box {
+  .thumbnail {
+    padding: @padding-base-vertical (@padding-base-horizontal * 2);
+    .sans;
+    .row {
+      padding-top: (@padding-base-vertical / 2);
+      padding-bottom: (@padding-base-vertical / 2);
+    }
+    .row:nth-child(odd) {
+      background-color: @white;
+      background-color: rgba(255,255,255,0.75);
+    }
+    .row :first-child {
+      font-weight: 700;
+      color: @gray-darkest;
+    }
+    .row :nth-child(2) {
+      color: @gray-darker;
+    }
+  }
+}

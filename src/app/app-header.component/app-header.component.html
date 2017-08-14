@@ -7,15 +7,15 @@
         <nav class="navbar navbar-default">
           <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                  <span class="sr-only">Menu</span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-                </button>
+              <span class="sr-only">Menu</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
             <a class="navbar-brand hidden-xs" href="/" title="Item Authoring Tool"><img src="assets/image/SmarterBalanced-Logo.png" alt="Smarter Balanced Assessment Consortium"></a>
             <span class="application-title">Item Authoring Tool</span>
           </div>
-          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" [collapse]="isCollapsed">
             <ul class="nav navbar-nav navbar-right">
               <li class="navbar-link mt-sm">
                 <div class="btn-group" dropdown>

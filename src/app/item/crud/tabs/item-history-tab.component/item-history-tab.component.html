@@ -17,7 +17,7 @@
         <span class="col-xs-3">Message:</span>
         <div class="col-xs-9">{{history.message}}</div>
       </div>
-      <div *ngIf="history.parentHistoryId">
+      <div *ngIf="history.parentHistoryId" class="mt-sm mb-xs">
           <button class="btn btn-default btn-xs" (click)="openItemDiff($event, history.historyId)"><i class="fa fa-exchange"></i> Show Changes</button>
       </div>
     </div>

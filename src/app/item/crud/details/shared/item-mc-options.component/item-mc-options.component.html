@@ -7,12 +7,7 @@
   <div formArrayName="options">
     <div *ngFor="let control of formOptions.controls; let i=index" [formGroupName]="i" class="form-group mb-md">
       <!-- Correct answer radio button -->
-      <div class="radio">
-        <!-- Remove trash can -->
-        <a *ngIf="!isReadOnly" (click)="removeOption(i)" class="btn btn-default btn-xs pull-right">
-          Remove <i class="fa fa-trash"></i>
-        </a>
-
+      <div class="radio input-combo">
         <label>
           <input type="radio"
                  name="isCorrectAnswer"
@@ -25,6 +20,10 @@
           <!-- Text -->
           <input type="text" class="form-control input-sm" formControlName="text" title="Text">
         </label>
+        <!-- Remove icon -->
+        <a *ngIf="!isReadOnly" (click)="removeOption(i)" class="btn btn-default btn-xs pull-right">
+          <i class="fa fa-close"></i>
+        </a>
       </div>
     </div>
 
