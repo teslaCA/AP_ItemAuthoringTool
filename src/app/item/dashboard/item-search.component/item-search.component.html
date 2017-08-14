@@ -1,30 +1,25 @@
 <form [formGroup]="complexForm" (ngSubmit)="submitForm(complexForm.value)">
-    <div class="input-group" [class.has-error]="complexForm.invalid">
-      <input type="text"
-             class="form-control"
-             placeholder="Item or resource ID"
-             pattern="^[A-Za-z]{1,4}\d+$"
-             required
-             formControlName="query"
-             id="query"
-             [formControl]="complexForm.controls['query']"
-             [maxlength]="14"
-             (focus)="queryFocused=true"
-             (blur)="queryFocused=false"
-             (paste)="handlePaste($event)"
-             (keypress)="handleKeypress($event)"/>
-      <span class="input-group-btn">
-       <button class="btn btn-primary" type="submit" [disabled]="!complexForm.valid">
-         <i class="fa fa-search" aria-hidden="true"></i>
-         Search
-       </button>
-      </span>
-    </div>
-    <div class="row">
-      <div class="col-md-12">
-        <div *ngIf="this.showErrorMessage(complexForm.controls['query'])">
-          <div class="label label-danger border-only">Must be the item or resource type (e.g. SA) followed by one or more digits</div>
-        </div>
-      </div>
-    </div>
+  <div class="input-group input-group-lg" [class.has-error]="complexForm.invalid">
+    <input type="text"
+           class="form-control"
+           placeholder="Item or resource ID"
+           pattern="^[A-Za-z]{1,4}\d+$"
+           required
+           formControlName="query"
+           id="query"
+           [formControl]="complexForm.controls['query']"
+           [maxlength]="14"
+           (focus)="queryFocused=true"
+           (blur)="queryFocused=false"
+           (paste)="handlePaste($event)"
+           (keypress)="handleKeypress($event)"/>
+    <span class="input-group-btn">
+     <button class="btn btn-primary" type="submit" [disabled]="!complexForm.valid">
+       Search <i class="fa fa-search" aria-hidden="true"></i>
+     </button>
+    </span>
+  </div>
+  <div *ngIf="this.showErrorMessage(complexForm.controls['query'])" class="mt-sm">
+    <span class="label label-danger border-only">Must be the item or resource type (e.g. SA) followed by one or more digits</span>
+  </div>
 </form>

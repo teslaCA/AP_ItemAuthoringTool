@@ -1,54 +1,48 @@
-<div class="row">
-  <div class="col-lg-12">
+<div class="well white not-first-child-well">
+  <div class="well-body">
     <item-prompt #mainPrompt
-                 [label]="'Prompt / Stem'"
-                 [rows]="6"
-                 [isFocused]="true"
-                 [isReadOnly]="isReadOnly"
-                 [text]="item.prompt"
-                 (textChange)="onItemChange()">
+                [label]="'Prompt / Stem'"
+                [rows]="6"
+                [isFocused]="true"
+                [isReadOnly]="isReadOnly"
+                [text]="item.prompt"
+                (textChange)="onItemChange()">
     </item-prompt>
   </div>
 </div>
-
-<div class="row">
-  <div class="col-lg-12">
-    <h4>
-      <span class="section-hdr"><strong>Part A:</strong> Multiple Choice</span>
-    </h4>
+<div class="well white">
+  <div class="well-body">
+    <h4 class="label-group gray-light"><span class="label">Part A:</span><span class="label">Multiple Choice</span></h4>
     <item-prompt #mcPrompt
-                 [label]="'Stem'"
-                 [rows]="6"
-                 [isFocused]="true"
-                 [isReadOnly]="isReadOnly"
-                 [text]="item.multipleChoice.prompt"
-                 (textChange)="onItemChange()">
+                [label]="'Stem'"
+                [rows]="6"
+                [isFocused]="true"
+                [isReadOnly]="isReadOnly"
+                [text]="item.multipleChoice.prompt"
+                (textChange)="onItemChange()">
     </item-prompt>
     <item-mc-options #mcOptions
-                     [isReadOnly]="isReadOnly"
-                     [options]="item.multipleChoice.options"
-                     (optionsChange)="onItemChange()">
+                    [isReadOnly]="isReadOnly"
+                    [options]="item.multipleChoice.options"
+                    (optionsChange)="onItemChange()">
     </item-mc-options>
   </div>
 </div>
-
-<div class="row">
-  <div class="col-lg-12">
-    <h4>
-      <span class="section-hdr"><strong>Part B:</strong> Multiple Select</span>
-    </h4>
+<div class="well white">
+  <div class="well-body">
+    <h4 class="label-group gray-light"><span class="label">Part B:</span><span class="label">Multiple Select</span></h4>
     <item-prompt #msPrompt
-                 [label]="'Stem'"
-                 [rows]="6"
-                 [isFocused]="true"
-                 [isReadOnly]="isReadOnly"
-                 [text]="item.multipleSelect.prompt"
-                 (textChange)="onItemChange()">
+                [label]="'Stem'"
+                [rows]="6"
+                [isFocused]="true"
+                [isReadOnly]="isReadOnly"
+                [text]="item.multipleSelect.prompt"
+                (textChange)="onItemChange()">
     </item-prompt>
     <item-ms-options #msOptions
-                     [isReadOnly]="isReadOnly"
-                     [options]="item.multipleSelect.options"
-                     (optionsChange)="onItemChange()">
+                    [isReadOnly]="isReadOnly"
+                    [options]="item.multipleSelect.options"
+                    (optionsChange)="onItemChange()">
     </item-ms-options>
   </div>
 </div>

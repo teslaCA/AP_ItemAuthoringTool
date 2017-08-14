@@ -1,13 +1,11 @@
-<div class="form-group">
-  <h4>
-    <span>{{label}}</span>
-  </h4>
-  <form [formGroup]="form">
+<form [formGroup]="form">
+  <div class="form-group mb-sm">
+    <label class="h5 mt-sm">{{label}}</label>
     <textarea formControlName="text"
-              class="form-control form95"
+              class="form-control"
               title="{{label}}"
               [rows]="rows"
               [autofocus]="isFocused">
     </textarea>
-  </form>
-</div>
+  </div>
+</form>
