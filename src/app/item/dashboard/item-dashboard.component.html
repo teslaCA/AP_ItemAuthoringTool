@@ -14,15 +14,16 @@
         <div class="well">
           <h2 class="h3">Create</h2>
           <p class="small">Create a new item or resource.</p>
-          <button class="btn btn-success btn-lg" routerLink="/item/create/select-type">
-            <i class="fa fa-plus" aria-hidden="true"></i> New
-          </button>
-
-          <div *ngIf="showLink">
-            <button class="btn btn-info pull-right" routerLink="{{itemUrl}}">
+          <p>
+            <button class="btn btn-success btn-lg" routerLink="/item/create/select-type">
+              <i class="fa fa-plus" aria-hidden="true"></i> New
+            </button>
+          </p>
+          <p *ngIf="showLink">
+            <button class="btn btn-info btn-xs" routerLink="{{itemUrl}}">
               {{itemLink}}
             </button>
-          </div>
+          </p>
         </div>
       </div>
     </div>
