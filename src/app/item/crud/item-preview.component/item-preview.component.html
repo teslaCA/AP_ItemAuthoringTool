@@ -20,40 +20,62 @@
         <!-- Title -->
         <h4 class="modal-title">Preview of {{itemId}}</h4>
 
-        <!-- Version selection dropdown -->
-        <label>Showing Version: </label>
-        <div *ngIf="showVersionList" class="btn-group btn-group-xs" dropdown>
-          <button *ngIf="itemChanges && !selectedItemChange.changedOn" dropdownToggle type="button" class="btn btn-default dropdown-toggle">
-            {{selectedItemChange.message}} <span class="caret"></span>
-          </button>
-          <button *ngIf="itemChanges && selectedItemChange.changedOn" dropdownToggle type="button" class="btn btn-default dropdown-toggle">
-            <span class="date">{{selectedItemChange.changedOn | date:'short'}}</span> -
-            <span class="owner">{{selectedItemChange.changedBy}}</span> -
-            <span class="message">{{selectedItemChange.message}}</span>
-            <span class="caret"></span>
-          </button>
+        <div class="row">
+          <div class="col-sm-8">
+            <!-- Version selection dropdown -->
+            <label>Showing Version: </label>
+            <div *ngIf="showVersionList" class="btn-group btn-group-xs" dropdown>
+              <button *ngIf="itemChanges && !selectedItemChange.changedOn" dropdownToggle type="button" class="btn btn-default dropdown-toggle">
+                {{selectedItemChange.message}} <span class="caret"></span>
+              </button>
+              <button *ngIf="itemChanges && selectedItemChange.changedOn" dropdownToggle type="button" class="btn btn-default dropdown-toggle">
+                <span class="date">{{selectedItemChange.changedOn | date:'short'}}</span> -
+                <span class="owner">{{selectedItemChange.changedBy}}</span> -
+                <span class="message">{{selectedItemChange.message}}</span>
+                <span class="caret"></span>
+              </button>
 
-          <ul *dropdownMenu class="dropdown-menu" role="menu">
-            <li *ngFor="let history of itemChanges" role="menuitem">
-              <a *ngIf="!history.changedOn" class="dropdown-item" (click)="renderItem(history.historyId)">
-                {{history.message}}
-              </a>
-              <a *ngIf="history.changedOn" class="dropdown-item" (click)="renderItem(history.historyId)">
-                <span class="date">{{history.changedOn | date:'short'}}</span> -
-                <span class="owner">{{history.changedBy}}</span> -
-                <span class="message">{{history.message}}</span>
-              </a>
-            </li>
-          </ul>
-          <div *ngIf="!showVersionList">
-            <span class="gray-darker">Being created by you</span>
+              <ul *dropdownMenu class="dropdown-menu" role="menu">
+                <li *ngFor="let history of itemChanges" role="menuitem">
+                  <a *ngIf="!history.changedOn" class="dropdown-item" (click)="renderItem(history.historyId)">
+                    {{history.message}}
+                  </a>
+                  <a *ngIf="history.changedOn" class="dropdown-item" (click)="renderItem(history.historyId)">
+                    <span class="date">{{history.changedOn | date:'short'}}</span> -
+                    <span class="owner">{{history.changedBy}}</span> -
+                    <span class="message">{{history.message}}</span>
+                  </a>
+                </li>
+              </ul>
+              <div *ngIf="!showVersionList">
+                <span class="gray-darker">Being created by you</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-4">
+            <!-- Accessibility options -->
+            <!-- TODO: Render options via configuration or service -->
+            <div>
+              <label class="pull-left">Accessibility: </label>
+              <a (click)="toggleAccessibility('TDS_SLM1')"><i title="Streamline" [class.active]="isAccessibilityEnabled('TDS_SLM1')" class="fa fa-arrows-v" aria-hidden="true"></i></a>
+              <!--
+              TODO: Do not remove commented out code. The accessiblity features will be implemented in later sprints
+              <a (click)="toggleAccessibility('TDS_ASL1')"><i title="American Sign Language" [class.active]="isAccessibilityEnabled('TDS_ASL1')" class="fa fa-sign-language" aria-hidden="true"></i></a>
+              <a (click)="toggleAccessibility('TDS_BT_EXN')"><i title="Braille" [class.active]="isAccessibilityEnabled('TDS_BT_EXN')" class="fa fa-braille" aria-hidden="true"></i></a>
+              <a (click)="toggleAccessibility('TDS_ClosedCap1')"><i title="Closed Captioning" [class.active]="isAccessibilityEnabled('TDS_ClosedCap1')" class="fa fa-cc" aria-hidden="true"></i></a>
+              <a (click)="toggleAccessibility('TDS_WL_Glossary')"><i title="English Glossary" [class.active]="isAccessibilityEnabled('TDS_WL_Glossary')" class="fa fa-list" aria-hidden="true"></i></a>
+              <a (click)="toggleAccessibility('TDS_ESN')"><i title="Stacked Spanish Translations" [class.active]="isAccessibilityEnabled('TDS_ESN')" class="fa fa-globe" aria-hidden="true"></i></a>
+              <a (click)="toggleAccessibility('TDS_WL_ESNGloss')"><i title="Translated Glossary" [class.active]="isAccessibilityEnabled('TDS_WL_ESNGloss')" class="fa fa-language" aria-hidden="true"></i></a>
+              -->
+            </div>
           </div>
         </div>
       </div>
 
       <!-- Body -->
       <div class="modal-body">
-        <iframe *ngIf="showIframe" frameborder="0" height="500" width="800" [src]="itemRenderUrl"></iframe>
+        <iframe *ngIf="showIframe" frameborder="0" height="500" width="800" [src]="itemSafeResourceUrl"></iframe>
         <div class="loader" *ngIf="!showIframe">
           <div class="inner">
             <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i><span class="text">Loading</span>
