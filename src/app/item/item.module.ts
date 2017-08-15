@@ -8,6 +8,7 @@ import {ItemWerDetailsComponent} from "./crud/details/item-wer-details.component
 import {ItemDashboardComponent} from "./dashboard/item-dashboard.component";
 import {ReactiveFormsModule} from "@angular/forms";
 import {Ng2BootstrapModule} from "ngx-bootstrap";
+import {FileUploadModule} from 'ng2-file-upload';
 import {BrowserModule} from "@angular/platform-browser";
 import {RouterModule} from "@angular/router";
 import {Http, HttpModule} from "@angular/http";
@@ -32,6 +33,7 @@ import {ItemExemplarResponsesComponent} from "./crud/details/shared/item-exempla
 import {ItemTutDetailsComponent} from './crud/details/item-tut-details.component/item-tut-details.component';
 import {ItemEbsrDetailsComponent} from './crud/details/item-ebsr-details/item-ebsr-details.component';
 import {ItemAssociationTabComponent} from './crud/tabs/item-association-tab.component/item-association-tab.component';
+import {ItemBrailleTabComponent} from './crud/tabs/item-braille-tab.component/item-braille-tab.component';
 
 @NgModule({
   imports: [
@@ -40,7 +42,8 @@ import {ItemAssociationTabComponent} from './crud/tabs/item-association-tab.comp
     HttpModule,
     Ng2BootstrapModule,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,
+    FileUploadModule
   ],
   declarations: [
     ItemDashboardComponent,
@@ -64,7 +67,8 @@ import {ItemAssociationTabComponent} from './crud/tabs/item-association-tab.comp
     ItemWorkflowTabComponent,
     ItemTutDetailsComponent,
     ItemEbsrDetailsComponent,
-    ItemAssociationTabComponent
+    ItemAssociationTabComponent,
+    ItemBrailleTabComponent
   ],
   exports: [
     ItemDashboardComponent,
