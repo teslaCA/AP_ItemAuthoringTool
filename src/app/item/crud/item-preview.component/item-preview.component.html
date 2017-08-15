@@ -1,5 +1,5 @@
-<button class="btn btn-default preview" (click)="show()" data-toggle="modal">
-  Preview
+<button class="btn btn-primary btn-sm" (click)="show()">
+  <i class="fa fa-eye"></i> Preview
 </button>
 
 <div #previewModal="bs-modal"
@@ -14,84 +14,81 @@
 
       <!-- Header -->
       <div class="modal-header preview">
+        <!-- Close Button -->
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="hidePreview()"><span aria-hidden="true">&times;</span></button>
+
         <!-- Title -->
-        <div class="col-sm-1">
-          <h3 class="modal-title" id="">Preview<!--i class="fa fa-chevron-right" aria-hidden="true"></i--></h3>
-        </div>
+        <h4 class="modal-title">Preview of {{itemId}}</h4>
 
-        <!-- Version selection -->
-        <div class="col-sm-7">
-          <!-- Dropdown -->
-          <label class="pull-left">Version: </label>
+        <div class="row">
+          <div class="col-sm-8">
+            <!-- Version selection dropdown -->
+            <label>Showing Version: </label>
+            <div *ngIf="showVersionList" class="btn-group btn-group-xs" dropdown>
+              <button *ngIf="itemChanges && !selectedItemChange.changedOn" dropdownToggle type="button" class="btn btn-default dropdown-toggle">
+                {{selectedItemChange.message}} <span class="caret"></span>
+              </button>
+              <button *ngIf="itemChanges && selectedItemChange.changedOn" dropdownToggle type="button" class="btn btn-default dropdown-toggle">
+                <span class="date">{{selectedItemChange.changedOn | date:'short'}}</span> -
+                <span class="owner">{{selectedItemChange.changedBy}}</span> -
+                <span class="message">{{selectedItemChange.message}}</span>
+                <span class="caret"></span>
+              </button>
 
-          <div *ngIf="showVersionList" class="btn-group" dropdown>
-            <button *ngIf="itemChanges && !selectedItemChange.changedOn" dropdownToggle type="button" class="btn btn-default dropdown-toggle">
-              {{selectedItemChange.message}} <span class="caret"></span>
-            </button>
-            <button *ngIf="itemChanges && selectedItemChange.changedOn" dropdownToggle type="button" class="btn btn-default dropdown-toggle">
-              <span class="date">{{selectedItemChange.changedOn | date:'short'}}</span> -
-              <span class="owner">{{selectedItemChange.changedBy}}</span> -
-              <span class="message">{{selectedItemChange.message}}</span>
-              <span class="caret"></span>
-            </button>
-
-            <ul *dropdownMenu class="dropdown-menu" role="menu">
-              <li *ngFor="let history of itemChanges" role="menuitem">
-                <a *ngIf="!history.changedOn" class="dropdown-item" (click)="renderItem(history.historyId)">
-                  {{history.message}}
-                </a>
-                <a *ngIf="history.changedOn" class="dropdown-item" (click)="renderItem(history.historyId)">
-                  <span class="date">{{history.changedOn | date:'short'}}</span> -
-                  <span class="owner">{{history.changedBy}}</span> -
-                  <span class="message">{{history.message}}</span>
-                </a>
-              </li>
-            </ul>
-
+              <ul *dropdownMenu class="dropdown-menu" role="menu">
+                <li *ngFor="let history of itemChanges" role="menuitem">
+                  <a *ngIf="!history.changedOn" class="dropdown-item" (click)="renderItem(history.historyId)">
+                    {{history.message}}
+                  </a>
+                  <a *ngIf="history.changedOn" class="dropdown-item" (click)="renderItem(history.historyId)">
+                    <span class="date">{{history.changedOn | date:'short'}}</span> -
+                    <span class="owner">{{history.changedBy}}</span> -
+                    <span class="message">{{history.message}}</span>
+                  </a>
+                </li>
+              </ul>
+              <div *ngIf="!showVersionList">
+                <span class="gray-darker">Being created by you</span>
+              </div>
+            </div>
           </div>
-          <div *ngIf="!showVersionList">
-            <span class="gray-darker">Being created by you</span>
+
+          <div class="col-sm-4">
+            <!-- Accessibility options -->
+            <!-- TODO: Render options via configuration or service -->
+            <div>
+              <label class="pull-left">Accessibility: </label>
+              <a (click)="toggleAccessibility('TDS_SLM1')"><i title="Streamline" [class.active]="isAccessibilityEnabled('TDS_SLM1')" class="fa fa-arrows-v" aria-hidden="true"></i></a>
+              <!--
+              TODO: Do not remove commented out code. The accessiblity features will be implemented in later sprints
+              <a (click)="toggleAccessibility('TDS_ASL1')"><i title="American Sign Language" [class.active]="isAccessibilityEnabled('TDS_ASL1')" class="fa fa-sign-language" aria-hidden="true"></i></a>
+              <a (click)="toggleAccessibility('TDS_BT_EXN')"><i title="Braille" [class.active]="isAccessibilityEnabled('TDS_BT_EXN')" class="fa fa-braille" aria-hidden="true"></i></a>
+              <a (click)="toggleAccessibility('TDS_ClosedCap1')"><i title="Closed Captioning" [class.active]="isAccessibilityEnabled('TDS_ClosedCap1')" class="fa fa-cc" aria-hidden="true"></i></a>
+              <a (click)="toggleAccessibility('TDS_WL_Glossary')"><i title="English Glossary" [class.active]="isAccessibilityEnabled('TDS_WL_Glossary')" class="fa fa-list" aria-hidden="true"></i></a>
+              <a (click)="toggleAccessibility('TDS_ESN')"><i title="Stacked Spanish Translations" [class.active]="isAccessibilityEnabled('TDS_ESN')" class="fa fa-globe" aria-hidden="true"></i></a>
+              <a (click)="toggleAccessibility('TDS_WL_ESNGloss')"><i title="Translated Glossary" [class.active]="isAccessibilityEnabled('TDS_WL_ESNGloss')" class="fa fa-language" aria-hidden="true"></i></a>
+              -->
+            </div>
           </div>
-        </div>
-
-        <!-- Accessibility options -->
-        <!-- TODO: Render options via configuration or service -->
-        <div class="col-sm-3">
-          <label class="pull-left">Accessibility: </label>
-          <a (click)="toggleAccessibility('TDS_ASL1')"><i title="American Sign Language" [class.active]="isAccessibilityEnabled('TDS_ASL1')" class="fa fa-sign-language" aria-hidden="true"></i></a>
-          <a (click)="toggleAccessibility('TDS_BT_EXN')"><i title="Braille" [class.active]="isAccessibilityEnabled('TDS_BT_EXN')" class="fa fa-braille" aria-hidden="true"></i></a>
-          <a (click)="toggleAccessibility('TDS_ClosedCap1')"><i title="Closed Captioning" [class.active]="isAccessibilityEnabled('TDS_ClosedCap1')" class="fa fa-cc" aria-hidden="true"></i></a>
-          <a (click)="toggleAccessibility('TDS_WL_Glossary')"><i title="English Glossary" [class.active]="isAccessibilityEnabled('TDS_WL_Glossary')" class="fa fa-list" aria-hidden="true"></i></a>
-          <a (click)="toggleAccessibility('TDS_ESN')"><i title="Stacked Spanish Translations" [class.active]="isAccessibilityEnabled('TDS_ESN')" class="fa fa-globe" aria-hidden="true"></i></a>
-          <a (click)="toggleAccessibility('TDS_WL_ESNGloss')"><i title="Translated Glossary" [class.active]="isAccessibilityEnabled('TDS_WL_ESNGloss')" class="fa fa-language" aria-hidden="true"></i></a>
-        </div>
-
-        <!-- Close -->
-        <div class="col-sm-1">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="hidePreview()">
-            <span aria-hidden="true">&times;</span>
-          </button>
         </div>
       </div>
 
       <!-- Body -->
-      <div class="modal-body preview">
+      <div class="modal-body">
         <iframe *ngIf="showIframe" frameborder="0" height="500" width="800" [src]="itemSafeResourceUrl"></iframe>
-        <div class="center-block">
-          <i *ngIf="!showIframe" class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
-        </div>
-        <!-- Error message -->
-        <div class="row" *ngIf="isError">
-          <div class="col-lg-12">
-            <alert>{{errorMessage}}</alert>
+        <div class="loader" *ngIf="!showIframe">
+          <div class="inner">
+            <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i><span class="text">Loading</span>
           </div>
         </div>
+        <!-- Error message -->
+        <alert *ngIf="isError">{{errorMessage}}</alert>
       </div>
       <!-- Footer -->
-      <div class="modal-footer preview">
+      <div class="modal-footer">
         <!-- Close button -->
-        <button type="button" class="btn btn-default btn-small" data-dismiss="modal" (click)="hidePreview()">
-          Close
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="hidePreview()">
+          Close Preview
         </button>
       </div>
     </div>

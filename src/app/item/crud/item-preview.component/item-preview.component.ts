@@ -89,6 +89,7 @@ export class ItemPreviewComponent {
 
             // Assign response URL which is associated with the iframe source
             this.itemSafeResourceUrl = this.domSanitizer.bypassSecurityTrustResourceUrl(this.itemRenderUrl);
+
             this.isError = false;
             this.showIframe = true;
           }
