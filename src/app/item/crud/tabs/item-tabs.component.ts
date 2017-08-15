@@ -4,8 +4,9 @@ import {Item} from "../../services/item.service/item";
 import {ItemType} from "../../services/item-type.service/item-type";
 import {NormalItem} from "../../services/item.service/normal-item";
 import {ItemWorkflowTabComponent} from "./item-workflow-tab.component/item-workflow-tab.component";
-import {itemTypes, STIM, TUT} from "../../services/item-type.service/item-types";
+import {STIM, TUT} from "../../services/item-type.service/item-types";
 import {ItemAssociationTabComponent} from "./item-association-tab.component/item-association-tab.component";
+import {ItemBrailleTabComponent} from "./item-braille-tab.component/item-braille-tab.component";
 
 @Component({
   selector: 'item-tabs',
@@ -13,7 +14,20 @@ import {ItemAssociationTabComponent} from "./item-association-tab.component/item
   styleUrls: ['./item-tabs.component.less']
 })
 export class ItemTabsComponent {
-  validTabs = ['history', 'stimulus', 'tutorial', 'workflow'];
+  tab = {
+    braille: 'braille',
+    history: 'history',
+    stimulus: 'stimulus',
+    tutorial: 'tutorial',
+    workflow: 'workflow'
+  };
+  validTabs = [
+    this.tab.braille,
+    this.tab.history,
+    this.tab.stimulus,
+    this.tab.tutorial,
+    this.tab.workflow
+  ];
   @Input() item: Item;
   @Input() itemType: ItemType;
   @Input() selected: string;
@@ -21,8 +35,9 @@ export class ItemTabsComponent {
   @Output() tabChanged = new EventEmitter<String>();
   @Output() itemChanged = new EventEmitter<Item>();
   @ViewChild("stimulus") itemStimulusTabComponent: ItemAssociationTabComponent;
-  @ViewChild(ItemWorkflowTabComponent) itemWorkflowTabComponent;
   @ViewChild("tutorial") itemTutorialTabComponent: ItemAssociationTabComponent;
+  @ViewChild(ItemWorkflowTabComponent) itemWorkflowTabComponent;
+  @ViewChild(ItemBrailleTabComponent) itemBrailleTabComponent;
 
   get associatedStimulusId(): string {
     return (this.item as NormalItem).stimulusId;
@@ -48,7 +63,7 @@ export class ItemTabsComponent {
     // Check if selected tab name is supported
     if (this.validTabs.indexOf(this.selected) < 0) {
       // Default to first valid tab name
-      validSelected = this.validTabs[0];
+      validSelected = this.validTabs[1]; // History is the default tab
     }
 
     return validSelected === tab;
@@ -80,6 +95,12 @@ export class ItemTabsComponent {
     // Capture changes to tutorialId
     if (this.itemTutorialTabComponent && this.item instanceof NormalItem) {
       this.item.tutorialId = this.itemTutorialTabComponent.associationId;
+    }
+
+    //Capture changes to Braille tab
+    if (this.itemBrailleTabComponent) {
+      this.item.braille.isBrailleRequired = this.itemBrailleTabComponent.currentItemBraille.isBrailleRequired;
+      this.item.braille.isBrailleProvided = this.itemBrailleTabComponent.currentItemBraille.isBrailleProvided;
     }
 
     return this.item;
