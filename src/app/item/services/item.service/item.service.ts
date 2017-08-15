@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {Http} from "@angular/http";
+import {Http, ResponseContentType} from "@angular/http";
 import {Observable} from "rxjs/Observable";
 import "rxjs/add/operator/catch";
 import "rxjs/add/operator/map";
@@ -169,6 +169,14 @@ export class ItemService {
     );
   }
 
+  /**
+   * @param transactionId of the transaction where the file to be deleted exists
+   * @param itemId of the item to have the current transaction
+   * @param fileName of the file to be deleted
+   * @param showAlertOnError whether to show alert on error
+   * @param showBusyIndicator whether to show busy indicator while executing
+   * @returns Observable indicating when the file was deleted successfully
+   */
   deleteBrailleFile(transactionId: string,
                     itemId: string,
                     fileName: string,
@@ -184,21 +192,4 @@ export class ItemService {
       showBusyIndicator
     );
   }
-
-  // downloadBrailleFile(itemId: string,
-  //                fileName: string,
-  //                showAlertOnError = true,
-  //                showBusyIndicator = true): Observable<any> {
-  //   const url = `${ItemService.serviceUrl}/${itemId}/braille/${fileName}`;
-  //   let param = new URLSearchParams();
-  //   param.set('type', 'text/plain');
-  //   return this.httpUtility.applyAsyncHandling(
-  //     "Downloading Braille file",
-  //     this.http
-  //       .get(url,{search: param, responseType: 2} )
-  //       .map(res => res.text()),
-  //     showAlertOnError,
-  //     showBusyIndicator
-  //   );
-  // }
 }

@@ -1,4 +1,4 @@
-<div [formGroup]="form" class="form-group">
+<div [formGroup]="fieldForm" class="form-group">
   <div class="row">
     <div class="col-md-12">
       Does this item require braille?
@@ -25,6 +25,7 @@
       </select>
     </div>
   </div>
+
   <div class="row">
     <div class="col-md-12">
       Braille Content
@@ -38,8 +39,7 @@
            [class.nv-file-over]="hasDropZoneOver"
            [uploader]="uploader"
            (fileOver)="fileOverBase($event)"
-           (click)="openFileDialog()"
-           (onCompleteAll)="updateFileList()">
+           (click)="openFileDialog()">
         Click or drag and drop to attach braille file(s) here
       </div>
       <div *ngIf="uploader.isUploading"
@@ -64,16 +64,18 @@
     <div class="col-md-1"></div>
     <div class="col-md-1"></div>
   </div>
-  <div *ngIf="brailleAttachments.length === 0" class="row">
-    <div class="col-md-12"><em>No files attached</em></div>
-  </div>
-  <div *ngFor="let attachment of brailleAttachments" class="row">
-    <div class="col-md-5">{{attachment.fileName}}</div>
-    <div class="col-md-5">{{attachment.uploadedDate | date:'short'}}</div>
+
+  <div *ngFor="let attachment of brailleAttachments; let i=index" class="row">
+    <div class="col-md-6">{{attachment.fileName}}</div>
+    <div class="col-md-4">{{attachment.uploadedDate | date:'short'}}</div>
     <div class="col-md-1"><a href="/api/ims/v1/items/{{item.id}}/braille/{{attachment.fileName}}">
       <i class="fa fa-download"></i></a></div>
-    <div class="col-md-1"><a (click)="confirmDeleteFile(attachment.fileName)">
+    <div class="col-md-1"><a (click)="confirmDeleteFile(i, attachment.fileName)">
       <i class="fa fa-trash"></i></a></div>
+  </div>
+
+  <div *ngIf="brailleAttachments.length === 0" class="row">
+    <div class="col-md-12"><em>No files attached</em></div>
   </div>
 </div>
 
@@ -101,7 +103,7 @@
       <div class="modal-footer">
         <button type="button"
                 class="btn btn-primary btn-small"
-                (click)="deleteFile(deleteFileName)">Yes
+                (click)="deleteFile(deleteIndex, deleteFileName)">Yes
         </button>
         <button type="button"
                 class="btn btn-default btn-small"
