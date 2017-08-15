@@ -1,0 +1,35 @@
+<div #logoutModal="bs-modal"
+     id="logoutModal"
+     class="modal fade"
+     bsModal
+     [config]="{backdrop: 'static'}"
+     tabindex="-1"
+     role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <!-- Header -->
+      <div class="modal-header">
+        <h3 class="modal-title" id="cancelEditModalLabel">
+          Session Timeout
+        </h3>
+      </div>
+      <!-- Body -->
+      <div class="modal-body">
+        <span>
+          Your session is about to expire. Do you wish to remain logged in?
+        </span>
+      </div>
+      <div class="modal-footer">
+        <button type="button"
+                class="btn btn-primary btn-small"
+                (click)="this.restartIdle()">Yes
+        </button>
+        <button type="button"
+                class="btn btn-default btn-small"
+                data-dismiss="modal"
+                (click)="this.logOut()">No
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

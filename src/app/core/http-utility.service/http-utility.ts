@@ -1,12 +1,14 @@
 import {Headers, RequestOptions, Response} from "@angular/http";
+import {Injectable} from "@angular/core";
+import {Subject} from "rxjs/Subject";
+import "rxjs/add/operator/multicast";
 
 import {Logger} from "../logger.service/logger.service";
 import {Observable} from "rxjs/Observable";
 import {AlertService} from "../alert.service/alert.service";
 import {BusyService} from "../busy.service/busy.service";
-import {Injectable} from "@angular/core";
-import {Subject} from "rxjs/Subject";
-import "rxjs/add/operator/multicast";
+import {IdleService} from "../idle.service/idle.service";
+
 
 @Injectable()
 export class HttpUtility {
@@ -18,7 +20,8 @@ export class HttpUtility {
 
   constructor(private alertService: AlertService,
               private busyService: BusyService,
-              private logger: Logger) {
+              private logger: Logger,
+              private idleService: IdleService) {
   }
 
   /**
@@ -38,6 +41,10 @@ export class HttpUtility {
 
     // Subscribe adding logging, error alert, and busy indicator
     this.logger.debug(requestDescription);
+
+    // Restart idle counter
+    this.idleService.restartIdle();
+
     if (showBusyIndicator) {
       this.busyService.show(requestDescription);
     }
