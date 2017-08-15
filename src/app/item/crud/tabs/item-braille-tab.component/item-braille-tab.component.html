@@ -1,81 +1,65 @@
-<div [formGroup]="fieldForm" class="form-group">
-  <div class="row">
-    <div class="col-md-12">
-      Does this item require braille?
-    </div>
+<div [formGroup]="fieldForm" class="form">
+  <div class="form-group">
+    <label>Does this item require braille?</label>
+    <select class="form-control" formControlName="isBrailleRequired">
+      <option [value]="true">Yes</option>
+      <option [value]="false">No</option>
+    </select>
   </div>
-  <div class="row">
-    <div class="col-md-3">
-      <select class="form-control" formControlName="isBrailleRequired">
-        <option [value]="true">Yes</option>
-        <option [value]="false">No</option>
-      </select>
-    </div>
+  <div class="form-group">
+    <label>Has all braille content been provided?</label>
+    <select class="form-control" formControlName="isBrailleProvided">
+      <option [value]="true">Yes</option>
+      <option [value]="false">No</option>
+    </select>
   </div>
-  <div class="row">
-    <div class="col-md-12">
-      Has all braille content been provided?
-    </div>
+
+  <h3>Braille Content</h3>
+  <div ng2FileDrop
+       *ngIf="!uploader.isUploading && !isReadOnly"
+       class="well my-drop-zone point"
+       [class.nv-file-over]="hasDropZoneOver"
+       [uploader]="uploader"
+       (fileOver)="fileOverBase($event)"
+       (click)="openFileDialog()">
+    Click or drag and drop to attach braille file(s) here
   </div>
-  <div class="row">
-    <div class="col-md-3">
-      <select class="form-control" formControlName="isBrailleProvided">
-        <option [value]="true">Yes</option>
-        <option [value]="false">No</option>
-      </select>
+  <div *ngIf="uploader.isUploading"
+       class="well my-drop-zone nv-file-over">
+    Files are currently being uploaded
+  </div>
+  <div hidden>
+    <input #fileDialog type="file" ng2FileSelect [uploader]="uploader" multiple  />
+  </div>
+
+  <div class="progress-height">
+    <div *ngIf="uploader.isUploading" class="progress">
+      <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
     </div>
   </div>
 
-  <div class="row">
-    <div class="col-md-12">
-      Braille Content
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-12">
-      <div ng2FileDrop
-           *ngIf="!uploader.isUploading && !isReadOnly"
-           class="well my-drop-zone point"
-           [class.nv-file-over]="hasDropZoneOver"
-           [uploader]="uploader"
-           (fileOver)="fileOverBase($event)"
-           (click)="openFileDialog()">
-        Click or drag and drop to attach braille file(s) here
-      </div>
-      <div *ngIf="uploader.isUploading"
-           class="well my-drop-zone nv-file-over">
-        Files are currently being uploaded
-      </div>
-      <div hidden>
-        <input #fileDialog type="file" ng2FileSelect [uploader]="uploader" multiple  />
-      </div>
-    </div>
-  </div>
-  <div class="row progress-height">
-    <div class="col-md-12">
-      <div *ngIf="uploader.isUploading" class="progress">
-        <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
-      </div>
-    </div>
-  </div>
-  <div *ngIf="brailleAttachments.length > 0" class="row">
-    <div class="col-md-6">Filename</div>
-    <div class="col-md-4">Uploaded</div>
-    <div class="col-md-1"></div>
-    <div class="col-md-1"></div>
-  </div>
+  <table *ngIf="brailleAttachments.length > 0" class="table">
+    <thead>
+      <tr>
+        <th>Filename</th>
+        <th>Uploaded</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let attachment of brailleAttachments; let i=index">
+        <td>{{attachment.fileName}}</td>
+        <td>{{attachment.uploadedDate | date:'short'}}</td>
+        <td><a href="/api/ims/v1/items/{{item.id}}/braille/{{attachment.fileName}}">
+          <i class="fa fa-download"></i></a></td>
+        <td><a class="btn btn-default btn-xs" (click)="confirmDeleteFile(i, attachment.fileName)"><i class="fa fa-close"></i></a></td>
+      </tr>
+    </tbody>
+  </table>
 
-  <div *ngFor="let attachment of brailleAttachments; let i=index" class="row">
-    <div class="col-md-6">{{attachment.fileName}}</div>
-    <div class="col-md-4">{{attachment.uploadedDate | date:'short'}}</div>
-    <div class="col-md-1"><a href="/api/ims/v1/items/{{item.id}}/braille/{{attachment.fileName}}">
-      <i class="fa fa-download"></i></a></div>
-    <div class="col-md-1"><a class="point" (click)="confirmDeleteFile(i, attachment.fileName)">
-      <i class="fa fa-trash"></i></a></div>
-  </div>
-
-  <div *ngIf="brailleAttachments.length === 0" class="row">
-    <div class="col-md-12"><em>No files attached</em></div>
+  <div *ngIf="brailleAttachments.length === 0" class="alert alert-warning">
+    <p><em>No files currently attached.</em></p>
   </div>
 </div>
 
@@ -96,9 +80,9 @@
       </div>
       <!-- Body -->
       <div class="modal-body">
-        <span>
+        <p>
           Are you sure you want to delete {{deleteFileName}}?
-        </span>
+        </p>
       </div>
       <div class="modal-footer">
         <button type="button"
