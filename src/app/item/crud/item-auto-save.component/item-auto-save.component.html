@@ -1,14 +1,14 @@
 <!-- Changed -->
-<div *ngIf="enabled && changed" class="pull-right txt-alert orange">
+<span *ngIf="enabled && changed" class="label orange border-only mt-sm">
   <i class="fa fa-asterisk" aria-hidden="true"></i> Changed
-</div>
+</span>
 
 <!-- Saved -->
-<div *ngIf="enabled && saved" class="pull-right txt-alert green">
+<span *ngIf="enabled && saved" class="label green border-only mt-sm">
   <i class="fa fa-check" aria-hidden="true"></i> Saved
-</div>
+</span>
 
 <!-- Saving -->
-<div *ngIf="enabled && saving" class="pull-right txt-alert aqua">
-  <i class="fa fa-spinner fa-spin" aria-hidden="true"></i> Saving
-</div>
+<span *ngIf="enabled && saving" class="label gray-dark border-only mt-sm">
+  <i class="fa fa-spinner fa-pulse fa-fw" aria-hidden="true"></i> Saving
+</span>

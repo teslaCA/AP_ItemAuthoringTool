@@ -1,45 +1,34 @@
 <section class="main">
   <div class="container">
-    <div class="well well-top">
-      <!-- Title -->
-      <h1>
-        Create Item or Resource
-      </h1>
-
-      <!-- Normal item types -->
-      <h4>
-        Item Types
-      </h4>
-      <div class="col btn-group btn-block">
-        <div class="row">
-          <a *ngFor="let type of normalItemTypes" (click)="createItem(type.code)">
-            <div class="btn btn-items teal">
-              <div class="btn blue-dark"><i class="fa {{type.icon}} fa-2x"></i></div>
-              <br/>{{type.name}}
-              <br/>({{type.code | uppercase}})
-            </div>
+        <!-- Title -->
+        <h1 class="h2">Create an Item or Resource</h1>
+    <div class="well-group">
+      <div class="well">
+        <!-- Normal item types -->
+        <h4>Item Types</h4>
+        <div class="flex-children flex-cols-5">
+          <a *ngFor="let type of normalItemTypes" (click)="createItem(type.code)" class="btn btn-primary block-children">
+            <span class="btn"><i class="fa {{type.icon}} fa-3x"></i></span>
+            <span class="h4">{{type.name}}</span>
+            <span class="h5">({{type.code | uppercase}})</span>
           </a>
         </div>
       </div>
-
-      <!-- Other item types -->
-      <h4>
-        Other Resources
-      </h4>
-      <div class="col btn-group btn-block">
-        <div class="row">
-          <a *ngFor="let type of otherItemTypes" (click)="createItem(type.code)">
-            <div class="btn btn-items teal">
-              <div class="btn blue-dark"><i class="fa {{type.icon}} fa-2x"></i></div>
-              <br/>{{type.name}}
-              <br/>({{type.code | uppercase}})
-            </div>
+      <div class="well">
+        <!-- Other item types -->
+        <h4>Other Resources</h4>
+        <div class="flex-children flex-cols-5">
+          <a *ngFor="let type of otherItemTypes" (click)="createItem(type.code)" class="btn btn-primary block-children">
+            <span class="btn"><i class="fa {{type.icon}} fa-3x"></i></span>
+            <span class="h4">{{type.name}}</span>
+            <span class="h5">({{type.code | uppercase}})</span>
           </a>
         </div>
       </div>
-
-      <!-- Button -->
-      <button class="btn btn-link" [routerLink]="['/']">Cancel</button>
+      <div class="well gray-lightest">
+        <!-- Button -->
+        <button class="btn btn-default" [routerLink]="['/']"><i class="fa fa-undo"></i> Cancel</button>
+      </div>
     </div>
   </div>
 </section>

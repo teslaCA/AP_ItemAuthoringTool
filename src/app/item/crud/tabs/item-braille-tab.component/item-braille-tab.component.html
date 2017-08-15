@@ -51,7 +51,7 @@
       </div>
     </div>
   </div>
-  <div class="row">
+  <div class="row progress-height">
     <div class="col-md-12">
       <div *ngIf="uploader.isUploading" class="progress">
         <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
@@ -59,8 +59,8 @@
     </div>
   </div>
   <div *ngIf="brailleAttachments.length > 0" class="row">
-    <div class="col-md-5">Filename</div>
-    <div class="col-md-5">Uploaded</div>
+    <div class="col-md-6">Filename</div>
+    <div class="col-md-4">Uploaded</div>
     <div class="col-md-1"></div>
     <div class="col-md-1"></div>
   </div>
@@ -70,7 +70,7 @@
     <div class="col-md-4">{{attachment.uploadedDate | date:'short'}}</div>
     <div class="col-md-1"><a href="/api/ims/v1/items/{{item.id}}/braille/{{attachment.fileName}}">
       <i class="fa fa-download"></i></a></div>
-    <div class="col-md-1"><a (click)="confirmDeleteFile(i, attachment.fileName)">
+    <div class="col-md-1"><a class="point" (click)="confirmDeleteFile(i, attachment.fileName)">
       <i class="fa fa-trash"></i></a></div>
   </div>
 

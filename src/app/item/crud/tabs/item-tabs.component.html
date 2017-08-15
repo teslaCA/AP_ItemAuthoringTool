@@ -1,81 +1,82 @@
-<!-- Tab selector dropdown -->
-<div class="btn-group" dropdown>
-  <!-- Selected option -->
-  <button dropdownToggle type="button" class="btn-tab dropdown-toggle">
-    <span *ngIf="isSelected(tab.braille)">Braille</span>
-    <span *ngIf="isSelected(tab.history)">History</span>
-    <span *ngIf="isSelected(tab.stimulus)">Stimulus</span>
-    <span *ngIf="isSelected(tab.tutorial)">Tutorial</span>
-    <span *ngIf="isSelected(tab.workflow)">Workflow</span>
-    <span class="caret"></span>
-  </button>
+<div class="well-group">
+  <div class="well gray-lightest">
+    <div class="well-body pt-xs">
+      <!-- Tab selector dropdown -->
+      <div class="btn-group" dropdown>
+        <!-- Selected option -->
+        <button dropdownToggle type="button" class="btn btn-primary btn-xs dropdown-toggle mr-xs">
+          <i class="fa fa-bars"></i><span class="sr-only">Item Menu</span>
+        </button>
 
-  <!-- Dropdown options -->
-  <ul *dropdownMenu class="dropdown-menu" role="menu">
-    <li role="menuitem">
-      <a class="dropdown-item"
-         (click)="select(tab.braille)">
-        Braille</a>
-    </li>
-    <li role="menuitem">
-      <a class="dropdown-item"
-         (click)="select(tab.history)">
-        History</a>
-    </li>
-    <li role="menuitem" *ngIf="item.supportsStimulus">
-      <a class="dropdown-item"
-         (click)="select(tab.stimulus)">
-        Stimulus</a>
-    </li>
-    <li role="menuitem" *ngIf="item.supportsTutorial">
-      <a class="dropdown-item"
-         (click)="select(tab.tutorial)">
-        Tutorial</a>
-    </li>
-    <li role="menuitem" *ngIf="item.supportsWorkflow">
-      <a class="dropdown-item"
-         (click)="select(tab.workflow)">
-        Workflow</a>
-    </li>
-  </ul>
-</div>
+        <span class="h2 mb-sm">
+          <span *ngIf="isSelected(tab.braille)">Braille</span>
+          <span *ngIf="isSelected(tab.history)">History</span>
+          <span *ngIf="isSelected(tab.stimulus)">Stimulus</span>
+          <span *ngIf="isSelected(tab.tutorial)">Tutorial</span>
+          <span *ngIf="isSelected(tab.workflow)">Workflow</span>
+        </span>
 
-<!-- Selected tab -->
-<div class="item-box tab-content well">
-  <!-- Accessibility -->
-  <item-braille-tab *ngIf="isSelected(tab.braille)"
-                    [isReadOnly]="isReadOnly"
-                    [item]="item"
-                    (itemBrailleChanged)="onItemChanged()">
-  </item-braille-tab>
+        <!-- Dropdown options -->
+        <ul *dropdownMenu class="dropdown-menu" role="menu">
+          <li role="menuitem">
+            <a class="dropdown-item" (click)="select(tab.braille)">Braille</a>
+          </li>
+          <li role="menuitem">
+            <a class="dropdown-item" (click)="select(tab.history)">History</a>
+          </li>
+          <li role="menuitem" *ngIf="item.supportsStimulus">
+            <a class="dropdown-item" (click)="select(tab.stimulus)">Stimulus</a>
+          </li>
+          <li role="menuitem" *ngIf="item.supportsTutorial">
+            <a class="dropdown-item" (click)="select(tab.tutorial)">Tutorial</a>
+          </li>
+          <li role="menuitem" *ngIf="item.supportsWorkflow">
+            <a class="dropdown-item" (click)="select(tab.workflow)">Workflow</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
 
-  <!-- History -->
-  <item-history-tab *ngIf="isSelected(tab.history)"
-                    [itemId]="item.id">
-  </item-history-tab>
-
-  <!-- Stimulus -->
-  <item-association-tab #stimulus
-                        *ngIf="isSelected(tab.stimulus)"
+  <!-- Selected tab -->
+  <div class="item-box tab-content well white">
+    <div class="well-body">
+      <!-- Braille -->
+      <item-braille-tab *ngIf="isSelected(tab.braille)"
                         [isReadOnly]="isReadOnly"
-                        [associationId]="associatedStimulusId"
-                        [associationType]="itemTypeStimulus"
-                        (associationIdChanged)="onItemChanged()">
-  </item-association-tab>
+                        [item]="item"
+                        (itemBrailleChanged)="onItemChanged()">
+      </item-braille-tab>
 
-  <!-- Tutorial -->
-  <item-association-tab #tutorial
-                        *ngIf="isSelected(tab.tutorial)"
-                        [isReadOnly]="isReadOnly"
-                        [associationId]="associatedTutorialId"
-                        [associationType]="itemTypeTutorial"
-                        (associationIdChanged)="onItemChanged()">
-  </item-association-tab>
+      <!-- History -->
+      <item-history-tab *ngIf="isSelected(tab.history)"
+                        [itemId]="item.id">
+      </item-history-tab>
 
-  <!-- Workflow -->
-  <item-workflow-tab *ngIf="isSelected(tab.workflow)"
-                     [isReadOnly]="isReadOnly"
-                     [workflowStatusCode]="item.workflowStatusCode"
-                     (workflowStatusCodeChange)="onItemChanged()">
-  </item-workflow-tab>
+      <!-- Stimulus -->
+      <item-association-tab #stimulus
+                            *ngIf="isSelected(tab.stimulus)"
+                            [isReadOnly]="isReadOnly"
+                            [associationId]="associatedStimulusId"
+                            [associationType]="itemTypeStimulus"
+                            (associationIdChanged)="onItemChanged()">
+      </item-association-tab>
+
+      <!-- Tutorial -->
+      <item-association-tab #tutorial
+                            *ngIf="isSelected(tab.tutorial)"
+                            [isReadOnly]="isReadOnly"
+                            [associationId]="associatedTutorialId"
+                            [associationType]="itemTypeTutorial"
+                            (associationIdChanged)="onItemChanged()">
+      </item-association-tab>
+
+      <!-- Workflow -->
+      <item-workflow-tab *ngIf="isSelected(tab.workflow)"
+                         [isReadOnly]="isReadOnly"
+                         [workflowStatusCode]="item.workflowStatusCode"
+                         (workflowStatusCodeChange)="onItemChanged()">
+      </item-workflow-tab>
+    </div>
+  </div>
 </div>
