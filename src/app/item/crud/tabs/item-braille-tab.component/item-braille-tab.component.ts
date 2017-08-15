@@ -66,8 +66,8 @@ export class ItemBrailleTabComponent implements OnInit, OnChanges {
       const responseDate = Date.now().toString();
 
       // Check if file was overwritten
-      let existingFile = this.brailleAttachments.filter(file => file.fileName === item.file.name);
-      if(existingFile.length > 0) {
+      const existingFile = this.brailleAttachments.filter(file => file.fileName === item.file.name);
+      if (existingFile.length > 0) {
         // Only change the modified date
         existingFile[0].uploadedDate = responseDate;
       }
@@ -145,7 +145,7 @@ export class ItemBrailleTabComponent implements OnInit, OnChanges {
         this.item.id,
         fileName, true, true)
       .subscribe(() => {
-          this.brailleAttachments.splice(index,1);
+          this.brailleAttachments.splice(index, 1);
 
           this.alertService.success('Attachment Deleted',
             'Braille file ' + fileName + ' was successfully deleted');
