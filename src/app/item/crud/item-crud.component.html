@@ -4,7 +4,7 @@
 
       <!-- Item title -->
       <h1 class="h2 label-group blue">
-        <span class="label"><i class="fa {{item.itemType.icon}}"></i> {{item.id}}</span><span class="label">{{item.itemType.name}} <abbr title="{{item.itemType.name}}">( {{item.itemType.code | uppercase}} )</abbr></span>
+        <span class="label"><i class="fa {{item.itemType.icon}}"></i> {{item.id}}</span><span class="label">{{item.itemType.name}} <span>( {{item.itemType.code | uppercase}} )</span></span>
       </h1>
 
       <div class="row">
@@ -37,8 +37,8 @@
                   <button class="btn btn-success btn-sm" (click)="commitModal.show()">
                     Create {{item.itemType.categoryName}}
                   </button>
-                  <button class="btn btn-link btn-sm" (click)="cancelModal.show()">
-                    Cancel
+                  <button class="btn btn-deault btn-sm" (click)="cancelModal.show()">
+                    <i class="fa fa-undo"></i> Cancel
                   </button>
                 </span>
 
@@ -86,15 +86,16 @@
           </item-tabs>
         </div>
       </div>
+    </div>
 
-      <!-- Error message -->
-      <div class="well" *ngIf="isError">
-        <div class="well-body">
-          <alert>{{errorMessage}}</alert>
-          <button class="btn btn-primary" routerLink="/"><i class="fa fa-arrow-left"></i> Go Back</button>
-        </div>
+    <!-- Error message -->
+    <div class="well" *ngIf="isError">
+      <div class="well-body">
+        <alert>{{errorMessage}}</alert>
+        <button class="btn btn-primary" routerLink="/"><i class="fa fa-arrow-left"></i> Go Back</button>
       </div>
     </div>
+
   </div>
 </section>
 
@@ -196,7 +197,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
         <h3 *ngIf="isBeingCreatedByCurrentUser" class="modal-title" id="cancelCreateModalLabel">
-          Cancel {{item.itemType.categoryName}} Creation
+          <i class="fa fa-undo"></i> Cancel {{item.itemType.categoryName}} Creation
         </h3>
         <h3 *ngIf="isBeingEditedByCurrentUser" class="modal-title" id="cancelEditModalLabel">
           Discard Changes
@@ -209,7 +210,7 @@
           Are you sure you want to cancel creating this {{item.itemType.categoryName | lowercase}} and lose all changes you have made?
         </span>
         <span *ngIf="isBeingEditedByCurrentUser">
-          Are you sure you want to discard all changes you've made since you've started editing?
+          Are you sure you want to discard all changes you've made since you&rsquo;ve started editing?
         </span>
       </div>
       <div class="modal-footer">

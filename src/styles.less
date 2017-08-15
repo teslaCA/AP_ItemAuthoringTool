@@ -50,6 +50,7 @@ section.main {
 }
 
 iframe {
+  width: 100%;
   max-width: 100%;
 }
 
@@ -80,6 +81,7 @@ footer {
 }
 
 #cancelModal {
+  z-index: 9999;
   .modal-header {
     background-color: @red;
     color: @white;
@@ -112,9 +114,11 @@ select:-webkit-autofill:focus {
 .input-combo {
   display: flex;
   justify-content: flex-start;
-  label {
+  label, textarea {
     flex-grow: 1;
-    padding-right: @grid-gutter-width / 2;
+    margin-right: @grid-gutter-width / 2;
+  }
+  label {
     input[type="radio"],
     input[type="checkbox"] {
       margin-top: 0px;
@@ -131,4 +135,9 @@ select:-webkit-autofill:focus {
     padding: @padding-base-vertical (@padding-base-horizontal * 2);
     .sans;
   }
+}
+
+.busy-overlay .alert {
+  margin-bottom: 0px;
+  text-align: center;
 }
