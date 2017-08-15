@@ -14,7 +14,7 @@
             <div class="well well-action-bar">
               <div class="well-body pt-xs">
                 <button class="btn btn-default btn-sm" (click)="goHome()">
-                  <i class="fa fa-arrow-left"></i> Search Items <i class="fa fa-search"></i>
+                  <i class="fa fa-arrow-left"></i> Dashboard
                 </button>
                 <!-- Preview -->
                 <span *ngIf="item.supportsPreview">
@@ -35,7 +35,7 @@
                 <!-- Create -->
                 <span *ngIf="isBeingCreatedByCurrentUser">
                   <button class="btn btn-success btn-sm" (click)="commitModal.show()">
-                    Create {{item.itemType.categoryName}}
+                    <i class="fa fa-check-square"></i> Finish Creating {{item.itemType.categoryName}}
                   </button>
                   <button class="btn btn-link btn-sm" (click)="cancelModal.show()">
                     Cancel
@@ -45,7 +45,7 @@
                 <!-- Edit -->
                 <span *ngIf="isBeingEditedByCurrentUser">
                   <button class="btn btn-success btn-sm" (click)="commitModal.show()">
-                    <i class="fa fa-check-square"></i> Commit
+                    <i class="fa fa-check-square"></i> Finish Editing {{item.itemType.categoryName}}
                   </button>
                   <button class="btn btn-default btn-sm btn-borderless" (click)="cancelModal.show()">
                     <i class="fa fa-undo"></i> Discard
