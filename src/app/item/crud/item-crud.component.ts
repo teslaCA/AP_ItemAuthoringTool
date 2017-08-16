@@ -96,14 +96,14 @@ export class ItemCrudComponent implements OnInit {
   rollbackCreateTransaction(): void {
     this.rollbackTransaction(
       'Creation Cancelled',
-      'The item you were creating has been successfully removed.',
+      `The ${this.item.itemType.categoryName} you were creating has been successfully removed.`,
       '/');
   }
 
   rollbackEditTransaction(): void {
     this.rollbackTransaction(
       'Changes Discarded',
-      'Your changes to the item have been discarded.',
+      `Your changes to the ${this.item.itemType.categoryName} have been discarded.`,
       `/?id=${this.item.id}`);
   }
 
