@@ -5,6 +5,16 @@
       <!-- Item title -->
       <!-- Auto-save -->
       <div class="pull-right">
+        <!-- Preview -->
+        <span *ngIf="item.supportsPreview">
+          <item-preview #itemPreview
+                        [itemId]="item.id"
+                        [itemType]="item.itemType.categoryName"
+                        [isBeingEditedByCurrentUser]="isBeingEditedByCurrentUser"
+                        [isBeingCreatedByCurrentUser]="isBeingCreatedByCurrentUser">
+          </item-preview>
+        </span>
+
         <item-auto-save #autoSave
                         [enabled]="isBeingCreatedByCurrentUser || isBeingEditedByCurrentUser"
                         [debounceTimeMillis]="3000">
@@ -34,24 +44,14 @@
 
                       <!-- Cancel -->
                       <span *ngIf="isBeingCreatedByCurrentUser">
-                        <button class="btn btn-link btn-sm" (click)="cancelModal.show()">
-                          Cancel
+                        <button class="btn btn-default btn-sm" (click)="cancelModal.show()">
+                          <i class="fa fa-undo"></i> Cancel
                         </button>
                       </span>
                       <span *ngIf="isBeingEditedByCurrentUser">
                         <button class="btn btn-default btn-sm btn-borderless" (click)="cancelModal.show()">
                           <i class="fa fa-undo"></i> Discard
                         </button>
-                      </span>
-
-                      <!-- Preview -->
-                      <span *ngIf="item.supportsPreview">
-                        <item-preview #itemPreview
-                                      [itemId]="item.id"
-                                      [itemType]="item.itemType.categoryName"
-                                      [isBeingEditedByCurrentUser]="isBeingEditedByCurrentUser"
-                                      [isBeingCreatedByCurrentUser]="isBeingCreatedByCurrentUser">
-                        </item-preview>
                       </span>
 
                       <!-- View -->
