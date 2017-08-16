@@ -57,7 +57,7 @@
             <!-- TODO: Render options via configuration or service -->
             <label>Accessibility: </label>
             <div class="btn-group btn-group-xs">
-              <a (click)="toggleAccessibility('TDS_SLM1')" class="btn btn-default" title="Streamline"><i [class.active]="isAccessibilityEnabled('TDS_SLM1')" class="fa fa-arrows-v" aria-hidden="true"></i></a>
+              <a (click)="toggleAccessibility('TDS_SLM1')" [class.active]="isAccessibilityEnabled('TDS_SLM1')" class="btn btn-default" title="Streamline"><i class="fa fa-arrows-v" aria-hidden="true"></i></a>
               <!--
               TODO: Do not remove commented out code. The accessiblity features will be implemented in later sprints
               <a (click)="toggleAccessibility('TDS_ASL1')" class="btn btn-default"><i title="American Sign Language" [class.active]="isAccessibilityEnabled('TDS_ASL1')" class="fa fa-sign-language" aria-hidden="true"></i></a>
