@@ -6,7 +6,7 @@
     <!-- Exemplar responses -->
     <div formArrayName="exemplarResponses">
       <!-- Exemplar response -->
-      <div *ngFor="let control of formExemplarResponses.controls; let i=index">
+      <div *ngFor="let control of formExemplarResponses.controls; let i=index" class="input-combo mb-sm">
         <!-- Text -->
         <textarea formControlName="{{i}}"
                   title="Exemplar Response #{{i + 1}}"

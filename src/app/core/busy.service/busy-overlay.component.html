@@ -1,9 +1,9 @@
 <div [class.busy-overlay-hidden]="!show">
-  <div class="busy-overlay-content">
+  <div class="busy-overlay">
     <div>
       <div *ngIf="show">
-        <alert type="info">
-          <i class="fa fa-refresh fa-spin fa-fw"></i> {{message}}
+        <alert type="info" class="orange">
+          <i class="fa fa-spinner fa-pulse fa-fw"></i> {{message}}
         </alert>
       </div>
     </div>

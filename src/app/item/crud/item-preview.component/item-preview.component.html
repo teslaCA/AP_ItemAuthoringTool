@@ -21,7 +21,7 @@
         <h4 class="modal-title">Preview of {{itemId}}</h4>
 
         <div class="row">
-          <div class="col-sm-8">
+          <div class="col-sm-4">
             <!-- Version selection dropdown -->
             <label>Showing Version: </label>
             <div *ngIf="showVersionList" class="btn-group btn-group-xs" dropdown>
@@ -53,20 +53,20 @@
             </div>
           </div>
 
-          <div class="col-sm-4">
+          <div class="col-sm-8 text-right">
             <!-- Accessibility options -->
             <!-- TODO: Render options via configuration or service -->
-            <div>
-              <label class="pull-left">Accessibility: </label>
-              <a (click)="toggleAccessibility('TDS_SLM1')"><i title="Streamline" [class.active]="isAccessibilityEnabled('TDS_SLM1')" class="fa fa-arrows-v" aria-hidden="true"></i></a>
+            <label>Accessibility: </label>
+            <div class="btn-group btn-group-xs">
+              <a (click)="toggleAccessibility('TDS_SLM1')" class="btn btn-default" title="Streamline"><i [class.active]="isAccessibilityEnabled('TDS_SLM1')" class="fa fa-arrows-v" aria-hidden="true"></i></a>
               <!--
               TODO: Do not remove commented out code. The accessiblity features will be implemented in later sprints
-              <a (click)="toggleAccessibility('TDS_ASL1')"><i title="American Sign Language" [class.active]="isAccessibilityEnabled('TDS_ASL1')" class="fa fa-sign-language" aria-hidden="true"></i></a>
-              <a (click)="toggleAccessibility('TDS_BT_EXN')"><i title="Braille" [class.active]="isAccessibilityEnabled('TDS_BT_EXN')" class="fa fa-braille" aria-hidden="true"></i></a>
-              <a (click)="toggleAccessibility('TDS_ClosedCap1')"><i title="Closed Captioning" [class.active]="isAccessibilityEnabled('TDS_ClosedCap1')" class="fa fa-cc" aria-hidden="true"></i></a>
-              <a (click)="toggleAccessibility('TDS_WL_Glossary')"><i title="English Glossary" [class.active]="isAccessibilityEnabled('TDS_WL_Glossary')" class="fa fa-list" aria-hidden="true"></i></a>
-              <a (click)="toggleAccessibility('TDS_ESN')"><i title="Stacked Spanish Translations" [class.active]="isAccessibilityEnabled('TDS_ESN')" class="fa fa-globe" aria-hidden="true"></i></a>
-              <a (click)="toggleAccessibility('TDS_WL_ESNGloss')"><i title="Translated Glossary" [class.active]="isAccessibilityEnabled('TDS_WL_ESNGloss')" class="fa fa-language" aria-hidden="true"></i></a>
+              <a (click)="toggleAccessibility('TDS_ASL1')" class="btn btn-default"><i title="American Sign Language" [class.active]="isAccessibilityEnabled('TDS_ASL1')" class="fa fa-sign-language" aria-hidden="true"></i></a>
+              <a (click)="toggleAccessibility('TDS_BT_EXN')" class="btn btn-default"><i title="Braille" [class.active]="isAccessibilityEnabled('TDS_BT_EXN')" class="fa fa-braille" aria-hidden="true"></i></a>
+              <a (click)="toggleAccessibility('TDS_ClosedCap1')" class="btn btn-default"><i title="Closed Captioning" [class.active]="isAccessibilityEnabled('TDS_ClosedCap1')" class="fa fa-cc" aria-hidden="true"></i></a>
+              <a (click)="toggleAccessibility('TDS_WL_Glossary')" class="btn btn-default"><i title="English Glossary" [class.active]="isAccessibilityEnabled('TDS_WL_Glossary')" class="fa fa-list" aria-hidden="true"></i></a>
+              <a (click)="toggleAccessibility('TDS_ESN')" class="btn btn-default"><i title="Stacked Spanish Translations" [class.active]="isAccessibilityEnabled('TDS_ESN')" class="fa fa-globe" aria-hidden="true"></i></a>
+              <a (click)="toggleAccessibility('TDS_WL_ESNGloss')" class="btn btn-default"><i title="Translated Glossary" [class.active]="isAccessibilityEnabled('TDS_WL_ESNGloss')" class="fa fa-language" aria-hidden="true"></i></a>
               -->
             </div>
           </div>
