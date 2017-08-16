@@ -3,6 +3,17 @@
     <div *ngIf="!isError">
 
       <!-- Item title -->
+      <!-- Auto-save -->
+      <div class="pull-right">
+        <item-auto-save #autoSave
+                        [enabled]="isBeingCreatedByCurrentUser || isBeingEditedByCurrentUser"
+                        [debounceTimeMillis]="3000">
+        </item-auto-save>
+        <!-- Item being edited by another user -->
+        <div *ngIf="isBeingEditedByAnotherUser" class="alert alert-warning small">
+          <div class="mt-sm"><i class="fa fa-warning"></i> {{item.id}} is being edited by {{item.currentTransaction.username}}. Items may only be edited by one user at a time.</div>
+        </div>
+      </div>
       <h1 class="h2 label-group blue">
         <span class="label"><span class="label"><i class="fa {{item.itemType.icon}}"></i></span> {{item.id}}</span><span class="label">{{item.itemType.name}} <span>( {{item.itemType.code | uppercase}} )</span></span>
       </h1>
@@ -13,55 +24,59 @@
           <div class="well-group">
             <div class="well well-action-bar">
               <div class="well-body pt-xs">
-                <button class="btn btn-default btn-sm" (click)="goHome()">
-                  <i class="fa fa-arrow-left"></i> Dashboard
-                </button>
-                <!-- Preview -->
-                <span *ngIf="item.supportsPreview">
-                  <item-preview #itemPreview
-                                [itemId]="item.id"
-                                [itemType]="item.itemType.categoryName"
-                                [isBeingEditedByCurrentUser]="isBeingEditedByCurrentUser"
-                                [isBeingCreatedByCurrentUser]="isBeingCreatedByCurrentUser">
-                  </item-preview>
-                </span>
+                <div class="row">
+                  <div class="col-md-12">
+                    <button class="btn btn-default btn-sm" (click)="goHome()">
+                      <i class="fa fa-arrow-left"></i> Dashboard
+                    </button>
 
-                <!-- View -->
-                <span *ngIf="isBeingViewedByCurrentUser">
-                  <button class="btn btn-success btn-sm" (click)="beginEditTransaction()" [disabled]="isBeingEditedByAnotherUser">
-                    <i class="fa fa-edit"></i> Edit
-                  </button>
-                </span>
+                    <div class="pull-right">
 
-                <!-- Create -->
-                <span *ngIf="isBeingCreatedByCurrentUser">
-                  <button class="btn btn-success btn-sm" (click)="commitModal.show()">
-                    <i class="fa fa-check-square"></i> Finish Creating {{item.itemType.categoryName}}
-                  </button>
-                  <button class="btn btn-deault btn-sm" (click)="cancelModal.show()">
-                    <i class="fa fa-undo"></i> Cancel
-                  </button>
-                </span>
+                      <!-- Cancel -->
+                      <span *ngIf="isBeingCreatedByCurrentUser">
+                        <button class="btn btn-link btn-sm" (click)="cancelModal.show()">
+                          Cancel
+                        </button>
+                      </span>
+                      <span *ngIf="isBeingEditedByCurrentUser">
+                        <button class="btn btn-default btn-sm btn-borderless" (click)="cancelModal.show()">
+                          <i class="fa fa-undo"></i> Discard
+                        </button>
+                      </span>
 
-                <!-- Edit -->
-                <span *ngIf="isBeingEditedByCurrentUser">
-                  <button class="btn btn-success btn-sm" (click)="commitModal.show()">
-                    <i class="fa fa-check-square"></i> Finish Editing {{item.itemType.categoryName}}
-                  </button>
-                  <button class="btn btn-default btn-sm btn-borderless" (click)="cancelModal.show()">
-                    <i class="fa fa-undo"></i> Discard
-                  </button>
-                </span>
+                      <!-- Preview -->
+                      <span *ngIf="item.supportsPreview">
+                        <item-preview #itemPreview
+                                      [itemId]="item.id"
+                                      [itemType]="item.itemType.categoryName"
+                                      [isBeingEditedByCurrentUser]="isBeingEditedByCurrentUser"
+                                      [isBeingCreatedByCurrentUser]="isBeingCreatedByCurrentUser">
+                        </item-preview>
+                      </span>
 
-                <!-- Auto-save -->
-                <item-auto-save #autoSave
-                                [enabled]="isBeingCreatedByCurrentUser || isBeingEditedByCurrentUser"
-                                [debounceTimeMillis]="3000">
-                </item-auto-save>
+                      <!-- View -->
+                      <span *ngIf="isBeingViewedByCurrentUser">
+                        <button class="btn btn-success btn-sm" (click)="beginEditTransaction()" [disabled]="isBeingEditedByAnotherUser">
+                          <i class="fa fa-edit"></i> Edit
+                        </button>
+                      </span>
 
-                <!-- Item being edited by another user -->
-                <div *ngIf="isBeingEditedByAnotherUser" class="alert alert-warning small">
-                  <div class="mt-sm"><i class="fa fa-warning"></i> {{item.id}} is being edited by {{item.currentTransaction.username}}. Items may only be edited by one user at a time.</div>
+                      <!-- Create -->
+                      <span *ngIf="isBeingCreatedByCurrentUser">
+                        <button class="btn btn-success btn-sm" (click)="commitModal.show()">
+                          <i class="fa fa-check-square"></i> Finish Creating {{item.itemType.categoryName}}
+                        </button>
+                      </span>
+
+                      <!-- Edit -->
+                      <span *ngIf="isBeingEditedByCurrentUser">
+                        <button class="btn btn-success btn-sm" (click)="commitModal.show()">
+                          <i class="fa fa-check-square"></i> Finish Editing {{item.itemType.categoryName}}
+                        </button>
+                      </span>
+
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
