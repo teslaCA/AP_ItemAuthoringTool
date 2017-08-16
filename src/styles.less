@@ -20,6 +20,16 @@
 // ng2 Toasty
 @import "@{library-path}/ng2-toasty/style.css";
 
+
+
+// UI bugs fix that need to be fixed in the UIkit
+.table-striped > tbody > tr:nth-of-type(even) {
+    background-color: @white;
+}
+
+
+
+
 header {
   background-color: transparent;
   .box-shadow(none);
@@ -129,6 +139,43 @@ select:-webkit-autofill:focus {
     align-items: center;
   }
 }
+
+.has-error .form-control {
+    border-color: #ccc;
+}
+
+//busy alert
+
+
+.busy-overlay-hidden {
+  visibility: hidden;
+}
+
+// TOOD: Style to be transparent overlay of entire window with busy indicator and message shown in center of screen.
+.busy-overlay {
+  position: absolute;
+  padding: 0;
+  margin: 0;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 500000;
+  background: rgba(255,255,255,.5);
+  text-align: center;
+  .alert-info {
+    background-color: #fff;
+    border-color: #ccc;
+    color: #777;
+    width: inherit;
+    text-align: center;
+    display: inline-block;
+    margin: -2px auto 0;
+    border-radius: 0 0 5px 5px;
+  }
+}
+
+
 
 .item-box {
   .thumbnail {
