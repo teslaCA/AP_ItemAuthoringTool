@@ -11,20 +11,18 @@
      role="dialog">
   <div class="modal-dialog modal-full" role="document">
     <div class="modal-content">
-
       <!-- Header -->
       <div class="modal-header preview">
         <!-- Close Button -->
         <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="hidePreview()"><span aria-hidden="true">&times;</span></button>
-
         <!-- Title -->
         <h4 class="modal-title">Preview of {{itemId}}</h4>
 
         <div class="row">
-          <div class="col-sm-4">
+          <div *ngIf="showVersionList" class="col-sm-4">
             <!-- Version selection dropdown -->
             <label>Showing Version: </label>
-            <div *ngIf="showVersionList" class="btn-group btn-group-xs" dropdown>
+            <div class="btn-group btn-group-xs" dropdown>
               <button *ngIf="itemChanges && !selectedItemChange.changedOn" dropdownToggle type="button" class="btn btn-default dropdown-toggle">
                 {{selectedItemChange.message}} <span class="caret"></span>
               </button>
@@ -47,10 +45,11 @@
                   </a>
                 </li>
               </ul>
-              <div *ngIf="!showVersionList">
-                <span class="gray-darker">Being created by you</span>
-              </div>
+
             </div>
+          </div>
+          <div *ngIf="!showVersionList" class="col-sm-4">
+            <span class="gray-darker">Showing {{itemType | lowercase}} being created by you</span>
           </div>
 
           <div class="col-sm-8 text-right">
@@ -58,7 +57,7 @@
             <!-- TODO: Render options via configuration or service -->
             <label>Accessibility: </label>
             <div class="btn-group btn-group-xs">
-              <a (click)="toggleAccessibility('TDS_SLM1')" class="btn btn-default" title="Streamline"><i [class.active]="isAccessibilityEnabled('TDS_SLM1')" class="fa fa-arrows-v" aria-hidden="true"></i></a>
+              <a (click)="toggleAccessibility('TDS_SLM1')" [class.active]="isAccessibilityEnabled('TDS_SLM1')" class="btn btn-default" title="Streamline"><i class="fa fa-arrows-v" aria-hidden="true"></i></a>
               <!--
               TODO: Do not remove commented out code. The accessiblity features will be implemented in later sprints
               <a (click)="toggleAccessibility('TDS_ASL1')" class="btn btn-default"><i title="American Sign Language" [class.active]="isAccessibilityEnabled('TDS_ASL1')" class="fa fa-sign-language" aria-hidden="true"></i></a>
