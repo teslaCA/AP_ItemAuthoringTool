@@ -20,6 +20,7 @@
                 <span *ngIf="item.supportsPreview">
                   <item-preview #itemPreview
                                 [itemId]="item.id"
+                                [itemType]="item.itemType.categoryName"
                                 [isBeingEditedByCurrentUser]="isBeingEditedByCurrentUser"
                                 [isBeingCreatedByCurrentUser]="isBeingCreatedByCurrentUser">
                   </item-preview>

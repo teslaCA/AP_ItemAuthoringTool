@@ -23,6 +23,7 @@ export class ItemPreviewComponent {
   selectedItemChange =  new ItemChange();
   accessibilityOptions: string[] = [];
   @Input() itemId: string;
+  @Input() itemType: string;
   @Input() isBeingEditedByCurrentUser: boolean;
   @Input() isBeingCreatedByCurrentUser: boolean;
   @ViewChild('previewModal') modal: ModalDirective;
