@@ -41,6 +41,12 @@ zuul:
     irs-manage:
       path: /manage/irs/**
       url: http://localhost:8083/manage
+    ivs-api:
+      path: /api/ivs/**
+      url: http://localhost:8087/api
+    ivs-manage:
+      path: /manage/ivs/**
+      url: http://localhost:8087/manage
 
 # session timeout in seconds
 server:
