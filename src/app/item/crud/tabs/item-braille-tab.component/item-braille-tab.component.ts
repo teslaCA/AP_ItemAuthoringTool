@@ -63,7 +63,8 @@ export class ItemBrailleTabComponent implements OnInit, OnChanges {
     // Overwrite uploader functions
     this.uploader.onSuccessItem = (item: FileItem, response: string, status: number, headers: ParsedResponseHeaders) => {
       this.logger.info('Successfully uploaded: ' + item.file.name);
-      const responseDate = Date.now().toString();
+
+      const responseDate = this.getCurrentUTCDate();
 
       // Check if file was overwritten
       const existingFile = this.brailleAttachments.filter(file => file.fileName === item.file.name);
@@ -153,5 +154,10 @@ export class ItemBrailleTabComponent implements OnInit, OnChanges {
       );
     this.deleteFileName = "";
     this.deleteModal.hide();
+  }
+
+  private getCurrentUTCDate(): string {
+    const utcString = new Date(Date.now()).toUTCString();
+    return new Date(utcString).toISOString();
   }
 }
