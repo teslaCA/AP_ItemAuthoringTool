@@ -1,11 +1,18 @@
 <form [formGroup]="form">
   <div class="form-group mb-sm">
     <label class="h5 mt-sm">{{label}}</label>
-    <textarea formControlName="text"
-              class="form-control"
-              title="{{label}}"
-              [rows]="rows"
-              [autofocus]="isFocused">
-    </textarea>
+
+    <ckeditor
+      formControlName="text"
+      [config]="{
+        uiColor: '#a4a4a4',
+        toolbar: [
+        {name: 'basicstyles', items:['Bold','Italic','Underline']},
+        {name: 'paragraph', items:['NumberedList','BulletedList']},
+        {name: 'insert', items:['Image','Table']}
+        ]}"
+      debounce="500">
+    </ckeditor>
+
   </div>
 </form>

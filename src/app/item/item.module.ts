@@ -34,6 +34,7 @@ import {ItemTutDetailsComponent} from './crud/details/item-tut-details.component
 import {ItemEbsrDetailsComponent} from './crud/details/item-ebsr-details/item-ebsr-details.component';
 import {ItemAssociationTabComponent} from './crud/tabs/item-association-tab.component/item-association-tab.component';
 import {ItemBrailleTabComponent} from './crud/tabs/item-braille-tab.component/item-braille-tab.component';
+import {CKEditorModule} from 'ng2-ckeditor';
 
 @NgModule({
   imports: [
@@ -43,7 +44,8 @@ import {ItemBrailleTabComponent} from './crud/tabs/item-braille-tab.component/it
     Ng2BootstrapModule,
     ReactiveFormsModule,
     RouterModule,
-    FileUploadModule
+    FileUploadModule,
+    CKEditorModule
   ],
   declarations: [
     ItemDashboardComponent,
