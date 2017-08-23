@@ -5,12 +5,9 @@
     <ckeditor
       formControlName="text"
       [config]="{
-        uiColor: '#a4a4a4',
-        toolbar: [
-        {name: 'basicstyles', items:['Bold','Italic','Underline']},
-        {name: 'paragraph', items:['NumberedList','BulletedList']},
-        {name: 'insert', items:['Image','Table']}
-        ]}"
+        toolbar: 'IAT',
+        readOnly: isReadOnly
+      }"
       debounce="500">
     </ckeditor>
 

@@ -10,7 +10,8 @@
       "assets": [
         "assets",
         "favicon.png",
-        {"glob": "**/*", "input": "../node_modules/@sbac/sbac-ui-kit/dist/images", "output": "assets/image"}
+        {"glob": "**/*", "input": "../node_modules/@sbac/sbac-ui-kit/dist/images", "output": "assets/image"},
+        {"glob": "**/*", "input": "../node_modules/mathjax", "output": "assets/mathjax"}
       ],
       "index": "index.html",
       "main": "main.ts",

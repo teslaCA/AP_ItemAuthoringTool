@@ -15,7 +15,17 @@
                  title="Correct Answer"
                  class="input-sm">
           <!-- Text -->
-          <input type="text" class="form-control in input-sm" formControlName="text" title="Text">
+          <ckeditor
+            formControlName="text"
+            title="Text"
+            [config]="{
+              toolbar: 'IAT',
+              readOnly: isReadOnly,
+              height: 80,
+              width: 460
+            }"
+            debounce="500">
+          </ckeditor>
         </label>
         <!-- Remove option -->
         <a *ngIf="!isReadOnly" (click)="removeOption(i)" class="btn btn-default btn-xs pull-right">
