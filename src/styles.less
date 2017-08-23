@@ -29,10 +29,6 @@
 .borderless {
   border: none !important;
 }
-// TEMP FIX [height being blown out]
-.input-combo .btn {
-    display: table !important;
-}
 
 
 
@@ -129,6 +125,7 @@ select:-webkit-autofill:focus {
 
 .input-combo {
   display: flex;
+  align-items: flex-start;
   justify-content: flex-start;
   label, textarea {
     flex-grow: 1;
