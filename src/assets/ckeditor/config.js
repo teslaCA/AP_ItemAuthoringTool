@@ -25,15 +25,13 @@ CKEDITOR.editorConfig = function( config ) {
 		{ name: 'about' }
 	];
 
-	// The default plugins included in the basic setup define some buttons that
-	// are not needed in a basic editor. They are removed here.
-	config.removeButtons = 'Cut,Copy,Paste,Undo,Redo,Link,Unlink,Anchor,Strike,Subscript,Superscript';
-
 	// Dialog windows are also simplified.
 	config.removeDialogTabs = 'link:advanced';
 
 
 	// IAT customizations
+  config.removeButtons = 'Cut,Copy,Paste,Undo,Redo,Link,Unlink,Anchor,Strike,Subscript,Superscript';
+
   config.toolbar_IAT =
     [
       { name: 'basicstyles', items : [ 'Bold','Italic','Underline' ] },
