@@ -1,11 +1,15 @@
 <form [formGroup]="form">
   <div class="form-group mb-sm">
     <label class="h5 mt-sm">{{label}}</label>
-    <textarea formControlName="text"
-              class="form-control"
-              title="{{label}}"
-              [rows]="rows"
-              [autofocus]="isFocused">
-    </textarea>
+
+    <ckeditor
+      formControlName="text"
+      [config]="{
+        toolbar: 'IAT',
+        readOnly: isReadOnly
+      }"
+      debounce="500">
+    </ckeditor>
+
   </div>
 </form>

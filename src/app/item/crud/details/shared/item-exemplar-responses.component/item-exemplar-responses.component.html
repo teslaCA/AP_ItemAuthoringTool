@@ -8,10 +8,17 @@
       <!-- Exemplar response -->
       <div *ngFor="let control of formExemplarResponses.controls; let i=index" class="input-combo mb-sm">
         <!-- Text -->
-        <textarea formControlName="{{i}}"
-                  title="Exemplar Response #{{i + 1}}"
-                  class="form-control form95"
-                  rows="3"></textarea>
+        <ckeditor
+          formControlName="{{i}}"
+          title="Exemplar Response #{{i + 1}}"
+          [config]="{
+              toolbar: 'IAT',
+              readOnly: isReadOnly,
+              height: 80,
+              width: 480
+            }"
+          debounce="500">
+        </ckeditor>
         <!-- Remove item -->
         <a *ngIf="!isReadOnly" (click)="removeExemplarResponse(i)" class="btn btn-default btn-sm icon-only">
           <i class="fa fa-close"></i>
