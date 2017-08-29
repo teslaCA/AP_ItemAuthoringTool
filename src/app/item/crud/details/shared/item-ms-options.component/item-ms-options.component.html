@@ -6,31 +6,34 @@
   <!-- Options -->
   <div formArrayName="options">
     <div *ngFor="let control of formOptions.controls; let i=index" [formGroupName]="i" class="form-group mb-md">
-      <!-- Correct answer checkbox -->
-      <div class="checkbox input-combo">
-        <label>
-          <input type="checkbox"
-                 name="isCorrectAnswer"
-                 formControlName="isCorrectAnswer"
-                 title="Correct Answer"
-                 class="input-sm">
-          <!-- Text -->
-          <ckeditor
-            formControlName="text"
-            title="Text"
-            [config]="{
-              toolbar: 'IAT',
-              readOnly: isReadOnly,
-              height: 80,
-              width: 460
-            }"
-            debounce="500">
-          </ckeditor>
-        </label>
-        <!-- Remove option -->
-        <a *ngIf="!isReadOnly" (click)="removeOption(i)" class="btn btn-default btn-xs pull-right">
-          <i class="fa fa-close"></i>
-        </a>
+      <div class="form-group mc">
+        <!-- Correct answer checkbox -->
+        <div class="checkbox input-combo">
+          <label>
+            <input type="checkbox"
+                   name="isCorrectAnswer"
+                   formControlName="isCorrectAnswer"
+                   title="Correct Answer"
+                   class="input-sm">
+          </label>
+            <!-- Text -->
+            <ckeditor
+              formControlName="text"
+              title="Text"
+              [config]="{
+                toolbar: 'IAT',
+                readOnly: isReadOnly,
+                height: 80,
+                width: 450
+              }"
+              debounce="500">
+            </ckeditor>
+
+          <!-- Remove option -->
+          <a *ngIf="!isReadOnly" (click)="removeOption(i)" class="btn btn-default btn-xs pull-right">
+            <i class="fa fa-close"></i>
+          </a>
+        </div>
       </div>
     </div>
 
