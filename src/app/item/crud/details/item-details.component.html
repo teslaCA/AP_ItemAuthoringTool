@@ -20,11 +20,11 @@
 </item-ms-details>
 
 <!-- SA -->
-<item-sa-details *ngIf="item.type=='sa'"
+<item-ti-details *ngIf="item.type=='sa'"
                  [item]="item"
                  [isReadOnly]="isReadOnly"
                  (itemChanged)="onItemChanged($event)">
-</item-sa-details>
+</item-ti-details>
 
 <!-- STIM -->
 <item-stim-details *ngIf="item.type=='stim'"
@@ -32,6 +32,13 @@
                    [isReadOnly]="isReadOnly"
                    (itemChanged)="onItemChanged($event)">
 </item-stim-details>
+
+<!-- TI -->
+<item-ti-details *ngIf="item.type=='ti'"
+                 [item]="item"
+                 [isReadOnly]="isReadOnly"
+                 (itemChanged)="onItemChanged($event)">
+</item-ti-details>
 
 <!-- WER -->
 <item-wer-details *ngIf="item.type=='wer'"
@@ -42,7 +49,7 @@
 
 <!-- TUT -->
 <item-tut-details *ngIf="item.type=='tut'"
-                   [item]="item"
-                   [isReadOnly]="isReadOnly"
-                   (itemChanged)="onItemChanged($event)">
+                  [item]="item"
+                  [isReadOnly]="isReadOnly"
+                  (itemChanged)="onItemChanged($event)">
 </item-tut-details>

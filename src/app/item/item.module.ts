@@ -37,6 +37,8 @@ import {ItemAssociationTabComponent} from './crud/tabs/item-association-tab.comp
 import {ItemBrailleTabComponent} from './crud/tabs/item-braille-tab.component/item-braille-tab.component';
 import {CKEditorModule} from 'ng2-ckeditor';
 import {ItemValidationService} from "./services/item-validation.service/item-validation.service";
+import {ItemTiDetailsComponent} from "./crud/details/item-ti-details.component/item-ti-details.component";
+import {ItemTiTableComponent} from "./crud/details/shared/item-ti-table.component/item-ti-table.component";
 
 @NgModule({
   imports: [
@@ -54,6 +56,7 @@ import {ItemValidationService} from "./services/item-validation.service/item-val
     ItemMcDetailsComponent,
     ItemMsDetailsComponent,
     ItemSaDetailsComponent,
+    ItemTiDetailsComponent,
     ItemWerDetailsComponent,
     ItemStimDetailsComponent,
     ItemCrudComponent,
@@ -67,6 +70,7 @@ import {ItemValidationService} from "./services/item-validation.service/item-val
     ItemDetailsComponent,
     ItemExemplarResponsesComponent,
     ItemPromptComponent,
+    ItemTiTableComponent,
     ItemMcOptionsComponent,
     ItemMsOptionsComponent,
     ItemWorkflowTabComponent,
@@ -79,6 +83,7 @@ import {ItemValidationService} from "./services/item-validation.service/item-val
     ItemDashboardComponent,
     ItemMcDetailsComponent,
     ItemSaDetailsComponent,
+    ItemTiDetailsComponent,
     ItemWerDetailsComponent,
     ItemStimDetailsComponent,
     ItemCrudComponent,
@@ -88,6 +93,7 @@ import {ItemValidationService} from "./services/item-validation.service/item-val
     ItemValidationTabComponent,
     ItemDetailsComponent,
     ItemPromptComponent,
+    ItemTiTableComponent,
     ItemExemplarResponsesComponent,
     ItemMcOptionsComponent,
     ItemMsOptionsComponent

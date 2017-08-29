@@ -1,6 +1,7 @@
 import {JsonObject, JsonProperty} from "json2typescript";
 import {ItemOption} from "./item-option";
 
+// TODO: Move to EbsrItem's file and rename to something less generic (see TiItem for example).
 @JsonObject
 export class ItemPart {
   @JsonProperty("prompt", String)
