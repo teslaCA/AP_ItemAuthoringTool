@@ -6,17 +6,19 @@
   <!-- Options -->
   <div formArrayName="options">
     <div *ngFor="let control of formOptions.controls; let i=index" [formGroupName]="i" class="form-group mb-md">
-      <!-- Correct answer radio button -->
-      <div class="radio input-combo">
-        <label>
-          <input type="radio"
-                 name="isCorrectAnswer"
-                 formControlName="isCorrectAnswer"
-                 title="Correct Answer"
-                 [checked]="control.value.isCorrectAnswer"
-                 [value]="true"
-                 (change)="onOptionSelected(i)"
-                 class="input-sm">
+      <div class="form-group">
+        <!-- Correct answer radio button -->
+        <div class="radio input-combo">
+          <label>
+            <input type="radio"
+                   name="isCorrectAnswer"
+                   formControlName="isCorrectAnswer"
+                   title="Correct Answer"
+                   [checked]="control.value.isCorrectAnswer"
+                   [value]="true"
+                   (change)="onOptionSelected(i)"
+                   class="input-sm">
+          </label>
           <!-- Text -->
           <ckeditor
             formControlName="text"
@@ -25,15 +27,16 @@
               toolbar: 'IAT',
               readOnly: isReadOnly,
               height: 80,
-              width: 460
+              width: 450
             }"
             debounce="500">
           </ckeditor>
-        </label>
-        <!-- Remove icon -->
-        <a *ngIf="!isReadOnly" (click)="removeOption(i)" class="btn btn-default btn-xs pull-right">
-          <i class="fa fa-close"></i>
-        </a>
+
+          <!-- Remove icon -->
+          <a *ngIf="!isReadOnly" (click)="removeOption(i)" class="btn btn-default btn-xs pull-right">
+            <i class="fa fa-close"></i>
+          </a>
+        </div>
       </div>
     </div>
 
