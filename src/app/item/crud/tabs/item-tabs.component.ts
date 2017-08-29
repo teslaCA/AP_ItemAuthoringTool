@@ -17,6 +17,7 @@ export class ItemTabsComponent {
   tab = {
     braille: 'braille',
     history: 'history',
+    validation: 'validation',
     stimulus: 'stimulus',
     tutorial: 'tutorial',
     workflow: 'workflow'
@@ -24,6 +25,7 @@ export class ItemTabsComponent {
   validTabs = [
     this.tab.braille,
     this.tab.history,
+    this.tab.validation,
     this.tab.stimulus,
     this.tab.tutorial,
     this.tab.workflow
