@@ -1,0 +1,20 @@
+<!-- Prompt -->
+<div class="well white not-first-child-well">
+  <div class="well-body">
+    <item-prompt [label]="'Prompt / Stem'"
+                 [rows]="6"
+                 [isFocused]="true"
+                 [isReadOnly]="isReadOnly"
+                 [text]="item.prompt"
+                 (textChange)="onItemChange()">
+    </item-prompt>
+  </div>
+</div>
+
+<!-- Table -->
+<div class="well white">
+  <div class="well-body">
+    <item-ti-table [isReadOnly]="isReadOnly">
+    </item-ti-table>
+  </div>
+</div>

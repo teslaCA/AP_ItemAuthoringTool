@@ -9,6 +9,7 @@ import {McItem} from "./mc-item";
 import {MsItem} from "./ms-item";
 import {TutItem} from "./tut-item";
 import {EbsrItem} from "./ebsr-item";
+import {TiItem} from "./ti-item";
 
 export class ItemFactory {
   /**
@@ -24,8 +25,8 @@ export class ItemFactory {
     let item: Item;
 
     // Initialize item from JSON
-    switch (jsonObject.type) {
-      case 'EBSR':
+    switch (jsonObject.type.toLowerCase()) {
+      case 'ebsr':
         item = JsonConvert.deserializeObject(jsonObject, EbsrItem);
         break;
 
@@ -43,6 +44,10 @@ export class ItemFactory {
 
       case 'stim':
         item = JsonConvert.deserializeObject(jsonObject, StimItem);
+        break;
+
+      case 'ti':
+        item = JsonConvert.deserializeObject(jsonObject, TiItem);
         break;
 
       case 'wer':

@@ -25,7 +25,6 @@ export const EBSR: ItemType = {
 //     code: 'gi'
 // };
 
-
 // export const HT: ItemType = {
 //     category: ItemTypeCategory.Item,
 //     categoryName: 'Item',
@@ -66,7 +65,6 @@ export const SA: ItemType = {
   code: 'sa'
 };
 
-
 export const STIM: ItemType = {
   category: ItemTypeCategory.Stimulus,
   categoryName: 'Stimulus',
@@ -75,13 +73,13 @@ export const STIM: ItemType = {
   code: 'stim'
 };
 
-// export const TI: ItemType = {
-//       category: ItemTypeCategory.Item,
-//       categoryName: 'Item',
-//       icon: 'fa-table',
-//       name: 'Table Interaction',
-//       code: 'ti'
-// };
+export const TI: ItemType = {
+  category: ItemTypeCategory.Item,
+  categoryName: 'Item',
+  icon: 'fa-table',
+  name: 'Table Interaction',
+  code: 'ti'
+};
 
 export const TUT: ItemType = {
   category: ItemTypeCategory.Tutorial,
@@ -110,7 +108,7 @@ export const itemTypes: ItemType[] = [
   // MI,
   SA,
   STIM,
-  // TI,
+  TI,
   TUT,
   WER
 ];
