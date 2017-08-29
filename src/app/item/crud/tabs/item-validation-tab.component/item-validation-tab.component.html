@@ -10,9 +10,9 @@
   <tbody>
   <tr *ngFor="let validationError of itemValidationErrors; let i=index">
     <td>{{validationError.category}}</td>
-    <td>{{validationError.severity}}</td>
+    <td><label class="{{validationError.severity}}">{{validationError.severity}}</label></td>
     <td>{{validationError.message}}</td>
-    <td>{{validationError.detail}}</td>
+    <td class="break">{{validationError.detail}}</td>
   </tr>
   </tbody>
 </table>

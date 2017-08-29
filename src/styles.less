@@ -29,7 +29,10 @@
 .borderless {
   border: none !important;
 }
-
+// break up really long file names in small td
+.break { 
+    word-break: break-word;
+}
 
 
 header {
@@ -145,6 +148,8 @@ select:-webkit-autofill:focus {
 
 .has-error .form-control {
     border-color: #ccc;
+    padding-top: @input-height-base * .2;
+    padding-bottom: @input-height-base * .2;
 }
 
 //busy alert
