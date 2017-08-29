@@ -104,6 +104,30 @@ services:
             - @USER_HOME@:/tmp
         logging:
             driver: json-file
+    ap-ivs:
+        container_name: ap-ivs
+         image: fwsbac/ap-ivs:@version@
+         healthcheck:
+           test: ["CMD", "curl", "-f", "http://localhost:8080/manage/health"]
+           interval: 30s
+           timeout: 5s
+           retries: 3
+         environment:
+             CONFIG_SERVICE_ENABLED: "true"
+             CONFIG_SERVICE_URL: "http://config-server:8888"
+         ports:
+             - 8087:8080
+         networks:
+             - spring-cloud-network
+         links:
+             - config-server
+         depends_on:
+           config-server:
+             condition: service_started
+         volumes:
+             - @USER_HOME@/smarter_app:/tmp
+         logging:
+             driver: json-file
 #    ap-iat-service:
 #        container_name: ap-iat-service
 #        image: @dockerTagBase@/ap-iat:@version@
