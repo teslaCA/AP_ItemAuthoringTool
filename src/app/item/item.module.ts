@@ -35,6 +35,8 @@ import {ItemEbsrDetailsComponent} from './crud/details/item-ebsr-details/item-eb
 import {ItemAssociationTabComponent} from './crud/tabs/item-association-tab.component/item-association-tab.component';
 import {ItemBrailleTabComponent} from './crud/tabs/item-braille-tab.component/item-braille-tab.component';
 import {CKEditorModule} from 'ng2-ckeditor';
+import {ItemTiDetailsComponent} from "./crud/details/item-ti-details.component/item-ti-details.component";
+import {ItemTiTableComponent} from "./crud/details/shared/item-ti-table.component/item-ti-table.component";
 
 @NgModule({
   imports: [
@@ -52,6 +54,7 @@ import {CKEditorModule} from 'ng2-ckeditor';
     ItemMcDetailsComponent,
     ItemMsDetailsComponent,
     ItemSaDetailsComponent,
+    ItemTiDetailsComponent,
     ItemWerDetailsComponent,
     ItemStimDetailsComponent,
     ItemCrudComponent,
@@ -64,6 +67,7 @@ import {CKEditorModule} from 'ng2-ckeditor';
     ItemDetailsComponent,
     ItemExemplarResponsesComponent,
     ItemPromptComponent,
+    ItemTiTableComponent,
     ItemMcOptionsComponent,
     ItemMsOptionsComponent,
     ItemWorkflowTabComponent,
@@ -76,6 +80,7 @@ import {CKEditorModule} from 'ng2-ckeditor';
     ItemDashboardComponent,
     ItemMcDetailsComponent,
     ItemSaDetailsComponent,
+    ItemTiDetailsComponent,
     ItemWerDetailsComponent,
     ItemStimDetailsComponent,
     ItemCrudComponent,
@@ -84,6 +89,7 @@ import {CKEditorModule} from 'ng2-ckeditor';
     ItemHistoryTabComponent,
     ItemDetailsComponent,
     ItemPromptComponent,
+    ItemTiTableComponent,
     ItemExemplarResponsesComponent,
     ItemMcOptionsComponent,
     ItemMsOptionsComponent
