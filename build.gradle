@@ -215,6 +215,7 @@ task dockerCopyFiles(type: Copy) {
                                        configServerVersion        : configServerVersion,
                                        apIMSVersion               : apIMSVersion,
                                        apIRSVersion               : apIRSVersion,
+                                       apIVSVersion               : apIVSVersion,
                                        version                    : version,
                                        dockerTagBase              : dockerTagBase,
                                        samlKeyStorePassword       : project.samlKeyStorePassword,
