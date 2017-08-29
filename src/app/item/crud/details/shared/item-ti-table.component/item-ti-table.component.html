@@ -1,0 +1,160 @@
+<form [formGroup]="form">
+  <div class="form-group mb-sm">
+    <label class="h5 mt-sm">Table</label>
+
+    <!-- Title -->
+    <div>
+      <input value="August Lemonade Sales"/>
+    </div>
+
+    <!-- Table -->
+    <div>
+      <table class="table">
+        <thead>
+        <!-- Header -->
+        <tr>
+          <td>
+            <input value="Week"/>
+          </td>
+          <td>
+            <input value="Cups Sold"/>
+          </td>
+          <td>
+            <a *ngIf="!isReadOnly" class="btn btn-default btn-xs pull-left">
+              <i class="fa fa-plus"> Add Column</i>
+            </a>
+          </td>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Row 1 -->
+        <tr>
+          <td>
+            <div>
+              <input value="1"/>
+            </div>
+            <div>
+              <span><input type="radio" name="opt11">Answer</span>
+              <span><input type="radio" name="opt11">Label</span>
+            </div>
+          </td>
+          <td>
+            <div>
+              <input value="23"/>
+            </div>
+            <div>
+              <span><input type="radio" name="opt12">Answer</span>
+              <span><input type="radio" name="opt12">Label</span>
+            </div>
+          </td>
+          <td>
+            <a *ngIf="!isReadOnly" class="btn btn-default btn-xs pull-left">
+              <i class="fa fa-close"></i>
+            </a>
+          </td>
+        </tr>
+        <!-- Row 2 -->
+        <tr>
+          <td>
+            <div>
+              <input value="2"/>
+            </div>
+            <div>
+              <span><input type="radio" name="opt21">Answer</span>
+              <span><input type="radio" name="opt21">Label</span>
+            </div>
+          </td>
+          <td>
+            <div>
+              <input value="45"/>
+            </div>
+            <div>
+              <span><input type="radio" name="opt22">Answer</span>
+              <span><input type="radio" name="opt22">Label</span>
+            </div>
+          </td>
+          <td>
+            <a *ngIf="!isReadOnly" class="btn btn-default btn-xs pull-left">
+              <i class="fa fa-close"></i>
+            </a>
+          </td>
+        </tr>
+        <!-- Row 3 -->
+        <tr>
+          <td>
+            <div>
+              <input value="3"/>
+            </div>
+            <div>
+              <span><input type="radio" name="opt31">Answer</span>
+              <span><input type="radio" name="opt31">Label</span>
+            </div>
+          </td>
+          <td>
+            <div>
+              <input value="69"/>
+            </div>
+            <div>
+              <span><input type="radio" name="opt32">Answer</span>
+              <span><input type="radio" name="opt32">Label</span>
+            </div>
+          </td>
+          <td>
+            <a *ngIf="!isReadOnly" class="btn btn-default btn-xs pull-left">
+              <i class="fa fa-close"></i>
+            </a>
+          </td>
+        </tr>
+        <!-- Row 4 -->
+        <tr>
+          <td>
+            <div>
+              <input value="4"/>
+            </div>
+            <div>
+              <span><input type="radio" name="opt41">Answer</span>
+              <span><input type="radio" name="opt41">Label</span>
+            </div>
+          </td>
+          <td>
+            <div>
+              <input value="89"/>
+            </div>
+            <div>
+              <span><input type="radio" name="opt42">Answer</span>
+              <span><input type="radio" name="opt42">Label</span>
+            </div>
+          </td>
+          <td>
+            <a *ngIf="!isReadOnly" class="btn btn-default btn-xs pull-left">
+              <i class="fa fa-close"></i>
+            </a>
+          </td>
+        </tr>
+        <!-- Footer -->
+        <tr>
+          <td>
+            <a *ngIf="!isReadOnly" class="btn btn-default btn-xs pull-left">
+              <i class="fa fa-close"></i>
+            </a>
+          </td>
+          <td colspan="2">
+            <a *ngIf="!isReadOnly" class="btn btn-default btn-xs pull-left">
+              <i class="fa fa-close"></i>
+            </a>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="3">
+            <a *ngIf="!isReadOnly" class="btn btn-default btn-xs pull-left">
+              <i class="fa fa-plus"> Add Row</i>
+            </a>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+
+      Note: This interface is not functional.  It has been provided so it can be styled.
+    </div>
+  </div>
+</form>
