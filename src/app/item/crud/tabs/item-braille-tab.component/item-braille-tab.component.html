@@ -53,9 +53,19 @@
       <tr *ngFor="let attachment of brailleAttachments; let i=index">
         <td>{{attachment.fileName}}</td>
         <td>{{attachment.uploadedDate | date:'short'}}</td>
-        <td class="text-center"><a href="/api/ims/v1/items/{{item.id}}/braille/{{attachment.fileName}}" class="btn btn-default btn-xs">
-          <i class="fa fa-cloud-download"></i> Download</a></td>
-        <td class="text-center"><a class="btn btn-default btn-xs" (click)="confirmDeleteFile(i, attachment.fileName)" title="Remove File"><i class="fa fa-close"></i> <span class="sr-only">Remove File</span></a></td>
+        <td class="text-center">
+          <a href="/api/ims/v1/items/{{item.id}}/braille/{{attachment.fileName}}"
+             class="btn btn-default btn-xs"
+             [class.disabled]="isReadOnly">
+            <i class="fa fa-cloud-download"></i> Download</a>
+        </td>
+        <td class="text-center">
+          <a (click)="confirmDeleteFile(i, attachment.fileName)"
+             title="Remove File"
+             class="btn btn-default btn-xs"
+             [class.disabled]="isReadOnly">
+            <i class="fa fa-close"></i><span class="sr-only">Remove File</span></a>
+        </td>
       </tr>
     </tbody>
   </table>
