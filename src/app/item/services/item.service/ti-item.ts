@@ -36,6 +36,12 @@ export class TiItemTableColumn {
 
 @JsonObject
 export class TiItemTableRow {
+  @JsonProperty("cells", [TiItemTableRowCell])
+  cells: TiItemTableRowCell[] = undefined;          // Initialize to undefined so that field is mapped
+}
+
+@JsonObject
+export class TiItemTableRowCell {
   @JsonProperty("type", String)
   type: string = undefined;                         // Initialize to undefined so that field is mapped
 
