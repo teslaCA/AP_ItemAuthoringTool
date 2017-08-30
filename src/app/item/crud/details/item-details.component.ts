@@ -8,6 +8,7 @@ import {ItemMcDetailsComponent} from "./item-mc-details.component/item-mc-detail
 import {ItemMsDetailsComponent} from "./item-ms-details.component/item-ms-details.component";
 import {ItemTutDetailsComponent} from "./item-tut-details.component/item-tut-details.component";
 import {ItemEbsrDetailsComponent} from "./item-ebsr-details/item-ebsr-details.component";
+import {ItemTiDetailsComponent} from "./item-ti-details.component/item-ti-details.component";
 
 @Component({
   selector: 'item-details',
@@ -24,6 +25,7 @@ export class ItemDetailsComponent {
   @ViewChild(ItemMsDetailsComponent) itemMsDetailsComponent;
   @ViewChild(ItemSaDetailsComponent) itemSaDetailsComponent;
   @ViewChild(ItemStimDetailsComponent) itemStimDetailsComponent;
+  @ViewChild(ItemTiDetailsComponent) itemTiDetailsComponent;
   @ViewChild(ItemWerDetailsComponent) itemWerDetailsComponent;
 
   get currentItem(): Item {
@@ -40,6 +42,8 @@ export class ItemDetailsComponent {
         return this.itemSaDetailsComponent.item;
       case 'stim':
         return this.itemStimDetailsComponent.item;
+      case 'ti':
+        return this.itemTiDetailsComponent.item;
       case 'wer':
         return this.itemWerDetailsComponent.item;
       default:
