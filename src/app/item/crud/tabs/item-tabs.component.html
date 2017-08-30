@@ -11,6 +11,7 @@
         <span class="h2 mb-sm">
           <span *ngIf="isSelected(tab.braille)">Braille</span>
           <span *ngIf="isSelected(tab.history)">History</span>
+          <span *ngIf="isSelected(tab.validation)">Validation</span>
           <span *ngIf="isSelected(tab.stimulus)">Stimulus</span>
           <span *ngIf="isSelected(tab.tutorial)">Tutorial</span>
           <span *ngIf="isSelected(tab.workflow)">Workflow</span>
@@ -29,6 +30,9 @@
           </li>
           <li role="menuitem" *ngIf="item.supportsTutorial">
             <a class="dropdown-item" (click)="select(tab.tutorial)">Tutorial</a>
+          </li>
+          <li role="menuitem">
+            <a class="dropdown-item" (click)="select(tab.validation)">Validation</a>
           </li>
           <li role="menuitem" *ngIf="item.supportsWorkflow">
             <a class="dropdown-item" (click)="select(tab.workflow)">Workflow</a>
@@ -52,6 +56,11 @@
       <item-history-tab *ngIf="isSelected(tab.history)"
                         [itemId]="item.id">
       </item-history-tab>
+
+      <!-- Validation -->
+      <item-validation-tab *ngIf="isSelected(tab.validation)"
+                        [itemId]="item.id">
+      </item-validation-tab>
 
       <!-- Stimulus -->
       <item-association-tab #stimulus

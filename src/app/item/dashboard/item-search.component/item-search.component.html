@@ -1,5 +1,5 @@
 <form [formGroup]="complexForm" (ngSubmit)="submitForm(complexForm.value)">
-  <div class="input-group input-group-lg" [class.has-error]="complexForm.invalid">
+  <div class="input-group input-group" [class.has-error]="complexForm.invalid">
     <input type="text"
            class="form-control"
            placeholder="Item or resource ID"

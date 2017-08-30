@@ -15,7 +15,7 @@
   </div>
   <div *ngIf="!isReadOnly" class="form-group">
     <form [formGroup]="form" novalidate>
-      <input #associationId formControlName="associationId" title="associationId" type="text" placeholder="Association ID" [maxlength]="15">
+      <input #associationId formControlName="associationId" title="associationId" class="form-control" type="text" placeholder="Association ID" [maxlength]="15">
 
       <!-- Enabled associate button -->
       <a *ngIf="form.valid"

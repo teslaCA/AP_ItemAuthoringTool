@@ -89,7 +89,7 @@ export class ItemPreviewComponent {
             this.itemRenderUrl = response.renderUrl + '?readOnly=true';
 
             // Assign response URL which is associated with the iframe source
-            this.itemSafeResourceUrl = this.domSanitizer.bypassSecurityTrustResourceUrl(this.itemRenderUrl);
+            this.itemSafeResourceUrl = this.updateRenderUrl();
 
             this.isError = false;
             this.showIframe = true;
@@ -125,10 +125,10 @@ export class ItemPreviewComponent {
       this.accessibilityOptions.splice(codeIdx, 1);
     }
 
-    this.updateRenderUrl();
+    this.itemSafeResourceUrl = this.updateRenderUrl();
   }
 
-  private updateRenderUrl() {
+  private updateRenderUrl(): SafeResourceUrl {
     let queryParams = '';
 
     // Obtain a semicolon delimited list of accessibility options
@@ -143,7 +143,7 @@ export class ItemPreviewComponent {
     this.logger.info(`Render Url: ${this.itemRenderUrl}${queryParams}`);
 
     // Assign response URL which is associated with the iframe source
-    this.itemSafeResourceUrl = this.domSanitizer.bypassSecurityTrustResourceUrl(this.itemRenderUrl + queryParams);
+    return this.domSanitizer.bypassSecurityTrustResourceUrl(this.itemRenderUrl + queryParams);
   }
 
 }

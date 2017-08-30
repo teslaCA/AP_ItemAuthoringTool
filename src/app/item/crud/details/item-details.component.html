@@ -20,11 +20,11 @@
 </item-ms-details>
 
 <!-- SA -->
-<item-ti-details *ngIf="item.type=='sa'"
+<item-sa-details *ngIf="item.type=='sa'"
                  [item]="item"
                  [isReadOnly]="isReadOnly"
                  (itemChanged)="onItemChanged($event)">
-</item-ti-details>
+</item-sa-details>
 
 <!-- STIM -->
 <item-stim-details *ngIf="item.type=='stim'"
