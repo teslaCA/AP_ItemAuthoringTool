@@ -115,6 +115,8 @@ services:
             condition: service_started
           redis-server:
             condition: service_healthy
+          configuration-service:
+            condition: service_healthy
         volumes:
             - @USER_HOME@:/tmp
         logging:
@@ -137,10 +139,13 @@ services:
         - spring-cloud-network
       links:
         - configuration-service
+        - redis-server
         - rabbit-server
       depends_on:
         configuration-service:
-          condition: service_started
+          condition: service_healthy
+        redis-server:
+          condition: service_healthy
         rabbit-server:
           condition: service_started
       volumes:
