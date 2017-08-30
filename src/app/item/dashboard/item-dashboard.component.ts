@@ -27,7 +27,7 @@ export class ItemDashboardComponent implements OnInit {
 
     if (!!this.id) {
       this.itemUrl = '/item/' + this.id;
-      this.itemLink = 'Return to Last Item or Resource';
+      this.itemLink = 'Last Item or Resource';
     }
   }
 }

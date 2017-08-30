@@ -3,158 +3,195 @@
     <label class="h5 mt-sm">Table</label>
 
     <!-- Title -->
-    <div>
-      <input value="August Lemonade Sales"/>
+    <div class="input-group  mb-sm">
+      <span class="input-group-addon" id="sizing-addon2">Title</span>
+      <input type="text" class="form-control" value="August Lemonade Sales" aria-describedby="sizing-addon2">
     </div>
 
     <!-- Table -->
     <div>
-      <table class="table">
+      <table class="table table-condensed table-hover table-striped">
         <thead>
         <!-- Header -->
         <tr>
-          <td>
-            <input value="Week"/>
-          </td>
-          <td>
-            <input value="Cups Sold"/>
-          </td>
-          <td>
-            <a *ngIf="!isReadOnly" class="btn btn-default btn-xs pull-left">
-              <i class="fa fa-plus"> Add Column</i>
+          <th>
+            <div class="input-group input-group-sm">
+              <input class="form-control" value="Week"/>
+            </div>
+          </th>
+          <th>
+            <div class="input-group input-group-sm">
+              <input class="form-control" value="Cups Sold"/>
+            </div>
+          </th>
+          <th class="center">
+            <a *ngIf="!isReadOnly" class="btn btn-default btn-xs">
+              <i class="fa fa-plus"></i> <i class="fa fa-columns" aria-hidden="true"></i>
             </a>
-          </td>
+          </th>
         </tr>
         </thead>
         <tbody>
         <!-- Row 1 -->
         <tr>
           <td>
-            <div>
-              <input value="1"/>
-            </div>
-            <div>
-              <span><input type="radio" name="opt11">Answer</span>
-              <span><input type="radio" name="opt11">Label</span>
-            </div>
-          </td>
-          <td>
-            <div>
-              <input value="23"/>
-            </div>
-            <div>
-              <span><input type="radio" name="opt12">Answer</span>
-              <span><input type="radio" name="opt12">Label</span>
+            <div class="input-group input-group-sm">
+              <input class="form-control" value="1">
+              <div class="input-group-btn" data-toggle="buttons">
+                <label class="btn btn-default btn-sm active">
+                  <input type="radio" name="options1" id="option1" autocomplete="off" alt="Set as a label"> <i class="fa fa-tag" aria-hidden="true"></i>
+                </label>
+                <label class="btn btn-default btn-sm">
+                  <input type="radio" name="options1" id="option2" autocomplete="off" alt="Set as an answer"> <i class="fa fa-lightbulb-o" aria-hidden="true"></i>
+                </label>
+              </div>
             </div>
           </td>
           <td>
-            <a *ngIf="!isReadOnly" class="btn btn-default btn-xs pull-left">
-              <i class="fa fa-close"></i>
+            <div class="input-group input-group-sm">
+              <input class="form-control" value="23">
+              <div class="input-group-btn" data-toggle="buttons">
+                <label class="btn btn-default btn-sm active">
+                  <input type="radio" name="options2" id="option1" autocomplete="off" alt="Set as a label"> <i class="fa fa-tag" aria-hidden="true"></i>
+                </label>
+                <label class="btn btn-default btn-sm">
+                  <input type="radio" name="options2" id="option2" autocomplete="off" alt="Set as an answer"> <i class="fa fa-lightbulb-o" aria-hidden="true"></i>
+                </label>
+              </div>
+            </div>
+          </td>
+          <td class="center">
+            <a *ngIf="!isReadOnly" class="gray-dark">
+              <i class="fa fa-minus-circle"></i>
             </a>
           </td>
         </tr>
         <!-- Row 2 -->
         <tr>
           <td>
-            <div>
-              <input value="2"/>
-            </div>
-            <div>
-              <span><input type="radio" name="opt21">Answer</span>
-              <span><input type="radio" name="opt21">Label</span>
-            </div>
-          </td>
-          <td>
-            <div>
-              <input value="45"/>
-            </div>
-            <div>
-              <span><input type="radio" name="opt22">Answer</span>
-              <span><input type="radio" name="opt22">Label</span>
+            <div class="input-group input-group-sm">
+              <input class="form-control" value="2">
+              <div class="input-group-btn" data-toggle="buttons">
+                <label class="btn btn-default btn-sm active">
+                  <input type="radio" name="options3" id="option1" autocomplete="off" alt="Set as a label"> <i class="fa fa-tag" aria-hidden="true"></i>
+                </label>
+                <label class="btn btn-default btn-sm">
+                  <input type="radio" name="options3" id="option2" autocomplete="off" alt="Set as an answer"> <i class="fa fa-lightbulb-o" aria-hidden="true"></i>
+                </label>
+              </div>
             </div>
           </td>
           <td>
-            <a *ngIf="!isReadOnly" class="btn btn-default btn-xs pull-left">
-              <i class="fa fa-close"></i>
+            <div class="input-group input-group-sm">
+              <input class="form-control" value="45">
+              <div class="input-group-btn" data-toggle="buttons">
+                <label class="btn btn-default btn-sm active">
+                  <input type="radio" name="options4" id="option1" autocomplete="off" alt="Set as a label"> <i class="fa fa-tag" aria-hidden="true"></i>
+                </label>
+                <label class="btn btn-default btn-sm">
+                  <input type="radio" name="options4" id="option2" autocomplete="off" alt="Set as an answer"> <i class="fa fa-lightbulb-o" aria-hidden="true"></i>
+                </label>
+              </div>
+            </div>
+          </td>
+          <td class="center">
+            <a *ngIf="!isReadOnly" class="gray-dark">
+              <i class="fa fa-minus-circle"></i>
             </a>
           </td>
         </tr>
         <!-- Row 3 -->
         <tr>
           <td>
-            <div>
-              <input value="3"/>
-            </div>
-            <div>
-              <span><input type="radio" name="opt31">Answer</span>
-              <span><input type="radio" name="opt31">Label</span>
-            </div>
-          </td>
-          <td>
-            <div>
-              <input value="69"/>
-            </div>
-            <div>
-              <span><input type="radio" name="opt32">Answer</span>
-              <span><input type="radio" name="opt32">Label</span>
+            <div class="input-group input-group-sm">
+              <input class="form-control" value="3">
+              <div class="input-group-btn" data-toggle="buttons">
+                <label class="btn btn-default btn-sm active">
+                  <input type="radio" name="options5" id="option1" autocomplete="off" alt="Set as a label"> <i class="fa fa-tag" aria-hidden="true"></i>
+                </label>
+                <label class="btn btn-default btn-sm">
+                  <input type="radio" name="options5" id="option2" autocomplete="off" alt="Set as an answer"> <i class="fa fa-lightbulb-o" aria-hidden="true"></i>
+                </label>
+              </div>
             </div>
           </td>
           <td>
-            <a *ngIf="!isReadOnly" class="btn btn-default btn-xs pull-left">
-              <i class="fa fa-close"></i>
+            <div class="input-group input-group-sm">
+              <input class="form-control" value="69">
+              <div class="input-group-btn" data-toggle="buttons">
+                <label class="btn btn-default btn-sm active">
+                  <input type="radio" name="options6" id="option1" autocomplete="off" alt="Set as a label"> <i class="fa fa-tag" aria-hidden="true"></i>
+                </label>
+                <label class="btn btn-default btn-sm">
+                  <input type="radio" name="options6" id="option2" autocomplete="off" alt="Set as an answer"> <i class="fa fa-lightbulb-o" aria-hidden="true"></i>
+                </label>
+              </div>
+            </div>
+          </td>
+          <td class="center">
+            <a *ngIf="!isReadOnly" class="gray-dark">
+              <i class="fa fa-minus-circle"></i>
             </a>
           </td>
         </tr>
         <!-- Row 4 -->
         <tr>
           <td>
-            <div>
-              <input value="4"/>
-            </div>
-            <div>
-              <span><input type="radio" name="opt41">Answer</span>
-              <span><input type="radio" name="opt41">Label</span>
-            </div>
-          </td>
-          <td>
-            <div>
-              <input value="89"/>
-            </div>
-            <div>
-              <span><input type="radio" name="opt42">Answer</span>
-              <span><input type="radio" name="opt42">Label</span>
+            <div class="input-group input-group-sm">
+              <input class="form-control" value="4b">
+              <div class="input-group-btn" data-toggle="buttons">
+                <label class="btn btn-default btn-sm active">
+                  <input type="radio" name="options7" id="option1" autocomplete="off" alt="Set as a label"> <i class="fa fa-tag" aria-hidden="true"></i>
+                </label>
+                <label class="btn btn-default btn-sm">
+                  <input type="radio" name="options7" id="option2" autocomplete="off" alt="Set as an answer"> <i class="fa fa-lightbulb-o" aria-hidden="true"></i>
+                </label>
+              </div>
             </div>
           </td>
           <td>
-            <a *ngIf="!isReadOnly" class="btn btn-default btn-xs pull-left">
-              <i class="fa fa-close"></i>
+            <div class="input-group input-group-sm">
+              <input class="form-control" value="89">
+              <div class="input-group-btn" data-toggle="buttons">
+                <label class="btn btn-default btn-sm active">
+                  <input type="radio" name="options8" id="option1" autocomplete="off" alt="Set as a label"> <i class="fa fa-tag" aria-hidden="true"></i>
+                </label>
+                <label class="btn btn-default btn-sm">
+                  <input type="radio" name="options8" id="option2" autocomplete="off" alt="Set as an answer"> <i class="fa fa-lightbulb-o" aria-hidden="true"></i>
+                </label>
+              </div>
+            </div>
+          </td>
+          <td class="center">
+            <a *ngIf="!isReadOnly" class="gray-dark">
+              <i class="fa fa-minus-circle"></i>
             </a>
           </td>
         </tr>
         <!-- Footer -->
         <tr>
-          <td>
-            <a *ngIf="!isReadOnly" class="btn btn-default btn-xs pull-left">
-              <i class="fa fa-close"></i>
+          <td class="center">
+            <a *ngIf="!isReadOnly" class="gray-dark">
+              <i class="fa fa-minus-circle"></i>
             </a>
           </td>
-          <td colspan="2">
-            <a *ngIf="!isReadOnly" class="btn btn-default btn-xs pull-left">
-              <i class="fa fa-close"></i>
-            </a>
+          <td class="center">
+              <a *ngIf="!isReadOnly" class="gray-dark">
+                <i class="fa fa-minus-circle"></i>
+              </a>
           </td>
+          <td>&nbsp;</td>
         </tr>
         <tr>
           <td colspan="3">
-            <a *ngIf="!isReadOnly" class="btn btn-default btn-xs pull-left">
-              <i class="fa fa-plus"> Add Row</i>
+            <a *ngIf="!isReadOnly" class="btn btn-default btn-xs">
+              <i class="fa fa-plus"> Row</i>
             </a>
           </td>
         </tr>
         </tbody>
       </table>
 
-      Note: This interface is not functional.  It has been provided so it can be styled.
     </div>
   </div>
 </form>

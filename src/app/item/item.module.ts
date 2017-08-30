@@ -13,6 +13,7 @@ import {BrowserModule} from "@angular/platform-browser";
 import {RouterModule} from "@angular/router";
 import {Http, HttpModule} from "@angular/http";
 import {ItemHistoryTabComponent} from "./crud/tabs/item-history-tab.component/item-history-tab.component";
+import {ItemValidationTabComponent} from "./crud/tabs/item-validation-tab.component/item-validation-tab.component";
 import {ItemAutoSaveComponent} from "./crud/item-auto-save.component/item-auto-save.component";
 import {AuthenticatedHttpService} from "../core/authenticated-http.service/authenticated-http.service";
 import {ItemHistoryService} from "./services/item-history.service/item-history.service";
@@ -35,6 +36,7 @@ import {ItemEbsrDetailsComponent} from './crud/details/item-ebsr-details/item-eb
 import {ItemAssociationTabComponent} from './crud/tabs/item-association-tab.component/item-association-tab.component';
 import {ItemBrailleTabComponent} from './crud/tabs/item-braille-tab.component/item-braille-tab.component';
 import {CKEditorModule} from 'ng2-ckeditor';
+import {ItemValidationService} from "./services/item-validation.service/item-validation.service";
 import {ItemTiDetailsComponent} from "./crud/details/item-ti-details.component/item-ti-details.component";
 import {ItemTiTableComponent} from "./crud/details/shared/item-ti-table.component/item-ti-table.component";
 
@@ -61,6 +63,7 @@ import {ItemTiTableComponent} from "./crud/details/shared/item-ti-table.componen
     ItemSearchComponent,
     ItemCreateComponent,
     ItemHistoryTabComponent,
+    ItemValidationTabComponent,
     ItemAutoSaveComponent,
     ItemTabsComponent,
     ItemPreviewComponent,
@@ -87,6 +90,7 @@ import {ItemTiTableComponent} from "./crud/details/shared/item-ti-table.componen
     ItemSearchComponent,
     ItemCreateComponent,
     ItemHistoryTabComponent,
+    ItemValidationTabComponent,
     ItemDetailsComponent,
     ItemPromptComponent,
     ItemTiTableComponent,
@@ -98,6 +102,7 @@ import {ItemTiTableComponent} from "./crud/details/shared/item-ti-table.componen
     {provide: Http, useClass: AuthenticatedHttpService},
     ItemService,
     ItemHistoryService,
+    ItemValidationService,
     ItemPreviewService,
     ItemWorkflowService
   ]

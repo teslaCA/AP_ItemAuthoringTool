@@ -9,6 +9,21 @@ services:
             - 6379:6379
         logging:
             driver: json-file
+    rabbit-server:
+        container_name: rabbit-server
+        image: rabbitmq:3-management
+        ports:
+          - "15672:15672"
+          - "5672:5672"
+          - "5671:5671"
+        environment:
+          RABBITMQ_DEFAULT_PASS: "guest"
+          RABBITMQ_DEFAULT_USER: "guest"
+          RABBITMQ_DEFAULT_VHOST: "/"
+        networks:
+          - spring-cloud-network
+        logging:
+          driver: json-file
     configuration-service:
         container_name: configuration-service
         image: @dockerTagBase@/configuration-service:@configServerVersion@
@@ -104,6 +119,35 @@ services:
             - @USER_HOME@:/tmp
         logging:
             driver: json-file
+    ap-ivs:
+      container_name: ap-ivs
+      image: @dockerTagBase@/ap-ivs:@apIVSVersion@
+      healthcheck:
+        test: ["CMD", "curl", "-f", "http://localhost:8080/manage/health"]
+        interval: 30s
+        timeout: 5s
+        retries: 3
+      environment:
+        CONFIG_SERVICE_ENABLED: "true"
+        CONFIG_SERVICE_URL: "http://configuration-service:8888"
+        SPRING_PROFILES_ACTIVE: "localcompose"
+      ports:
+        - 8087:8080
+      networks:
+        - spring-cloud-network
+      links:
+        - configuration-service
+        - rabbit-server
+      depends_on:
+        configuration-service:
+          condition: service_started
+        rabbit-server:
+          condition: service_started
+      volumes:
+        - @USER_HOME@:/tmp
+      logging:
+        driver: json-file
+
 #    ap-iat-service:
 #        container_name: ap-iat-service
 #        image: @dockerTagBase@/ap-iat:@version@
