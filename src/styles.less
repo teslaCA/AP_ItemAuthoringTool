@@ -35,6 +35,27 @@ a {
 .input-group {
     width: 100%;
 }
+label {
+  border-radius: 3px;
+  padding: 2px 6px;
+  font-weight: normal;
+  &.Severe {
+    border: @red solid 1px;
+    color: @red;
+  }
+  &.Benign {
+    border: @orange solid 1px;
+    color: @orange;
+  }
+  &.Degraded {
+    border: @green solid 1px;
+    color: @green;
+  }
+  &.Tolerable {
+    border: @blue solid 1px;
+    color: @blue;
+  }
+}
 
 .center {text-align: center;}
 // break up really long file names in small td
