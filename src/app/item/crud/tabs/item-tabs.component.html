@@ -25,14 +25,14 @@
           <li role="menuitem">
             <a class="dropdown-item" (click)="select(tab.history)">History</a>
           </li>
-          <li role="menuitem">
-            <a class="dropdown-item" (click)="select(tab.validation)">Validation</a>
-          </li>
           <li role="menuitem" *ngIf="item.supportsStimulus">
             <a class="dropdown-item" (click)="select(tab.stimulus)">Stimulus</a>
           </li>
           <li role="menuitem" *ngIf="item.supportsTutorial">
             <a class="dropdown-item" (click)="select(tab.tutorial)">Tutorial</a>
+          </li>
+          <li role="menuitem">
+            <a class="dropdown-item" (click)="select(tab.validation)">Validation</a>
           </li>
           <li role="menuitem" *ngIf="item.supportsWorkflow">
             <a class="dropdown-item" (click)="select(tab.workflow)">Workflow</a>

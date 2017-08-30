@@ -14,7 +14,9 @@
 <!-- Table -->
 <div class="well white">
   <div class="well-body">
-    <item-ti-table [isReadOnly]="isReadOnly">
+    <item-ti-table [isReadOnly]="isReadOnly"
+                   [table]="item.table"
+                   (tableChange)="onItemChange()">
     </item-ti-table>
   </div>
 </div>

@@ -3,9 +3,9 @@
     <label class="h5 mt-sm">Table</label>
 
     <!-- Title -->
-    <div class="input-group  mb-sm">
+    <div class="input-group mb-sm">
       <span class="input-group-addon" id="sizing-addon2">Title</span>
-      <input type="text" class="form-control" value="August Lemonade Sales" aria-describedby="sizing-addon2">
+      <input class="form-control" formControlName="title" aria-describedby="sizing-addon2">
     </div>
 
     <!-- Table -->
@@ -13,185 +13,69 @@
       <table class="table table-condensed table-hover table-striped">
         <thead>
         <!-- Header -->
-        <tr>
-          <th>
+        <tr formArrayName="columns">
+          <th *ngFor="let control of formColumns.controls; let i=index" [formGroupName]="i">
             <div class="input-group input-group-sm">
-              <input class="form-control" value="Week"/>
-            </div>
-          </th>
-          <th>
-            <div class="input-group input-group-sm">
-              <input class="form-control" value="Cups Sold"/>
+              <input class="form-control" formControlName="label"/>
             </div>
           </th>
           <th class="center">
-            <a *ngIf="!isReadOnly" class="btn btn-default btn-xs">
+            <a *ngIf="!isReadOnly" (click)="addColumn()" class="btn btn-default btn-xs">
               <i class="fa fa-plus"></i> <i class="fa fa-columns" aria-hidden="true"></i>
             </a>
           </th>
         </tr>
         </thead>
-        <tbody>
-        <!-- Row 1 -->
-        <tr>
-          <td>
+
+        <!-- Body -->
+        <tbody formArrayName="rows">
+        <tr *ngFor="let rowControl of formRows.controls; let i=index" [formGroupName]="i">
+          <td *ngFor="let cellControl of formRowCells(i).controls; let j=index" [formGroupName]="j">
             <div class="input-group input-group-sm">
-              <input class="form-control" value="1">
+              <input class="form-control" formControlName="value">
               <div class="input-group-btn" data-toggle="buttons">
-                <label class="btn btn-default btn-sm active">
-                  <input type="radio" name="options1" id="option1" autocomplete="off" alt="Set as a label"> <i class="fa fa-tag" aria-hidden="true"></i>
+                <label class="btn btn-default btn-sm"
+                       [ngClass]="cellControl.value.type === 'label' ? 'active' : ''"
+                       (click)="changeCellType(i, j, 'label')">
+                  <input type="radio"
+                         autocomplete="off"
+                         alt="Set as a label">
+                  <i class="fa fa-tag" aria-hidden="true"></i>
                 </label>
-                <label class="btn btn-default btn-sm">
-                  <input type="radio" name="options1" id="option2" autocomplete="off" alt="Set as an answer"> <i class="fa fa-lightbulb-o" aria-hidden="true"></i>
-                </label>
-              </div>
-            </div>
-          </td>
-          <td>
-            <div class="input-group input-group-sm">
-              <input class="form-control" value="23">
-              <div class="input-group-btn" data-toggle="buttons">
-                <label class="btn btn-default btn-sm active">
-                  <input type="radio" name="options2" id="option1" autocomplete="off" alt="Set as a label"> <i class="fa fa-tag" aria-hidden="true"></i>
-                </label>
-                <label class="btn btn-default btn-sm">
-                  <input type="radio" name="options2" id="option2" autocomplete="off" alt="Set as an answer"> <i class="fa fa-lightbulb-o" aria-hidden="true"></i>
-                </label>
-              </div>
-            </div>
-          </td>
-          <td class="center">
-            <a *ngIf="!isReadOnly" class="gray-dark">
-              <i class="fa fa-minus-circle"></i>
-            </a>
-          </td>
-        </tr>
-        <!-- Row 2 -->
-        <tr>
-          <td>
-            <div class="input-group input-group-sm">
-              <input class="form-control" value="2">
-              <div class="input-group-btn" data-toggle="buttons">
-                <label class="btn btn-default btn-sm active">
-                  <input type="radio" name="options3" id="option1" autocomplete="off" alt="Set as a label"> <i class="fa fa-tag" aria-hidden="true"></i>
-                </label>
-                <label class="btn btn-default btn-sm">
-                  <input type="radio" name="options3" id="option2" autocomplete="off" alt="Set as an answer"> <i class="fa fa-lightbulb-o" aria-hidden="true"></i>
-                </label>
-              </div>
-            </div>
-          </td>
-          <td>
-            <div class="input-group input-group-sm">
-              <input class="form-control" value="45">
-              <div class="input-group-btn" data-toggle="buttons">
-                <label class="btn btn-default btn-sm active">
-                  <input type="radio" name="options4" id="option1" autocomplete="off" alt="Set as a label"> <i class="fa fa-tag" aria-hidden="true"></i>
-                </label>
-                <label class="btn btn-default btn-sm">
-                  <input type="radio" name="options4" id="option2" autocomplete="off" alt="Set as an answer"> <i class="fa fa-lightbulb-o" aria-hidden="true"></i>
+                <label class="btn btn-default btn-sm"
+                       [ngClass]="cellControl.value.type === 'answer' ? 'active' : ''"
+                       (click)="changeCellType(i, j, 'answer')">
+                  <input type="radio"
+                         autocomplete="off"
+                         alt="Set as an answer">
+                  <i class="fa fa-lightbulb-o" aria-hidden="true"></i>
                 </label>
               </div>
             </div>
           </td>
           <td class="center">
-            <a *ngIf="!isReadOnly" class="gray-dark">
+            <a *ngIf="!isReadOnly" (click)="removeRow(i)" class="gray-dark">
               <i class="fa fa-minus-circle"></i>
             </a>
           </td>
         </tr>
-        <!-- Row 3 -->
-        <tr>
-          <td>
-            <div class="input-group input-group-sm">
-              <input class="form-control" value="3">
-              <div class="input-group-btn" data-toggle="buttons">
-                <label class="btn btn-default btn-sm active">
-                  <input type="radio" name="options5" id="option1" autocomplete="off" alt="Set as a label"> <i class="fa fa-tag" aria-hidden="true"></i>
-                </label>
-                <label class="btn btn-default btn-sm">
-                  <input type="radio" name="options5" id="option2" autocomplete="off" alt="Set as an answer"> <i class="fa fa-lightbulb-o" aria-hidden="true"></i>
-                </label>
-              </div>
-            </div>
-          </td>
-          <td>
-            <div class="input-group input-group-sm">
-              <input class="form-control" value="69">
-              <div class="input-group-btn" data-toggle="buttons">
-                <label class="btn btn-default btn-sm active">
-                  <input type="radio" name="options6" id="option1" autocomplete="off" alt="Set as a label"> <i class="fa fa-tag" aria-hidden="true"></i>
-                </label>
-                <label class="btn btn-default btn-sm">
-                  <input type="radio" name="options6" id="option2" autocomplete="off" alt="Set as an answer"> <i class="fa fa-lightbulb-o" aria-hidden="true"></i>
-                </label>
-              </div>
-            </div>
-          </td>
-          <td class="center">
-            <a *ngIf="!isReadOnly" class="gray-dark">
-              <i class="fa fa-minus-circle"></i>
-            </a>
-          </td>
-        </tr>
-        <!-- Row 4 -->
-        <tr>
-          <td>
-            <div class="input-group input-group-sm">
-              <input class="form-control" value="4b">
-              <div class="input-group-btn" data-toggle="buttons">
-                <label class="btn btn-default btn-sm active">
-                  <input type="radio" name="options7" id="option1" autocomplete="off" alt="Set as a label"> <i class="fa fa-tag" aria-hidden="true"></i>
-                </label>
-                <label class="btn btn-default btn-sm">
-                  <input type="radio" name="options7" id="option2" autocomplete="off" alt="Set as an answer"> <i class="fa fa-lightbulb-o" aria-hidden="true"></i>
-                </label>
-              </div>
-            </div>
-          </td>
-          <td>
-            <div class="input-group input-group-sm">
-              <input class="form-control" value="89">
-              <div class="input-group-btn" data-toggle="buttons">
-                <label class="btn btn-default btn-sm active">
-                  <input type="radio" name="options8" id="option1" autocomplete="off" alt="Set as a label"> <i class="fa fa-tag" aria-hidden="true"></i>
-                </label>
-                <label class="btn btn-default btn-sm">
-                  <input type="radio" name="options8" id="option2" autocomplete="off" alt="Set as an answer"> <i class="fa fa-lightbulb-o" aria-hidden="true"></i>
-                </label>
-              </div>
-            </div>
-          </td>
-          <td class="center">
-            <a *ngIf="!isReadOnly" class="gray-dark">
-              <i class="fa fa-minus-circle"></i>
-            </a>
-          </td>
-        </tr>
+
         <!-- Footer -->
         <tr>
-          <td class="center">
-            <a *ngIf="!isReadOnly" class="gray-dark">
+          <td *ngFor="let control of formColumns.controls; let i=index" class="center">
+            <a *ngIf="!isReadOnly" (click)="removeColumn(i)" class="gray-dark">
               <i class="fa fa-minus-circle"></i>
             </a>
           </td>
-          <td class="center">
-              <a *ngIf="!isReadOnly" class="gray-dark">
-                <i class="fa fa-minus-circle"></i>
-              </a>
-          </td>
           <td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td colspan="3">
-            <a *ngIf="!isReadOnly" class="btn btn-default btn-xs">
-              <i class="fa fa-plus"> Row</i>
-            </a>
-          </td>
         </tr>
         </tbody>
       </table>
 
+      <!-- Add row -->
+      <a *ngIf="!isReadOnly" (click)="addRow()" class="btn btn-default btn-xs">
+        <i class="fa fa-plus"> Row</i>
+      </a>
     </div>
   </div>
 </form>
