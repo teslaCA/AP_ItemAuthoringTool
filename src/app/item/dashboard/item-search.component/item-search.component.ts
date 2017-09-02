@@ -40,8 +40,7 @@ export class ItemSearchComponent implements OnInit {
 
   showErrorMessage(control: AbstractControl): boolean {
     if ((!control.valid && !control.pristine
-      && control.value.trim() !== ''
-      || control.value.length > 14)
+      && control.value.trim() !== '')
       && this.queryFocused
     ) {
       return true;
@@ -67,7 +66,5 @@ export class ItemSearchComponent implements OnInit {
       const spaceRe = new RegExp(exp, "g");
       this.complexForm.controls['query'].setValue(inputChar.replace(spaceRe, ""));
     });
-
-
   }
 }

@@ -3,7 +3,7 @@
     <input type="text"
            class="form-control"
            placeholder="Item or resource ID"
-           pattern="^[A-Za-z]{1,4}\d+$"
+           pattern="^\d+$"
            required
            formControlName="query"
            id="query"
@@ -20,6 +20,6 @@
     </span>
   </div>
   <div *ngIf="this.showErrorMessage(complexForm.controls['query'])" class="mt-sm">
-    <span class="label label-danger border-only">Must be the item or resource type (e.g. SA) followed by one or more digits</span>
+    <span class="label label-danger border-only">The ID is made up of one or more digits</span>
   </div>
 </form>
