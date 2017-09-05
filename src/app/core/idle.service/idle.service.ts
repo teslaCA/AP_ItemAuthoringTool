@@ -13,12 +13,19 @@ import {environment} from "../../../environments/environment";
  */
 @Injectable()
 export class IdleService {
-  idleDuration: number;
-  timeoutDuration: number;
-  logOutAfterTimeout: boolean;
+  private idleDuration: number;
+  private timeoutDuration: number;
+  private logOutAfterTimeout: boolean;
+  private idleRemain = 0;
 
   private subject = new Subject<boolean>();
   isTimedOut = this.subject.asObservable();
+
+  get idleRemaining(): any {
+    const dateSeconds = new Date(null);
+    dateSeconds.setSeconds(this.idleRemain);
+    return dateSeconds;
+  }
 
   constructor(private idle: Idle,
               private logger: Logger,
@@ -47,6 +54,7 @@ export class IdleService {
 
     this.idle.onTimeoutWarning.subscribe((countdown) => {
       this.logger.info('You will time out in ' + countdown + ' seconds!');
+      this.idleRemain = countdown;
       this.subject.next(true);
     });
 
