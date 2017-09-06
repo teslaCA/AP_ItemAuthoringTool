@@ -36,16 +36,20 @@
               <div class="input-group-btn" data-toggle="buttons">
                 <label class="btn btn-default btn-sm"
                        [ngClass]="cellControl.value.type === 'label' ? 'active' : ''"
-                       (click)="changeCellType(i, j, 'label')">
-                  <input type="radio"
+                       (click)="isReadOnly ? false : changeCellType(i, j, 'label')"
+                       [class.disabled]="isReadOnly">
+                  <input *ngIf="!isReadOnly"
+                         type="radio"
                          autocomplete="off"
                          alt="Set as a label">
                   <i class="fa fa-tag" aria-hidden="true"></i>
                 </label>
                 <label class="btn btn-default btn-sm"
                        [ngClass]="cellControl.value.type === 'answer' ? 'active' : ''"
-                       (click)="changeCellType(i, j, 'answer')">
-                  <input type="radio"
+                       (click)="isReadOnly ? false : changeCellType(i, j, 'answer')"
+                       [class.disabled]="isReadOnly">
+                  <input *ngIf="!isReadOnly"
+                         type="radio"
                          autocomplete="off"
                          alt="Set as an answer">
                   <i class="fa fa-lightbulb-o" aria-hidden="true"></i>
