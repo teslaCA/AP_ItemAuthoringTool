@@ -1,0 +1,112 @@
+<div [formGroup]="fieldForm" class="form">
+  <div class="form-group">
+    <label>Does this item require ASL?</label>
+    <select class="form-control" formControlName="isAslRequired">
+      <option [value]="true">Yes</option>
+      <option [value]="false">No</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label>Has ASL content been provided?</label>
+    <select class="form-control" formControlName="isAslProvided">
+      <option [value]="true">Yes</option>
+      <option [value]="false">No</option>
+    </select>
+  </div>
+
+  <h4>ASL Content</h4>
+  <div ng2FileDrop
+       *ngIf="!uploader.isUploading && !isReadOnly"
+       class="well my-drop-zone point"
+       [class.nv-file-over]="hasDropZoneOver"
+       [uploader]="uploader"
+       (fileOver)="fileOverBase($event)"
+       (click)="openFileDialog()">
+       <div class="center-center pt-sm">
+          <span class="gray-dark"><i class="fa fa-cloud-upload"></i> Drag and drop to upload or&nbsp;</span><span class="aqua">browse for files</span>
+        </div>
+  </div>
+  <div *ngIf="uploader.isUploading"
+       class="well my-drop-zone nv-file-over">
+    <div class="center-center pt-sm"><span class="gray-dark">Files are currently being uploaded</span></div>
+  </div>
+  <div hidden>
+    <input #fileDialog type="file" ng2FileSelect [uploader]="uploader" multiple  />
+  </div>
+
+  <div class="mt-md mb-md">
+    <div *ngIf="uploader.isUploading" class="progress">
+      <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
+    </div>
+  </div>
+
+  <table *ngIf="aslAttachments.length > 0" class="table table-condensed table-hover table-striped">
+    <thead>
+      <tr>
+        <th>Filename</th>
+        <th>Uploaded</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let attachment of aslAttachments; let i=index">
+        <td>{{attachment.fileName}}</td>
+        <td>{{attachment.uploadedDate | date:'short'}}</td>
+        <td class="text-center">
+          <a href="/api/ims/v1/items/{{item.id}}/asl/{{attachment.fileName}}"
+             class="btn btn-default btn-xs"
+             [class.disabled]="isReadOnly">
+            <i class="fa fa-cloud-download"></i> Download</a>
+        </td>
+        <td class="text-center">
+          <a (click)="confirmDeleteFile(i, attachment.fileName)"
+             title="Remove File"
+             class="btn btn-default btn-xs"
+             [class.disabled]="isReadOnly">
+            <i class="fa fa-close"></i><span class="sr-only">Remove File</span></a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="aslAttachments.length === 0" class="alert alert-warning">
+    <p><em>No files currently attached.</em></p>
+  </div>
+</div>
+
+<div #deleteModal="bs-modal"
+     id="aslModal"
+     class="modal fade"
+     bsModal
+     [config]="{backdrop: 'static'}"
+     tabindex="-1"
+     role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <!-- Header -->
+      <div class="modal-header">
+        <h3 class="modal-title">
+          Delete File
+        </h3>
+      </div>
+      <!-- Body -->
+      <div class="modal-body">
+        <p>
+          Are you sure you want to delete {{deleteFileName}}?
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button"
+                class="btn btn-primary btn-small"
+                (click)="deleteFile(deleteIndex, deleteFileName)">Yes
+        </button>
+        <button type="button"
+                class="btn btn-default btn-small"
+                data-dismiss="modal"
+                (click)="deleteModal.hide()">No
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

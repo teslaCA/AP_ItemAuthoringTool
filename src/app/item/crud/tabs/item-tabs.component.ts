@@ -7,6 +7,7 @@ import {ItemWorkflowTabComponent} from "./item-workflow-tab.component/item-workf
 import {STIM, TUT} from "../../services/item-type.service/item-types";
 import {ItemAssociationTabComponent} from "./item-association-tab.component/item-association-tab.component";
 import {ItemBrailleTabComponent} from "./item-braille-tab.component/item-braille-tab.component";
+import {ItemAslTabComponent} from "./item-asl-tab.component/item-asl-tab.component";
 
 @Component({
   selector: 'item-tabs',
@@ -16,6 +17,7 @@ import {ItemBrailleTabComponent} from "./item-braille-tab.component/item-braille
 export class ItemTabsComponent {
   tab = {
     braille: 'braille',
+    asl: 'asl',
     history: 'history',
     validation: 'validation',
     stimulus: 'stimulus',
@@ -24,6 +26,7 @@ export class ItemTabsComponent {
   };
   validTabs = [
     this.tab.braille,
+    this.tab.asl,
     this.tab.history,
     this.tab.validation,
     this.tab.stimulus,
@@ -40,6 +43,7 @@ export class ItemTabsComponent {
   @ViewChild("tutorial") itemTutorialTabComponent: ItemAssociationTabComponent;
   @ViewChild(ItemWorkflowTabComponent) itemWorkflowTabComponent;
   @ViewChild(ItemBrailleTabComponent) itemBrailleTabComponent;
+  @ViewChild(ItemAslTabComponent) itemAslTabComponent;
 
   get associatedStimulusId(): string {
     return (this.item as NormalItem).stimulusId;
@@ -103,6 +107,12 @@ export class ItemTabsComponent {
     if (this.itemBrailleTabComponent) {
       this.item.braille.isBrailleRequired = this.itemBrailleTabComponent.currentItemBraille.isBrailleRequired;
       this.item.braille.isBrailleProvided = this.itemBrailleTabComponent.currentItemBraille.isBrailleProvided;
+    }
+
+    //Capture changes to ASL tab
+    if (this.itemAslTabComponent) {
+      this.item.asl.isAslRequired = this.itemAslTabComponent.currentItemAsl.isAslRequired;
+      this.item.asl.isAslProvided = this.itemAslTabComponent.currentItemAsl.isAslProvided;
     }
 
     return this.item;

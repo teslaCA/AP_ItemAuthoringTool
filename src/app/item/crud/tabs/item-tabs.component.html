@@ -10,6 +10,7 @@
 
         <span class="h2 mb-sm">
           <span *ngIf="isSelected(tab.braille)">Braille</span>
+          <span *ngIf="isSelected(tab.asl)">ASL</span>
           <span *ngIf="isSelected(tab.history)">History</span>
           <span *ngIf="isSelected(tab.validation)">Validation</span>
           <span *ngIf="isSelected(tab.stimulus)">Stimulus</span>
@@ -21,6 +22,9 @@
         <ul *dropdownMenu class="dropdown-menu" role="menu">
           <li role="menuitem">
             <a class="dropdown-item" (click)="select(tab.braille)">Braille</a>
+          </li>
+          <li role="menuitem">
+            <a class="dropdown-item" (click)="select(tab.asl)">ASL</a>
           </li>
           <li role="menuitem">
             <a class="dropdown-item" (click)="select(tab.history)">History</a>
@@ -51,6 +55,13 @@
                         [item]="item"
                         (itemBrailleChanged)="onItemChanged()">
       </item-braille-tab>
+
+      <!-- ASL -->
+      <item-asl-tab *ngIf="isSelected(tab.asl)"
+                        [isReadOnly]="isReadOnly"
+                        [item]="item"
+                        (itemAslChanged)="onItemChanged()">
+      </item-asl-tab>
 
       <!-- History -->
       <item-history-tab *ngIf="isSelected(tab.history)"

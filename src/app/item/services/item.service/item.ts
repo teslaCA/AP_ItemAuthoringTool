@@ -2,6 +2,7 @@ import {JsonProperty} from "json2typescript";
 
 import {ItemTransaction} from "./item-transaction";
 import {ItemType} from "../item-type.service/item-type";
+import {ItemAsl} from "./item-asl";
 import {ItemBraille} from "./item-braille";
 
 /**
@@ -28,6 +29,9 @@ export abstract class Item {
 
   @JsonProperty("braille", ItemBraille, /* isOptional */ true)
   braille: ItemBraille = undefined;
+
+  @JsonProperty("asl", ItemAsl, /* isOptional */ true)
+  asl: ItemAsl = undefined;
 
   itemType: ItemType;
 
