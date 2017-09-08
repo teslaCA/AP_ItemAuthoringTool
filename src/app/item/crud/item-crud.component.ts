@@ -79,7 +79,7 @@ export class ItemCrudComponent implements OnInit {
 
   commitCreateTransaction(): void {
     this.commitTransaction(
-      'Finished creation',
+      'Finished creation.',
       `${this.item.itemType.categoryName} Created`,
       `The ${this.item.itemType.categoryName} has been successfully created and added to the item bank.`,
       `/?id=${this.itemDetailsComponent.currentItem.id}`);
@@ -87,7 +87,7 @@ export class ItemCrudComponent implements OnInit {
 
   commitEditTransaction(): void {
     this.commitTransaction(
-      this.form.get('commitMsg').value.trim(),
+      this.form.get('commitMsg').value ? this.form.get('commitMsg').value.trim() : 'Made a change.',
       'Changes Committed',
       `Your changes to the ${this.item.itemType.categoryName} have been committed to the item bank.`,
       `/?id=${this.itemDetailsComponent.currentItem.id}`);

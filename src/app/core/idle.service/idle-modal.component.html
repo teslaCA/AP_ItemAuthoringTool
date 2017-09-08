@@ -16,20 +16,21 @@
       </div>
       <!-- Body -->
       <div class="modal-body">
-        <span>
-          Your session is about to expire. Do you wish to remain logged in?
-        </span>
+        <div>
+          Because you have been inactive, your session is about to expire.
+        </div>
+        <div>
+          Time remaining: {{ this.idleService.idleRemaining | date:'m:ss'}}
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button"
                 class="btn btn-primary btn-small"
-                (click)="this.restartIdle()">Yes
-        </button>
+                (click)="this.restartIdle()">Stay Logged In</button>
         <button type="button"
                 class="btn btn-default btn-small"
                 data-dismiss="modal"
-                (click)="this.logOut()">No
-        </button>
+                (click)="this.logOut()">Log Out Now</button>
       </div>
     </div>
   </div>

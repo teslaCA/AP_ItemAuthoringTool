@@ -1,16 +1,12 @@
 <table *ngIf="itemValidationErrors" class="table table-condensed table-hover table-striped">
   <thead>
   <tr>
-    <th>Category</th>
-    <th>Severity</th>
     <th>Message</th>
     <th>Detail</th>
   </tr>
   </thead>
   <tbody>
   <tr *ngFor="let validationError of itemValidationErrors; let i=index">
-    <td>{{validationError.category}}</td>
-    <td><label class="{{validationError.severity}}">{{validationError.severity}}</label></td>
     <td>{{validationError.message}}</td>
     <td class="break">{{validationError.detail}}</td>
   </tr>
