@@ -15,7 +15,7 @@ export class IdleModalComponent implements OnInit, OnDestroy {
   private subscription: Subscription;
   @ViewChild('logoutModal') logoutModal: ModalDirective;
 
-  constructor(private idleService: IdleService) {
+  constructor(public idleService: IdleService) {
   }
 
   ngOnInit() {
@@ -39,4 +39,5 @@ export class IdleModalComponent implements OnInit, OnDestroy {
   logOut(): void {
     this.idleService.logOut();
   }
+
 }

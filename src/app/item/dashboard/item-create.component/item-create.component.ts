@@ -41,7 +41,7 @@ export class ItemCreateComponent implements OnInit {
 
   createItem(itemTypeCode: string) {
     this.itemService
-      .beginCreateTransaction(itemTypeCode, "Began creation")
+      .beginCreateTransaction(itemTypeCode, "Began creation.")
       .subscribe(
         (item: Item) => {
           this.router.navigateByUrl(`/item/${item.id}`);
