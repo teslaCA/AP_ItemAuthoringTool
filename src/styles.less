@@ -41,6 +41,15 @@ a {
     border: 1px @gray-lightest solid;
     padding: 2px 2px 20px;
 }
+.modal-open .modal{
+  background: rgba(255,255,255,0.6);
+}
+// Firefox ignores Flex %s
+.flex-children > *, .flex-children .flex-children {
+    margin: 5px;
+}
+
+
 label {
   border-radius: 3px;
   padding: 2px 6px;
