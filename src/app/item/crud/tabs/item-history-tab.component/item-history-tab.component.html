@@ -1,5 +1,5 @@
 <div *ngIf="itemVersions">
-  <a href="/api/ims/v1/items/{{itemId}}/history/csv" class="btn btn-default btn-xs mb-sm"><i class="fa fa-cloud-download"></i> Download History</a>
+  <a href="/api/ims/v1/items/{{itemId}}/versions?format=csv" class="btn btn-default btn-xs mb-sm"><i class="fa fa-cloud-download"></i> Download History</a>
   <div *ngFor="let history of itemVersions;
                let index = index;
                let isOdd = odd;
