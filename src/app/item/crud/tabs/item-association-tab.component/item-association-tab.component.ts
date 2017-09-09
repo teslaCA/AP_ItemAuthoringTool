@@ -1,9 +1,9 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ItemService} from "../../../services/item.service/item.service";
-import {Item} from "../../../services/item.service/models/base/item";
 import {AlertService} from "../../../../core/alert.service/alert.service";
 import {ItemType} from "../../../services/item-type.service/item-type";
+import {ItemContext} from "../../../services/item.service/models/base/item-context";
 
 @Component({
   selector: 'item-association-tab',
@@ -38,24 +38,23 @@ export class ItemAssociationTabComponent implements OnInit {
   }
 
   associate(associationId: string) {
-    // TODO: IAT-666 - Uncomment
-    // // Find item
-    // this.itemService
-    //   .findItem(associationId)
-    //   .subscribe(
-    //     (item: Item) => {
-    //       // Verify item is correct type
-    //       if (item.type === this.associationType.code) {
-    //         this.associationId = associationId;
-    //         this.associationIdChanged.emit(this.associationId);
-    //         this.form = this.buildForm();
-    //       }
-    //       else {
-    //         this.alertService.error(
-    //           "Cannot Associate",
-    //           `The item or resource having ID ${associationId} is not a ${this.associationType.name.toLowerCase()}.`);
-    //       }
-    //     });
+    // Find item
+    this.itemService
+      .findItem(associationId)
+      .subscribe(
+        (itemContext: ItemContext) => {
+          // Verify item is correct type
+          if (itemContext.item.type === this.associationType.code) {
+            this.associationId = associationId;
+            this.associationIdChanged.emit(this.associationId);
+            this.form = this.buildForm();
+          }
+          else {
+            this.alertService.error(
+              "Cannot Associate",
+              `The item or resource having ID ${associationId} is not a ${this.associationType.name.toLowerCase()}.`);
+          }
+        });
   }
 
   private buildForm(): FormGroup {
