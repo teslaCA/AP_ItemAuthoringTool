@@ -3,11 +3,12 @@
     <div class="well-body pt-xs">
       <!-- Tab selector dropdown -->
       <div class="btn-group" dropdown>
-        <!-- Selected option -->
+        <!-- Hamburger icon -->
         <button dropdownToggle type="button" class="btn btn-primary btn-xs dropdown-toggle mr-xs">
           <i class="fa fa-bars"></i><span class="sr-only">Item Menu</span>
         </button>
 
+        <!-- Selected option -->
         <span class="h2 mb-sm">
           <span *ngIf="isSelected(tab.braille)">Braille</span>
           <span *ngIf="isSelected(tab.history)">History</span>
