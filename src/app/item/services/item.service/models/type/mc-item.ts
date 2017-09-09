@@ -1,15 +1,15 @@
 import {JsonObject, JsonProperty} from "json2typescript";
-import {NormalItem} from "./normal-item";
-import {ItemOption} from "./item-option";
+import {ItemOption} from "../shared/item-option";
+import {Item} from "../base/item";
 
 /**
- * MS Item model that can be mapped to/from JSON.
+ * MC Item model that can be mapped to/from JSON.
  *
  * Important: Fields must be initialized to a value or undefined to take part in mapping.
  * See https://github.com/dhlab-basel/json2typescript for more info.
  */
 @JsonObject
-export class MsItem extends NormalItem {
+export class McItem extends Item {
   @JsonProperty("options", [ItemOption])
   options: ItemOption[] = undefined;    // Initialize to undefined so that field is mapped
 

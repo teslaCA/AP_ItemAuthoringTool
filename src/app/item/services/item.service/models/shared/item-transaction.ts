@@ -8,9 +8,9 @@ import {JsonObject, JsonProperty} from "json2typescript";
  */
 @JsonObject
 export class ItemTransaction {
-  @JsonProperty("transactionId", String)
-  transactionId: string = undefined;  // Initialize to undefined so that field is mapped
+  @JsonProperty("section", String)
+  section: string = undefined;        // Initialize to undefined so that field is mapped
 
-  @JsonProperty("username", String)
-  username: string = undefined;       // Initialize to undefined so that field is mapped
+  @JsonProperty("userName", String)
+  userName: string = undefined;       // Initialize to undefined so that field is mapped
 }

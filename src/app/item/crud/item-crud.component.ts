@@ -3,13 +3,13 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ItemService} from "../services/item.service/item.service";
 import {AlertService} from "../../core/alert.service/alert.service";
-import {Item} from "../services/item.service/item";
+import {Item} from "../services/item.service/models/base/item";
 import {UserService} from "app/core/user.service/user.service";
 import {User} from "../../core/user.service/user";
 import {HttpUtility} from "../../core/http-utility.service/http-utility";
 import {ItemDetailsComponent} from "./details/item-details.component";
+import {ItemContext} from "../services/item.service/models/base/item-context";
 
-// TODO: Move nav bar message-related code into separate component (called ItemHeaderComponent)
 @Component({
   selector: 'item-crud',
   templateUrl: './item-crud.component.html',
@@ -17,7 +17,7 @@ import {ItemDetailsComponent} from "./details/item-details.component";
 })
 export class ItemCrudComponent implements OnInit {
   currentUser: User;
-  item: Item;
+  itemContext: ItemContext;
   form: FormGroup;
   isLoading: boolean;
   isError = false;
@@ -39,21 +39,27 @@ export class ItemCrudComponent implements OnInit {
   }
 
   get isBeingCreatedByCurrentUser(): boolean {
-    return this.item.isBeingCreatedBy(this.currentUser.username);
+    return this.itemContext.isBeingCreatedBy(this.currentUser.username);
   }
 
   get isBeingEditedByCurrentUser(): boolean {
-    return this.item.isBeingEditedBy(this.currentUser.username);
+    // TODO: IAT-666 - Replace with section-specific editing logic
+    //return this.item.isBeingEditedBy(this.currentUser.username);
+    return false;
   }
 
   get isBeingViewedByCurrentUser(): boolean {
-    return !this.isBeingCreatedByCurrentUser
-      && !this.isBeingEditedByCurrentUser;
+    // TODO: IAT-666 - Replace with section-specific editing logic
+    // return !this.isBeingCreatedByCurrentUser
+    //   && !this.isBeingEditedByCurrentUser;
+    return false;
   }
 
   get isBeingEditedByAnotherUser(): boolean {
-    return this.item.isBeingEdited
-      && !this.item.isBeingEditedBy(this.currentUser.username);
+    // TODO: IAT-666 - Replace with section-specific editing logic
+    // return this.item.isBeingEdited
+    //   && !this.item.isBeingEditedBy(this.currentUser.username);
+    return false;
   }
 
   constructor(private router: Router,
@@ -80,8 +86,8 @@ export class ItemCrudComponent implements OnInit {
   commitCreateTransaction(): void {
     this.commitTransaction(
       'Finished creation.',
-      `${this.item.itemType.categoryName} Created`,
-      `The ${this.item.itemType.categoryName} has been successfully created and added to the item bank.`,
+      `${this.itemContext.item.itemType.categoryName} Created`,
+      `The ${this.itemContext.item.itemType.categoryName} has been successfully created and added to the item bank.`,
       `/?id=${this.itemDetailsComponent.currentItem.id}`);
   }
 
@@ -89,30 +95,30 @@ export class ItemCrudComponent implements OnInit {
     this.commitTransaction(
       this.form.get('commitMsg').value ? this.form.get('commitMsg').value.trim() : 'Made a change.',
       'Changes Committed',
-      `Your changes to the ${this.item.itemType.categoryName} have been committed to the item bank.`,
+      `Your changes to the ${this.itemContext.item.itemType.categoryName} have been committed to the item bank.`,
       `/?id=${this.itemDetailsComponent.currentItem.id}`);
   }
 
   rollbackCreateTransaction(): void {
     this.rollbackTransaction(
       'Creation Cancelled',
-      `The ${this.item.itemType.categoryName} you were creating has been successfully removed.`,
+      `The ${this.itemContext.item.itemType.categoryName} you were creating has been successfully removed.`,
       '/');
   }
 
   rollbackEditTransaction(): void {
     this.rollbackTransaction(
       'Changes Discarded',
-      `Your changes to the ${this.item.itemType.categoryName} have been discarded.`,
-      `/?id=${this.item.id}`);
+      `Your changes to the ${this.itemContext.item.itemType.categoryName} have been discarded.`,
+      `/?id=${this.itemContext.item.id}`);
   }
 
   beginEditTransaction(): void {
     this.itemService
-      .beginEditTransaction(this.item.id, "Began edit")
+      .beginEditTransaction(this.itemContext.item.id, "Began edit")
       .subscribe(
         () => {
-          this.loadItem(this.item.id, this.selectedTab);
+          this.loadItem(this.itemContext.item.id, this.selectedTab);
         });
   }
 
@@ -140,7 +146,7 @@ export class ItemCrudComponent implements OnInit {
           this.itemService.findItem(itemId, false /* showAlertOnError */)
             .subscribe(
               item => {
-                this.item = item;
+                this.itemContext = item;
                 this.isLoading = false;
               },
               error => {
@@ -166,8 +172,9 @@ export class ItemCrudComponent implements OnInit {
   }
 
   private rollbackTransaction(alertTitle: string, alertMessage: string, successUrl: string): void {
+    // TODO: IAT-666 - Uncomment
     this.itemService
-      .rollbackTransaction(this.item.currentTransaction.transactionId, this.item.id)
+      .rollbackTransaction(this.itemContext.item.id)
       .subscribe(
         () => {
           this.alertService.success(alertTitle, alertMessage);

@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, Output, ViewChild} from "@angular/core";
-import {Item} from "../../../services/item.service/item";
-import {StimItem} from "../../../services/item.service/stim-item";
+import {Item} from "../../../services/item.service/models/base/item";
+import {StimItem} from "../../../services/item.service/models/type/stim-item";
 import {ItemPromptComponent} from "../shared/item-prompt.component/item-prompt.component";
 
 @Component({

@@ -8,9 +8,9 @@ import {JsonObject, JsonProperty} from "json2typescript";
  */
 @JsonObject
 export class ItemOption {
-  @JsonProperty("text", String)
-  text: string = undefined;                 // Initialize to undefined so that field is mapped
-
   @JsonProperty("isCorrectAnswer", Boolean)
   isCorrectAnswer: boolean = undefined;     // Initialize to undefined so that field is mapped
+
+  @JsonProperty("text", String)
+  text: string = undefined;                 // Initialize to undefined so that field is mapped
 }

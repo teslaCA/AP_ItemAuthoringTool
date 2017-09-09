@@ -6,10 +6,10 @@
       <!-- Auto-save -->
       <div class="pull-right">
         <!-- Preview -->
-        <span *ngIf="item.supportsPreview">
+        <span *ngIf="itemContext.item.core.supportsPreview">
           <item-preview #itemPreview
-                        [itemId]="item.id"
-                        [itemType]="item.itemType.categoryName"
+                        [itemId]="itemContext.item.id"
+                        [itemType]="itemContext.item.itemType.categoryName"
                         [isBeingEditedByCurrentUser]="isBeingEditedByCurrentUser"
                         [isBeingCreatedByCurrentUser]="isBeingCreatedByCurrentUser">
           </item-preview>
@@ -21,11 +21,13 @@
         </item-auto-save>
         <!-- Item being edited by another user -->
         <div *ngIf="isBeingEditedByAnotherUser" class="alert alert-warning small">
-          <div class="mt-sm"><i class="fa fa-warning"></i> {{item.id}} is being edited by {{item.currentTransaction.username}}. Items may only be edited by one user at a time.</div>
+          <!-- IAT-666: Replace with section edit -->
+          <div class="mt-sm"><i class="fa fa-warning"></i> {{itemContext.item.id}} is being edited by
+            {{itemContext.creatorUserName}}. Items may only be edited by one user at a time.</div>
         </div>
       </div>
       <h1 class="h2 label-group blue">
-        <span class="label"><span class="label"><i class="fa {{item.itemType.icon}}"></i></span> {{item.id}}</span><span class="label">{{item.itemType.name}} <span>( {{item.itemType.code | uppercase}} )</span></span>
+        <span class="label"><span class="label"><i class="fa {{itemContext.item.itemType.icon}}"></i></span> {{itemContext.item.id}}</span><span class="label">{{itemContext.item.itemType.name}} <span>( {{itemContext.item.itemType.code | uppercase}} )</span></span>
       </h1>
 
       <div class="row">
@@ -64,14 +66,14 @@
                       <!-- Create -->
                       <span *ngIf="isBeingCreatedByCurrentUser">
                         <button class="btn btn-success btn-sm" (click)="commitModal.show()">
-                          <i class="fa fa-check-square"></i> Finish Creating {{item.itemType.categoryName}}
+                          <i class="fa fa-check-square"></i> Finish Creating {{itemContext.item.itemType.categoryName}}
                         </button>
                       </span>
 
                       <!-- Edit -->
                       <span *ngIf="isBeingEditedByCurrentUser">
                         <button class="btn btn-success btn-sm" (click)="commitModal.show()">
-                          <i class="fa fa-check-square"></i> Finish Editing {{item.itemType.categoryName}}
+                          <i class="fa fa-check-square"></i> Finish Editing {{itemContext.item.itemType.categoryName}}
                         </button>
                       </span>
 
@@ -82,7 +84,7 @@
             </div>
 
             <!-- Item type details -->
-            <item-details [item]="item"
+            <item-details [itemContext]="itemContext"
                           [isReadOnly]="isBeingViewedByCurrentUser"
                           (itemChanged)="autoSave.onItemChange($event)">
             </item-details>
@@ -93,8 +95,8 @@
         <!-- Right 6 columns -->
         <div class="col-md-6 ">
           <!-- Item tabs -->
-          <item-tabs [item]="item"
-                     [itemType]="item.itemType"
+          <item-tabs [itemContext]="itemContext"
+                     [itemType]="itemContext.item.itemType"
                      [selected]="selectedTab"
                      [isReadOnly]="isBeingViewedByCurrentUser"
                      (tabChanged)="onTabChanged($event)"
@@ -131,7 +133,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
         <h3 *ngIf="isBeingCreatedByCurrentUser" class="modal-title" id="commitCreateModalLabel">
-          Finish Creating {{item.itemType.categoryName}}
+          Finish Creating {{itemContext.item.itemType.categoryName}}
         </h3>
         <h3 *ngIf="isBeingEditedByCurrentUser" class="modal-title" id="commitEditModalLabel">
           Commit Changes
@@ -141,7 +143,7 @@
       <!-- Body (create) -->
       <div *ngIf="isBeingCreatedByCurrentUser">
         <div class="modal-body">
-          <span>Are you sure you want to finish creating this {{item.itemType.categoryName | lowercase}} and add it to the item bank?</span>
+          <span>Are you sure you want to finish creating this {{itemContext.item.itemType.categoryName | lowercase}} and add it to the item bank?</span>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-primary btn-small" (click)="commitCreateTransaction()">Yes</button>
@@ -161,7 +163,7 @@
             </div>
             <div class="row">
               <div class="col-md-12">
-                Please enter the reason for your changes to this {{item.itemType.categoryName | lowercase}}.
+                Please enter the reason for your changes to this {{itemContext.item.itemType.categoryName | lowercase}}.
               </div>
             </div>
             <div class="row">
@@ -212,7 +214,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
         <h3 *ngIf="isBeingCreatedByCurrentUser" class="modal-title" id="cancelCreateModalLabel">
-          <i class="fa fa-undo"></i> Cancel {{item.itemType.categoryName}} Creation
+          <i class="fa fa-undo"></i> Cancel {{itemContext.item.itemType.categoryName}} Creation
         </h3>
         <h3 *ngIf="isBeingEditedByCurrentUser" class="modal-title" id="cancelEditModalLabel">
           Discard Changes
@@ -222,7 +224,7 @@
       <!-- Body -->
       <div class="modal-body">
         <span *ngIf="isBeingCreatedByCurrentUser">
-          Are you sure you want to cancel creating this {{item.itemType.categoryName | lowercase}} and lose all changes you have made?
+          Are you sure you want to cancel creating this {{itemContext.item.itemType.categoryName | lowercase}} and lose all changes you have made?
         </span>
         <span *ngIf="isBeingEditedByCurrentUser">
           Are you sure you want to discard all changes you've made since you&rsquo;ve started editing?

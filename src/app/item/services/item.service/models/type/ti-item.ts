@@ -1,5 +1,5 @@
 import {JsonObject, JsonProperty} from "json2typescript";
-import {NormalItem} from "./normal-item";
+import {Item} from "../base/item";
 
 /**
  * TI Item model that can be mapped to/from JSON.
@@ -8,7 +8,7 @@ import {NormalItem} from "./normal-item";
  * See https://github.com/dhlab-basel/json2typescript for more info.
  */
 @JsonObject
-export class TiItem extends NormalItem {
+export class TiItem extends Item {
   @JsonProperty("prompt", String)
   prompt: string = undefined;                       // Initialize to undefined so that field is mapped
 

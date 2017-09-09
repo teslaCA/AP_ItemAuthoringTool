@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, Output, ViewChild} from "@angular/core";
-import {Item} from "../../../services/item.service/item";
-import {WerItem} from "../../../services/item.service/wer-item";
+import {Item} from "../../../services/item.service/models/base/item";
+import {WerItem} from "../../../services/item.service/models/type/wer-item";
 import {ItemPromptComponent} from "../shared/item-prompt.component/item-prompt.component";
 import {ItemExemplarResponsesComponent} from "../shared/item-exemplar-responses.component/item-exemplar-responses.component";
 

@@ -5,7 +5,7 @@
                  [rows]="6"
                  [isFocused]="true"
                  [isReadOnly]="isReadOnly"
-                 [text]="item.prompt"
+                 [text]="itemContext.item.core.prompt"
                  (textChange)="onItemChange()">
     </item-prompt>
   </div>
@@ -15,7 +15,7 @@
 <div class="well white">
   <div class="well-body">
     <item-exemplar-responses [isReadOnly]="isReadOnly"
-                             [exemplarResponses]="item.exemplarResponses"
+                             [exemplarResponses]="itemContext.item.core.exemplarResponses"
                              (exemplarResponsesChange)="onItemChange()">
     </item-exemplar-responses>
   </div>

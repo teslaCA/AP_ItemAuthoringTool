@@ -1,13 +1,14 @@
 import {Injectable} from "@angular/core";
-import {Http, ResponseContentType} from "@angular/http";
+import {Http} from "@angular/http";
 import {Observable} from "rxjs/Observable";
 import "rxjs/add/operator/catch";
 import "rxjs/add/operator/map";
 import "rxjs/add/observable/throw";
 import "rxjs/add/observable/fromPromise";
-import {Item} from "app/item/services/item.service/item";
+import {Item} from "app/item/services/item.service/models/base/item";
 import {HttpUtility} from "../../../core/http-utility.service/http-utility";
-import {ItemFactory} from "app/item/services/item.service/item-factory";
+import {ItemContextFactory} from "app/item/services/item.service/item-context-factory";
+import {ItemContext} from "./models/base/item-context";
 
 @Injectable()
 export class ItemService {
@@ -26,13 +27,13 @@ export class ItemService {
    */
   findItem(itemId: string,
            showAlertOnError = true,
-           showBusyIndicator = true): Observable<Item> {
+           showBusyIndicator = true): Observable<ItemContext> {
     const url = `${ItemService.serviceUrl}/${encodeURIComponent(itemId.trim())}`;
     return this.httpUtility.applyAsyncHandling(
       "Loading",
       this.http
         .get(url, HttpUtility.jsonRequestOptions)
-        .map(response => ItemFactory.fromJson(response.json())),
+        .map(response => ItemContextFactory.fromJson(response.json())),
       showAlertOnError,
       showBusyIndicator
     );
@@ -50,13 +51,13 @@ export class ItemService {
   beginCreateTransaction(itemType: string,
                          message: string,
                          showAlertOnError = true,
-                         showBusyIndicator = true): Observable<Item> {
+                         showBusyIndicator = true): Observable<ItemContext> {
     const url = `${ItemService.serviceUrl}/transactions`;
     return this.httpUtility.applyAsyncHandling(
       "Creating",
       this.http
         .post(url, {'type': itemType, message: message}, HttpUtility.jsonRequestOptions)
-        .map(response => ItemFactory.fromJson(response.json())),
+        .map(response => ItemContextFactory.fromJson(response.json())),
       showAlertOnError,
       showBusyIndicator
     );
@@ -75,13 +76,13 @@ export class ItemService {
   beginEditTransaction(itemId: string,
                        message: string,
                        showAlertOnError = true,
-                       showBusyIndicator = true): Observable<Item> {
+                       showBusyIndicator = true): Observable<ItemContext> {
     const url = `${ItemService.serviceUrl}/${itemId}/transactions`;
     return this.httpUtility.applyAsyncHandling(
       "Opening for edit",
       this.http
         .post(url, {message: message}, HttpUtility.jsonRequestOptions)
-        .map(response => ItemFactory.fromJson(response.json())),
+        .map(response => ItemContextFactory.fromJson(response.json())),
       showAlertOnError,
       showBusyIndicator
     );
@@ -91,19 +92,17 @@ export class ItemService {
    * Saves a change to the scratchpad branch in the item bank.
    * Changes may only be saved to an item that has an open create or edit transaction.
    * Changes may only be saved by the user who is creating or editing the item.
-   * @param transactionId of the create or edit transaction that is in progress
    * @param item to have changes saved
    * @param message to be captured as the commit message for this change in the repo
    * @param showAlertOnError whether to show alert on error
    * @param showBusyIndicator whether to show busy indicator while executing
    * @returns Observable indicating when the update has completed
    */
-  updateTransaction(transactionId: string,
-                    item: Item,
-                    message: string,
-                    showAlertOnError = true,
-                    showBusyIndicator = true): Observable<void> {
-    const url = `${ItemService.serviceUrl}/${item.id}/transactions/${transactionId}`;
+  updateItem(item: Item,
+             message: string,
+             showAlertOnError = true,
+             showBusyIndicator = true): Observable<void> {
+    const url = `${ItemService.serviceUrl}/${item.id}`;
     return this.httpUtility.applyAsyncHandling(
       "Saving changes",
       this.http
@@ -148,17 +147,15 @@ export class ItemService {
    * current transaction is a "create item" transaction then the repo is removed from the item
    * bank.  If the current transaction is an "edit item" transaction then the scratchpad branch
    * is removed.
-   * @param transactionId of the transaction to roll back
    * @param itemId of the item to have the current transaction rolled back
    * @param showAlertOnError whether to show alert on error
    * @param showBusyIndicator whether to show busy indicator while executing
    * @returns Observable indicating when the transaction has been rolled back
    */
-  rollbackTransaction(transactionId: string,
-                      itemId: string,
+  rollbackTransaction(itemId: string,
                       showAlertOnError = true,
                       showBusyIndicator = true): Observable<void> {
-    const url = `${ItemService.serviceUrl}/${itemId}/transactions/${transactionId}`;
+    const url = `${ItemService.serviceUrl}/${itemId}`;
     return this.httpUtility.applyAsyncHandling(
       "Discarding changes",
       this.http

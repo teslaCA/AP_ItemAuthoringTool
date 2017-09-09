@@ -1,6 +1,6 @@
 import {JsonObject, JsonProperty} from "json2typescript";
-import {NormalItem} from "./normal-item";
-import {ItemPart} from "./item-part";
+import {ItemPart} from "../shared/item-part";
+import {Item} from "../base/item";
 /**
  * EBSR Item model that can be mapped to/from JSON.
  *
@@ -8,7 +8,7 @@ import {ItemPart} from "./item-part";
  * See https://github.com/dhlab-basel/json2typescript for more info.
  */
 @JsonObject
-export class EbsrItem extends NormalItem {
+export class EbsrItem extends Item {
   @JsonProperty("prompt", String)
   prompt: string = undefined;               // Initialize to undefined so that field is mapped
 

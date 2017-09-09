@@ -3,7 +3,7 @@ import {FormArray, FormBuilder, FormGroup} from "@angular/forms";
 import {
   TiItemTable, TiItemTableColumn, TiItemTableRow,
   TiItemTableRowCell
-} from "../../../../services/item.service/ti-item";
+} from "../../../../services/item.service/models/type/ti-item";
 
 @Component({
   selector: 'item-ti-table',

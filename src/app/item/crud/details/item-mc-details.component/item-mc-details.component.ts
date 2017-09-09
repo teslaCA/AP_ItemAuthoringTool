@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, Output, ViewChild} from "@angular/core";
-import {Item} from "../../../services/item.service/item";
+import {Item} from "../../../services/item.service/models/base/item";
 import {ItemPromptComponent} from "../shared/item-prompt.component/item-prompt.component";
-import {McItem} from "../../../services/item.service/mc-item";
+import {McItem} from "../../../services/item.service/models/type/mc-item";
 import {ItemMcOptionsComponent} from "../shared/item-mc-options.component/item-mc-options.component";
 
 @Component({

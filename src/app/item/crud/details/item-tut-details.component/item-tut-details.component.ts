@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
-import {TutItem} from "../../../services/item.service/tut-item";
+import {TutItem} from "../../../services/item.service/models/type/tut-item";
 import {ItemPromptComponent} from "../shared/item-prompt.component/item-prompt.component";
-import {Item} from "../../../services/item.service/item";
+import {Item} from "../../../services/item.service/models/base/item";
 
 @Component({
   selector: 'item-tut-details',

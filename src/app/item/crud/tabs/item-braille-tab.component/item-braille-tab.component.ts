@@ -1,10 +1,10 @@
 import {Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild} from '@angular/core';
-import {ItemBraille} from "../../../services/item.service/item-braille";
+import {ItemBraille} from "../../../services/item.service/models/shared/item-braille";
 import {FormBuilder} from "@angular/forms";
 import {Logger} from "../../../../core/logger.service/logger.service";
 import {FileItem, FileUploader, ParsedResponseHeaders} from "ng2-file-upload";
-import {Item} from "../../../services/item.service/item";
-import {ItemAttachment} from "../../../services/item.service/item-attachment";
+import {Item} from "../../../services/item.service/models/base/item";
+import {ItemAttachment} from "../../../services/item.service/models/shared/item-attachment";
 import {ItemService} from "../../../services/item.service/item.service";
 import {AlertService} from "../../../../core/alert.service/alert.service";
 import {ModalDirective} from "ngx-bootstrap";
@@ -52,11 +52,13 @@ export class ItemBrailleTabComponent implements OnInit, OnChanges {
 
     // Configure uploader component
     let itemFileUrl = "";
-    if (!this.isReadOnly) {
-      itemFileUrl = this.serviceUrl + '/'
-        + this.item.id + '/transactions/'
-        + this.item.currentTransaction.transactionId + '/braille';
-    }
+
+    // TODO: IAT-666 - Uncomment
+    // if (!this.isReadOnly) {
+    //   itemFileUrl = this.serviceUrl + '/'
+    //     + this.item.id + '/transactions/'
+    //     + this.item.currentTransaction.transactionId + '/braille';
+    // }
     this.uploader = new FileUploader({url: itemFileUrl});
     this.uploader.setOptions({autoUpload: true});
 
@@ -140,18 +142,19 @@ export class ItemBrailleTabComponent implements OnInit, OnChanges {
   }
 
   deleteFile(index: number, fileName: string): void {
-    this.itemService
-      .deleteBrailleFile(
-        this.item.currentTransaction.transactionId,
-        this.item.id,
-        fileName, true, true)
-      .subscribe(() => {
-          this.brailleAttachments.splice(index, 1);
-
-          this.alertService.success('Attachment Deleted',
-            'Braille file ' + fileName + ' was successfully deleted');
-        }
-      );
+    // TODO: IAT-666 - Uncomment
+    // this.itemService
+    //   .deleteBrailleFile(
+    //     this.item.currentTransaction.transactionId,
+    //     this.item.id,
+    //     fileName, true, true)
+    //   .subscribe(() => {
+    //       this.brailleAttachments.splice(index, 1);
+    //
+    //       this.alertService.success('Attachment Deleted',
+    //         'Braille file ' + fileName + ' was successfully deleted');
+    //     }
+    //   );
     this.deleteFileName = "";
     this.deleteModal.hide();
   }

@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, Output, ViewChild} from "@angular/core";
-import {Item} from "../../../services/item.service/item";
+import {Item} from "../../../services/item.service/models/base/item";
 import {ItemPromptComponent} from "../shared/item-prompt.component/item-prompt.component";
-import {EbsrItem} from "../../../services/item.service/ebsr-item";
+import {EbsrItem} from "../../../services/item.service/models/type/ebsr-item";
 import {ItemMcOptionsComponent} from "../shared/item-mc-options.component/item-mc-options.component";
 import {ItemMsOptionsComponent} from "../shared/item-ms-options.component/item-ms-options.component";
 

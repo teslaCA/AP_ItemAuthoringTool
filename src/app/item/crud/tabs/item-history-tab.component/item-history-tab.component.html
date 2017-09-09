@@ -1,6 +1,6 @@
-<div *ngIf="itemChanges">
+<div *ngIf="itemVersions">
   <a href="/api/ims/v1/items/{{itemId}}/history/csv" class="btn btn-default btn-xs mb-sm"><i class="fa fa-cloud-download"></i> Download History</a>
-  <div *ngFor="let history of itemChanges;
+  <div *ngFor="let history of itemVersions;
                let index = index;
                let isOdd = odd;
                let isEven = even;">
@@ -9,7 +9,7 @@
         <div class="col-xs-12">
           <p>
             <strong>{{history.changedOn | date:'short'}}</strong><br />
-            {{history.changedBy}} <em>{{history.message}}</em>
+            {{history.changedByFullName}} <em>{{history.message}}</em>
           </p>
         </div>
       </div>

@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, Output, ViewChild} from "@angular/core";
-import {Item} from "../../../services/item.service/item";
+import {Item} from "../../../services/item.service/models/base/item";
 import {ItemPromptComponent} from "../shared/item-prompt.component/item-prompt.component";
-import {TiItem} from "../../../services/item.service/ti-item";
+import {TiItem} from "../../../services/item.service/models/type/ti-item";
 import {ItemTiTableComponent} from "../shared/item-ti-table.component/item-ti-table.component";
 
 @Component({

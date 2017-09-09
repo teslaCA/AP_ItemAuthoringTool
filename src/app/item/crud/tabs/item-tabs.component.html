@@ -25,16 +25,16 @@
           <li role="menuitem">
             <a class="dropdown-item" (click)="select(tab.history)">History</a>
           </li>
-          <li role="menuitem" *ngIf="item.supportsStimulus">
+          <li role="menuitem" *ngIf="itemContext.item.core.supportsStimulus">
             <a class="dropdown-item" (click)="select(tab.stimulus)">Stimulus</a>
           </li>
-          <li role="menuitem" *ngIf="item.supportsTutorial">
+          <li role="menuitem" *ngIf="itemContext.item.core.supportsTutorial">
             <a class="dropdown-item" (click)="select(tab.tutorial)">Tutorial</a>
           </li>
           <li role="menuitem">
             <a class="dropdown-item" (click)="select(tab.validation)">Validation</a>
           </li>
-          <li role="menuitem" *ngIf="item.supportsWorkflow">
+          <li role="menuitem" *ngIf="itemContext.item.core.supportsWorkflow">
             <a class="dropdown-item" (click)="select(tab.workflow)">Workflow</a>
           </li>
         </ul>
@@ -46,20 +46,21 @@
   <div class="item-box tab-content well white">
     <div class="well-body">
       <!-- Braille -->
+      <!-- IAT-666: Replace [item] with [itemContext] -->
       <item-braille-tab *ngIf="isSelected(tab.braille)"
                         [isReadOnly]="isReadOnly"
-                        [item]="item"
+                        [item]="itemContext.item"
                         (itemBrailleChanged)="onItemChanged()">
       </item-braille-tab>
 
       <!-- History -->
       <item-history-tab *ngIf="isSelected(tab.history)"
-                        [itemId]="item.id">
+                        [itemId]="itemContext.item.id">
       </item-history-tab>
 
       <!-- Validation -->
       <item-validation-tab *ngIf="isSelected(tab.validation)"
-                        [itemId]="item.id">
+                        [itemId]="itemContext.item.id">
       </item-validation-tab>
 
       <!-- Stimulus -->
@@ -83,7 +84,7 @@
       <!-- Workflow -->
       <item-workflow-tab *ngIf="isSelected(tab.workflow)"
                          [isReadOnly]="isReadOnly"
-                         [workflowStatusCode]="item.workflowStatusCode"
+                         [workflowStatusCode]="itemContext.item.core.workflowStatusCode"
                          (workflowStatusCodeChange)="onItemChanged()">
       </item-workflow-tab>
     </div>

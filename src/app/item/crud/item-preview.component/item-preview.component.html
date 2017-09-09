@@ -28,7 +28,7 @@
               </button>
               <button *ngIf="itemChanges && selectedItemChange.changedOn" dropdownToggle type="button" class="btn btn-default dropdown-toggle">
                 <span class="date">{{selectedItemChange.changedOn | date:'short'}}</span> -
-                <span class="owner">{{selectedItemChange.changedBy}}</span> -
+                <span class="owner">{{selectedItemChange.changedByFullName}}</span> -
                 <span class="message">{{selectedItemChange.message}}</span>
                 <span class="caret"></span>
               </button>
