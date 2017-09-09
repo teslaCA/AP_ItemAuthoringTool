@@ -1,6 +1,6 @@
 import {JsonConvert} from "json2typescript";
 
-import {SaItemContext} from "./models/type/sa-item";
+import {SaItem, SaItemContext, SaItemCore} from "./models/type/sa-item";
 import {itemTypes} from "../item-type.service/item-types";
 import {ItemContext} from "./models/base/item-context";
 
@@ -11,11 +11,14 @@ export class ItemContextFactory {
    * Important: json2typescript fails if this static method is placed on the Item abstract base class
    * which is why this method was moved to a dedicated ItemFactory class.
    *
+   * Important: json2typescript doesn't generate strongly-typed nested objects.  This is why the ItemContext,
+   * Item, and ItemCore objects are explicitly mapped rather than just mapping the ItemContext.
+   *
    * @param jsonObject from which the new item will be created
    * @returns the new Item
    */
   static fromJson(jsonObject: { item: { type: string } }): ItemContext {
-    let itemResponse: ItemContext;
+    let itemContext: ItemContext;
 
     // Initialize item from JSON
     switch (jsonObject.item.type.toLowerCase()) {
@@ -32,7 +35,9 @@ export class ItemContextFactory {
       //   break;
 
       case 'sa':
-        itemResponse = JsonConvert.deserializeObject(jsonObject, SaItemContext);
+        itemContext = JsonConvert.deserializeObject(jsonObject, SaItemContext);
+        itemContext.item = JsonConvert.deserializeObject(itemContext.item, SaItem);
+        itemContext.item.core = JsonConvert.deserializeObject(itemContext.item.core, SaItemCore);
         break;
 
       // case 'stim':
@@ -56,8 +61,8 @@ export class ItemContextFactory {
     }
 
     // Inject item type
-    itemResponse.item.itemType = itemTypes.find(type => type.code === itemResponse.item.type);
+    itemContext.item.itemType = itemTypes.find(type => type.code === itemContext.item.type);
 
-    return itemResponse;
+    return itemContext;
   }
 }
