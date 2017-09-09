@@ -12,5 +12,5 @@ export class User {
   fullName: string = undefined;   // Initialize to undefined so that field is mapped
 
   @JsonProperty("username", String)
-  username: string = undefined;   // Initialize to undefined so that field is mapped
+  userName: string = undefined;   // Initialize to undefined so that field is mapped
 }

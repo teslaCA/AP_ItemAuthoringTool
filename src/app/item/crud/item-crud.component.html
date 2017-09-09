@@ -2,7 +2,6 @@
   <div *ngIf="!isLoading" class="container">
     <div *ngIf="!isError">
 
-      <!-- Item title -->
       <!-- Auto-save -->
       <div class="pull-right">
         <!-- Preview -->
@@ -10,22 +9,18 @@
           <item-preview #itemPreview
                         [itemId]="itemContext.item.id"
                         [itemType]="itemContext.item.itemType.categoryName"
-                        [isBeingEditedByCurrentUser]="isBeingEditedByCurrentUser"
-                        [isBeingCreatedByCurrentUser]="isBeingCreatedByCurrentUser">
+                        [isBeingEditedByCurrentUser]="isCurrentUserEditing"
+                        [isBeingCreatedByCurrentUser]="isCurrentUserCreating">
           </item-preview>
         </span>
 
         <item-auto-save #autoSave
-                        [enabled]="isBeingCreatedByCurrentUser || isBeingEditedByCurrentUser"
+                        [enabled]="isCurrentUserCreating || isCurrentUserEditing"
                         [debounceTimeMillis]="3000">
         </item-auto-save>
-        <!-- Item being edited by another user -->
-        <div *ngIf="isBeingEditedByAnotherUser" class="alert alert-warning small">
-          <!-- IAT-666: Replace with section edit -->
-          <div class="mt-sm"><i class="fa fa-warning"></i> {{itemContext.item.id}} is being edited by
-            {{itemContext.creatorUserName}}. Items may only be edited by one user at a time.</div>
-        </div>
       </div>
+
+      <!-- Item title -->
       <h1 class="h2 label-group blue">
         <span class="label"><span class="label"><i class="fa {{itemContext.item.itemType.icon}}"></i></span> {{itemContext.item.id}}</span><span class="label">{{itemContext.item.itemType.name}} <span>( {{itemContext.item.itemType.code | uppercase}} )</span></span>
       </h1>
@@ -44,36 +39,82 @@
 
                     <div class="pull-right">
 
-                      <!-- Cancel -->
-                      <span *ngIf="isBeingCreatedByCurrentUser">
+                      <!-- ==================== Create actions & messages ==================== -->
+                      <!-- Cancel creating -->
+                      <span *ngIf="isCurrentUserCreating">
                         <button class="btn btn-default btn-sm" (click)="cancelModal.show()">
                           <i class="fa fa-undo"></i> Cancel
                         </button>
                       </span>
-                      <span *ngIf="isBeingEditedByCurrentUser">
-                        <button class="btn btn-default btn-sm" (click)="cancelModal.show()">
-                          <i class="fa fa-undo"></i> Discard
-                        </button>
-                      </span>
-
-                      <!-- Begin editing -->
-                      <span *ngIf="isBeingViewedByCurrentUser">
-                        <button class="btn btn-success btn-sm" (click)="beginEditTransaction()" [disabled]="isBeingEditedByAnotherUser">
-                          <i class="fa fa-edit"></i> Edit
-                        </button>
-                      </span>
 
                       <!-- Finish creating -->
-                      <span *ngIf="isBeingCreatedByCurrentUser">
+                      <span *ngIf="isCurrentUserCreating">
                         <button class="btn btn-success btn-sm" (click)="commitModal.show()">
                           <i class="fa fa-check-square"></i> Finish Creating {{itemContext.item.itemType.categoryName}}
                         </button>
                       </span>
 
-                      <!-- Finish editing -->
-                      <span *ngIf="isBeingEditedByCurrentUser">
+                      <!-- ==================== Core actions & messages ==================== -->
+                      <!-- Message indicating another user is editing core -->
+                      <div *ngIf="isAnotherUserEditing('core')" class="alert alert-warning small">
+                        <div class="mt-sm"><i class="fa fa-warning"></i> {{getUserNameEditing('core')}} is editing core.</div>
+                      </div>
+
+                      <!-- Message indicating current user is editing core -->
+                      <div *ngIf="isCurrentUserEditing('core')" class="alert alert-info small">
+                        <div class="mt-sm"><i class="fa fa-info"></i> You are editing core.</div>
+                      </div>
+
+                      <!-- Begin editing core -->
+                      <span *ngIf="canCurrentUserBeginEditing('core')">
+                        <button class="btn btn-success btn-sm" (click)="beginEditTransaction('core')">
+                          <i class="fa fa-edit"></i> Edit Core
+                        </button>
+                      </span>
+
+                      <!-- Cancel editing core -->
+                      <span *ngIf="isCurrentUserEditing('core')">
+                        <button class="btn btn-default btn-sm" (click)="cancelModal.show()">
+                          <i class="fa fa-undo"></i> Discard
+                        </button>
+                      </span>
+
+                      <!-- Finish editing core -->
+                      <span *ngIf="isCurrentUserEditing('core')">
                         <button class="btn btn-success btn-sm" (click)="commitModal.show()">
-                          <i class="fa fa-check-square"></i> Finish Editing {{itemContext.item.itemType.categoryName}}
+                          <i class="fa fa-check-square"></i> Finish Editing Core
+                        </button>
+                      </span>
+
+                      <!-- ==================== Braille actions & messages ==================== -->
+                      <!-- Message indicating another user is editing braille -->
+                      <div *ngIf="isAnotherUserEditing('braille')" class="alert alert-warning small">
+                        <div class="mt-sm"><i class="fa fa-warning"></i> {{getUserNameEditing('braille')}} is editing braille.</div>
+                      </div>
+
+                      <!-- Message indicating current user is editing core -->
+                      <div *ngIf="isCurrentUserEditing('braille')" class="alert alert-info small">
+                        <div class="mt-sm"><i class="fa fa-info"></i> You are editing braille.</div>
+                      </div>
+
+                      <!-- Begin editing braille -->
+                      <span *ngIf="canCurrentUserBeginEditing('braille')">
+                        <button class="btn btn-success btn-sm" (click)="beginEditTransaction('braille')">
+                          <i class="fa fa-edit"></i> Edit Braille
+                        </button>
+                      </span>
+
+                      <!-- Cancel editing braille -->
+                      <span *ngIf="isCurrentUserEditing('braille')">
+                        <button class="btn btn-default btn-sm" (click)="cancelModal.show()">
+                          <i class="fa fa-undo"></i> Discard
+                        </button>
+                      </span>
+
+                      <!-- Finish editing braille -->
+                      <span *ngIf="isCurrentUserEditing('braille')">
+                        <button class="btn btn-success btn-sm" (click)="commitModal.show()">
+                          <i class="fa fa-check-square"></i> Finish Editing Braille
                         </button>
                       </span>
 
@@ -84,8 +125,9 @@
             </div>
 
             <!-- Item type details -->
+            <!-- TODO: IAT-666 disable core and braille independently, current this disables all if core being edited -->
             <item-details [itemContext]="itemContext"
-                          [isReadOnly]="isBeingViewedByCurrentUser"
+                          [isReadOnly]="!isCurrentUserCreatingOrEditing('core')"
                           (itemChanged)="autoSave.onItemChange($event)">
             </item-details>
 
@@ -95,10 +137,11 @@
         <!-- Right 6 columns -->
         <div class="col-md-6 ">
           <!-- Item tabs -->
+          <!-- TODO: IAT-666 disable core and braille independently, current this disables all if core being edited -->
           <item-tabs [itemContext]="itemContext"
                      [itemType]="itemContext.item.itemType"
                      [selected]="selectedTab"
-                     [isReadOnly]="isBeingViewedByCurrentUser"
+                     [isReadOnly]="!isCurrentUserCreatingOrEditing('core')"
                      (tabChanged)="onTabChanged($event)"
                      (itemChanged)="autoSave.onItemChange($event)">
           </item-tabs>
@@ -132,16 +175,16 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="commitModal.hide()">
           <span aria-hidden="true">&times;</span>
         </button>
-        <h3 *ngIf="isBeingCreatedByCurrentUser" class="modal-title" id="commitCreateModalLabel">
+        <h3 *ngIf="isCurrentUserCreating" class="modal-title" id="commitCreateModalLabel">
           Finish Creating {{itemContext.item.itemType.categoryName}}
         </h3>
-        <h3 *ngIf="isBeingEditedByCurrentUser" class="modal-title" id="commitEditModalLabel">
+        <h3 *ngIf="isCurrentUserEditing" class="modal-title" id="commitEditModalLabel">
           Commit Changes
         </h3>
       </div>
 
       <!-- Body (create) -->
-      <div *ngIf="isBeingCreatedByCurrentUser">
+      <div *ngIf="isCurrentUserCreating">
         <div class="modal-body">
           <span>Are you sure you want to finish creating this {{itemContext.item.itemType.categoryName | lowercase}} and add it to the item bank?</span>
         </div>
@@ -153,7 +196,7 @@
       </div>
 
       <!-- Body (edit) -->
-      <div *ngIf="isBeingEditedByCurrentUser">
+      <div *ngIf="isCurrentUserEditing">
         <form [formGroup]="form" (submit)="commitEditTransaction()">
           <div class="modal-body">
             <div class="row">
@@ -213,31 +256,31 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="cancelModal.hide()">
           <span aria-hidden="true">&times;</span>
         </button>
-        <h3 *ngIf="isBeingCreatedByCurrentUser" class="modal-title" id="cancelCreateModalLabel">
+        <h3 *ngIf="isCurrentUserCreating" class="modal-title" id="cancelCreateModalLabel">
           <i class="fa fa-undo"></i> Cancel {{itemContext.item.itemType.categoryName}} Creation
         </h3>
-        <h3 *ngIf="isBeingEditedByCurrentUser" class="modal-title" id="cancelEditModalLabel">
+        <h3 *ngIf="isCurrentUserEditing" class="modal-title" id="cancelEditModalLabel">
           Discard Changes
         </h3>
       </div>
 
       <!-- Body -->
       <div class="modal-body">
-        <span *ngIf="isBeingCreatedByCurrentUser">
+        <span *ngIf="isCurrentUserCreating">
           Are you sure you want to cancel creating this {{itemContext.item.itemType.categoryName | lowercase}} and lose all changes you have made?
         </span>
-        <span *ngIf="isBeingEditedByCurrentUser">
+        <span *ngIf="isCurrentUserEditing">
           Are you sure you want to discard all changes you've made since you&rsquo;ve started editing?
         </span>
       </div>
       <div class="modal-footer">
-        <button *ngIf="isBeingCreatedByCurrentUser"
+        <button *ngIf="isCurrentUserCreating"
                 type="button"
                 class="btn btn-primary btn-small"
                 (click)="rollbackCreateTransaction()">
           Yes
         </button>
-        <button *ngIf="isBeingEditedByCurrentUser"
+        <button *ngIf="isCurrentUserEditing"
                 type="button"
                 class="btn btn-primary btn-small"
                 (click)="rollbackEditTransaction()">

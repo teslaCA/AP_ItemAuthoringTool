@@ -26,10 +26,10 @@ export class ItemCrudComponent implements OnInit {
   @ViewChild(ItemDetailsComponent) itemDetailsComponent;
 
   get mode(): string {
-    if (this.isBeingCreatedByCurrentUser) {
+    if (this.isCurrentUserCreating) {
       return "Creating";
     }
-    if (this.isBeingEditedByCurrentUser) {
+    if (this.isCurrentUserEditing) {
       return "Editing";
     }
     if (this.isBeingViewedByCurrentUser) {
@@ -38,27 +38,37 @@ export class ItemCrudComponent implements OnInit {
     return "";
   }
 
-  get isBeingCreatedByCurrentUser(): boolean {
-    return this.itemContext.isBeingCreatedBy(this.currentUser.username);
+  canCurrentUserBeginEditing(section: string): boolean {
+    return !this.itemContext.isSectionBeingEdited(section)
+      && !this.itemContext.isAnySectionBeingEditedBy(this.currentUser.userName);
   }
 
-  get isBeingEditedByCurrentUser(): boolean {
-    // TODO: IAT-666 - Replace with section-specific editing logic
-    //return this.item.isBeingEditedBy(this.currentUser.username);
-    return false;
+  isCurrentUserCreatingOrEditing(section: string): boolean {
+    return this.isCurrentUserCreating
+      || this.isCurrentUserEditing(section);
+  }
+
+  isCurrentUserEditing(section: string): boolean {
+    return this.itemContext.isSectionBeingEditedBy(section, this.currentUser.userName);
+  }
+
+  isAnotherUserEditing(section: string): boolean {
+    return this.itemContext.isSectionBeingEdited(section)
+      && !this.itemContext.isSectionBeingEditedBy(section, this.currentUser.userName);
+  }
+
+  getUserNameEditing(section: string): string {
+    return this.itemContext.getSectionEditorUserName(section);
+  }
+
+  get isCurrentUserCreating(): boolean {
+    return this.itemContext.isBeingCreatedBy(this.currentUser.userName);
   }
 
   get isBeingViewedByCurrentUser(): boolean {
     // TODO: IAT-666 - Replace with section-specific editing logic
     // return !this.isBeingCreatedByCurrentUser
     //   && !this.isBeingEditedByCurrentUser;
-    return false;
-  }
-
-  get isBeingEditedByAnotherUser(): boolean {
-    // TODO: IAT-666 - Replace with section-specific editing logic
-    // return this.item.isBeingEdited
-    //   && !this.item.isBeingEditedBy(this.currentUser.username);
     return false;
   }
 
@@ -113,9 +123,9 @@ export class ItemCrudComponent implements OnInit {
       `/?id=${this.itemContext.item.id}`);
   }
 
-  beginEditTransaction(): void {
+  beginEditTransaction(section: string): void {
     this.itemService
-      .beginEditTransaction(this.itemContext.item.id, "Began edit")
+      .beginEditTransaction(this.itemContext.item.id, section,"Began edit")
       .subscribe(
         () => {
           this.loadItem(this.itemContext.item.id, this.selectedTab);
@@ -169,7 +179,6 @@ export class ItemCrudComponent implements OnInit {
   }
 
   private rollbackTransaction(alertTitle: string, alertMessage: string, successUrl: string): void {
-    // TODO: IAT-666 - Uncomment
     this.itemService
       .rollbackTransaction(this.itemContext.item.id)
       .subscribe(

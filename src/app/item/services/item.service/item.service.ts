@@ -74,10 +74,11 @@ export class ItemService {
    * @returns Observable containing the item in its current state
    */
   beginEditTransaction(itemId: string,
+                       section: string,
                        message: string,
                        showAlertOnError = true,
                        showBusyIndicator = true): Observable<ItemContext> {
-    const url = `${ItemService.serviceUrl}/${itemId}/transactions`;
+    const url = `${ItemService.serviceUrl}/${itemId}/transactions/${section}`;
     return this.httpUtility.applyAsyncHandling(
       "Opening for edit",
       this.http
