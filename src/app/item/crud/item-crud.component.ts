@@ -159,10 +159,7 @@ export class ItemCrudComponent implements OnInit {
 
   private commitTransaction(commitMessage: string, alertTitle: string, alertMessage: string, successUrl: string) {
     this.itemService
-      .commitTransaction(
-        this.itemDetailsComponent.currentItem.currentTransaction.transactionId,
-        this.itemDetailsComponent.currentItem,
-        commitMessage)
+      .commitTransaction(this.itemDetailsComponent.currentItem, commitMessage)
       .subscribe(
         () => {
           this.alertService.success(alertTitle, alertMessage);

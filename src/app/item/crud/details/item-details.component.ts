@@ -32,21 +32,21 @@ export class ItemDetailsComponent {
   get currentItem(): Item {
     switch (this.itemContext.item.type) {
       case 'ebsr':
-        return this.itemEbsrDetailsComponent.item;
+        return this.itemEbsrDetailsComponent.itemContext.item;
       case 'tut':
-        return this.itemTutDetailsComponent.item;
+        return this.itemTutDetailsComponent.itemContext.item;
       case 'mc':
-        return this.itemMcDetailsComponent.item;
+        return this.itemMcDetailsComponent.itemContext.item;
       case 'ms':
-        return this.itemMsDetailsComponent.item;
+        return this.itemMsDetailsComponent.itemContext.item;
       case 'sa':
-        return this.itemSaDetailsComponent.item;
+        return this.itemSaDetailsComponent.itemContext.item;
       case 'stim':
-        return this.itemStimDetailsComponent.item;
+        return this.itemStimDetailsComponent.itemContext.item;
       case 'ti':
-        return this.itemTiDetailsComponent.item;
+        return this.itemTiDetailsComponent.itemContext.item;
       case 'wer':
-        return this.itemWerDetailsComponent.item;
+        return this.itemWerDetailsComponent.itemContext.item;
       default:
         throw new Error(`Cannot get current item of unknown type ${this.itemContext.item.type}`);
     }

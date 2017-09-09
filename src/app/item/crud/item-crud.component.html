@@ -56,21 +56,21 @@
                         </button>
                       </span>
 
-                      <!-- View -->
+                      <!-- Begin editing -->
                       <span *ngIf="isBeingViewedByCurrentUser">
                         <button class="btn btn-success btn-sm" (click)="beginEditTransaction()" [disabled]="isBeingEditedByAnotherUser">
                           <i class="fa fa-edit"></i> Edit
                         </button>
                       </span>
 
-                      <!-- Create -->
+                      <!-- Finish creating -->
                       <span *ngIf="isBeingCreatedByCurrentUser">
                         <button class="btn btn-success btn-sm" (click)="commitModal.show()">
                           <i class="fa fa-check-square"></i> Finish Creating {{itemContext.item.itemType.categoryName}}
                         </button>
                       </span>
 
-                      <!-- Edit -->
+                      <!-- Finish editing -->
                       <span *ngIf="isBeingEditedByCurrentUser">
                         <button class="btn btn-success btn-sm" (click)="commitModal.show()">
                           <i class="fa fa-check-square"></i> Finish Editing {{itemContext.item.itemType.categoryName}}

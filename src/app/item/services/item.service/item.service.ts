@@ -126,12 +126,11 @@ export class ItemService {
    * @param showBusyIndicator whether to show busy indicator while executing
    * @returns Observable indicating when the transaction has been committed
    */
-  commitTransaction(transactionId: string,
-                    item: Item,
+  commitTransaction(item: Item,
                     message: string,
                     showAlertOnError = true,
                     showBusyIndicator = true): Observable<void> {
-    const url = `${ItemService.serviceUrl}/${item.id}/transactions/${transactionId}`;
+    const url = `${ItemService.serviceUrl}/${item.id}/transactions`;
     return this.httpUtility.applyAsyncHandling(
       "Committing changes",
       this.http
@@ -155,7 +154,7 @@ export class ItemService {
   rollbackTransaction(itemId: string,
                       showAlertOnError = true,
                       showBusyIndicator = true): Observable<void> {
-    const url = `${ItemService.serviceUrl}/${itemId}`;
+    const url = `${ItemService.serviceUrl}/${itemId}/transactions`;
     return this.httpUtility.applyAsyncHandling(
       "Discarding changes",
       this.http
