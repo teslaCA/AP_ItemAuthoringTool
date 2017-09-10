@@ -3,6 +3,7 @@ import {JsonConvert} from "json2typescript";
 import {SaItem, SaItemContext, SaItemCore} from "./models/type/sa-item";
 import {itemTypes} from "../item-type.service/item-types";
 import {ItemContext} from "./models/base/item-context";
+import {WerItem, WerItemContext, WerItemCore} from "./models/type/wer-item";
 
 export class ItemContextFactory {
   /**
@@ -47,11 +48,13 @@ export class ItemContextFactory {
       // case 'ti':
       //   item = JsonConvert.deserializeObject(jsonObject, TiItem);
       //   break;
-      //
-      // case 'wer':
-      //   item = JsonConvert.deserializeObject(jsonObject, WerItem);
-      //   break;
-      //
+
+      case 'wer':
+        itemContext = JsonConvert.deserializeObject(jsonObject, WerItemContext);
+        itemContext.item = JsonConvert.deserializeObject(itemContext.item, WerItem);
+        itemContext.item.core = JsonConvert.deserializeObject(itemContext.item.core, WerItemCore);
+        break;
+
       // case 'tut':
       //   item = JsonConvert.deserializeObject(jsonObject, TutItem);
       //   break;

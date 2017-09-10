@@ -42,12 +42,12 @@
                  <!--(itemChanged)="onItemChanged($event)">-->
 <!--</item-ti-details>-->
 
-<!--&lt;!&ndash; WER &ndash;&gt;-->
-<!--<item-wer-details *ngIf="itemContext.type=='wer'"-->
-                  <!--[item]="itemContext"-->
-                  <!--[isReadOnly]="isReadOnly"-->
-                  <!--(itemChanged)="onItemChanged($event)">-->
-<!--</item-wer-details>-->
+<!-- WER -->
+<item-wer-details *ngIf="itemContext.item.type=='wer'"
+                  [itemContext]="itemContext"
+                  [isReadOnly]="isReadOnly"
+                  (itemChanged)="onItemChanged($event)">
+</item-wer-details>
 
 <!--&lt;!&ndash; TUT &ndash;&gt;-->
 <!--<item-tut-details *ngIf="itemContext.type=='tut'"-->

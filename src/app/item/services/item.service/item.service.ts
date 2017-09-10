@@ -166,6 +166,7 @@ export class ItemService {
     );
   }
 
+  // TODO: Generalize this function, and move it to an item-file-service
   /**
    * @param itemId of the item to have the current transaction
    * @param fileName of the file to be deleted
