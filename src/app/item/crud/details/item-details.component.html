@@ -1,21 +1,21 @@
 <!-- IAT-666: Uncomment -->
 <!--&lt;!&ndash; EBSR &ndash;&gt;-->
-<!--<item-ebsr-details *ngIf="itemContext.type=='ebsr'"-->
-                   <!--[item]="itemContext"-->
+<!--<item-ebsr-details *ngIf="itemContext.item.type=='ebsr'"-->
+                   <!--[itemContext]="itemContext"-->
                    <!--[isReadOnly]="isReadOnly"-->
                    <!--(itemChanged)="onItemChanged($event)">-->
 <!--</item-ebsr-details>-->
 
 <!--&lt;!&ndash; MC &ndash;&gt;-->
-<!--<item-mc-details *ngIf="itemContext.type=='mc'"-->
-                 <!--[item]="itemContext"-->
+<!--<item-mc-details *ngIf="itemContext.item.type=='mc'"-->
+                 <!--[itemContext]="itemContext"-->
                  <!--[isReadOnly]="isReadOnly"-->
                  <!--(itemChanged)="onItemChanged($event)">-->
 <!--</item-mc-details>-->
 
 <!--&lt;!&ndash; MS &ndash;&gt;-->
-<!--<item-ms-details *ngIf="itemContext.type=='ms'"-->
-                 <!--[item]="itemContext"-->
+<!--<item-ms-details *ngIf="itemContext.item.type=='ms'"-->
+                 <!--[itemContext]="itemContext"-->
                  <!--[isReadOnly]="isReadOnly"-->
                  <!--(itemChanged)="onItemChanged($event)">-->
 <!--</item-ms-details>-->
@@ -29,18 +29,25 @@
 
 <!-- IAT-666: Uncomment -->
 <!--&lt;!&ndash; STIM &ndash;&gt;-->
-<!--<item-stim-details *ngIf="itemContext.type=='stim'"-->
-                   <!--[item]="itemContext"-->
+<!--<item-stim-details *ngIf="itemContext.item.type=='stim'"-->
+                   <!--[itemContext]="itemContext"-->
                    <!--[isReadOnly]="isReadOnly"-->
                    <!--(itemChanged)="onItemChanged($event)">-->
 <!--</item-stim-details>-->
 
 <!--&lt;!&ndash; TI &ndash;&gt;-->
-<!--<item-ti-details *ngIf="itemContext.type=='ti'"-->
-                 <!--[item]="itemContext"-->
+<!--<item-ti-details *ngIf="itemContext.item.type=='ti'"-->
+                 <!--[itemContext]="itemContext"-->
                  <!--[isReadOnly]="isReadOnly"-->
                  <!--(itemChanged)="onItemChanged($event)">-->
 <!--</item-ti-details>-->
+
+<!-- TUT -->
+<item-tut-details *ngIf="itemContext.item.type=='tut'"
+                  [itemContext]="itemContext"
+                  [isReadOnly]="isReadOnly"
+                  (itemChanged)="onItemChanged($event)">
+</item-tut-details>
 
 <!-- WER -->
 <item-wer-details *ngIf="itemContext.item.type=='wer'"
@@ -48,10 +55,3 @@
                   [isReadOnly]="isReadOnly"
                   (itemChanged)="onItemChanged($event)">
 </item-wer-details>
-
-<!--&lt;!&ndash; TUT &ndash;&gt;-->
-<!--<item-tut-details *ngIf="itemContext.type=='tut'"-->
-                  <!--[item]="itemContext"-->
-                  <!--[isReadOnly]="isReadOnly"-->
-                  <!--(itemChanged)="onItemChanged($event)">-->
-<!--</item-tut-details>-->

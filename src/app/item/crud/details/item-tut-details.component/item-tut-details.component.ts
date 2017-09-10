@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
-import {TutItem} from "../../../services/item.service/models/type/tut-item";
+import {TutItem, TutItemContext} from "../../../services/item.service/models/type/tut-item";
 import {ItemPromptComponent} from "../shared/item-prompt.component/item-prompt.component";
 import {Item} from "../../../services/item.service/models/base/item";
 
@@ -11,13 +11,13 @@ import {Item} from "../../../services/item.service/models/base/item";
 export class ItemTutDetailsComponent {
 
   @Input() readonly isReadOnly: boolean;
-  @Input() readonly item: TutItem;
+  @Input() readonly itemContext: TutItemContext;
   @Output() readonly itemChanged = new EventEmitter<Item>();
   @ViewChild(ItemPromptComponent) itemPromptComponent;
 
   get currentItem(): TutItem {
-    this.item.prompt = this.itemPromptComponent.currentText;
-    return this.item;
+    this.itemContext.item.core.content = this.itemPromptComponent.currentText;
+    return this.itemContext.item;
   }
 
   onItemChange() {

@@ -4,6 +4,7 @@ import {SaItem, SaItemContext, SaItemCore} from "./models/type/sa-item";
 import {itemTypes} from "../item-type.service/item-types";
 import {ItemContext} from "./models/base/item-context";
 import {WerItem, WerItemContext, WerItemCore} from "./models/type/wer-item";
+import {TutItem, TutItemContext, TutItemCore} from "./models/type/tut-item";
 
 export class ItemContextFactory {
   /**
@@ -49,15 +50,17 @@ export class ItemContextFactory {
       //   item = JsonConvert.deserializeObject(jsonObject, TiItem);
       //   break;
 
+      case 'tut':
+        itemContext = JsonConvert.deserializeObject(jsonObject, TutItemContext);
+        itemContext.item = JsonConvert.deserializeObject(itemContext.item, TutItem);
+        itemContext.item.core = JsonConvert.deserializeObject(itemContext.item.core, TutItemCore);
+        break;
+
       case 'wer':
         itemContext = JsonConvert.deserializeObject(jsonObject, WerItemContext);
         itemContext.item = JsonConvert.deserializeObject(itemContext.item, WerItem);
         itemContext.item.core = JsonConvert.deserializeObject(itemContext.item.core, WerItemCore);
         break;
-
-      // case 'tut':
-      //   item = JsonConvert.deserializeObject(jsonObject, TutItem);
-      //   break;
 
       default:
         throw new Error(`Cannot map unsupported item type "${jsonObject.item.type}" from JSON "${jsonObject}"`);
