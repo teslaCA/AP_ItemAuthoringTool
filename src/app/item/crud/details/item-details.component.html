@@ -34,12 +34,12 @@
                    (itemChanged)="onItemChanged($event)">
 </item-stim-details>
 
-<!--&lt;!&ndash; TI &ndash;&gt;-->
-<!--<item-ti-details *ngIf="itemContext.item.type=='ti'"-->
-                 <!--[itemContext]="itemContext"-->
-                 <!--[isReadOnly]="isReadOnly"-->
-                 <!--(itemChanged)="onItemChanged($event)">-->
-<!--</item-ti-details>-->
+<!-- TI -->
+<item-ti-details *ngIf="itemContext.item.type=='ti'"
+                 [itemContext]="itemContext"
+                 [isReadOnly]="isReadOnly"
+                 (itemChanged)="onItemChanged($event)">
+</item-ti-details>
 
 <!-- TUT -->
 <item-tut-details *ngIf="itemContext.item.type=='tut'"

@@ -8,6 +8,7 @@ import {TutItem, TutItemContext, TutItemCore} from "./models/type/tut-item";
 import {StimItem, StimItemContext, StimItemCore} from "./models/type/stim-item";
 import {McItem, McItemContext, McItemCore} from "./models/type/mc-item";
 import {MsItem, MsItemContext, MsItemCore} from "./models/type/ms-item";
+import {TiItem, TiItemContext, TiItemCore} from "./models/type/ti-item";
 
 export class ItemContextFactory {
   /**
@@ -55,9 +56,11 @@ export class ItemContextFactory {
         itemContext.item.core = JsonConvert.deserializeObject(itemContext.item.core, StimItemCore);
         break;
 
-      // case 'ti':
-      //   item = JsonConvert.deserializeObject(jsonObject, TiItem);
-      //   break;
+      case 'ti':
+        itemContext = JsonConvert.deserializeObject(jsonObject, TiItemContext);
+        itemContext.item = JsonConvert.deserializeObject(itemContext.item, TiItem);
+        itemContext.item.core = JsonConvert.deserializeObject(itemContext.item.core, TiItemCore);
+        break;
 
       case 'tut':
         itemContext = JsonConvert.deserializeObject(jsonObject, TutItemContext);

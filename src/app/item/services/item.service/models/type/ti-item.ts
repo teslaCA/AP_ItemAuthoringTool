@@ -1,14 +1,40 @@
 import {JsonObject, JsonProperty} from "json2typescript";
-import {Item} from "../base/item";
+import {AssessmentItem} from "../base/item";
+import {ItemContext} from "../base/item-context";
+import {AssessmentItemCore} from "../base/item-core";
 
 /**
- * TI Item model that can be mapped to/from JSON.
+ * TI item context that can be mapped to/from JSON.
  *
  * Important: Fields must be initialized to a value or undefined to take part in mapping.
  * See https://github.com/dhlab-basel/json2typescript for more info.
  */
 @JsonObject
-export class TiItem extends Item {
+export class TiItemContext extends ItemContext {
+  @JsonProperty("item", TiItem)
+  item: TiItem = undefined;                         // Initialize to undefined so that field is mapped
+}
+
+/**
+ * TI item that can be mapped to/from JSON.
+ *
+ * Important: Fields must be initialized to a value or undefined to take part in mapping.
+ * See https://github.com/dhlab-basel/json2typescript for more info.
+ */
+@JsonObject
+export class TiItem extends AssessmentItem {
+  @JsonProperty("core", TiItemCore)
+  core: TiItemCore = undefined;                     // Initialize to undefined so that field is mapped
+}
+
+/**
+ * TI item core that can be mapped to/from JSON.
+ *
+ * Important: Fields must be initialized to a value or undefined to take part in mapping.
+ * See https://github.com/dhlab-basel/json2typescript for more info.
+ */
+@JsonObject
+export class TiItemCore extends AssessmentItemCore {
   @JsonProperty("prompt", String)
   prompt: string = undefined;                       // Initialize to undefined so that field is mapped
 
@@ -16,6 +42,12 @@ export class TiItem extends Item {
   table: TiItemTable = undefined;                   // Initialize to undefined so that field is mapped
 }
 
+/**
+ * TI item table that can be mapped to/from JSON.
+ *
+ * Important: Fields must be initialized to a value or undefined to take part in mapping.
+ * See https://github.com/dhlab-basel/json2typescript for more info.
+ */
 @JsonObject
 export class TiItemTable {
   @JsonProperty("title", String)
@@ -28,18 +60,36 @@ export class TiItemTable {
   rows: TiItemTableRow[] = undefined;               // Initialize to undefined so that field is mapped
 }
 
+/**
+ * TI item table column that can be mapped to/from JSON.
+ *
+ * Important: Fields must be initialized to a value or undefined to take part in mapping.
+ * See https://github.com/dhlab-basel/json2typescript for more info.
+ */
 @JsonObject
 export class TiItemTableColumn {
   @JsonProperty("label", String)
   label: string = undefined;                        // Initialize to undefined so that field is mapped
 }
 
+/**
+ * TI item table row that can be mapped to/from JSON.
+ *
+ * Important: Fields must be initialized to a value or undefined to take part in mapping.
+ * See https://github.com/dhlab-basel/json2typescript for more info.
+ */
 @JsonObject
 export class TiItemTableRow {
   @JsonProperty("cells", [TiItemTableRowCell])
   cells: TiItemTableRowCell[] = undefined;          // Initialize to undefined so that field is mapped
 }
 
+/**
+ * TI item table row cell that can be mapped to/from JSON.
+ *
+ * Important: Fields must be initialized to a value or undefined to take part in mapping.
+ * See https://github.com/dhlab-basel/json2typescript for more info.
+ */
 @JsonObject
 export class TiItemTableRowCell {
   @JsonProperty("type", String)
