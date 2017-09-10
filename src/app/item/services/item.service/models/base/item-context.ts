@@ -20,6 +20,11 @@ export abstract class ItemContext {
     return this.transactions.length == 0 ? null : this.transactions[0];
   }
 
+  canUserChangeSection(userName: string, section: string): boolean {
+    return this.isBeingCreatedBy(userName)
+      || this.isSectionBeingEditedBy(section, userName);
+  }
+
   // ---------- Creating properties ----------
   get isBeingCreated(): boolean {
     return this.transactions.some(t => t.section === "create");

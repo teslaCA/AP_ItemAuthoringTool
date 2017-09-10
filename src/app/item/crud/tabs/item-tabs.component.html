@@ -40,16 +40,64 @@
           </li>
         </ul>
       </div>
+
+      <!-- Edit management -->
+      <div class="pull-right">
+
+        <!-- Braille -->
+        <item-edit-management
+          *ngIf="isSelected(tab.braille)"
+          [section]="'braille'"
+          [itemContext]="itemContext"
+          [currentUser]="currentUser"
+          (beganEditing)="onBeganEditing($event)"
+          (cancelledEditing)="onCancelledEditing($event)"
+          (finishedEditing)="onFinishedEditing($event)">
+        </item-edit-management>
+
+        <!-- Stimulus -->
+        <item-edit-management
+          *ngIf="isSelected(tab.stimulus)"
+          [section]="'core'"
+          [itemContext]="itemContext"
+          [currentUser]="currentUser"
+          (beganEditing)="onBeganEditing($event)"
+          (cancelledEditing)="onCancelledEditing($event)"
+          (finishedEditing)="onFinishedEditing($event)">
+        </item-edit-management>
+
+        <!-- Tutorial -->
+        <item-edit-management
+          *ngIf="isSelected(tab.tutorial)"
+          [section]="'core'"
+          [itemContext]="itemContext"
+          [currentUser]="currentUser"
+          (beganEditing)="onBeganEditing($event)"
+          (cancelledEditing)="onCancelledEditing($event)"
+          (finishedEditing)="onFinishedEditing($event)">
+        </item-edit-management>
+
+        <!-- Workflow -->
+        <item-edit-management
+          *ngIf="isSelected(tab.workflow)"
+          [section]="'core'"
+          [itemContext]="itemContext"
+          [currentUser]="currentUser"
+          (beganEditing)="onBeganEditing($event)"
+          (cancelledEditing)="onCancelledEditing($event)"
+          (finishedEditing)="onFinishedEditing($event)">
+        </item-edit-management>
+      </div>
     </div>
   </div>
 
   <!-- Selected tab -->
   <div class="item-box tab-content well white">
     <div class="well-body">
+
       <!-- Braille -->
-      <!-- IAT-666: Replace [item] with [itemContext] -->
       <item-braille-tab *ngIf="isSelected(tab.braille)"
-                        [isReadOnly]="isReadOnly"
+                        [isReadOnly]="!itemContext.canUserChangeSection(currentUser.userName, 'braille')"
                         [itemContext]="itemContext"
                         (itemBrailleChanged)="onItemChanged()">
       </item-braille-tab>
@@ -67,7 +115,7 @@
       <!-- Stimulus -->
       <item-association-tab #stimulus
                             *ngIf="isSelected(tab.stimulus)"
-                            [isReadOnly]="isReadOnly"
+                            [isReadOnly]="!itemContext.canUserChangeSection(currentUser.userName, 'core')"
                             [associationId]="associatedStimulusId"
                             [associationType]="itemTypeStimulus"
                             (associationIdChanged)="onItemChanged()">
@@ -76,7 +124,7 @@
       <!-- Tutorial -->
       <item-association-tab #tutorial
                             *ngIf="isSelected(tab.tutorial)"
-                            [isReadOnly]="isReadOnly"
+                            [isReadOnly]="!itemContext.canUserChangeSection(currentUser.userName, 'core')"
                             [associationId]="associatedTutorialId"
                             [associationType]="itemTypeTutorial"
                             (associationIdChanged)="onItemChanged()">
@@ -84,7 +132,7 @@
 
       <!-- Workflow -->
       <item-workflow-tab *ngIf="isSelected(tab.workflow)"
-                         [isReadOnly]="isReadOnly"
+                         [isReadOnly]="!itemContext.canUserChangeSection(currentUser.userName, 'core')"
                          [workflowStatusCode]="itemContext.item.core.workflowStatusCode"
                          (workflowStatusCodeChange)="onItemChanged()">
       </item-workflow-tab>

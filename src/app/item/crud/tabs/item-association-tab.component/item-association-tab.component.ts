@@ -4,6 +4,7 @@ import {ItemService} from "../../../services/item.service/item.service";
 import {AlertService} from "../../../../core/alert.service/alert.service";
 import {ItemType} from "../../../services/item-type.service/item-type";
 import {ItemContext} from "../../../services/item.service/models/base/item-context";
+import {User} from "../../../../core/user.service/user";
 
 @Component({
   selector: 'item-association-tab',

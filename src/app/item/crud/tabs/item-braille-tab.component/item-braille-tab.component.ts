@@ -9,6 +9,7 @@ import {AlertService} from "../../../../core/alert.service/alert.service";
 import {ModalDirective} from "ngx-bootstrap";
 import {BusyService} from "../../../../core/busy.service/busy.service";
 import {ItemContext} from "../../../services/item.service/models/base/item-context";
+import {User} from "../../../../core/user.service/user";
 
 @Component({
   selector: 'item-braille-tab',

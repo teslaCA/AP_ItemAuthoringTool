@@ -2,7 +2,7 @@
   <div *ngIf="!isLoading" class="container">
     <div *ngIf="!isError">
 
-      <!-- Auto-save -->
+      <!-- Right header -->
       <div class="pull-right">
         <!-- Preview -->
         <span *ngIf="itemContext.item.core.supportsPreview">
@@ -14,21 +14,28 @@
           </item-preview>
         </span>
 
+        <!-- Auto-save -->
         <item-auto-save #autoSave
                         [enabled]="isCurrentUserCreating || isCurrentUserEditing"
                         [debounceTimeMillis]="3000">
         </item-auto-save>
       </div>
 
-      <!-- Item title -->
+      <!-- Left header -->
       <h1 class="h2 label-group blue">
-        <span class="label"><span class="label"><i class="fa {{itemContext.item.itemType.icon}}"></i></span> {{itemContext.item.id}}</span><span class="label">{{itemContext.item.itemType.name}} <span>( {{itemContext.item.itemType.code | uppercase}} )</span></span>
+        <!-- Item title -->
+        <span class="label"><span class="label"><i class="fa {{itemContext.item.itemType.icon}}"></i></span> {{itemContext.item.id}}</span><span
+        class="label">{{itemContext.item.itemType.name}} <span>( {{itemContext.item.itemType.code | uppercase}} )</span></span>
       </h1>
 
+      <!-- Body -->
       <div class="row">
-        <!-- Left 6 columns -->
+
+        <!-- Left body -->
         <div class="col-md-6">
           <div class="well-group">
+
+            <!-- Item management -->
             <div class="well well-action-bar">
               <div class="well-body pt-xs">
                 <div class="row">
@@ -38,112 +45,51 @@
                     </button>
 
                     <div class="pull-right">
+                      <!-- Create management -->
+                      <item-create-management
+                        [itemContext]="itemContext"
+                        [currentUser]="currentUser"
+                        (cancelledCreating)="onCancelledCreating()"
+                        (finishedCreating)="onFinishedCreating($event)">
+                      </item-create-management>
 
-                      <!-- ==================== Create actions & messages ==================== -->
-                      <!-- Cancel creating -->
-                      <span *ngIf="isCurrentUserCreating">
-                        <button class="btn btn-default btn-sm" (click)="cancelModal.show()">
-                          <i class="fa fa-undo"></i> Cancel
-                        </button>
-                      </span>
-
-                      <!-- Finish creating -->
-                      <span *ngIf="isCurrentUserCreating">
-                        <button class="btn btn-success btn-sm" (click)="commitModal.show()">
-                          <i class="fa fa-check-square"></i> Finish Creating {{itemContext.item.itemType.categoryName}}
-                        </button>
-                      </span>
-
-                      <!-- ==================== Core actions & messages ==================== -->
-                      <!-- Message indicating another user is editing core -->
-                      <div *ngIf="isAnotherUserEditing('core')" class="alert alert-warning small">
-                        <div class="mt-sm"><i class="fa fa-warning"></i> {{getUserNameEditing('core')}} is editing core.</div>
-                      </div>
-
-                      <!-- Message indicating current user is editing core -->
-                      <div *ngIf="isCurrentUserEditing('core')" class="alert alert-info small">
-                        <div class="mt-sm"><i class="fa fa-info"></i> You are editing core.</div>
-                      </div>
-
-                      <!-- Begin editing core -->
-                      <span *ngIf="canCurrentUserBeginEditing('core')">
-                        <button class="btn btn-success btn-sm" (click)="beginEditTransaction('core')">
-                          <i class="fa fa-edit"></i> Edit Core
-                        </button>
-                      </span>
-
-                      <!-- Cancel editing core -->
-                      <span *ngIf="isCurrentUserEditing('core')">
-                        <button class="btn btn-default btn-sm" (click)="cancelModal.show()">
-                          <i class="fa fa-undo"></i> Discard
-                        </button>
-                      </span>
-
-                      <!-- Finish editing core -->
-                      <span *ngIf="isCurrentUserEditing('core')">
-                        <button class="btn btn-success btn-sm" (click)="commitModal.show()">
-                          <i class="fa fa-check-square"></i> Finish Editing Core
-                        </button>
-                      </span>
-
-                      <!-- ==================== Braille actions & messages ==================== -->
-                      <!-- Message indicating another user is editing braille -->
-                      <div *ngIf="isAnotherUserEditing('braille')" class="alert alert-warning small">
-                        <div class="mt-sm"><i class="fa fa-warning"></i> {{getUserNameEditing('braille')}} is editing braille.</div>
-                      </div>
-
-                      <!-- Message indicating current user is editing core -->
-                      <div *ngIf="isCurrentUserEditing('braille')" class="alert alert-info small">
-                        <div class="mt-sm"><i class="fa fa-info"></i> You are editing braille.</div>
-                      </div>
-
-                      <!-- Begin editing braille -->
-                      <span *ngIf="canCurrentUserBeginEditing('braille')">
-                        <button class="btn btn-success btn-sm" (click)="beginEditTransaction('braille')">
-                          <i class="fa fa-edit"></i> Edit Braille
-                        </button>
-                      </span>
-
-                      <!-- Cancel editing braille -->
-                      <span *ngIf="isCurrentUserEditing('braille')">
-                        <button class="btn btn-default btn-sm" (click)="cancelModal.show()">
-                          <i class="fa fa-undo"></i> Discard
-                        </button>
-                      </span>
-
-                      <!-- Finish editing braille -->
-                      <span *ngIf="isCurrentUserEditing('braille')">
-                        <button class="btn btn-success btn-sm" (click)="commitModal.show()">
-                          <i class="fa fa-check-square"></i> Finish Editing Braille
-                        </button>
-                      </span>
-
+                      <!-- Core edit management -->
+                      <item-edit-management
+                        [section]="'core'"
+                        [itemContext]="itemContext"
+                        [currentUser]="currentUser"
+                        (beganEditing)="onBeganEditing($event)"
+                        (cancelledEditing)="onCancelledEditing($event)"
+                        (finishedEditing)="onFinishedEditing($event)">
+                      </item-edit-management>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
 
-            <!-- Item type details -->
-            <!-- TODO: IAT-666 disable core and braille independently, current this disables all if core being edited -->
+            <!-- Item details -->
             <item-details [itemContext]="itemContext"
-                          [isReadOnly]="!isCurrentUserCreatingOrEditing('core') && !isCurrentUserCreatingOrEditing('braille')"
+                          [isReadOnly]="!isCurrentUserCreatingOrEditing('core')"
                           (itemChanged)="autoSave.onItemChange($event)">
             </item-details>
 
           </div>
         </div>
 
-        <!-- Right 6 columns -->
+        <!-- Right body -->
         <div class="col-md-6 ">
+
           <!-- Item tabs -->
-          <!-- TODO: IAT-666 disable core and braille independently, current this disables all if core being edited -->
-          <item-tabs [itemContext]="itemContext"
+          <item-tabs [currentUser]="currentUser"
+                     [itemContext]="itemContext"
                      [itemType]="itemContext.item.itemType"
                      [selected]="selectedTab"
-                     [isReadOnly]="!isCurrentUserCreatingOrEditing('core') && !isCurrentUserCreatingOrEditing('braille')"
                      (tabChanged)="onTabChanged($event)"
-                     (itemChanged)="autoSave.onItemChange($event)">
+                     (itemChanged)="autoSave.onItemChange($event)"
+                     (beganEditing)="onBeganEditing($event)"
+                     (cancelledEditing)="onCancelledEditing($event)"
+                     (finishedEditing)="onFinishedEditing($event)">
           </item-tabs>
         </div>
       </div>
@@ -159,137 +105,3 @@
 
   </div>
 </section>
-
-<!-- Commit modal -->
-<div #commitModal="bs-modal"
-     id="commitModal"
-     class="modal fade"
-     bsModal
-     [config]="{backdrop: 'static'}"
-     tabindex="-1"
-     role="dialog">
-  <div *ngIf="!isLoading && !isError" class="modal-dialog" role="document">
-    <div class="modal-content">
-      <!-- Header -->
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="commitModal.hide()">
-          <span aria-hidden="true">&times;</span>
-        </button>
-        <h3 *ngIf="isCurrentUserCreating" class="modal-title" id="commitCreateModalLabel">
-          Finish Creating {{itemContext.item.itemType.categoryName}}
-        </h3>
-        <h3 *ngIf="isCurrentUserEditing" class="modal-title" id="commitEditModalLabel">
-          Commit Changes
-        </h3>
-      </div>
-
-      <!-- Body (create) -->
-      <div *ngIf="isCurrentUserCreating">
-        <div class="modal-body">
-          <span>Are you sure you want to finish creating this {{itemContext.item.itemType.categoryName | lowercase}} and add it to the item bank?</span>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary btn-small" (click)="commitCreateTransaction()">Yes</button>
-          <button type="button" class="btn btn-default btn-small" data-dismiss="modal" (click)="commitModal.hide()">No
-          </button>
-        </div>
-      </div>
-
-      <!-- Body (edit) -->
-      <div *ngIf="isCurrentUserEditing">
-        <form [formGroup]="form" (submit)="commitEditTransaction()">
-          <div class="modal-body">
-            <div class="row">
-              <div class="col-md-12">
-                Are you sure you want to commit your changes to the item bank?
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-12">
-                Please enter the reason for your changes to this {{itemContext.item.itemType.categoryName | lowercase}}.
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-12">
-                <div class="form-group">
-                  <span>Reason (optional): </span>
-                  <div class="input-group">
-                    <input formControlName="commitMsg"
-                           type="text"
-                           placeholder="Reason for change"
-                           class="modal-form-control"
-                           maxlength="100"
-                           size="50"
-                           [formControl]="form.controls['commitMsg']">
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Footer -->
-          <div class="modal-footer">
-            <button type="submit" class="btn btn-primary btn-small">
-              Yes
-            </button>
-            <button type="button" class="btn btn-default btn-small" data-dismiss="modal" (click)="commitModal.hide()">No
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Cancel modal -->
-<div #cancelModal="bs-modal"
-     id="cancelModal"
-     class="modal fade"
-     bsModal
-     [config]="{backdrop: 'static'}"
-     tabindex="-1"
-     role="dialog">
-  <div *ngIf="!isLoading && !isError" class="modal-dialog" role="document">
-    <div class="modal-content">
-      <!-- Header -->
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="cancelModal.hide()">
-          <span aria-hidden="true">&times;</span>
-        </button>
-        <h3 *ngIf="isCurrentUserCreating" class="modal-title" id="cancelCreateModalLabel">
-          <i class="fa fa-undo"></i> Cancel {{itemContext.item.itemType.categoryName}} Creation
-        </h3>
-        <h3 *ngIf="isCurrentUserEditing" class="modal-title" id="cancelEditModalLabel">
-          Discard Changes
-        </h3>
-      </div>
-
-      <!-- Body -->
-      <div class="modal-body">
-        <span *ngIf="isCurrentUserCreating">
-          Are you sure you want to cancel creating this {{itemContext.item.itemType.categoryName | lowercase}} and lose all changes you have made?
-        </span>
-        <span *ngIf="isCurrentUserEditing">
-          Are you sure you want to discard all changes you've made since you&rsquo;ve started editing?
-        </span>
-      </div>
-      <div class="modal-footer">
-        <button *ngIf="isCurrentUserCreating"
-                type="button"
-                class="btn btn-primary btn-small"
-                (click)="rollbackCreateTransaction()">
-          Yes
-        </button>
-        <button *ngIf="isCurrentUserEditing"
-                type="button"
-                class="btn btn-primary btn-small"
-                (click)="rollbackEditTransaction()">
-          Yes
-        </button>
-        <button type="button" class="btn btn-default btn-small" data-dismiss="modal" (click)="cancelModal.hide()">
-          No
-        </button>
-      </div>
-    </div>
-  </div>
-</div>

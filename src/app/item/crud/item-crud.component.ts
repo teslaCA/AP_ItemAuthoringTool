@@ -3,12 +3,18 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ItemService} from "../services/item.service/item.service";
 import {AlertService} from "../../core/alert.service/alert.service";
-import {Item} from "../services/item.service/models/base/item";
 import {UserService} from "app/core/user.service/user.service";
 import {User} from "../../core/user.service/user";
 import {HttpUtility} from "../../core/http-utility.service/http-utility";
 import {ItemDetailsComponent} from "./details/item-details.component";
 import {ItemContext} from "../services/item.service/models/base/item-context";
+import {
+  BeganEditingEvent,
+  CancelledEditingEvent,
+  FinishedEditingEvent
+} from "./item-edit-management.component/item-edit-management.component";
+import {Logger} from "../../core/logger.service/logger.service";
+import {FinishedCreatingEvent} from "./item-create-management.component/item-create-management.component";
 
 @Component({
   selector: 'item-crud',
@@ -36,11 +42,6 @@ export class ItemCrudComponent implements OnInit {
       return "Viewing";
     }
     return "";
-  }
-
-  canCurrentUserBeginEditing(section: string): boolean {
-    return !this.itemContext.isSectionBeingEdited(section)
-      && !this.itemContext.isAnySectionBeingEditedBy(this.currentUser.userName);
   }
 
   isCurrentUserCreatingOrEditing(section: string): boolean {
@@ -78,7 +79,8 @@ export class ItemCrudComponent implements OnInit {
               private itemService: ItemService,
               private alertService: AlertService,
               private formBuilder: FormBuilder,
-              private httpUtility: HttpUtility) {
+              private httpUtility: HttpUtility,
+              private logger: Logger) {
     this.form = this.formBuilder.group({
       commitMsg: [null, Validators.required]
     });
@@ -125,11 +127,41 @@ export class ItemCrudComponent implements OnInit {
 
   beginEditTransaction(section: string): void {
     this.itemService
-      .beginEditTransaction(this.itemContext.item.id, section,"Began edit")
+      .beginEditTransaction(this.itemContext.item.id, section, "Began edit")
       .subscribe(
         () => {
           this.loadItem(this.itemContext.item.id, this.selectedTab);
         });
+  }
+
+  onCancelledCreating(): void {
+    this.logger.info(`Cancelled creating`);
+
+    this.rollbackCreateTransaction();
+  }
+
+  onFinishedCreating(event: FinishedCreatingEvent): void {
+    this.logger.info(`Finished creating`);
+
+    this.commitCreateTransaction();
+  }
+
+  onBeganEditing(event: BeganEditingEvent): void {
+    this.logger.info(`Began editing section ${event.section}`);
+
+    this.beginEditTransaction(event.section);
+  }
+
+  onCancelledEditing(event: CancelledEditingEvent): void {
+    this.logger.info(`Cancelled editing section ${event.section}`);
+
+    this.rollbackEditTransaction();
+  }
+
+  onFinishedEditing(event: FinishedEditingEvent): void {
+    this.logger.info(`Finished editing section ${event.section}`);
+
+    this.commitEditTransaction();
   }
 
   goHome(): void {

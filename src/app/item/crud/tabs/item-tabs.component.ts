@@ -7,6 +7,12 @@ import {STIM, TUT} from "../../services/item-type.service/item-types";
 import {ItemAssociationTabComponent} from "./item-association-tab.component/item-association-tab.component";
 import {ItemBrailleTabComponent} from "./item-braille-tab.component/item-braille-tab.component";
 import {ItemContext} from "../../services/item.service/models/base/item-context";
+import {User} from "../../../core/user.service/user";
+import {
+  BeganEditingEvent,
+  CancelledEditingEvent,
+  FinishedEditingEvent
+} from "../item-edit-management.component/item-edit-management.component";
 
 @Component({
   selector: 'item-tabs',
@@ -30,12 +36,15 @@ export class ItemTabsComponent {
     this.tab.validation,
     this.tab.workflow
   ];
+  @Input() currentUser: User;
   @Input() itemContext: ItemContext;
   @Input() itemType: ItemType;
   @Input() selected: string;
-  @Input() isReadOnly: boolean;
   @Output() tabChanged = new EventEmitter<String>();
   @Output() itemChanged = new EventEmitter<Item>();
+  @Output() beganEditing = new EventEmitter<BeganEditingEvent>();
+  @Output() finishedEditing = new EventEmitter<FinishedEditingEvent>();
+  @Output() cancelledEditing = new EventEmitter<CancelledEditingEvent>();
   @ViewChild(ItemBrailleTabComponent) itemBrailleTabComponent;
   @ViewChild("stimulus") itemStimulusTabComponent: ItemAssociationTabComponent;
   @ViewChild("tutorial") itemTutorialTabComponent: ItemAssociationTabComponent;
@@ -84,6 +93,18 @@ export class ItemTabsComponent {
 
   onItemChanged(): void {
     this.itemChanged.emit(this.prepareItem());
+  }
+
+  onBeganEditing(event: BeganEditingEvent): void {
+    this.beganEditing.emit(event);
+  }
+
+  onCancelledEditing(event: CancelledEditingEvent): void {
+    this.cancelledEditing.emit(event);
+  }
+
+  onFinishedEditing(event: FinishedEditingEvent): void {
+    this.finishedEditing.emit(event);
   }
 
   private prepareItem(): Item {
