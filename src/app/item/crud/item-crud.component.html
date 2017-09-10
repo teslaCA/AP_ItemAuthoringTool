@@ -127,7 +127,7 @@
             <!-- Item type details -->
             <!-- TODO: IAT-666 disable core and braille independently, current this disables all if core being edited -->
             <item-details [itemContext]="itemContext"
-                          [isReadOnly]="!isCurrentUserCreatingOrEditing('core')"
+                          [isReadOnly]="!isCurrentUserCreatingOrEditing('core') && !isCurrentUserCreatingOrEditing('braille')"
                           (itemChanged)="autoSave.onItemChange($event)">
             </item-details>
 
@@ -141,7 +141,7 @@
           <item-tabs [itemContext]="itemContext"
                      [itemType]="itemContext.item.itemType"
                      [selected]="selectedTab"
-                     [isReadOnly]="!isCurrentUserCreatingOrEditing('core')"
+                     [isReadOnly]="!isCurrentUserCreatingOrEditing('core') && !isCurrentUserCreatingOrEditing('braille')"
                      (tabChanged)="onTabChanged($event)"
                      (itemChanged)="autoSave.onItemChange($event)">
           </item-tabs>

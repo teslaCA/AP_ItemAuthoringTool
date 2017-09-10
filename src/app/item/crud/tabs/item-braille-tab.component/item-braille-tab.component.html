@@ -54,7 +54,7 @@
         <td>{{attachment.fileName}}</td>
         <td>{{attachment.uploadedDate | date:'short'}}</td>
         <td class="text-center">
-          <a href="/api/ims/v1/items/{{itemContext.item.id}}/braille/{{attachment.fileName}}"
+          <a href="/api/ims/v1/items/{{itemContext.item.id}}/files/{{attachment.fileName}}"
              class="btn btn-default btn-xs"
              [class.disabled]="isReadOnly">
             <i class="fa fa-cloud-download"></i> Download</a>

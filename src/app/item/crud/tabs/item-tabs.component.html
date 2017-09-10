@@ -50,7 +50,7 @@
       <!-- IAT-666: Replace [item] with [itemContext] -->
       <item-braille-tab *ngIf="isSelected(tab.braille)"
                         [isReadOnly]="isReadOnly"
-                        [itemContext]="itemContext.item"
+                        [itemContext]="itemContext"
                         (itemBrailleChanged)="onItemChanged()">
       </item-braille-tab>
 

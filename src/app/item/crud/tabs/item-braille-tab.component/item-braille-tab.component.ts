@@ -53,9 +53,7 @@ export class ItemBrailleTabComponent implements OnInit, OnChanges {
     // Configure uploader component
     let itemFileUrl = "";
     if (!this.isReadOnly) {
-      itemFileUrl = this.serviceUrl + '/'
-        + this.itemContext.item.id + '/transactions/'
-      //+ this.itemContext.item.currentTransaction.transactionId + '/braille';  // TODO: IAT-666
+      itemFileUrl = `${this.serviceUrl}/${this.itemContext.item.id}/files/braille`
     }
     this.uploader = new FileUploader({url: itemFileUrl});
     this.uploader.setOptions({autoUpload: true});
@@ -141,10 +139,7 @@ export class ItemBrailleTabComponent implements OnInit, OnChanges {
 
   deleteFile(index: number, fileName: string): void {
     this.itemService
-      .deleteBrailleFile(
-        '0', //this.itemContext.item.currentTransaction.transactionId,   TODO: IAT-666
-        this.itemContext.item.id,
-        fileName, true, true)
+      .deleteBrailleFile(this.itemContext.item.id, fileName, true, true)
       .subscribe(() => {
           this.brailleAttachments.splice(index, 1);
 
