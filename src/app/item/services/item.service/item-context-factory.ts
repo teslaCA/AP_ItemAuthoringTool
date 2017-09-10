@@ -5,6 +5,7 @@ import {itemTypes} from "../item-type.service/item-types";
 import {ItemContext} from "./models/base/item-context";
 import {WerItem, WerItemContext, WerItemCore} from "./models/type/wer-item";
 import {TutItem, TutItemContext, TutItemCore} from "./models/type/tut-item";
+import {StimItem, StimItemContext, StimItemCore} from "./models/type/stim-item";
 
 export class ItemContextFactory {
   /**
@@ -42,10 +43,12 @@ export class ItemContextFactory {
         itemContext.item.core = JsonConvert.deserializeObject(itemContext.item.core, SaItemCore);
         break;
 
-      // case 'stim':
-      //   item = JsonConvert.deserializeObject(jsonObject, StimItem);
-      //   break;
-      //
+      case 'stim':
+        itemContext = JsonConvert.deserializeObject(jsonObject, StimItemContext);
+        itemContext.item = JsonConvert.deserializeObject(itemContext.item, StimItem);
+        itemContext.item.core = JsonConvert.deserializeObject(itemContext.item.core, StimItemCore);
+        break;
+
       // case 'ti':
       //   item = JsonConvert.deserializeObject(jsonObject, TiItem);
       //   break;

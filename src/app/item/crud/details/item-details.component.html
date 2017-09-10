@@ -27,13 +27,12 @@
                  (itemChanged)="onItemChanged($event)">
 </item-sa-details>
 
-<!-- IAT-666: Uncomment -->
-<!--&lt;!&ndash; STIM &ndash;&gt;-->
-<!--<item-stim-details *ngIf="itemContext.item.type=='stim'"-->
-                   <!--[itemContext]="itemContext"-->
-                   <!--[isReadOnly]="isReadOnly"-->
-                   <!--(itemChanged)="onItemChanged($event)">-->
-<!--</item-stim-details>-->
+<!-- STIM -->
+<item-stim-details *ngIf="itemContext.item.type=='stim'"
+                   [itemContext]="itemContext"
+                   [isReadOnly]="isReadOnly"
+                   (itemChanged)="onItemChanged($event)">
+</item-stim-details>
 
 <!--&lt;!&ndash; TI &ndash;&gt;-->
 <!--<item-ti-details *ngIf="itemContext.item.type=='ti'"-->
