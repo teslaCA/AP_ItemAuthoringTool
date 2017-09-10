@@ -1,11 +1,11 @@
 <div class="well white not-first-child-well">
   <div class="well-body">
-    <item-prompt #mainPrompt
+    <item-prompt #prompt
                 [label]="'Prompt / Stem'"
                 [rows]="6"
                 [isFocused]="true"
                 [isReadOnly]="isReadOnly"
-                [text]="item.prompt"
+                [text]="itemContext.item.core.prompt"
                 (textChange)="onItemChange()">
     </item-prompt>
   </div>
@@ -13,17 +13,17 @@
 <div class="well white">
   <div class="well-body">
     <h4 class="label-group gray-light"><span class="label">Part A:</span><span class="label">Multiple Choice</span></h4>
-    <item-prompt #mcPrompt
+    <item-prompt #partAPrompt
                 [label]="'Stem'"
                 [rows]="6"
                 [isFocused]="true"
                 [isReadOnly]="isReadOnly"
-                [text]="item.multipleChoice.prompt"
+                [text]="itemContext.item.core.partAPrompt"
                 (textChange)="onItemChange()">
     </item-prompt>
-    <item-mc-options #mcOptions
+    <item-mc-options #partAOptions
                     [isReadOnly]="isReadOnly"
-                    [options]="item.multipleChoice.options"
+                    [options]="itemContext.item.core.partAOptions"
                     (optionsChange)="onItemChange()">
     </item-mc-options>
   </div>
@@ -31,17 +31,17 @@
 <div class="well white">
   <div class="well-body">
     <h4 class="label-group gray-light"><span class="label">Part B:</span><span class="label">Multiple Select</span></h4>
-    <item-prompt #msPrompt
+    <item-prompt #partBPrompt
                 [label]="'Stem'"
                 [rows]="6"
                 [isFocused]="true"
                 [isReadOnly]="isReadOnly"
-                [text]="item.multipleSelect.prompt"
+                [text]="itemContext.item.core.partBPrompt"
                 (textChange)="onItemChange()">
     </item-prompt>
-    <item-ms-options #msOptions
+    <item-ms-options #partBOptions
                     [isReadOnly]="isReadOnly"
-                    [options]="item.multipleSelect.options"
+                    [options]="itemContext.item.core.partBOptions"
                     (optionsChange)="onItemChange()">
     </item-ms-options>
   </div>

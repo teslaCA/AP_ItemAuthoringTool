@@ -9,6 +9,7 @@ import {StimItem, StimItemContext, StimItemCore} from "./models/type/stim-item";
 import {McItem, McItemContext, McItemCore} from "./models/type/mc-item";
 import {MsItem, MsItemContext, MsItemCore} from "./models/type/ms-item";
 import {TiItem, TiItemContext, TiItemCore} from "./models/type/ti-item";
+import {EbsrItem, EbsrItemContext, EbsrItemCore} from "./models/type/ebsr-item";
 
 export class ItemContextFactory {
   /**
@@ -28,9 +29,11 @@ export class ItemContextFactory {
 
     // Initialize item from JSON
     switch (jsonObject.item.type.toLowerCase()) {
-      // case 'ebsr':
-      //   item = JsonConvert.deserializeObject(jsonObject, EbsrItem);
-      //   break;
+      case 'ebsr':
+        itemContext = JsonConvert.deserializeObject(jsonObject, EbsrItemContext);
+        itemContext.item = JsonConvert.deserializeObject(itemContext.item, EbsrItem);
+        itemContext.item.core = JsonConvert.deserializeObject(itemContext.item.core, EbsrItemCore);
+        break;
 
       case 'mc':
         itemContext = JsonConvert.deserializeObject(jsonObject, McItemContext);
