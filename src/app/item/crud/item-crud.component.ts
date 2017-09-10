@@ -124,6 +124,9 @@ export class ItemCrudComponent implements OnInit {
       .subscribe(
         () => {
           this.loadItem(this.itemContext.item.id, this.selectedTab);
+        },
+        () => {
+          this.loadItem(this.itemContext.item.id, this.selectedTab);
         });
   }
 
