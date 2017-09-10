@@ -118,6 +118,15 @@ export class ItemCrudComponent implements OnInit {
         });
   }
 
+  private beginEditTransaction(section: string): void {
+    this.itemService
+      .beginEditTransaction(this.itemContext.item.id, section, "Began edit")
+      .subscribe(
+        () => {
+          this.loadItem(this.itemContext.item.id, this.selectedTab);
+        });
+  }
+
   private commitCreateTransaction(message: string): void {
     this.commitTransaction(
       message,
@@ -146,15 +155,6 @@ export class ItemCrudComponent implements OnInit {
       'Changes Discarded',
       `Your changes to the ${this.itemContext.item.itemType.categoryName} have been discarded.`,
       `/?id=${this.itemContext.item.id}`);
-  }
-
-  private beginEditTransaction(section: string): void {
-    this.itemService
-      .beginEditTransaction(this.itemContext.item.id, section, "Began edit")
-      .subscribe(
-        () => {
-          this.loadItem(this.itemContext.item.id, this.selectedTab);
-        });
   }
 
   private commitTransaction(commitMessage: string, alertTitle: string, alertMessage: string, successUrl: string) {

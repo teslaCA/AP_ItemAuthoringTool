@@ -31,13 +31,18 @@ export class ItemEditManagementComponent {
     this.finishedEditing.emit(
       new FinishedEditingEvent(
         this.section,
-        this.form.get('commitMsg').value.trim()
-          ? this.form.get('commitMsg').value.trim()
-          : 'Made a change.'));
+        this.commitMessage));
   }
 
   cancelEditing(): void {
     this.cancelledEditing.emit(new CancelledEditingEvent(this.section));
+  }
+
+  private get commitMessage(): string {
+    const value = this.form.get('commitMsg').value;
+    return value && value.trim()
+      ? value.trim()
+      : 'Made a change.';
   }
 }
 
