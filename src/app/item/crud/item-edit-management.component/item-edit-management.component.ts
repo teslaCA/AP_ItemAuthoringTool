@@ -28,7 +28,12 @@ export class ItemEditManagementComponent {
   }
 
   finishEditing(): void {
-    this.finishedEditing.emit(new FinishedEditingEvent(this.section, this.form.get('commitMsg').value));
+    this.finishedEditing.emit(
+      new FinishedEditingEvent(
+        this.section,
+        this.form.get('commitMsg').value.trim()
+          ? this.form.get('commitMsg').value.trim()
+          : 'Made a change.'));
   }
 
   cancelEditing(): void {

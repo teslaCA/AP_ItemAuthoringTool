@@ -60,9 +60,9 @@ export class ItemCrudComponent implements OnInit {
   }
 
   onFinishedCreating(event: FinishedCreatingEvent): void {
-    this.logger.info(`Finished creating with message '${event.message}'`);
+    this.logger.info(`Finished creating'`);
 
-    this.commitCreateTransaction();
+    this.commitCreateTransaction(event.message);
   }
 
   onBeganEditing(event: BeganEditingEvent): void {
@@ -80,7 +80,7 @@ export class ItemCrudComponent implements OnInit {
   onFinishedEditing(event: FinishedEditingEvent): void {
     this.logger.info(`Finished editing section ${event.section}`);
 
-    this.commitEditTransaction();
+    this.commitEditTransaction(event.message);
   }
 
   onTabChanged(selectedTab: string): void {
@@ -118,17 +118,17 @@ export class ItemCrudComponent implements OnInit {
         });
   }
 
-  private commitCreateTransaction(): void {
+  private commitCreateTransaction(message: string): void {
     this.commitTransaction(
-      'Finished creation.',
+      message,
       `${this.itemContext.item.itemType.categoryName} Created`,
       `The ${this.itemContext.item.itemType.categoryName} has been successfully created and added to the item bank.`,
       `/?id=${this.itemDetailsComponent.currentItem.id}`);
   }
 
-  private commitEditTransaction(): void {
+  private commitEditTransaction(message: string): void {
     this.commitTransaction(
-      this.form.get('commitMsg').value ? this.form.get('commitMsg').value.trim() : 'Made a change.',
+      message,
       'Changes Committed',
       `Your changes to the ${this.itemContext.item.itemType.categoryName} have been committed to the item bank.`,
       `/?id=${this.itemDetailsComponent.currentItem.id}`);

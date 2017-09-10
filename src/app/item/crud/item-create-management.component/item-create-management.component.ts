@@ -22,7 +22,7 @@ export class ItemCreateManagementComponent {
   }
 
   finishCreating(): void {
-    this.finishedCreating.emit(new FinishedCreatingEvent(this.form.get('commitMsg').value));
+    this.finishedCreating.emit(new FinishedCreatingEvent('Finished creating.'));
   }
 
   cancelCreating(): void {

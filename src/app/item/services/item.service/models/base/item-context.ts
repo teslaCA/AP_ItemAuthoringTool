@@ -37,7 +37,8 @@ export abstract class ItemContext {
   }
 
   isUserEditingDifferentSection(userName: string, section: string): boolean {
-    return !this.isUserEditingSection(userName, section)
+    return !this.isUserCreatingItem(userName)
+      && !this.isUserEditingSection(userName, section)
       && this.isUserEditingAnySection(userName);
   }
 

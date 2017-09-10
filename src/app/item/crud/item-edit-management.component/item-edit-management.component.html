@@ -5,7 +5,7 @@
 
 <!-- Message indicating you are editing another section -->
 <div *ngIf="itemContext.isUserEditingDifferentSection(currentUser.userName, section)" class="alert-info small">
-  <div><i class="fa fa-warning"></i> You must finishing editing '{{itemContext.getSectionBeingEditedByUser(currentUser.userName)}}' before you can edit this section</div>
+  <div><i class="fa fa-warning"></i> You must finish editing '{{itemContext.getSectionBeingEditedByUser(currentUser.userName)}}' before you can edit this section</div>
 </div>
 
 <!-- Begin editing button -->
