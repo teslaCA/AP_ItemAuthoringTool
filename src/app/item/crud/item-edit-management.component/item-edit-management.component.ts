@@ -17,24 +17,6 @@ export class ItemEditManagementComponent {
   @Output() cancelledEditing = new EventEmitter<CancelledEditingEvent>();
   form: FormGroup;
 
-  get canCurrentUserBeginEditing(): boolean {
-    return !this.itemContext.isSectionBeingEdited(this.section)
-      && !this.itemContext.isAnySectionBeingEditedBy(this.currentUser.userName);
-  }
-
-  get isCurrentUserEditing(): boolean {
-    return this.itemContext.isSectionBeingEditedBy(this.section, this.currentUser.userName);
-  }
-
-  get isAnotherUserEditing(): boolean {
-    return this.itemContext.isSectionBeingEdited(this.section)
-      && !this.itemContext.isSectionBeingEditedBy(this.section, this.currentUser.userName);
-  }
-
-  get userNameOfUserEditing(): string {
-    return this.itemContext.getSectionEditorUserName(this.section);
-  }
-
   constructor(private formBuilder: FormBuilder) {
     this.form = this.formBuilder.group({
       commitMsg: [null]

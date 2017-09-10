@@ -1,12 +1,12 @@
 <!-- Cancel creating -->
-<span *ngIf="isCurrentUserCreating">
+<span *ngIf="itemContext.isUserCreatingItem(currentUser.userName)">
   <button class="btn btn-default btn-sm" (click)="cancelModal.show()">
     <i class="fa fa-undo"></i> Cancel
   </button>
 </span>
 
 <!-- Finish creating -->
-<span *ngIf="isCurrentUserCreating">
+<span *ngIf="itemContext.isUserCreatingItem(currentUser.userName)">
   <button class="btn btn-success btn-sm" (click)="commitModal.show()">
     <i class="fa fa-check-square"></i> Finish Creating {{itemContext.item.itemType.categoryName}}
   </button>

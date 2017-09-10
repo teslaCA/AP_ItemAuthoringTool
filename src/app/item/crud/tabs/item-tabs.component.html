@@ -97,7 +97,7 @@
 
       <!-- Braille -->
       <item-braille-tab *ngIf="isSelected(tab.braille)"
-                        [isReadOnly]="!itemContext.canUserChangeSection(currentUser.userName, 'braille')"
+                        [isReadOnly]="!itemContext.isUserCreatingItemOrEditingSection(currentUser.userName, 'braille')"
                         [itemContext]="itemContext"
                         (itemBrailleChanged)="onItemChanged()">
       </item-braille-tab>
@@ -115,7 +115,7 @@
       <!-- Stimulus -->
       <item-association-tab #stimulus
                             *ngIf="isSelected(tab.stimulus)"
-                            [isReadOnly]="!itemContext.canUserChangeSection(currentUser.userName, 'core')"
+                            [isReadOnly]="!itemContext.isUserCreatingItemOrEditingSection(currentUser.userName, 'core')"
                             [associationId]="associatedStimulusId"
                             [associationType]="itemTypeStimulus"
                             (associationIdChanged)="onItemChanged()">
@@ -124,7 +124,7 @@
       <!-- Tutorial -->
       <item-association-tab #tutorial
                             *ngIf="isSelected(tab.tutorial)"
-                            [isReadOnly]="!itemContext.canUserChangeSection(currentUser.userName, 'core')"
+                            [isReadOnly]="!itemContext.isUserCreatingItemOrEditingSection(currentUser.userName, 'core')"
                             [associationId]="associatedTutorialId"
                             [associationType]="itemTypeTutorial"
                             (associationIdChanged)="onItemChanged()">
@@ -132,7 +132,7 @@
 
       <!-- Workflow -->
       <item-workflow-tab *ngIf="isSelected(tab.workflow)"
-                         [isReadOnly]="!itemContext.canUserChangeSection(currentUser.userName, 'core')"
+                         [isReadOnly]="!itemContext.isUserCreatingItemOrEditingSection(currentUser.userName, 'core')"
                          [workflowStatusCode]="itemContext.item.core.workflowStatusCode"
                          (workflowStatusCodeChange)="onItemChanged()">
       </item-workflow-tab>

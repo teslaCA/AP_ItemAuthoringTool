@@ -9,14 +9,14 @@
           <item-preview #itemPreview
                         [itemId]="itemContext.item.id"
                         [itemType]="itemContext.item.itemType.categoryName"
-                        [isBeingEditedByCurrentUser]="isCurrentUserEditing"
-                        [isBeingCreatedByCurrentUser]="isCurrentUserCreating">
+                        [isBeingEditedByCurrentUser]="itemContext.isUserEditingAnySection(currentUser.userName)"
+                        [isBeingCreatedByCurrentUser]="itemContext.isUserCreatingItem(currentUser.userName)">
           </item-preview>
         </span>
 
         <!-- Auto-save -->
         <item-auto-save #autoSave
-                        [enabled]="isCurrentUserCreating || isCurrentUserEditing"
+                        [enabled]="itemContext.isUserCreatingItem(currentUser.userName) || itemContext.isUserEditingAnySection(currentUser.userName)"
                         [debounceTimeMillis]="3000">
         </item-auto-save>
       </div>
@@ -70,7 +70,7 @@
 
             <!-- Item details -->
             <item-details [itemContext]="itemContext"
-                          [isReadOnly]="!isCurrentUserCreatingOrEditing('core')"
+                          [isReadOnly]="!itemContext.isUserCreatingItemOrEditingSection(currentUser.userName, 'core')"
                           (itemChanged)="autoSave.onItemChange($event)">
             </item-details>
 

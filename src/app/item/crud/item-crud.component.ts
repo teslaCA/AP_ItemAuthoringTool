@@ -31,48 +31,6 @@ export class ItemCrudComponent implements OnInit {
   selectedTab: string;
   @ViewChild(ItemDetailsComponent) itemDetailsComponent;
 
-  get mode(): string {
-    if (this.isCurrentUserCreating) {
-      return "Creating";
-    }
-    if (this.isCurrentUserEditing) {
-      return "Editing";
-    }
-    if (this.isBeingViewedByCurrentUser) {
-      return "Viewing";
-    }
-    return "";
-  }
-
-  isCurrentUserCreatingOrEditing(section: string): boolean {
-    return this.isCurrentUserCreating
-      || this.isCurrentUserEditing(section);
-  }
-
-  isCurrentUserEditing(section: string): boolean {
-    return this.itemContext.isSectionBeingEditedBy(section, this.currentUser.userName);
-  }
-
-  isAnotherUserEditing(section: string): boolean {
-    return this.itemContext.isSectionBeingEdited(section)
-      && !this.itemContext.isSectionBeingEditedBy(section, this.currentUser.userName);
-  }
-
-  getUserNameEditing(section: string): string {
-    return this.itemContext.getSectionEditorUserName(section);
-  }
-
-  get isCurrentUserCreating(): boolean {
-    return this.itemContext.isBeingCreatedBy(this.currentUser.userName);
-  }
-
-  get isBeingViewedByCurrentUser(): boolean {
-    // TODO: IAT-666 - Replace with section-specific editing logic
-    // return !this.isBeingCreatedByCurrentUser
-    //   && !this.isBeingEditedByCurrentUser;
-    return false;
-  }
-
   constructor(private router: Router,
               private route: ActivatedRoute,
               private userService: UserService,
@@ -95,45 +53,6 @@ export class ItemCrudComponent implements OnInit {
         });
   }
 
-  commitCreateTransaction(): void {
-    this.commitTransaction(
-      'Finished creation.',
-      `${this.itemContext.item.itemType.categoryName} Created`,
-      `The ${this.itemContext.item.itemType.categoryName} has been successfully created and added to the item bank.`,
-      `/?id=${this.itemDetailsComponent.currentItem.id}`);
-  }
-
-  commitEditTransaction(): void {
-    this.commitTransaction(
-      this.form.get('commitMsg').value ? this.form.get('commitMsg').value.trim() : 'Made a change.',
-      'Changes Committed',
-      `Your changes to the ${this.itemContext.item.itemType.categoryName} have been committed to the item bank.`,
-      `/?id=${this.itemDetailsComponent.currentItem.id}`);
-  }
-
-  rollbackCreateTransaction(): void {
-    this.rollbackTransaction(
-      'Creation Cancelled',
-      `The ${this.itemContext.item.itemType.categoryName} you were creating has been successfully removed.`,
-      '/');
-  }
-
-  rollbackEditTransaction(): void {
-    this.rollbackTransaction(
-      'Changes Discarded',
-      `Your changes to the ${this.itemContext.item.itemType.categoryName} have been discarded.`,
-      `/?id=${this.itemContext.item.id}`);
-  }
-
-  beginEditTransaction(section: string): void {
-    this.itemService
-      .beginEditTransaction(this.itemContext.item.id, section, "Began edit")
-      .subscribe(
-        () => {
-          this.loadItem(this.itemContext.item.id, this.selectedTab);
-        });
-  }
-
   onCancelledCreating(): void {
     this.logger.info(`Cancelled creating`);
 
@@ -141,7 +60,7 @@ export class ItemCrudComponent implements OnInit {
   }
 
   onFinishedCreating(event: FinishedCreatingEvent): void {
-    this.logger.info(`Finished creating`);
+    this.logger.info(`Finished creating with message '${event.message}'`);
 
     this.commitCreateTransaction();
   }
@@ -164,12 +83,12 @@ export class ItemCrudComponent implements OnInit {
     this.commitEditTransaction();
   }
 
-  goHome(): void {
-    this.router.navigateByUrl('/');
-  }
-
   onTabChanged(selectedTab: string): void {
     this.selectedTab = selectedTab;
+  }
+
+  goHome(): void {
+    this.router.navigateByUrl('/');
   }
 
   private loadItem(itemId: string, selectTab: string) {
@@ -196,6 +115,45 @@ export class ItemCrudComponent implements OnInit {
                 this.isLoading = false;
                 this.errorMessage = this.httpUtility.getErrorMessageText(error);
               });
+        });
+  }
+
+  private commitCreateTransaction(): void {
+    this.commitTransaction(
+      'Finished creation.',
+      `${this.itemContext.item.itemType.categoryName} Created`,
+      `The ${this.itemContext.item.itemType.categoryName} has been successfully created and added to the item bank.`,
+      `/?id=${this.itemDetailsComponent.currentItem.id}`);
+  }
+
+  private commitEditTransaction(): void {
+    this.commitTransaction(
+      this.form.get('commitMsg').value ? this.form.get('commitMsg').value.trim() : 'Made a change.',
+      'Changes Committed',
+      `Your changes to the ${this.itemContext.item.itemType.categoryName} have been committed to the item bank.`,
+      `/?id=${this.itemDetailsComponent.currentItem.id}`);
+  }
+
+  private rollbackCreateTransaction(): void {
+    this.rollbackTransaction(
+      'Creation Cancelled',
+      `The ${this.itemContext.item.itemType.categoryName} you were creating has been successfully removed.`,
+      '/');
+  }
+
+  private rollbackEditTransaction(): void {
+    this.rollbackTransaction(
+      'Changes Discarded',
+      `Your changes to the ${this.itemContext.item.itemType.categoryName} have been discarded.`,
+      `/?id=${this.itemContext.item.id}`);
+  }
+
+  private beginEditTransaction(section: string): void {
+    this.itemService
+      .beginEditTransaction(this.itemContext.item.id, section, "Began edit")
+      .subscribe(
+        () => {
+          this.loadItem(this.itemContext.item.id, this.selectedTab);
         });
   }
 

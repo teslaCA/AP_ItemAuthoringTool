@@ -1,24 +1,29 @@
 <!-- Message indicating another user is editing -->
-<div *ngIf="isAnotherUserEditing" class="alert-warning small">
-  <div><i class="fa fa-warning"></i> {{userNameOfUserEditing}} is editing this section</div>
+<div *ngIf="itemContext.isDifferentUserEditingSection(currentUser.userName, section)" class="alert-warning small">
+  <div><i class="fa fa-warning"></i> {{itemContext.getUserEditingSection(section)}} is editing this section</div>
+</div>
+
+<!-- Message indicating you are editing another section -->
+<div *ngIf="itemContext.isUserEditingDifferentSection(currentUser.userName, section)" class="alert-info small">
+  <div><i class="fa fa-warning"></i> You must finishing editing '{{itemContext.getSectionBeingEditedByUser(currentUser.userName)}}' before you can edit this section</div>
 </div>
 
 <!-- Begin editing button -->
-<span *ngIf="canCurrentUserBeginEditing">
-  <button class="btn btn-success btn-sm" (click)="beginEditing('core')">
+<span *ngIf="itemContext.canUserBeginEditingSection(currentUser.userName, section)">
+  <button class="btn btn-success btn-sm" (click)="beginEditing(section)">
     <i class="fa fa-edit"></i> Edit
   </button>
 </span>
 
 <!-- Cancel editing button -->
-<span *ngIf="isCurrentUserEditing">
+<span *ngIf="itemContext.isUserEditingSection(currentUser.userName, section)">
   <button class="btn btn-default btn-sm" (click)="cancelModal.show()">
     <i class="fa fa-undo"></i> Discard
   </button>
 </span>
 
 <!-- Finish editing button -->
-<span *ngIf="isCurrentUserEditing">
+<span *ngIf="itemContext.isUserEditingSection(currentUser.userName, section)">
   <button class="btn btn-success btn-sm" (click)="commitModal.show()">
     <i class="fa fa-check-square"></i> Finish Editing
   </button>
@@ -103,7 +108,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="cancelModal.hide()">
           <span aria-hidden="true">&times;</span>
         </button>
-        <h3 *ngIf="isCurrentUserEditing" class="modal-title" id="cancelEditModalLabel">
+        <h3 *ngIf="itemContext.isUserEditingSection(currentUser.userName, section)" class="modal-title" id="cancelEditModalLabel">
           Discard Changes
         </h3>
       </div>

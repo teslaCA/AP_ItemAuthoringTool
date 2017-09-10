@@ -11,13 +11,9 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 export class ItemCreateManagementComponent {
   @Input() itemContext: ItemContext;
   @Input() currentUser: User;
-  @Output() cancelledCreating = new EventEmitter<void>();
   @Output() finishedCreating = new EventEmitter<FinishedCreatingEvent>();
+  @Output() cancelledCreating = new EventEmitter<void>();
   form: FormGroup;
-
-  get isCurrentUserCreating(): boolean {
-    return this.itemContext.isBeingCreatedBy(this.currentUser.userName);
-  }
 
   constructor(private formBuilder: FormBuilder) {
     this.form = this.formBuilder.group({

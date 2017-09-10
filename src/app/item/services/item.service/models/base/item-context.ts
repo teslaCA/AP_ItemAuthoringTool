@@ -16,46 +16,53 @@ export abstract class ItemContext {
   @JsonProperty("transactions", [ItemTransaction])
   transactions: ItemTransaction[] = undefined;    // Initialize to undefined so that field is mapped
 
-  get currentTransaction(): ItemTransaction {
-    return this.transactions.length == 0 ? null : this.transactions[0];
-  }
-
-  canUserChangeSection(userName: string, section: string): boolean {
-    return this.isBeingCreatedBy(userName)
-      || this.isSectionBeingEditedBy(section, userName);
-  }
-
-  // ---------- Creating properties ----------
-  get isBeingCreated(): boolean {
+  get isAnyUserCreatingItem(): boolean {
     return this.transactions.some(t => t.section === "create");
   }
 
-  isBeingCreatedBy(userName: string): boolean {
+  isUserCreatingItem(userName: string): boolean {
     return this.transactions.some(t => t.section === "create" && t.userName === userName);
   }
 
-  get creatorUserName(): string {
-    return this.isBeingCreated
-      ? this.transactions.find(t => t.section === "create").userName
-      : null;
-  }
-
-  // ---------- Editing properties ----------
-  isSectionBeingEdited(section: string): boolean {
+  isAnyUserEditingSection(section: string): boolean {
     return this.transactions.some(t => t.section === section);
   }
 
-  isSectionBeingEditedBy(section: string, userName: string): boolean {
-    return this.transactions.some(t => t.section === section && t.userName === userName);
+  isUserEditingSection(userName: string, section: string): boolean {
+    return this.transactions.some(t => t.userName === userName && t.section === section);
   }
 
-  isAnySectionBeingEditedBy(userName: string): boolean {
+  isUserEditingAnySection(userName: string): boolean {
     return this.transactions.some(t => t.userName === userName);
   }
 
-  getSectionEditorUserName(section: string): string {
-    return this.isSectionBeingEdited(section)
+  isUserEditingDifferentSection(userName: string, section: string): boolean {
+    return !this.isUserEditingSection(userName, section)
+      && this.isUserEditingAnySection(userName);
+  }
+
+  isDifferentUserEditingSection(userName: string, section: string): boolean {
+    return !this.isUserEditingSection(userName, section)
+      && this.isAnyUserEditingSection(section);
+  }
+
+  isUserCreatingItemOrEditingSection(userName: string, section: string): boolean {
+    return this.isUserCreatingItem(userName)
+      || this.isUserEditingSection(userName, section);
+  }
+
+  canUserBeginEditingSection(userName: string, section: string): boolean {
+    return !this.isAnyUserEditingSection(section)
+      && !this.isUserEditingAnySection(userName);
+  }
+
+  getUserEditingSection(section: string): string {
+    return this.isAnyUserEditingSection(section)
       ? this.transactions.find(t => t.section === section).userName
       : null;
+  }
+
+  getSectionBeingEditedByUser(userName: string): string {
+    return this.transactions.find(t => t.userName === userName).section;
   }
 }
