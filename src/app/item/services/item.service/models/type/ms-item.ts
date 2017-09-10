@@ -1,18 +1,44 @@
 import {JsonObject, JsonProperty} from "json2typescript";
 import {ItemOption} from "../shared/item-option";
-import {Item} from "../base/item";
+import {AssessmentItem} from "../base/item";
+import {AssessmentItemCore} from "../base/item-core";
+import {ItemContext} from "../base/item-context";
 
 /**
- * MS Item model that can be mapped to/from JSON.
+ * MS item context that can be mapped to/from JSON.
  *
  * Important: Fields must be initialized to a value or undefined to take part in mapping.
  * See https://github.com/dhlab-basel/json2typescript for more info.
  */
 @JsonObject
-export class MsItem extends Item {
+export class MsItemContext extends ItemContext {
+  @JsonProperty("item", MsItem)
+  item: MsItem = undefined;                     // Initialize to undefined so that field is mapped
+}
+
+/**
+ * MS item that can be mapped to/from JSON.
+ *
+ * Important: Fields must be initialized to a value or undefined to take part in mapping.
+ * See https://github.com/dhlab-basel/json2typescript for more info.
+ */
+@JsonObject
+export class MsItem extends AssessmentItem {
+  @JsonProperty("core", MsItemCore)
+  core: MsItemCore = undefined;                 // Initialize to undefined so that field is mapped
+}
+
+/**
+ * MS item core that can be mapped to/from JSON.
+ *
+ * Important: Fields must be initialized to a value or undefined to take part in mapping.
+ * See https://github.com/dhlab-basel/json2typescript for more info.
+ */
+@JsonObject
+export class MsItemCore extends AssessmentItemCore {
   @JsonProperty("options", [ItemOption])
-  options: ItemOption[] = undefined;    // Initialize to undefined so that field is mapped
+  options: ItemOption[] = undefined;            // Initialize to undefined so that field is mapped
 
   @JsonProperty("prompt", String)
-  prompt: string = undefined;           // Initialize to undefined so that field is mapped
+  prompt: string = undefined;                   // Initialize to undefined so that field is mapped
 }

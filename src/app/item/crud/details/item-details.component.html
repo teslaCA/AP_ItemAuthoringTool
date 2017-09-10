@@ -6,19 +6,19 @@
                    <!--(itemChanged)="onItemChanged($event)">-->
 <!--</item-ebsr-details>-->
 
-<!--&lt;!&ndash; MC &ndash;&gt;-->
-<!--<item-mc-details *ngIf="itemContext.item.type=='mc'"-->
-                 <!--[itemContext]="itemContext"-->
-                 <!--[isReadOnly]="isReadOnly"-->
-                 <!--(itemChanged)="onItemChanged($event)">-->
-<!--</item-mc-details>-->
+<!-- MC -->
+<item-mc-details *ngIf="itemContext.item.type=='mc'"
+                 [itemContext]="itemContext"
+                 [isReadOnly]="isReadOnly"
+                 (itemChanged)="onItemChanged($event)">
+</item-mc-details>
 
-<!--&lt;!&ndash; MS &ndash;&gt;-->
-<!--<item-ms-details *ngIf="itemContext.item.type=='ms'"-->
-                 <!--[itemContext]="itemContext"-->
-                 <!--[isReadOnly]="isReadOnly"-->
-                 <!--(itemChanged)="onItemChanged($event)">-->
-<!--</item-ms-details>-->
+<!-- MS -->
+<item-ms-details *ngIf="itemContext.item.type=='ms'"
+                 [itemContext]="itemContext"
+                 [isReadOnly]="isReadOnly"
+                 (itemChanged)="onItemChanged($event)">
+</item-ms-details>
 
 <!-- SA -->
 <item-sa-details *ngIf="itemContext.item.type=='sa'"
