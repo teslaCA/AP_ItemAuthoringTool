@@ -1,55 +1,55 @@
 <!-- EBSR -->
-<item-ebsr-details *ngIf="item.type=='EBSR'"
-                   [item]="item"
+<item-ebsr-details *ngIf="itemContext.item.type=='ebsr'"
+                   [itemContext]="itemContext"
                    [isReadOnly]="isReadOnly"
                    (itemChanged)="onItemChanged($event)">
 </item-ebsr-details>
 
 <!-- MC -->
-<item-mc-details *ngIf="item.type=='mc'"
-                 [item]="item"
+<item-mc-details *ngIf="itemContext.item.type=='mc'"
+                 [itemContext]="itemContext"
                  [isReadOnly]="isReadOnly"
                  (itemChanged)="onItemChanged($event)">
 </item-mc-details>
 
 <!-- MS -->
-<item-ms-details *ngIf="item.type=='ms'"
-                 [item]="item"
+<item-ms-details *ngIf="itemContext.item.type=='ms'"
+                 [itemContext]="itemContext"
                  [isReadOnly]="isReadOnly"
                  (itemChanged)="onItemChanged($event)">
 </item-ms-details>
 
 <!-- SA -->
-<item-sa-details *ngIf="item.type=='sa'"
-                 [item]="item"
+<item-sa-details *ngIf="itemContext.item.type=='sa'"
+                 [itemContext]="itemContext"
                  [isReadOnly]="isReadOnly"
                  (itemChanged)="onItemChanged($event)">
 </item-sa-details>
 
 <!-- STIM -->
-<item-stim-details *ngIf="item.type=='stim'"
-                   [item]="item"
+<item-stim-details *ngIf="itemContext.item.type=='stim'"
+                   [itemContext]="itemContext"
                    [isReadOnly]="isReadOnly"
                    (itemChanged)="onItemChanged($event)">
 </item-stim-details>
 
 <!-- TI -->
-<item-ti-details *ngIf="item.type=='ti'"
-                 [item]="item"
+<item-ti-details *ngIf="itemContext.item.type=='ti'"
+                 [itemContext]="itemContext"
                  [isReadOnly]="isReadOnly"
                  (itemChanged)="onItemChanged($event)">
 </item-ti-details>
 
-<!-- WER -->
-<item-wer-details *ngIf="item.type=='wer'"
-                  [item]="item"
-                  [isReadOnly]="isReadOnly"
-                  (itemChanged)="onItemChanged($event)">
-</item-wer-details>
-
 <!-- TUT -->
-<item-tut-details *ngIf="item.type=='tut'"
-                  [item]="item"
+<item-tut-details *ngIf="itemContext.item.type=='tut'"
+                  [itemContext]="itemContext"
                   [isReadOnly]="isReadOnly"
                   (itemChanged)="onItemChanged($event)">
 </item-tut-details>
+
+<!-- WER -->
+<item-wer-details *ngIf="itemContext.item.type=='wer'"
+                  [itemContext]="itemContext"
+                  [isReadOnly]="isReadOnly"
+                  (itemChanged)="onItemChanged($event)">
+</item-wer-details>

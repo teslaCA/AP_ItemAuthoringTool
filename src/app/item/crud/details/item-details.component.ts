@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, Output, ViewChild} from "@angular/core";
 
-import {Item} from "../../services/item.service/item";
+import {Item} from "../../services/item.service/models/base/item";
 import {ItemSaDetailsComponent} from "./item-sa-details.component/item-sa-details.component";
 import {ItemStimDetailsComponent} from "./item-stim-details.component/item-stim-details.component";
 import {ItemWerDetailsComponent} from "./item-wer-details.component/item-wer-details.component";
@@ -9,6 +9,7 @@ import {ItemMsDetailsComponent} from "./item-ms-details.component/item-ms-detail
 import {ItemTutDetailsComponent} from "./item-tut-details.component/item-tut-details.component";
 import {ItemEbsrDetailsComponent} from "./item-ebsr-details/item-ebsr-details.component";
 import {ItemTiDetailsComponent} from "./item-ti-details.component/item-ti-details.component";
+import {ItemContext} from "../../services/item.service/models/base/item-context";
 
 @Component({
   selector: 'item-details',
@@ -16,7 +17,7 @@ import {ItemTiDetailsComponent} from "./item-ti-details.component/item-ti-detail
   styleUrls: ['./item-details.component.less']
 })
 export class ItemDetailsComponent {
-  @Input() item: Item;
+  @Input() itemContext: ItemContext;
   @Input() isReadOnly: boolean;
   @Output() itemChanged = new EventEmitter<Item>();
   @ViewChild(ItemEbsrDetailsComponent) itemEbsrDetailsComponent;
@@ -29,25 +30,25 @@ export class ItemDetailsComponent {
   @ViewChild(ItemWerDetailsComponent) itemWerDetailsComponent;
 
   get currentItem(): Item {
-    switch (this.item.type) {
-      case 'EBSR':
-        return this.itemEbsrDetailsComponent.item;
+    switch (this.itemContext.item.type) {
+      case 'ebsr':
+        return this.itemEbsrDetailsComponent.itemContext.item;
       case 'tut':
-        return this.itemTutDetailsComponent.item;
+        return this.itemTutDetailsComponent.itemContext.item;
       case 'mc':
-        return this.itemMcDetailsComponent.item;
+        return this.itemMcDetailsComponent.itemContext.item;
       case 'ms':
-        return this.itemMsDetailsComponent.item;
+        return this.itemMsDetailsComponent.itemContext.item;
       case 'sa':
-        return this.itemSaDetailsComponent.item;
+        return this.itemSaDetailsComponent.itemContext.item;
       case 'stim':
-        return this.itemStimDetailsComponent.item;
+        return this.itemStimDetailsComponent.itemContext.item;
       case 'ti':
-        return this.itemTiDetailsComponent.item;
+        return this.itemTiDetailsComponent.itemContext.item;
       case 'wer':
-        return this.itemWerDetailsComponent.item;
+        return this.itemWerDetailsComponent.itemContext.item;
       default:
-        throw new Error(`Cannot get current item of unknown type ${this.item.type}`);
+        throw new Error(`Cannot get current item of unknown type ${this.itemContext.item.type}`);
     }
   }
 

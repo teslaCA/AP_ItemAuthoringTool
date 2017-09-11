@@ -39,6 +39,8 @@ import {CKEditorModule} from 'ng2-ckeditor';
 import {ItemValidationService} from "./services/item-validation.service/item-validation.service";
 import {ItemTiDetailsComponent} from "./crud/details/item-ti-details.component/item-ti-details.component";
 import {ItemTiTableComponent} from "./crud/details/shared/item-ti-table.component/item-ti-table.component";
+import {ItemEditManagementComponent} from './crud/item-edit-management.component/item-edit-management.component';
+import {ItemCreateManagementComponent} from "./crud/item-create-management.component/item-create-management.component";
 
 @NgModule({
   imports: [
@@ -77,7 +79,9 @@ import {ItemTiTableComponent} from "./crud/details/shared/item-ti-table.componen
     ItemTutDetailsComponent,
     ItemEbsrDetailsComponent,
     ItemAssociationTabComponent,
-    ItemBrailleTabComponent
+    ItemBrailleTabComponent,
+    ItemEditManagementComponent,
+    ItemCreateManagementComponent
   ],
   exports: [
     ItemDashboardComponent,

@@ -1,14 +1,15 @@
 import {Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild} from '@angular/core';
-import {ItemBraille} from "../../../services/item.service/item-braille";
+import {ItemBraille} from "../../../services/item.service/models/shared/item-braille";
 import {FormBuilder} from "@angular/forms";
 import {Logger} from "../../../../core/logger.service/logger.service";
 import {FileItem, FileUploader, ParsedResponseHeaders} from "ng2-file-upload";
-import {Item} from "../../../services/item.service/item";
-import {ItemAttachment} from "../../../services/item.service/item-attachment";
+import {ItemAttachment} from "../../../services/item.service/models/shared/item-attachment";
 import {ItemService} from "../../../services/item.service/item.service";
 import {AlertService} from "../../../../core/alert.service/alert.service";
 import {ModalDirective} from "ngx-bootstrap";
 import {BusyService} from "../../../../core/busy.service/busy.service";
+import {ItemContext} from "../../../services/item.service/models/base/item-context";
+import {User} from "../../../../core/user.service/user";
 
 @Component({
   selector: 'item-braille-tab',
@@ -25,7 +26,7 @@ export class ItemBrailleTabComponent implements OnInit, OnChanges {
   @ViewChild("fileDialog") fileDialog: ElementRef;
   @ViewChild('deleteModal') deleteModal: ModalDirective;
   @Input() isReadOnly: boolean;
-  @Input() item: Item;
+  @Input() itemContext: ItemContext;
   @Output() itemBrailleChanged = new EventEmitter<ItemBraille>();
   readonly fieldForm = this.fb.group({
     isBrailleRequired: '',
@@ -48,14 +49,12 @@ export class ItemBrailleTabComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     // Reset form data and flags
-    this.brailleAttachments = this.item.braille.attachments;
+    this.brailleAttachments = this.itemContext.item.braille.attachments;
 
     // Configure uploader component
     let itemFileUrl = "";
     if (!this.isReadOnly) {
-      itemFileUrl = this.serviceUrl + '/'
-        + this.item.id + '/transactions/'
-        + this.item.currentTransaction.transactionId + '/braille';
+      itemFileUrl = `${this.serviceUrl}/${this.itemContext.item.id}/files/braille`;
     }
     this.uploader = new FileUploader({url: itemFileUrl});
     this.uploader.setOptions({autoUpload: true});
@@ -104,8 +103,8 @@ export class ItemBrailleTabComponent implements OnInit, OnChanges {
   ngOnChanges() {
     // Reset form data and flags
     this.fieldForm.reset({
-      isBrailleRequired: this.item.braille.isBrailleRequired,
-      isBrailleProvided: this.item.braille.isBrailleProvided
+      isBrailleRequired: this.itemContext.item.braille.isBrailleRequired,
+      isBrailleProvided: this.itemContext.item.braille.isBrailleProvided
     });
 
     // Disable form if read-only
@@ -141,10 +140,7 @@ export class ItemBrailleTabComponent implements OnInit, OnChanges {
 
   deleteFile(index: number, fileName: string): void {
     this.itemService
-      .deleteBrailleFile(
-        this.item.currentTransaction.transactionId,
-        this.item.id,
-        fileName, true, true)
+      .deleteBrailleFile(this.itemContext.item.id, fileName, true, true)
       .subscribe(() => {
           this.brailleAttachments.splice(index, 1);
 
