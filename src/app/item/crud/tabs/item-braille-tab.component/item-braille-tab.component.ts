@@ -54,7 +54,7 @@ export class ItemBrailleTabComponent implements OnInit, OnChanges {
     // Configure uploader component
     let itemFileUrl = "";
     if (!this.isReadOnly) {
-      itemFileUrl = `${this.serviceUrl}/${this.itemContext.item.id}/files/braille`
+      itemFileUrl = `${this.serviceUrl}/${this.itemContext.item.id}/files/braille`;
     }
     this.uploader = new FileUploader({url: itemFileUrl});
     this.uploader.setOptions({autoUpload: true});
