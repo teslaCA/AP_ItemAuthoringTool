@@ -1,5 +1,5 @@
 import {Component, Input, OnDestroy, OnInit} from "@angular/core";
-import {Item} from "../../services/item.service/item";
+import {Item} from "../../services/item.service/models/base/item";
 import {ItemService} from "../../services/item.service/item.service";
 import {Observable} from "rxjs/Observable";
 import {Subject} from "rxjs/Subject";
@@ -108,8 +108,7 @@ export class ItemAutoSaveComponent implements OnInit, OnDestroy {
   private saveChanges(item: Item): void {
     this.mode = AutoSaveMode.Saving;
     this.itemService
-      .updateTransaction(
-        item.currentTransaction.transactionId,
+      .updateItem(
         item,
         "Auto-save",
         false /* showAlertOnError */,

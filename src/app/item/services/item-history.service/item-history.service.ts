@@ -7,7 +7,8 @@ import "rxjs/add/observable/throw";
 import "rxjs/add/observable/fromPromise";
 import {JsonConvert} from "json2typescript";
 import {HttpUtility} from "../../../core/http-utility.service/http-utility";
-import {ItemChange} from "./item-change";
+import {ItemVersion} from "./item-version";
+import {ItemHistoryResponse} from "./item-history-response";
 
 @Injectable()
 export class ItemHistoryService {
@@ -26,13 +27,13 @@ export class ItemHistoryService {
    */
   findItemHistory(itemId: string,
                   showAlertOnError = true,
-                  showBusyIndicator = true): Observable<ItemChange[]> {
-    const url = ItemHistoryService.serviceUrl + '/' + itemId + '/history';
+                  showBusyIndicator = true): Observable<ItemHistoryResponse> {
+    const url = ItemHistoryService.serviceUrl + '/' + itemId + '/versions';
     return this.httpUtility.applyAsyncHandling(
       "Loading history",
       this.http
         .get(url, HttpUtility.jsonRequestOptions)
-        .map(response => JsonConvert.deserializeArray(response.json(), ItemChange)),
+        .map(response => JsonConvert.deserializeObject(response.json(), ItemHistoryResponse)),
       showAlertOnError,
       showBusyIndicator
     );

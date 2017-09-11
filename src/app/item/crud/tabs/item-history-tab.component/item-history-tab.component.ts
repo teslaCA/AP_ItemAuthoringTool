@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from "@angular/core";
 import {ItemHistoryService} from "../../../services/item-history.service/item-history.service";
-import {ItemChange} from "../../../services/item-history.service/item-change";
+import {ItemVersion} from "../../../services/item-history.service/item-version";
+import {ItemHistoryResponse} from "../../../services/item-history.service/item-history-response";
 
 @Component({
   selector: 'item-history-tab',
@@ -9,7 +10,7 @@ import {ItemChange} from "../../../services/item-history.service/item-change";
 })
 export class ItemHistoryTabComponent implements OnInit {
   @Input() itemId: string;
-  itemChanges: ItemChange[];
+  itemVersions: ItemVersion[];
   diffWindow: any;
 
   constructor(private itemHistoryService: ItemHistoryService) {
@@ -19,8 +20,8 @@ export class ItemHistoryTabComponent implements OnInit {
     if (this.itemId) {
       this.itemHistoryService.findItemHistory(this.itemId)
         .subscribe(
-          (itemChanges: ItemChange[]) => {
-            this.itemChanges = itemChanges;
+          (itemHistoryResponse: ItemHistoryResponse) => {
+            this.itemVersions = itemHistoryResponse.versions;
           }
         );
     }
@@ -28,7 +29,7 @@ export class ItemHistoryTabComponent implements OnInit {
 
   openItemDiff(_ /* event */, historyId) {
     const strWindowFeatures = "height=800,width=1200,scrollbars=yes,status=yes";
-    const url = "/diff/item/" + this.itemId + "/history/" + historyId;
+    const url = `items/${this.itemId}/diff/${historyId}`;
     this.diffWindow = window.open(url, "itemDiff", strWindowFeatures);
   }
 }

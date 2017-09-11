@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from "@angular/core";
 import {FormArray, FormBuilder} from "@angular/forms";
-import {ItemOption} from "../../../../services/item.service/item-option";
+import {ItemOption} from "../../../../services/item.service/models/shared/item-option";
 
 @Component({
   selector: 'item-ms-options',

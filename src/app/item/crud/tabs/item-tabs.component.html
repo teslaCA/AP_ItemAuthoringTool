@@ -3,11 +3,12 @@
     <div class="well-body pt-xs">
       <!-- Tab selector dropdown -->
       <div class="btn-group" dropdown>
-        <!-- Selected option -->
+        <!-- Hamburger icon -->
         <button dropdownToggle type="button" class="btn btn-primary btn-xs dropdown-toggle mr-xs">
           <i class="fa fa-bars"></i><span class="sr-only">Item Menu</span>
         </button>
 
+        <!-- Selected option -->
         <span class="h2 mb-sm">
           <span *ngIf="isSelected(tab.braille)">Braille</span>
           <span *ngIf="isSelected(tab.history)">History</span>
@@ -25,19 +26,67 @@
           <li role="menuitem">
             <a class="dropdown-item" (click)="select(tab.history)">History</a>
           </li>
-          <li role="menuitem" *ngIf="item.supportsStimulus">
+          <li role="menuitem" *ngIf="itemContext.item.core.supportsStimulus">
             <a class="dropdown-item" (click)="select(tab.stimulus)">Stimulus</a>
           </li>
-          <li role="menuitem" *ngIf="item.supportsTutorial">
+          <li role="menuitem" *ngIf="itemContext.item.core.supportsTutorial">
             <a class="dropdown-item" (click)="select(tab.tutorial)">Tutorial</a>
           </li>
           <li role="menuitem">
             <a class="dropdown-item" (click)="select(tab.validation)">Validation</a>
           </li>
-          <li role="menuitem" *ngIf="item.supportsWorkflow">
+          <li role="menuitem" *ngIf="itemContext.item.core.supportsWorkflow">
             <a class="dropdown-item" (click)="select(tab.workflow)">Workflow</a>
           </li>
         </ul>
+      </div>
+
+      <!-- Edit management -->
+      <div class="pull-right">
+
+        <!-- Braille -->
+        <item-edit-management
+          *ngIf="isSelected(tab.braille)"
+          [section]="'braille'"
+          [itemContext]="itemContext"
+          [currentUser]="currentUser"
+          (beganEditing)="onBeganEditing($event)"
+          (cancelledEditing)="onCancelledEditing($event)"
+          (finishedEditing)="onFinishedEditing($event)">
+        </item-edit-management>
+
+        <!-- Stimulus -->
+        <item-edit-management
+          *ngIf="isSelected(tab.stimulus)"
+          [section]="'core'"
+          [itemContext]="itemContext"
+          [currentUser]="currentUser"
+          (beganEditing)="onBeganEditing($event)"
+          (cancelledEditing)="onCancelledEditing($event)"
+          (finishedEditing)="onFinishedEditing($event)">
+        </item-edit-management>
+
+        <!-- Tutorial -->
+        <item-edit-management
+          *ngIf="isSelected(tab.tutorial)"
+          [section]="'core'"
+          [itemContext]="itemContext"
+          [currentUser]="currentUser"
+          (beganEditing)="onBeganEditing($event)"
+          (cancelledEditing)="onCancelledEditing($event)"
+          (finishedEditing)="onFinishedEditing($event)">
+        </item-edit-management>
+
+        <!-- Workflow -->
+        <item-edit-management
+          *ngIf="isSelected(tab.workflow)"
+          [section]="'core'"
+          [itemContext]="itemContext"
+          [currentUser]="currentUser"
+          (beganEditing)="onBeganEditing($event)"
+          (cancelledEditing)="onCancelledEditing($event)"
+          (finishedEditing)="onFinishedEditing($event)">
+        </item-edit-management>
       </div>
     </div>
   </div>
@@ -45,27 +94,28 @@
   <!-- Selected tab -->
   <div class="item-box tab-content well white">
     <div class="well-body">
+
       <!-- Braille -->
       <item-braille-tab *ngIf="isSelected(tab.braille)"
-                        [isReadOnly]="isReadOnly"
-                        [item]="item"
+                        [isReadOnly]="!itemContext.isUserCreatingItemOrEditingSection(currentUser.userName, 'braille')"
+                        [itemContext]="itemContext"
                         (itemBrailleChanged)="onItemChanged()">
       </item-braille-tab>
 
       <!-- History -->
       <item-history-tab *ngIf="isSelected(tab.history)"
-                        [itemId]="item.id">
+                        [itemId]="itemContext.item.id">
       </item-history-tab>
 
       <!-- Validation -->
       <item-validation-tab *ngIf="isSelected(tab.validation)"
-                        [itemId]="item.id">
+                        [itemId]="itemContext.item.id">
       </item-validation-tab>
 
       <!-- Stimulus -->
       <item-association-tab #stimulus
                             *ngIf="isSelected(tab.stimulus)"
-                            [isReadOnly]="isReadOnly"
+                            [isReadOnly]="!itemContext.isUserCreatingItemOrEditingSection(currentUser.userName, 'core')"
                             [associationId]="associatedStimulusId"
                             [associationType]="itemTypeStimulus"
                             (associationIdChanged)="onItemChanged()">
@@ -74,7 +124,7 @@
       <!-- Tutorial -->
       <item-association-tab #tutorial
                             *ngIf="isSelected(tab.tutorial)"
-                            [isReadOnly]="isReadOnly"
+                            [isReadOnly]="!itemContext.isUserCreatingItemOrEditingSection(currentUser.userName, 'core')"
                             [associationId]="associatedTutorialId"
                             [associationType]="itemTypeTutorial"
                             (associationIdChanged)="onItemChanged()">
@@ -82,8 +132,8 @@
 
       <!-- Workflow -->
       <item-workflow-tab *ngIf="isSelected(tab.workflow)"
-                         [isReadOnly]="isReadOnly"
-                         [workflowStatusCode]="item.workflowStatusCode"
+                         [isReadOnly]="!itemContext.isUserCreatingItemOrEditingSection(currentUser.userName, 'core')"
+                         [workflowStatusCode]="itemContext.item.core.workflowStatusCode"
                          (workflowStatusCodeChange)="onItemChanged()">
       </item-workflow-tab>
     </div>
