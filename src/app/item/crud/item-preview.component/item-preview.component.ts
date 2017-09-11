@@ -4,8 +4,9 @@ import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
 import {ItemPreviewService} from "../../services/item-preview.service/item-preview.service";
 import {Logger} from "../../../core/logger.service/logger.service";
 import {HttpUtility} from "../../../core/http-utility.service/http-utility";
-import {ItemChange} from "../../services/item-history.service/item-change";
+import {ItemVersion} from "../../services/item-history.service/item-version";
 import {ItemHistoryService} from "../../services/item-history.service/item-history.service";
+import {ItemHistoryResponse} from "../../services/item-history.service/item-history-response";
 
 @Component({
   selector: 'item-preview',
@@ -18,9 +19,9 @@ export class ItemPreviewComponent {
   errorMessage: string;
   itemSafeResourceUrl: SafeResourceUrl;
   itemRenderUrl: string;
-  itemChanges: ItemChange[];
+  itemChanges: ItemVersion[];
   showVersionList = false;
-  selectedItemChange =  new ItemChange();
+  selectedItemChange =  new ItemVersion();
   accessibilityOptions: string[] = [];
   @Input() itemId: string;
   @Input() itemType: string;
@@ -43,21 +44,21 @@ export class ItemPreviewComponent {
     // Find item history and populate the objects that display the button and list
     this.itemHistoryService.findItemHistory(this.itemId)
       .subscribe(
-        (itemChanges: ItemChange[]) => {
+        (itemHistoryResponse: ItemHistoryResponse) => {
           // Remove oldest history entry because Item is empty and cannot be previewed
-          const lastIdx = itemChanges.length - 1;
+          const lastIdx = itemHistoryResponse.versions.length - 1;
           this.logger.debug('lastIdx: ' + lastIdx);
-          this.itemChanges = itemChanges.slice(0, lastIdx);
+          this.itemChanges = itemHistoryResponse.versions.slice(0, lastIdx);
           if (lastIdx > 0) {
             this.showVersionList = true;
           }
 
           // Add entry for current version when item is being edited
           if (this.isBeingEditedByCurrentUser) {
-            const editChange = new ItemChange();
+            const editChange = new ItemVersion();
             editChange.message = "Being edited by you";
             editChange.historyId = null;
-            editChange.changedBy = null;
+            editChange.changedByFullName = null;
             editChange.changedOn = null;
             this.itemChanges.unshift(editChange);
             this.selectedItemChange = editChange;

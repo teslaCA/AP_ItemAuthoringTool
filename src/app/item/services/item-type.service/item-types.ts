@@ -6,7 +6,7 @@ export const EBSR: ItemType = {
   categoryName: 'Item',
   icon: 'fa-list',
   name: 'Evidence-Based Select Response',
-  code: 'EBSR'
+  code: 'ebsr'
 };
 
 // export const EQ: ItemType = {

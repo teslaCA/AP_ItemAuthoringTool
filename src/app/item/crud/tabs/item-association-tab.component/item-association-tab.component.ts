@@ -1,9 +1,10 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ItemService} from "../../../services/item.service/item.service";
-import {Item} from "../../../services/item.service/item";
 import {AlertService} from "../../../../core/alert.service/alert.service";
 import {ItemType} from "../../../services/item-type.service/item-type";
+import {ItemContext} from "../../../services/item.service/models/base/item-context";
+import {User} from "../../../../core/user.service/user";
 
 @Component({
   selector: 'item-association-tab',
@@ -15,7 +16,6 @@ export class ItemAssociationTabComponent implements OnInit {
   @Input() isReadOnly: boolean;
   @Input() associationId: string;
   @Input() associationType: ItemType;
-
   @Output() associationIdChanged = new EventEmitter<string>();
 
   get hasLinkedAssociation(): boolean {
@@ -43,9 +43,9 @@ export class ItemAssociationTabComponent implements OnInit {
     this.itemService
       .findItem(associationId)
       .subscribe(
-        (item: Item) => {
+        (itemContext: ItemContext) => {
           // Verify item is correct type
-          if (item.type === this.associationType.code) {
+          if (itemContext.item.type === this.associationType.code) {
             this.associationId = associationId;
             this.associationIdChanged.emit(this.associationId);
             this.form = this.buildForm();

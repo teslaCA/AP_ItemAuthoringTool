@@ -3,13 +3,19 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ItemService} from "../services/item.service/item.service";
 import {AlertService} from "../../core/alert.service/alert.service";
-import {Item} from "../services/item.service/item";
 import {UserService} from "app/core/user.service/user.service";
 import {User} from "../../core/user.service/user";
 import {HttpUtility} from "../../core/http-utility.service/http-utility";
 import {ItemDetailsComponent} from "./details/item-details.component";
+import {ItemContext} from "../services/item.service/models/base/item-context";
+import {
+  BeganEditingEvent,
+  CancelledEditingEvent,
+  FinishedEditingEvent
+} from "./item-edit-management.component/item-edit-management.component";
+import {Logger} from "../../core/logger.service/logger.service";
+import {FinishedCreatingEvent} from "./item-create-management.component/item-create-management.component";
 
-// TODO: Move nav bar message-related code into separate component (called ItemHeaderComponent)
 @Component({
   selector: 'item-crud',
   templateUrl: './item-crud.component.html',
@@ -17,7 +23,7 @@ import {ItemDetailsComponent} from "./details/item-details.component";
 })
 export class ItemCrudComponent implements OnInit {
   currentUser: User;
-  item: Item;
+  itemContext: ItemContext;
   form: FormGroup;
   isLoading: boolean;
   isError = false;
@@ -25,44 +31,14 @@ export class ItemCrudComponent implements OnInit {
   selectedTab: string;
   @ViewChild(ItemDetailsComponent) itemDetailsComponent;
 
-  get mode(): string {
-    if (this.isBeingCreatedByCurrentUser) {
-      return "Creating";
-    }
-    if (this.isBeingEditedByCurrentUser) {
-      return "Editing";
-    }
-    if (this.isBeingViewedByCurrentUser) {
-      return "Viewing";
-    }
-    return "";
-  }
-
-  get isBeingCreatedByCurrentUser(): boolean {
-    return this.item.isBeingCreatedBy(this.currentUser.username);
-  }
-
-  get isBeingEditedByCurrentUser(): boolean {
-    return this.item.isBeingEditedBy(this.currentUser.username);
-  }
-
-  get isBeingViewedByCurrentUser(): boolean {
-    return !this.isBeingCreatedByCurrentUser
-      && !this.isBeingEditedByCurrentUser;
-  }
-
-  get isBeingEditedByAnotherUser(): boolean {
-    return this.item.isBeingEdited
-      && !this.item.isBeingEditedBy(this.currentUser.username);
-  }
-
   constructor(private router: Router,
               private route: ActivatedRoute,
               private userService: UserService,
               private itemService: ItemService,
               private alertService: AlertService,
               private formBuilder: FormBuilder,
-              private httpUtility: HttpUtility) {
+              private httpUtility: HttpUtility,
+              private logger: Logger) {
     this.form = this.formBuilder.group({
       commitMsg: [null, Validators.required]
     });
@@ -77,51 +53,42 @@ export class ItemCrudComponent implements OnInit {
         });
   }
 
-  commitCreateTransaction(): void {
-    this.commitTransaction(
-      'Finished creation.',
-      `${this.item.itemType.categoryName} Created`,
-      `The ${this.item.itemType.categoryName} has been successfully created and added to the item bank.`,
-      `/?id=${this.itemDetailsComponent.currentItem.id}`);
+  onCancelledCreating(): void {
+    this.logger.info(`Cancelled creating`);
+
+    this.rollbackCreateTransaction();
   }
 
-  commitEditTransaction(): void {
-    this.commitTransaction(
-      this.form.get('commitMsg').value ? this.form.get('commitMsg').value.trim() : 'Made a change.',
-      'Changes Committed',
-      `Your changes to the ${this.item.itemType.categoryName} have been committed to the item bank.`,
-      `/?id=${this.itemDetailsComponent.currentItem.id}`);
+  onFinishedCreating(event: FinishedCreatingEvent): void {
+    this.logger.info(`Finished creating'`);
+
+    this.commitCreateTransaction(event.message);
   }
 
-  rollbackCreateTransaction(): void {
-    this.rollbackTransaction(
-      'Creation Cancelled',
-      `The ${this.item.itemType.categoryName} you were creating has been successfully removed.`,
-      '/');
+  onBeganEditing(event: BeganEditingEvent): void {
+    this.logger.info(`Began editing section ${event.section}`);
+
+    this.beginEditTransaction(event.section);
   }
 
-  rollbackEditTransaction(): void {
-    this.rollbackTransaction(
-      'Changes Discarded',
-      `Your changes to the ${this.item.itemType.categoryName} have been discarded.`,
-      `/?id=${this.item.id}`);
+  onCancelledEditing(event: CancelledEditingEvent): void {
+    this.logger.info(`Cancelled editing section ${event.section}`);
+
+    this.rollbackEditTransaction();
   }
 
-  beginEditTransaction(): void {
-    this.itemService
-      .beginEditTransaction(this.item.id, "Began edit")
-      .subscribe(
-        () => {
-          this.loadItem(this.item.id, this.selectedTab);
-        });
-  }
+  onFinishedEditing(event: FinishedEditingEvent): void {
+    this.logger.info(`Finished editing section ${event.section}`);
 
-  goHome(): void {
-    this.router.navigateByUrl('/');
+    this.commitEditTransaction(event.message);
   }
 
   onTabChanged(selectedTab: string): void {
     this.selectedTab = selectedTab;
+  }
+
+  goHome(): void {
+    this.router.navigateByUrl('/');
   }
 
   private loadItem(itemId: string, selectTab: string) {
@@ -140,7 +107,7 @@ export class ItemCrudComponent implements OnInit {
           this.itemService.findItem(itemId, false /* showAlertOnError */)
             .subscribe(
               item => {
-                this.item = item;
+                this.itemContext = item;
                 this.isLoading = false;
               },
               error => {
@@ -151,12 +118,51 @@ export class ItemCrudComponent implements OnInit {
         });
   }
 
+  private beginEditTransaction(section: string): void {
+    this.itemService
+      .beginEditTransaction(this.itemContext.item.id, section, "Began edit")
+      .subscribe(
+        () => {
+          this.loadItem(this.itemContext.item.id, this.selectedTab);
+        },
+        () => {
+          this.loadItem(this.itemContext.item.id, this.selectedTab);
+        });
+  }
+
+  private commitCreateTransaction(message: string): void {
+    this.commitTransaction(
+      message,
+      `${this.itemContext.item.itemType.categoryName} Created`,
+      `The ${this.itemContext.item.itemType.categoryName} has been successfully created and added to the item bank.`,
+      `/?id=${this.itemDetailsComponent.currentItem.id}`);
+  }
+
+  private commitEditTransaction(message: string): void {
+    this.commitTransaction(
+      message,
+      'Changes Committed',
+      `Your changes to the ${this.itemContext.item.itemType.categoryName} have been committed to the item bank.`,
+      `/?id=${this.itemDetailsComponent.currentItem.id}`);
+  }
+
+  private rollbackCreateTransaction(): void {
+    this.rollbackTransaction(
+      'Creation Cancelled',
+      `The ${this.itemContext.item.itemType.categoryName} you were creating has been successfully removed.`,
+      '/');
+  }
+
+  private rollbackEditTransaction(): void {
+    this.rollbackTransaction(
+      'Changes Discarded',
+      `Your changes to the ${this.itemContext.item.itemType.categoryName} have been discarded.`,
+      `/?id=${this.itemContext.item.id}`);
+  }
+
   private commitTransaction(commitMessage: string, alertTitle: string, alertMessage: string, successUrl: string) {
     this.itemService
-      .commitTransaction(
-        this.itemDetailsComponent.currentItem.currentTransaction.transactionId,
-        this.itemDetailsComponent.currentItem,
-        commitMessage)
+      .commitTransaction(this.itemDetailsComponent.currentItem, commitMessage)
       .subscribe(
         () => {
           this.alertService.success(alertTitle, alertMessage);
@@ -167,7 +173,7 @@ export class ItemCrudComponent implements OnInit {
 
   private rollbackTransaction(alertTitle: string, alertMessage: string, successUrl: string): void {
     this.itemService
-      .rollbackTransaction(this.item.currentTransaction.transactionId, this.item.id)
+      .rollbackTransaction(this.itemContext.item.id)
       .subscribe(
         () => {
           this.alertService.success(alertTitle, alertMessage);
