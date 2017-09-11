@@ -40,10 +40,17 @@ CKEDITOR.editorConfig = function( config ) {
       { name: 'basicstyles', items : [ 'Bold','Italic','Underline' ] },
       { name: 'paragraph', items : [ 'NumberedList','BulletedList' ] },
       { name: 'insert', items : [ 'Table' ] },
-      { name: 'mathfree', items : [ 'Mathjax', 'texzilla' ] },
+      { name: 'mathlatex', items : [ 'Mathjax' ] },
+      { name: 'mathml', items : [ 'texzilla' ] },
       { name: 'mathpaid', items : [ 'EqnEditor' ] }
     ];
 
   config.mathJaxClass = 'iat-math';
-  config.mathJaxLib = '../assets/mathjax/MathJax.js?config=TeX-MML-AM_CHTML';
+  config.mathJaxLib = '../assets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+
+  config.autoParagraph = false;
+  config.enterMode = CKEDITOR.ENTER_BR;
+  config.allowedContent = true;
+  config.entities = false;
+  CKEDITOR.filter.disabled = true;
 };
