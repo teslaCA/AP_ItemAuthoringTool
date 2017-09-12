@@ -10,7 +10,6 @@ import {Logger} from "../../core/logger.service/logger.service";
 export class ItemDashboardComponent implements OnInit {
   private id: number;
   public itemUrl = '';
-  public itemLink = '';
 
   get showLink(): boolean {
     return !!this.id;
@@ -27,7 +26,6 @@ export class ItemDashboardComponent implements OnInit {
 
     if (!!this.id) {
       this.itemUrl = '/item/' + this.id;
-      this.itemLink = 'Last Item or Resource';
     }
   }
 }

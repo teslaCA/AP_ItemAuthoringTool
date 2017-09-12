@@ -3,7 +3,7 @@ import {ItemType} from "../../services/item-type.service/item-type";
 import {ItemTypeService} from "../../services/item-type.service/item-type.service";
 import {ItemService} from "../../services/item.service/item.service";
 import {Router} from "@angular/router";
-import {Item} from "../../services/item.service/item";
+import {ItemContext} from "../../services/item.service/models/base/item-context";
 
 @Component({
   selector: 'item-create',
@@ -43,8 +43,8 @@ export class ItemCreateComponent implements OnInit {
     this.itemService
       .beginCreateTransaction(itemTypeCode, "Began creation.")
       .subscribe(
-        (item: Item) => {
-          this.router.navigateByUrl(`/item/${item.id}`);
+        (itemResponse: ItemContext) => {
+          this.router.navigateByUrl(`/item/${itemResponse.item.id}`);
         }
       );
   }
