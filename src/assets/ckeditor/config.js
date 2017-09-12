@@ -25,20 +25,38 @@ CKEDITOR.editorConfig = function( config ) {
 		{ name: 'about' }
 	];
 
+	// The default plugins included in the basic setup define some buttons that
+	// are not needed in a basic editor. They are removed here.
+	config.removeButtons = 'Cut,Copy,Paste,Undo,Redo,Anchor,Underline,Strike,Subscript,Superscript';
+
 	// Dialog windows are also simplified.
 	config.removeDialogTabs = 'link:advanced';
 
-
-	// IAT customizations
+  // IAT customizations
+  // Lines below are IAT specific setting updates
   config.removeButtons = 'Cut,Copy,Paste,Undo,Redo,Link,Unlink,Anchor,Strike,Subscript,Superscript';
 
   config.toolbar_IAT =
     [
       { name: 'basicstyles', items : [ 'Bold','Italic','Underline' ] },
       { name: 'paragraph', items : [ 'NumberedList','BulletedList' ] },
-      { name: 'insert', items : [ 'Table','Mathjax' ] }
+      { name: 'insert', items : [ 'Table' ] },
+      { name: 'mathlatex', items : [ 'Mathjax' ] },
+      { name: 'mathml', items : [ 'texzilla' ] },
+      { name: 'mathpaid', items : [ 'EqnEditor' ] }
     ];
 
   config.mathJaxClass = 'iat-math';
-  config.mathJaxLib = '../assets/mathjax/MathJax.js?config=TeX-MML-AM_CHTML';
+  config.mathJaxLib = '../assets/mathjax/MathJax.js?config=TeX-AMS_HTML';
+
+  config.autoParagraph = false;
+  config.enterMode = CKEDITOR.ENTER_BR;
+  //config.allowedContent = true;
+  config.entities = false;
+
+
+  config.contentsCss = 'contents.css';
+
+  CKEDITOR.filter.disabled = true;
+
 };
