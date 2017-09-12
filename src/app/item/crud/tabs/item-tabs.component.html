@@ -10,6 +10,7 @@
 
         <!-- Selected option -->
         <span class="h2 mb-sm">
+          <span *ngIf="isSelected(tab.asl)">ASL</span>
           <span *ngIf="isSelected(tab.braille)">Braille</span>
           <span *ngIf="isSelected(tab.history)">History</span>
           <span *ngIf="isSelected(tab.validation)">Validation</span>
@@ -20,6 +21,9 @@
 
         <!-- Dropdown options -->
         <ul *dropdownMenu class="dropdown-menu" role="menu">
+          <li role="menuitem">
+            <a class="dropdown-item" (click)="select(tab.asl)">ASL</a>
+          </li>
           <li role="menuitem">
             <a class="dropdown-item" (click)="select(tab.braille)">Braille</a>
           </li>
@@ -43,6 +47,17 @@
 
       <!-- Edit management -->
       <div class="pull-right">
+
+        <!-- ASL -->
+        <item-edit-management
+          *ngIf="isSelected(tab.asl)"
+          [section]="'asl'"
+          [itemContext]="itemContext"
+          [currentUser]="currentUser"
+          (beganEditing)="onBeganEditing($event)"
+          (cancelledEditing)="onCancelledEditing($event)"
+          (finishedEditing)="onFinishedEditing($event)">
+        </item-edit-management>
 
         <!-- Braille -->
         <item-edit-management
@@ -98,6 +113,13 @@
   <!-- Selected tab -->
   <div class="item-box tab-content well white">
     <div class="well-body">
+
+      <!-- ASL -->
+      <item-asl-tab *ngIf="isSelected(tab.asl)"
+                    [isReadOnly]="!itemContext.isUserCreatingItemOrEditingSection(currentUser.userName, 'asl')"
+                    [itemContext]="itemContext"
+                    (itemAslChanged)="onItemChanged()">
+      </item-asl-tab>
 
       <!-- Braille -->
       <item-braille-tab *ngIf="isSelected(tab.braille)"
