@@ -35,6 +35,7 @@ import {ItemTutDetailsComponent} from './crud/details/item-tut-details.component
 import {ItemEbsrDetailsComponent} from './crud/details/item-ebsr-details/item-ebsr-details.component';
 import {ItemAssociationTabComponent} from './crud/tabs/item-association-tab.component/item-association-tab.component';
 import {ItemBrailleTabComponent} from './crud/tabs/item-braille-tab.component/item-braille-tab.component';
+import {ItemAslTabComponent} from './crud/tabs/item-asl-tab.component/item-asl-tab.component';
 import {CKEditorModule} from 'ng2-ckeditor';
 import {ItemValidationService} from "./services/item-validation.service/item-validation.service";
 import {ItemTiDetailsComponent} from "./crud/details/item-ti-details.component/item-ti-details.component";
@@ -79,6 +80,7 @@ import {ItemCreateManagementComponent} from "./crud/item-create-management.compo
     ItemTutDetailsComponent,
     ItemEbsrDetailsComponent,
     ItemAssociationTabComponent,
+    ItemAslTabComponent,
     ItemBrailleTabComponent,
     ItemEditManagementComponent,
     ItemCreateManagementComponent
