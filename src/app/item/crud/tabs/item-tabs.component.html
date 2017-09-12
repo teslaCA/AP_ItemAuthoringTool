@@ -46,6 +46,7 @@
 
         <!-- Braille -->
         <item-edit-management
+          [showActionButtons]="true"
           *ngIf="isSelected(tab.braille)"
           [section]="'braille'"
           [itemContext]="itemContext"
@@ -57,6 +58,7 @@
 
         <!-- Stimulus -->
         <item-edit-management
+          [showActionButtons]="false"
           *ngIf="isSelected(tab.stimulus)"
           [section]="'core'"
           [itemContext]="itemContext"
@@ -68,6 +70,7 @@
 
         <!-- Tutorial -->
         <item-edit-management
+          [showActionButtons]="false"
           *ngIf="isSelected(tab.tutorial)"
           [section]="'core'"
           [itemContext]="itemContext"
@@ -79,6 +82,7 @@
 
         <!-- Workflow -->
         <item-edit-management
+          [showActionButtons]="false"
           *ngIf="isSelected(tab.workflow)"
           [section]="'core'"
           [itemContext]="itemContext"

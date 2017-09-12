@@ -5,25 +5,28 @@
 
 <!-- Message indicating you are editing another section -->
 <div *ngIf="itemContext.isUserEditingDifferentSection(currentUser.userName, section)" class="alert-info small">
-  <div><i class="fa fa-warning"></i> You must finish editing '{{itemContext.getSectionBeingEditedByUser(currentUser.userName)}}' before you can edit this section</div>
+  <!-- Editing core -->
+  <div *ngIf="itemContext.getSectionBeingEditedByUser(currentUser.userName) === 'core'"><i class="fa fa-warning"></i> Please save your changes to the item before editing this section</div>
+  <!-- Editing non-core -->
+  <div *ngIf="itemContext.getSectionBeingEditedByUser(currentUser.userName) !== 'core'"><i class="fa fa-warning"></i> Please save your changes to '{{itemContext.getSectionBeingEditedByUser(currentUser.userName)}}' before editing this section</div>
 </div>
 
 <!-- Begin editing button -->
-<span *ngIf="itemContext.canUserBeginEditingSection(currentUser.userName, section)">
+<span *ngIf="showActionButtons && itemContext.canUserBeginEditingSection(currentUser.userName, section)">
   <button class="btn btn-success btn-sm" (click)="beginEditing(section)">
     <i class="fa fa-edit"></i> Edit
   </button>
 </span>
 
 <!-- Cancel editing button -->
-<span *ngIf="itemContext.isUserEditingSection(currentUser.userName, section)">
+<span *ngIf="showActionButtons && itemContext.isUserEditingSection(currentUser.userName, section)">
   <button class="btn btn-default btn-sm" (click)="cancelModal.show()">
     <i class="fa fa-undo"></i> Discard
   </button>
 </span>
 
 <!-- Finish editing button -->
-<span *ngIf="itemContext.isUserEditingSection(currentUser.userName, section)">
+<span *ngIf="showActionButtons && itemContext.isUserEditingSection(currentUser.userName, section)">
   <button class="btn btn-success btn-sm" (click)="commitModal.show()">
     <i class="fa fa-check-square"></i> Finish Editing
   </button>
