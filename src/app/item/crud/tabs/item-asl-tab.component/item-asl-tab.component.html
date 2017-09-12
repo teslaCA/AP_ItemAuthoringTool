@@ -1,13 +1,13 @@
 <div [formGroup]="fieldForm" class="form">
   <div class="form-group">
-    <label>Does this item require ASL?</label>
+    <label>Does this item require American Sign Language (ASL)?</label>
     <select class="form-control" formControlName="isAslRequired">
       <option [value]="true">Yes</option>
       <option [value]="false">No</option>
     </select>
   </div>
   <div class="form-group">
-    <label>Has ASL content been provided?</label>
+    <label>Has all ASL content been provided?</label>
     <select class="form-control" formControlName="isAslProvided">
       <option [value]="true">Yes</option>
       <option [value]="false">No</option>
@@ -22,9 +22,9 @@
        [uploader]="uploader"
        (fileOver)="fileOverBase($event)"
        (click)="openFileDialog()">
-       <div class="center-center pt-sm">
-          <span class="gray-dark"><i class="fa fa-cloud-upload"></i> Drag and drop to upload or&nbsp;</span><span class="aqua">browse for files</span>
-        </div>
+    <div class="center-center pt-sm">
+      <span class="gray-dark"><i class="fa fa-cloud-upload"></i> Drag and drop to upload or&nbsp;</span><span class="aqua">browse for files</span>
+    </div>
   </div>
   <div *ngIf="uploader.isUploading"
        class="well my-drop-zone nv-file-over">
@@ -42,31 +42,31 @@
 
   <table *ngIf="aslAttachments.length > 0" class="table table-condensed table-hover table-striped">
     <thead>
-      <tr>
-        <th>Filename</th>
-        <th>Uploaded</th>
-        <th></th>
-        <th></th>
-      </tr>
+    <tr>
+      <th>Filename</th>
+      <th>Uploaded</th>
+      <th></th>
+      <th></th>
+    </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let attachment of aslAttachments; let i=index">
-        <td>{{attachment.fileName}}</td>
-        <td>{{attachment.uploadedDate | date:'short'}}</td>
-        <td class="text-center">
-          <a href="/api/ims/v1/items/{{item.id}}/asl/{{attachment.fileName}}"
-             class="btn btn-default btn-xs"
-             [class.disabled]="isReadOnly">
-            <i class="fa fa-cloud-download"></i> Download</a>
-        </td>
-        <td class="text-center">
-          <a (click)="confirmDeleteFile(i, attachment.fileName)"
-             title="Remove File"
-             class="btn btn-default btn-xs"
-             [class.disabled]="isReadOnly">
-            <i class="fa fa-close"></i><span class="sr-only">Remove File</span></a>
-        </td>
-      </tr>
+    <tr *ngFor="let attachment of aslAttachments; let i=index">
+      <td>{{attachment.fileName}}</td>
+      <td>{{attachment.uploadedDate | date:'short'}}</td>
+      <td class="text-center">
+        <a href="/api/ims/v1/items/{{itemContext.item.id}}/files/{{attachment.fileName}}"
+           class="btn btn-default btn-xs"
+           [class.disabled]="isReadOnly">
+          <i class="fa fa-cloud-download"></i> Download</a>
+      </td>
+      <td class="text-center">
+        <a (click)="confirmDeleteFile(i, attachment.fileName)"
+           title="Remove File"
+           class="btn btn-default btn-xs"
+           [class.disabled]="isReadOnly">
+          <i class="fa fa-close"></i><span class="sr-only">Remove File</span></a>
+      </td>
+    </tr>
     </tbody>
   </table>
 

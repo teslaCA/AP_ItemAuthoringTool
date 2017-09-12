@@ -1,9 +1,9 @@
 import {JsonProperty} from "json2typescript";
 
-import {ItemTransaction} from "./item-transaction";
+import {ItemTransaction} from "./models/shared/item-transaction";
 import {ItemType} from "../item-type.service/item-type";
-import {ItemAsl} from "./item-asl";
-import {ItemBraille} from "./item-braille";
+import {ItemAsl} from "./models/shared/item-asl";
+import {ItemBraille} from "./models/shared/item-braille";
 
 /**
  * Item base class for models that can be mapped to/from JSON.
@@ -65,11 +65,11 @@ export abstract class Item {
 
   isBeingCreatedBy(username: string): boolean {
     return this.isBeingCreated
-      && this.createTransaction.username === username;
+      && this.createTransaction.userName === username;
   }
 
   isBeingEditedBy(username: string): boolean {
     return this.isBeingEdited
-      && this.editTransaction.username === username;
+      && this.editTransaction.userName === username;
   }
 }

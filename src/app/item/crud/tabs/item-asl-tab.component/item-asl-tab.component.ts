@@ -1,14 +1,15 @@
 import {Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild} from '@angular/core';
-import {ItemAsl} from "../../../services/item.service/item-asl";
+import {ItemAsl} from "../../../services/item.service/models/shared/item-asl";
 import {FormBuilder} from "@angular/forms";
 import {Logger} from "../../../../core/logger.service/logger.service";
 import {FileItem, FileUploader, ParsedResponseHeaders} from "ng2-file-upload";
-import {Item} from "../../../services/item.service/item";
-import {ItemAttachment} from "../../../services/item.service/item-attachment";
+import {ItemAttachment} from "../../../services/item.service/models/shared/item-attachment";
 import {ItemService} from "../../../services/item.service/item.service";
 import {AlertService} from "../../../../core/alert.service/alert.service";
 import {ModalDirective} from "ngx-bootstrap";
 import {BusyService} from "../../../../core/busy.service/busy.service";
+import {ItemContext} from "../../../services/item.service/models/base/item-context";
+import {User} from "../../../../core/user.service/user";
 
 @Component({
   selector: 'item-asl-tab',
@@ -25,7 +26,7 @@ export class ItemAslTabComponent implements OnInit, OnChanges {
   @ViewChild("fileDialog") fileDialog: ElementRef;
   @ViewChild('deleteModal') deleteModal: ModalDirective;
   @Input() isReadOnly: boolean;
-  @Input() item: Item;
+  @Input() itemContext: ItemContext;
   @Output() itemAslChanged = new EventEmitter<ItemAsl>();
   readonly fieldForm = this.fb.group({
     isAslRequired: '',
@@ -48,14 +49,12 @@ export class ItemAslTabComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     // Reset form data and flags
-    this.aslAttachments = this.item.asl.attachments;
+    this.aslAttachments = this.itemContext.item.asl.attachments;
 
     // Configure uploader component
     let itemFileUrl = "";
     if (!this.isReadOnly) {
-      itemFileUrl = this.serviceUrl + '/'
-        + this.item.id + '/transactions/'
-        + this.item.currentTransaction.transactionId + '/asl';
+      itemFileUrl = `${this.serviceUrl}/${this.itemContext.item.id}/files/asl`;
     }
     this.uploader = new FileUploader({url: itemFileUrl});
     this.uploader.setOptions({autoUpload: true});
@@ -85,7 +84,7 @@ export class ItemAslTabComponent implements OnInit, OnChanges {
     this.uploader.onErrorItem = (item: FileItem, response: string, status: number, headers: ParsedResponseHeaders) => {
       console.log('onErrorItem status: ' + status);
       this.alertService.error('Error Uploading File',
-        'File ' + item.file.name + ' was not uploaded. ' + response);
+          'File ' + item.file.name + ' was not uploaded. ' + response);
     };
 
     // Turn on busy service
@@ -104,8 +103,8 @@ export class ItemAslTabComponent implements OnInit, OnChanges {
   ngOnChanges() {
     // Reset form data and flags
     this.fieldForm.reset({
-      isAslRequired: this.item.asl.isAslRequired,
-      isAslProvided: this.item.asl.isAslProvided
+      isAslRequired: this.itemContext.item.asl.isAslRequired,
+      isAslProvided: this.itemContext.item.asl.isAslProvided
     });
 
     // Disable form if read-only
@@ -115,14 +114,14 @@ export class ItemAslTabComponent implements OnInit, OnChanges {
 
     // Fire event on changes
     this.fieldForm.valueChanges.subscribe(
-      () => {
-        this.logger.debug(`Updating ASL flags to 
+        () => {
+          this.logger.debug(`Updating ASL flags to 
         Requires ASL: '${this.fieldForm.value.isAslRequired}'
         ASL Content Provided: '${this.fieldForm.value.isAslProvided}'
         `);
 
-        this.itemAslChanged.emit(this.currentItemAsl);
-      });
+          this.itemAslChanged.emit(this.currentItemAsl);
+        });
   }
 
   fileOverBase(e: any): void {
@@ -141,17 +140,14 @@ export class ItemAslTabComponent implements OnInit, OnChanges {
 
   deleteFile(index: number, fileName: string): void {
     this.itemService
-      .deleteAslFile(
-        this.item.currentTransaction.transactionId,
-        this.item.id,
-        fileName, true, true)
-      .subscribe(() => {
-          this.aslAttachments.splice(index, 1);
+        .deleteAslFile(this.itemContext.item.id, fileName, true, true)
+        .subscribe(() => {
+              this.aslAttachments.splice(index, 1);
 
-          this.alertService.success('Attachment Deleted',
-            'ASL file ' + fileName + ' was successfully deleted');
-        }
-      );
+              this.alertService.success('Attachment Deleted',
+                  'ASL file ' + fileName + ' was successfully deleted');
+            }
+        );
     this.deleteFileName = "";
     this.deleteModal.hide();
   }

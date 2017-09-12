@@ -59,6 +59,17 @@
           (finishedEditing)="onFinishedEditing($event)">
         </item-edit-management>
 
+        <!-- ASL -->
+        <item-edit-management
+          *ngIf="isSelected(tab.asl)"
+          [section]="'asl'"
+          [itemContext]="itemContext"
+          [currentUser]="currentUser"
+          (beganEditing)="onBeganEditing($event)"
+          (cancelledEditing)="onCancelledEditing($event)"
+          (finishedEditing)="onFinishedEditing($event)">
+        </item-edit-management>
+
         <!-- Stimulus -->
         <item-edit-management
           *ngIf="isSelected(tab.stimulus)"
@@ -108,8 +119,8 @@
 
       <!-- ASL -->
       <item-asl-tab *ngIf="isSelected(tab.asl)"
-                        [isReadOnly]="isReadOnly"
-                        [item]="item"
+                        [isReadOnly]="!itemContext.isUserCreatingItemOrEditingSection(currentUser.userName, 'asl')"
+                        [itemContext]="itemContext"
                         (itemAslChanged)="onItemChanged()">
       </item-asl-tab>
 

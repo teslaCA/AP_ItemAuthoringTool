@@ -80,7 +80,7 @@ import {ItemCreateManagementComponent} from "./crud/item-create-management.compo
     ItemTutDetailsComponent,
     ItemEbsrDetailsComponent,
     ItemAssociationTabComponent,
-    ItemAslTabComponent
+    ItemAslTabComponent,
     ItemBrailleTabComponent,
     ItemEditManagementComponent,
     ItemCreateManagementComponent

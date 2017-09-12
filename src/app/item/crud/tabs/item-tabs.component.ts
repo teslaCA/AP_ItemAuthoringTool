@@ -49,10 +49,11 @@ export class ItemTabsComponent {
   @Output() finishedEditing = new EventEmitter<FinishedEditingEvent>();
   @Output() cancelledEditing = new EventEmitter<CancelledEditingEvent>();
   @ViewChild(ItemBrailleTabComponent) itemBrailleTabComponent;
+  @ViewChild(ItemAslTabComponent) itemAslTabComponent;
   @ViewChild("stimulus") itemStimulusTabComponent: ItemAssociationTabComponent;
   @ViewChild("tutorial") itemTutorialTabComponent: ItemAssociationTabComponent;
   @ViewChild(ItemWorkflowTabComponent) itemWorkflowTabComponent;
-  @ViewChild(ItemAslTabComponent) itemAslTabComponent;
+
 
   get associatedStimulusId(): string {
     return (this.itemContext.item as AssessmentItem).core.stimulusId;
@@ -80,7 +81,7 @@ export class ItemTabsComponent {
     // Check if selected tab name is supported
     if (this.validTabs.indexOf(this.selected) < 0) {
       // Default to first valid tab name
-      validSelected = this.validTabs[1]; // History is the default tab
+      validSelected = this.validTabs[2]; // History is the default tab
     }
 
     return validSelected === tab;
@@ -119,11 +120,13 @@ export class ItemTabsComponent {
       this.itemContext.item.braille.isBrailleProvided =
         this.itemBrailleTabComponent.currentItemBraille.isBrailleProvided;
     }
-    
-    //Capture changes from ASL tab
+
+    // Capture changes from asl tab
     if (this.itemAslTabComponent) {
-      this.item.asl.isAslRequired = this.itemAslTabComponent.currentItemAsl.isAslRequired;
-      this.item.asl.isAslProvided = this.itemAslTabComponent.currentItemAsl.isAslProvided;
+      this.itemContext.item.asl.isAslRequired =
+          this.itemAslTabComponent.currentItemAsl.isAslRequired;
+      this.itemContext.item.asl.isAslProvided =
+          this.itemAslTabComponent.currentItemAsl.isAslProvided;
     }
 
     // Capture changes from stimulus tab
