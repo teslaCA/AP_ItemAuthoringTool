@@ -4,9 +4,9 @@ import {AssessmentItem, Item} from "../../services/item.service/models/base/item
 import {ItemType} from "../../services/item-type.service/item-type";
 import {ItemWorkflowTabComponent} from "./item-workflow-tab.component/item-workflow-tab.component";
 import {STIM, TUT} from "../../services/item-type.service/item-types";
+import {ItemAslTabComponent} from "./item-asl-tab.component/item-asl-tab.component";
 import {ItemAssociationTabComponent} from "./item-association-tab.component/item-association-tab.component";
 import {ItemBrailleTabComponent} from "./item-braille-tab.component/item-braille-tab.component";
-import {ItemAslTabComponent} from "./item-asl-tab.component/item-asl-tab.component";
 import {ItemContext} from "../../services/item.service/models/base/item-context";
 import {User} from "../../../core/user.service/user";
 import {
@@ -22,8 +22,8 @@ import {
 })
 export class ItemTabsComponent {
   tab = {
-    braille: 'braille',
     asl: 'asl',
+    braille: 'braille',
     history: 'history',
     stimulus: 'stimulus',
     tutorial: 'tutorial',
@@ -31,8 +31,8 @@ export class ItemTabsComponent {
     workflow: 'workflow'
   };
   validTabs = [
-    this.tab.braille,
     this.tab.asl,
+    this.tab.braille,
     this.tab.history,
     this.tab.stimulus,
     this.tab.tutorial,
@@ -48,8 +48,8 @@ export class ItemTabsComponent {
   @Output() beganEditing = new EventEmitter<BeganEditingEvent>();
   @Output() finishedEditing = new EventEmitter<FinishedEditingEvent>();
   @Output() cancelledEditing = new EventEmitter<CancelledEditingEvent>();
-  @ViewChild(ItemBrailleTabComponent) itemBrailleTabComponent;
   @ViewChild(ItemAslTabComponent) itemAslTabComponent;
+  @ViewChild(ItemBrailleTabComponent) itemBrailleTabComponent;
   @ViewChild("stimulus") itemStimulusTabComponent: ItemAssociationTabComponent;
   @ViewChild("tutorial") itemTutorialTabComponent: ItemAssociationTabComponent;
   @ViewChild(ItemWorkflowTabComponent) itemWorkflowTabComponent;
@@ -113,13 +113,6 @@ export class ItemTabsComponent {
   }
 
   private prepareItem(): Item {
-    // Capture changes from braille tab
-    if (this.itemBrailleTabComponent) {
-      this.itemContext.item.braille.isBrailleRequired =
-        this.itemBrailleTabComponent.currentItemBraille.isBrailleRequired;
-      this.itemContext.item.braille.isBrailleProvided =
-        this.itemBrailleTabComponent.currentItemBraille.isBrailleProvided;
-    }
 
     // Capture changes from asl tab
     if (this.itemAslTabComponent) {
@@ -127,6 +120,14 @@ export class ItemTabsComponent {
           this.itemAslTabComponent.currentItemAsl.isAslRequired;
       this.itemContext.item.asl.isAslProvided =
           this.itemAslTabComponent.currentItemAsl.isAslProvided;
+    }
+
+    // Capture changes from braille tab
+    if (this.itemBrailleTabComponent) {
+      this.itemContext.item.braille.isBrailleRequired =
+        this.itemBrailleTabComponent.currentItemBraille.isBrailleRequired;
+      this.itemContext.item.braille.isBrailleProvided =
+        this.itemBrailleTabComponent.currentItemBraille.isBrailleProvided;
     }
 
     // Capture changes from stimulus tab
