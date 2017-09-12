@@ -4,6 +4,13 @@
 
       <!-- Right header -->
       <div class="pull-right">
+
+        <!-- Auto-save -->
+        <item-auto-save #autoSave
+                        [enabled]="itemContext.isUserCreatingItem(currentUser.userName) || itemContext.isUserEditingAnySection(currentUser.userName)"
+                        [debounceTimeMillis]="3000">
+        </item-auto-save>
+
         <!-- Preview -->
         <span *ngIf="itemContext.item.core.supportsPreview">
           <item-preview #itemPreview
@@ -14,11 +21,6 @@
           </item-preview>
         </span>
 
-        <!-- Auto-save -->
-        <item-auto-save #autoSave
-                        [enabled]="itemContext.isUserCreatingItem(currentUser.userName) || itemContext.isUserEditingAnySection(currentUser.userName)"
-                        [debounceTimeMillis]="3000">
-        </item-auto-save>
       </div>
 
       <!-- Left header -->
@@ -40,9 +42,6 @@
               <div class="well-body pt-xs">
                 <div class="row">
                   <div class="col-md-12">
-                    <button class="btn btn-default btn-sm" (click)="goHome()">
-                      <i class="fa fa-arrow-left"></i> Dashboard
-                    </button>
 
                     <div class="pull-right">
                       <!-- Create management -->
