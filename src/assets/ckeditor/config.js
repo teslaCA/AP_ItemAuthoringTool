@@ -46,6 +46,14 @@ CKEDITOR.editorConfig = function( config ) {
       { name: 'mathpaid', items : [ 'EqnEditor' ] }
     ];
 
+  config.toolbar_IATMATH =
+    [
+      { name: 'basicstyles', items : [ 'Bold','Italic','Underline' ] },
+      { name: 'paragraph', items : [ 'NumberedList','BulletedList' ] },
+      { name: 'insert', items : [ 'Table' ] },
+      { name: 'mathlatex', items : [ 'Mathjax' ] }
+    ];
+
   config.mathJaxClass = 'iat-math';
   config.mathJaxLib = '../assets/mathjax/MathJax.js?config=TeX-AMS_HTML';
 
