@@ -2,9 +2,14 @@
   <div *ngIf="!isLoading" class="container">
     <div *ngIf="!isError">
 
-      <!-- Item title -->
-      <!-- Auto-save -->
       <div class="pull-right">
+
+        <!-- Auto-save -->
+        <item-auto-save #autoSave
+                        [enabled]="isBeingCreatedByCurrentUser || isBeingEditedByCurrentUser"
+                        [debounceTimeMillis]="3000">
+        </item-auto-save>
+
         <!-- Preview -->
         <span *ngIf="item.supportsPreview">
           <item-preview #itemPreview
@@ -15,15 +20,17 @@
           </item-preview>
         </span>
 
-        <item-auto-save #autoSave
-                        [enabled]="isBeingCreatedByCurrentUser || isBeingEditedByCurrentUser"
-                        [debounceTimeMillis]="3000">
-        </item-auto-save>
+
         <!-- Item being edited by another user -->
         <div *ngIf="isBeingEditedByAnotherUser" class="alert alert-warning small">
           <div class="mt-sm"><i class="fa fa-warning"></i> {{item.id}} is being edited by {{item.currentTransaction.username}}. Items may only be edited by one user at a time.</div>
         </div>
       </div>
+
+      <!-- Item title -->
+      <button class="btn btn-default btn-sm pull-left mr-xs" (click)="goHome()">
+        <i class="fa fa-chevron-left"></i>
+      </button>
       <h1 class="h2 label-group blue">
         <span class="label"><span class="label"><i class="fa {{item.itemType.icon}}"></i></span> {{item.id}}</span><span class="label">{{item.itemType.name}} <span>( {{item.itemType.code | uppercase}} )</span></span>
       </h1>
@@ -36,9 +43,6 @@
               <div class="well-body pt-xs">
                 <div class="row">
                   <div class="col-md-12">
-                    <button class="btn btn-default btn-sm" (click)="goHome()">
-                      <i class="fa fa-arrow-left"></i> Dashboard
-                    </button>
 
                     <div class="pull-right">
 
