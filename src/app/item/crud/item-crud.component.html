@@ -53,18 +53,19 @@
                         (cancelledCreating)="onCancelledCreating()"
                         (finishedCreating)="onFinishedCreating($event)">
                       </item-create-management>
-
-                      <!-- Core edit management -->
-                      <item-edit-management
-                        [showActionButtons]="true"
-                        [section]="'core'"
-                        [itemContext]="itemContext"
-                        [currentUser]="currentUser"
-                        (beganEditing)="onBeganEditing($event)"
-                        (cancelledEditing)="onCancelledEditing($event)"
-                        (finishedEditing)="onFinishedEditing($event)">
-                      </item-edit-management>
                     </div>
+
+                    <!-- Core edit management -->
+                    <item-edit-management
+                      [showActionButtons]="true"
+                      [section]="'core'"
+                      [itemContext]="itemContext"
+                      [currentUser]="currentUser"
+                      (beganEditing)="onBeganEditing($event)"
+                      (cancelledEditing)="onCancelledEditing($event)"
+                      (finishedEditing)="onFinishedEditing($event)">
+                    </item-edit-management>
+                    
                   </div>
                 </div>
               </div>
