@@ -23,9 +23,11 @@
 
       </div>
 
-      <!-- Left header -->
+      <!-- Item title -->
+      <button class="btn btn-default btn-sm pull-left mr-xs" (click)="goHome()">
+        <i class="fa fa-chevron-left"></i>
+      </button>
       <h1 class="h2 label-group blue">
-        <!-- Item title -->
         <span class="label"><span class="label"><i class="fa {{itemContext.item.itemType.icon}}"></i></span> {{itemContext.item.id}}</span><span
         class="label">{{itemContext.item.itemType.name}} <span>( {{itemContext.item.itemType.code | uppercase}} )</span></span>
       </h1>
@@ -95,7 +97,7 @@
       </div>
     </div>
 
-    <!-- Error message -->
+    <!-- Error message message-->
     <div class="well" *ngIf="isError">
       <div class="well-body">
         <alert>{{errorMessage}}</alert>
