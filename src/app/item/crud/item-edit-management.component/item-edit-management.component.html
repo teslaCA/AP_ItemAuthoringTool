@@ -1,10 +1,10 @@
 <!-- Message indicating another user is editing -->
-<div *ngIf="itemContext.isDifferentUserEditingSection(currentUser.userName, section)" class="alert-warning small">
+<div *ngIf="itemContext.isDifferentUserEditingSection(currentUser.userName, section)" class="alert-default small alerts">
   <div><i class="fa fa-warning"></i> {{itemContext.getUserEditingSection(section)}} is editing this section</div>
 </div>
 
 <!-- Message indicating you are editing another section -->
-<div *ngIf="itemContext.isUserEditingDifferentSection(currentUser.userName, section)" class="alert-info small">
+<div *ngIf="itemContext.isUserEditingDifferentSection(currentUser.userName, section)" class="alert-info small alerts">
   <!-- Editing core -->
   <div *ngIf="itemContext.getSectionBeingEditedByUser(currentUser.userName) === 'core'"><i class="fa fa-warning"></i> Please save your changes to the item before editing this section</div>
   <!-- Editing non-core -->
@@ -73,7 +73,7 @@
                   <input formControlName="commitMsg"
                          type="text"
                          placeholder="Reason for change"
-                         class="modal-form-control"
+                         class="modal-form-control form-control"
                          maxlength="100"
                          size="50"
                          [formControl]="form.controls['commitMsg']">
@@ -135,4 +135,3 @@
     </div>
   </div>
 </div>
-

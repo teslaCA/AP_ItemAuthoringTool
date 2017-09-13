@@ -7,8 +7,10 @@ import {STIM, TUT} from "../../services/item-type.service/item-types";
 import {ItemAslTabComponent} from "./item-asl-tab.component/item-asl-tab.component";
 import {ItemAssociationTabComponent} from "./item-association-tab.component/item-association-tab.component";
 import {ItemBrailleTabComponent} from "./item-braille-tab.component/item-braille-tab.component";
+import {ItemCcTabComponent} from "./item-cc-tab.component/item-cc-tab.component";
 import {ItemContext} from "../../services/item.service/models/base/item-context";
 import {User} from "../../../core/user.service/user";
+
 import {
   BeganEditingEvent,
   CancelledEditingEvent,
@@ -24,6 +26,7 @@ export class ItemTabsComponent {
   tab = {
     asl: 'asl',
     braille: 'braille',
+    cc: 'cc',
     history: 'history',
     stimulus: 'stimulus',
     tutorial: 'tutorial',
@@ -33,6 +36,7 @@ export class ItemTabsComponent {
   validTabs = [
     this.tab.asl,
     this.tab.braille,
+    this.tab.cc,
     this.tab.history,
     this.tab.stimulus,
     this.tab.tutorial,
@@ -50,6 +54,7 @@ export class ItemTabsComponent {
   @Output() cancelledEditing = new EventEmitter<CancelledEditingEvent>();
   @ViewChild(ItemAslTabComponent) itemAslTabComponent;
   @ViewChild(ItemBrailleTabComponent) itemBrailleTabComponent;
+  @ViewChild(ItemCcTabComponent) itemCcTabComponent;
   @ViewChild("stimulus") itemStimulusTabComponent: ItemAssociationTabComponent;
   @ViewChild("tutorial") itemTutorialTabComponent: ItemAssociationTabComponent;
   @ViewChild(ItemWorkflowTabComponent) itemWorkflowTabComponent;
@@ -81,7 +86,7 @@ export class ItemTabsComponent {
     // Check if selected tab name is supported
     if (this.validTabs.indexOf(this.selected) < 0) {
       // Default to first valid tab name
-      validSelected = this.validTabs[2]; // History is the default tab
+      validSelected = this.validTabs[3]; // History is the default tab
     }
 
     return validSelected === tab;
@@ -128,6 +133,14 @@ export class ItemTabsComponent {
         this.itemBrailleTabComponent.currentItemBraille.brailleRequired;
       this.itemContext.item.braille.brailleProvided =
         this.itemBrailleTabComponent.currentItemBraille.brailleProvided;
+    }
+
+    // Capture changes from cc tab
+    if (this.itemCcTabComponent) {
+      this.itemContext.item.cc.isCcRequired =
+          this.itemCcTabComponent.currentItemCc.isCcRequired;
+      this.itemContext.item.cc.isCcProvided =
+          this.itemCcTabComponent.currentItemCc.isCcProvided;
     }
 
     // Capture changes from stimulus tab
