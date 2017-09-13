@@ -42,6 +42,7 @@ import {ItemTiDetailsComponent} from "./crud/details/item-ti-details.component/i
 import {ItemTiTableComponent} from "./crud/details/shared/item-ti-table.component/item-ti-table.component";
 import {ItemEditManagementComponent} from './crud/item-edit-management.component/item-edit-management.component';
 import {ItemCreateManagementComponent} from "./crud/item-create-management.component/item-create-management.component";
+import {ItemCcTabComponent} from "./crud/tabs/item-cc-tab.component/item-cc-tab.component";
 
 @NgModule({
   imports: [
@@ -82,6 +83,7 @@ import {ItemCreateManagementComponent} from "./crud/item-create-management.compo
     ItemAssociationTabComponent,
     ItemAslTabComponent,
     ItemBrailleTabComponent,
+    ItemCcTabComponent,
     ItemEditManagementComponent,
     ItemCreateManagementComponent
   ],
