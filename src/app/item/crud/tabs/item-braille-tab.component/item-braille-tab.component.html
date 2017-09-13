@@ -1,16 +1,18 @@
 <div [formGroup]="fieldForm" class="form">
   <div class="form-group">
     <label>Does this item require braille?</label>
-    <select class="form-control" formControlName="isBrailleRequired">
-      <option [value]="true">Yes</option>
-      <option [value]="false">No</option>
+    <select class="form-control" formControlName="brailleRequired">
+      <option [value]="'undetermined'">Undetermined</option>
+      <option [value]="'true'">Yes</option>
+      <option [value]="'false'">No (not braille-able)</option>
     </select>
   </div>
   <div class="form-group">
     <label>Has all braille content been provided?</label>
-    <select class="form-control" formControlName="isBrailleProvided">
-      <option [value]="true">Yes</option>
-      <option [value]="false">No</option>
+    <select class="form-control" formControlName="brailleProvided">
+      <option [value]="'undetermined'">Undetermined</option>
+      <option [value]="'true'">Yes</option>
+      <option [value]="'false'">No (not braille-able)</option>
     </select>
   </div>
 

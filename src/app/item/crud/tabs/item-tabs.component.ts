@@ -124,10 +124,10 @@ export class ItemTabsComponent {
 
     // Capture changes from braille tab
     if (this.itemBrailleTabComponent) {
-      this.itemContext.item.braille.isBrailleRequired =
-        this.itemBrailleTabComponent.currentItemBraille.isBrailleRequired;
-      this.itemContext.item.braille.isBrailleProvided =
-        this.itemBrailleTabComponent.currentItemBraille.isBrailleProvided;
+      this.itemContext.item.braille.brailleRequired =
+        this.itemBrailleTabComponent.currentItemBraille.brailleRequired;
+      this.itemContext.item.braille.brailleProvided =
+        this.itemBrailleTabComponent.currentItemBraille.brailleProvided;
     }
 
     // Capture changes from stimulus tab
