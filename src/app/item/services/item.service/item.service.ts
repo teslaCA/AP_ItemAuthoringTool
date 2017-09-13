@@ -188,4 +188,26 @@ export class ItemService {
       showBusyIndicator
     );
   }
+
+  /**
+   * @param itemId of the item to have the current transaction
+   * @param fileName of the file to be deleted
+   * @param showAlertOnError whether to show alert on error
+   * @param showBusyIndicator whether to show busy indicator while executing
+   * @returns Observable indicating when the file was deleted successfully
+   */
+  deleteAslFile(itemId: string,
+                    fileName: string,
+                    showAlertOnError = true,
+                    showBusyIndicator = true): Observable<void> {
+    const url = `${ItemService.serviceUrl}/${itemId}/files/${fileName}`;
+    return this.httpUtility.applyAsyncHandling(
+        "Deleting asl file",
+        this.http
+            .delete(url)
+            .map(_ => null),
+        showAlertOnError,
+        showBusyIndicator
+    );
+  }
 }

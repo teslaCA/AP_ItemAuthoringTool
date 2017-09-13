@@ -1,6 +1,7 @@
 import {JsonProperty} from "json2typescript";
-import {ItemType} from "../../../item-type.service/item-type";
+import {ItemAsl} from "../shared/item-asl";
 import {ItemBraille} from "../shared/item-braille";
+import {ItemType} from "../../../item-type.service/item-type";
 import {AssessmentItemCore, ItemCore, OtherItemCore} from "./item-core";
 
 /**
@@ -18,6 +19,9 @@ export abstract class Item {
 
   @JsonProperty("core", ItemCore)
   core: ItemCore = undefined;                       // Initialize to undefined so that field is mapped
+
+  @JsonProperty("asl", ItemAsl)
+  asl: ItemAsl = undefined;                         // Initialize to undefined so that field is mapped
 
   @JsonProperty("braille", ItemBraille)
   braille: ItemBraille = undefined;                 // Initialize to undefined so that field is mapped
