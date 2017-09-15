@@ -40,7 +40,7 @@
                   </a>
                   <a *ngIf="history.changedOn" class="dropdown-item" (click)="renderItem(history.historyId)">
                     <span class="date">{{history.changedOn | date:'short'}}</span> -
-                    <span class="owner">{{history.changedBy}}</span> -
+                    <span class="owner">{{history.changedByFullName}}</span> -
                     <span class="message">{{history.message}}</span>
                   </a>
                 </li>
