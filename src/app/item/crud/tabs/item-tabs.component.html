@@ -78,14 +78,14 @@
 
         <!-- CC -->
         <item-edit-management
-                [showActionButtons]="true"
-                *ngIf="isSelected(tab.cc)"
-                [section]="'cc'"
-                [itemContext]="itemContext"
-                [currentUser]="currentUser"
-                (beganEditing)="onBeganEditing($event)"
-                (cancelledEditing)="onCancelledEditing($event)"
-                (finishedEditing)="onFinishedEditing($event)">
+          [showActionButtons]="true"
+          *ngIf="isSelected(tab.cc)"
+          [section]="'cc'"
+          [itemContext]="itemContext"
+          [currentUser]="currentUser"
+          (beganEditing)="onBeganEditing($event)"
+          (cancelledEditing)="onCancelledEditing($event)"
+          (finishedEditing)="onFinishedEditing($event)">
         </item-edit-management>
 
         <!-- Stimulus -->
