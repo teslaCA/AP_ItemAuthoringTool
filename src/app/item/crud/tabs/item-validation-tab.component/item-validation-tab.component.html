@@ -1,4 +1,4 @@
-<table *ngIf="itemValidationErrors" class="table table-condensed table-hover table-striped">
+<table *ngIf="itemValidationErrors.length > 0" class="table table-condensed table-hover table-striped">
   <thead>
   <tr>
     <th>Message</th>
@@ -13,6 +13,9 @@
   </tbody>
 </table>
 
-<div *ngIf="!itemValidationErrors" class="alert alert-warning">
+<div *ngIf="itemValidationErrors.length === 0" class="alert alert-warning">
   <p><em>No validation errors reported.</em></p>
 </div>
+
+<!-- Necessary to preserve tab switching behavior -->
+<div></div>
