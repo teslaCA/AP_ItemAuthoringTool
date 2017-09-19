@@ -86,15 +86,19 @@ label {
 }
 
 .flyout {
+    background: #CCC;
+    height: 97.5%;
+    width: 20px;
     position: absolute;
-    right: -30px;
-    top: 19px;
-    padding: 0 0 7px 6px;
-    box-shadow: 2px 2px 2px #ccc;
-    border-radius: 0 4px 4px 0;
-    border: #e1e1e1 solid 1px;
+    top: 0;
+    right: -10px;
+    color: #fff;
+    padding: 6px;
 }
-
+#slide-panel{
+  -webkit-transition: width .5s, height .5s, background-color .5s, -webkit-transform .5s;
+    transition: width .5s, height .5s, background-color .5s, transform .5s;
+}
 
 header {
   background-color: transparent;

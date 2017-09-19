@@ -36,7 +36,7 @@
       <div class="row">
 
         <!-- Left body -->
-        <div class="col-md-6">
+        <div id="slide-panel" class="col-md-6">
           <div class="well-group">
 
             <!-- Item management -->
@@ -72,6 +72,7 @@
               </div>
             </div>
 
+
             <!-- Item details -->
             <item-details [itemContext]="itemContext"
                           [isReadOnly]="!itemContext.isUserCreatingItemOrEditingSection(currentUser.userName, 'core')"
@@ -79,10 +80,13 @@
             </item-details>
 
           </div>
+          <button id="opener" class="flyout btn btn-default btn-sm mr-xs">
+            <i id="chevi" class="fa fa-chevron-right"></i>
+          </button>
         </div>
 
         <!-- Right body -->
-        <div class="col-md-6 ">
+        <div id="flytabs" class="col-md-6">
 
           <!-- Item tabs -->
           <item-tabs [currentUser]="currentUser"
