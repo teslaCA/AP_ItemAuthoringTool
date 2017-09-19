@@ -7,4 +7,12 @@ export class ItemAttachment {
 
   @JsonProperty("uploadedDate", String)
   uploadedDate: string = undefined;
+
+  @JsonProperty("type", String)
+  type: string = undefined;
+
+  @JsonProperty("subtype", String)
+  subtype: string = undefined;
+
+
 }
