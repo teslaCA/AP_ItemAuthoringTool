@@ -6,7 +6,7 @@
                 {{itemValidationResults.validatedCommitUserName}}
                 <em>{{itemValidationResults.validatedCommitMessage}}</em><br/>
             </p>
-            <div *ngIf="itemValidationResults.validationResultsStale" class="alert alert-warning">
+            <div *ngIf="itemValidationResults.areValidationResultsStale" class="alert alert-warning">
                 <em>Validation results do not reflect the latest commit</em>
             </div>
         </div>
