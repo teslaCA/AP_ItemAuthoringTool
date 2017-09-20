@@ -4,7 +4,7 @@ import {ItemValidationResult} from "./item-validation-result";
 @JsonObject
 export class ItemValidationResults {
   @JsonProperty("validationResultsStale", Boolean)
-  areValidationResultsStale: boolean = true;
+  areValidationResultsStale = true;
 
   @JsonProperty("validatedCommitMessage", String)
   validatedCommitMessage: string = undefined;        // Initialize to undefined so that field is mapped
