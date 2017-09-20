@@ -1,7 +1,13 @@
-<div *ngIf="itemValidationResults && itemValidationResults.validationResults && itemValidationResults.validationResults.length > 0">
+<div *ngIf="itemValidationResults != null && itemValidationResults.validationResults && itemValidationResults.validationResults.length > 0">
     <div class="row">
         <div class="col-xs-12">
-            <p>
+            <div class="col-xs-12" *ngIf="!itemValidationResults.validatedCommitUserName
+                || !itemValidationResults.validatedCommitMessage || !itemValidationResults.validationDateTime" class="alert alert-warning">
+                <p>
+                    <em>Unknown validation source. Results may not reflect the latest commit</em>
+                </p>
+            </div>
+            <p *ngIf="itemValidationResults.validationDateTime && itemValidationResults.validatedCommitUserName && itemValidationResults.validatedCommitMessage">
                 <strong>{{itemValidationResults.validationDateTime | date:'short'}}</strong><br/>
                 {{itemValidationResults.validatedCommitUserName}}
                 <em>{{itemValidationResults.validatedCommitMessage}}</em><br/>
@@ -28,7 +34,9 @@
     </table>
 </div>
 
-<div *ngIf="itemValidationResults && itemValidationResults.validationResults && itemValidationResults.validationResults.length === 0"
+<div *ngIf="itemValidationResults != null && itemValidationResults.validationResults && itemValidationResults.validationResults.length === 0"
      class="alert alert-warning">
-    <p><em>No validation errors reported.</em></p>
+    <p>
+        <em>No validation errors reported.</em>
+    </p>
 </div>
