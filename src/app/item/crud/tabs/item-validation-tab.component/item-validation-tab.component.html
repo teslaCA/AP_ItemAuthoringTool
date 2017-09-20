@@ -1,18 +1,42 @@
-<table *ngIf="itemValidationErrors && itemValidationErrors.length > 0" class="table table-condensed table-hover table-striped">
-  <thead>
-  <tr>
-    <th>Message</th>
-    <th>Detail</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let validationError of itemValidationErrors; let i=index">
-    <td>{{validationError.message}}</td>
-    <td class="break">{{validationError.detail}}</td>
-  </tr>
-  </tbody>
-</table>
+<div *ngIf="itemValidationResults != null && itemValidationResults.validationResults && itemValidationResults.validationResults.length > 0">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="col-xs-12" *ngIf="!itemValidationResults.validatedCommitUserName
+                || !itemValidationResults.validatedCommitMessage || !itemValidationResults.validationDateTime" class="alert alert-warning">
+                <p>
+                    <em>Unknown validation source. Results may not reflect the latest commit</em>
+                </p>
+            </div>
+            <p *ngIf="itemValidationResults.validationDateTime && itemValidationResults.validatedCommitUserName && itemValidationResults.validatedCommitMessage">
+                <strong>{{itemValidationResults.validationDateTime | date:'short'}}</strong><br/>
+                {{itemValidationResults.validatedCommitUserName}}
+                <em>{{itemValidationResults.validatedCommitMessage}}</em><br/>
+            </p>
+            <div *ngIf="itemValidationResults.areValidationResultsStale" class="alert alert-warning">
+                <em>Validation results do not reflect the latest commit</em>
+            </div>
+        </div>
+    </div>
 
-<div *ngIf="itemValidationErrors && itemValidationErrors.length === 0" class="alert alert-warning">
-  <p><em>No validation errors reported.</em></p>
+    <table class="table table-condensed table-hover table-striped">
+        <thead>
+        <tr>
+            <th>Message</th>
+            <th>Detail</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let validationResult of itemValidationResults.validationResults; let i=index">
+            <td>{{validationResult.message}}</td>
+            <td class="break">{{validationResult.detail}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div *ngIf="itemValidationResults != null && itemValidationResults.validationResults && itemValidationResults.validationResults.length === 0"
+     class="alert alert-warning">
+    <p>
+        <em>No validation errors reported.</em>
+    </p>
 </div>
