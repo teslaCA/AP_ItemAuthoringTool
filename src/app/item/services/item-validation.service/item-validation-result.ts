@@ -1,7 +1,7 @@
 import {JsonObject, JsonProperty} from "json2typescript";
 
 @JsonObject
-export class ItemValidationError {
+export class ItemValidationResult {
   @JsonProperty("category", String)
   category: string = undefined;        // Initialize to undefined so that field is mapped
 

@@ -7,7 +7,7 @@ import "rxjs/add/observable/throw";
 import "rxjs/add/observable/fromPromise";
 import {JsonConvert} from "json2typescript";
 import {HttpUtility} from "../../../core/http-utility.service/http-utility";
-import {ItemValidationError} from "../item-validation.service/item-validation-error";
+import {ItemValidationResults} from "../item-validation.service/item-validation-results";
 
 @Injectable()
 export class ItemValidationService {
@@ -19,13 +19,13 @@ export class ItemValidationService {
 
   findErrorMessages(itemId: string,
                   showAlertOnError = true,
-                  showBusyIndicator = true): Observable<ItemValidationError[]> {
+                  showBusyIndicator = true): Observable<ItemValidationResults> {
     const url = ItemValidationService.serviceUrl + '/' + itemId + '/validation';
     return this.httpUtility.applyAsyncHandling(
-      "Loading Validation Errors",
+      "Loading Validation Results",
       this.http
         .get(url, HttpUtility.jsonRequestOptions)
-        .map(response => JsonConvert.deserializeArray(response.json(), ItemValidationError)),
+        .map(response => JsonConvert.deserializeObject(response.json(), ItemValidationResults)),
       showAlertOnError,
       showBusyIndicator
     );
