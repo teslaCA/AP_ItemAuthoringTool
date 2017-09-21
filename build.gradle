@@ -56,7 +56,8 @@ repositories {
 }
 
 dependencies {
-    compile 'org.opentestsystem.ap:ap-common:0.1.23'
+
+    compile 'org.opentestsystem.ap:ap-common:0.1.25'
 
     compile 'org.springframework.boot:spring-boot-starter-actuator'
     compile 'org.springframework.boot:spring-boot-starter-security'

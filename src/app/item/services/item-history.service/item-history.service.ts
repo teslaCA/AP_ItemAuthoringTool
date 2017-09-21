@@ -7,7 +7,6 @@ import "rxjs/add/observable/throw";
 import "rxjs/add/observable/fromPromise";
 import {JsonConvert} from "json2typescript";
 import {HttpUtility} from "../../../core/http-utility.service/http-utility";
-import {ItemVersion} from "./item-version";
 import {ItemHistoryResponse} from "./item-history-response";
 
 @Injectable()
