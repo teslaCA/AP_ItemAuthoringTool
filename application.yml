@@ -47,6 +47,13 @@ zuul:
     ivs-manage:
       path: /manage/ivs/**
       url: http://localhost:8087/manage
+    render:
+      path: /render/**
+      url: http://localhost:8200
+    preview:
+      path: /previewer/**
+      url: http://localhost:8200/previewer
+
 
 # session timeout in seconds
 server:

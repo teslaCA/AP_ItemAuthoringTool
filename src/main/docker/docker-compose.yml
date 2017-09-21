@@ -79,7 +79,8 @@ services:
             driver: json-file
     ap-ivs-service:
         container_name: ap-ivs-service
-        image: osucass/itemviewerserviceapp:1.1.3
+#        image: osucass/itemviewerserviceapp:1.1.3
+        image: @dockerTagBase@/ap-previewer:@apIRSVersion@
         expose:
             - 8080
         ports:
