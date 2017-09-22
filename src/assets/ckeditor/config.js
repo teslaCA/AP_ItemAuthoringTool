@@ -58,12 +58,4 @@ CKEDITOR.editorConfig = function( config ) {
 
   config.autoParagraph = false;
   config.enterMode = CKEDITOR.ENTER_BR;
-  //config.allowedContent = true;
-  //config.entities = false;
-
-
-  //config.contentsCss = 'contents.css';
-
-  //CKEDITOR.filter.disabled = true;
-
 };
