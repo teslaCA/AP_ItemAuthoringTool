@@ -23,6 +23,14 @@ export class ItemPreviewComponent {
   showVersionList = false;
   selectedItemChange =  new ItemVersion();
   accessibilityOptions: string[] = [];
+  accessibilityCodes = {
+    streamline: 'TDS_SLM1',
+    asl: 'TDS_ASL1',
+    cc: 'TDS_ClosedCap1',
+    glossary: 'TDS_WL_Glossary',
+    spanish: 'TDS_ESN',
+    translatedGlossary: 'TDS_WL_ESNGloss'
+  };
   @Input() itemId: string;
   @Input() itemType: string;
   @Input() isBeingEditedByCurrentUser: boolean;

@@ -12,6 +12,7 @@
         <span class="h2 mb-sm">
           <span *ngIf="isSelected(tab.asl)">ASL</span>
           <span *ngIf="isSelected(tab.braille)">Braille</span>
+          <span *ngIf="isSelected(tab.cc)">CC</span>
           <span *ngIf="isSelected(tab.history)">History</span>
           <span *ngIf="isSelected(tab.validation)">Validation</span>
           <span *ngIf="isSelected(tab.stimulus)">Stimulus</span>
@@ -26,6 +27,9 @@
           </li>
           <li role="menuitem">
             <a class="dropdown-item" (click)="select(tab.braille)">Braille</a>
+          </li>
+          <li role="menuitem">
+            <a class="dropdown-item" (click)="select(tab.cc)">CC</a>
           </li>
           <li role="menuitem">
             <a class="dropdown-item" (click)="select(tab.history)">History</a>
@@ -65,6 +69,18 @@
           [showActionButtons]="true"
           *ngIf="isSelected(tab.braille)"
           [section]="'braille'"
+          [itemContext]="itemContext"
+          [currentUser]="currentUser"
+          (beganEditing)="onBeganEditing($event)"
+          (cancelledEditing)="onCancelledEditing($event)"
+          (finishedEditing)="onFinishedEditing($event)">
+        </item-edit-management>
+
+        <!-- CC -->
+        <item-edit-management
+          [showActionButtons]="true"
+          *ngIf="isSelected(tab.cc)"
+          [section]="'cc'"
           [itemContext]="itemContext"
           [currentUser]="currentUser"
           (beganEditing)="onBeganEditing($event)"
@@ -128,6 +144,13 @@
                         [itemContext]="itemContext"
                         (itemBrailleChanged)="onItemChanged()">
       </item-braille-tab>
+
+      <!-- CC -->
+      <item-cc-tab *ngIf="isSelected(tab.cc)"
+                        [isReadOnly]="!itemContext.isUserCreatingItemOrEditingSection(currentUser.userName, 'cc')"
+                        [itemContext]="itemContext"
+                        (itemCcChanged)="onItemChanged()">
+      </item-cc-tab>
 
       <!-- History -->
       <item-history-tab *ngIf="isSelected(tab.history)"

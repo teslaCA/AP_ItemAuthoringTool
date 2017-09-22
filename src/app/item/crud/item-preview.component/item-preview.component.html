@@ -40,7 +40,7 @@
                   </a>
                   <a *ngIf="history.changedOn" class="dropdown-item" (click)="renderItem(history.historyId)">
                     <span class="date">{{history.changedOn | date:'short'}}</span> -
-                    <span class="owner">{{history.changedBy}}</span> -
+                    <span class="owner">{{history.changedByFullName}}</span> -
                     <span class="message">{{history.message}}</span>
                   </a>
                 </li>
@@ -57,12 +57,11 @@
             <!-- TODO: Render options via configuration or service -->
             <label>Accessibility: </label>
             <div class="btn-group btn-group-xs">
-              <a (click)="toggleAccessibility('TDS_SLM1')" [class.active]="isAccessibilityEnabled('TDS_SLM1')" class="btn btn-default" title="Streamline"><i class="fa fa-arrows-v" aria-hidden="true"></i></a>
+              <a (click)="toggleAccessibility(accessibilityCodes.streamline)" [class.active]="isAccessibilityEnabled(accessibilityCodes.streamline)" class="btn btn-default" title="Streamline"><i class="fa fa-arrows-v" aria-hidden="true"></i></a>
+              <a (click)="toggleAccessibility(accessibilityCodes.asl)" [class.active]="isAccessibilityEnabled(accessibilityCodes.asl)" class="btn btn-default" title="American Sign Language"><i class="fa fa-sign-language" aria-hidden="true"></i></a>
+              <a (click)="toggleAccessibility(accessibilityCodes.cc)" [class.active]="isAccessibilityEnabled(accessibilityCodes.cc)" class="btn btn-default" title="Closed Captioning"><i class="fa fa-cc" aria-hidden="true"></i></a>
               <!--
               TODO: Do not remove commented out code. The accessiblity features will be implemented in later sprints
-              <a (click)="toggleAccessibility('TDS_ASL1')" class="btn btn-default"><i title="American Sign Language" [class.active]="isAccessibilityEnabled('TDS_ASL1')" class="fa fa-sign-language" aria-hidden="true"></i></a>
-              <a (click)="toggleAccessibility('TDS_BT_EXN')" class="btn btn-default"><i title="Braille" [class.active]="isAccessibilityEnabled('TDS_BT_EXN')" class="fa fa-braille" aria-hidden="true"></i></a>
-              <a (click)="toggleAccessibility('TDS_ClosedCap1')" class="btn btn-default"><i title="Closed Captioning" [class.active]="isAccessibilityEnabled('TDS_ClosedCap1')" class="fa fa-cc" aria-hidden="true"></i></a>
               <a (click)="toggleAccessibility('TDS_WL_Glossary')" class="btn btn-default"><i title="English Glossary" [class.active]="isAccessibilityEnabled('TDS_WL_Glossary')" class="fa fa-list" aria-hidden="true"></i></a>
               <a (click)="toggleAccessibility('TDS_ESN')" class="btn btn-default"><i title="Stacked Spanish Translations" [class.active]="isAccessibilityEnabled('TDS_ESN')" class="fa fa-globe" aria-hidden="true"></i></a>
               <a (click)="toggleAccessibility('TDS_WL_ESNGloss')" class="btn btn-default"><i title="Translated Glossary" [class.active]="isAccessibilityEnabled('TDS_WL_ESNGloss')" class="fa fa-language" aria-hidden="true"></i></a>

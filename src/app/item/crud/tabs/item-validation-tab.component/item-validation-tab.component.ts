@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from "@angular/core";
 import {ItemValidationService} from "../../../services/item-validation.service/item-validation.service";
-import {ItemValidationError} from "../../../services/item-validation.service/item-validation-error";
+import {ItemValidationResults} from "../../../services/item-validation.service/item-validation-results";
 
 @Component({
   selector: 'item-validation-tab',
@@ -9,7 +9,7 @@ import {ItemValidationError} from "../../../services/item-validation.service/ite
 })
 export class ItemValidationTabComponent implements OnInit {
   @Input() itemId: string;
-  itemValidationErrors: ItemValidationError[];
+  itemValidationResults: ItemValidationResults;
 
   constructor(private itemValidationService: ItemValidationService) {
   }
@@ -18,8 +18,8 @@ export class ItemValidationTabComponent implements OnInit {
     if (this.itemId) {
       this.itemValidationService.findErrorMessages(this.itemId)
         .subscribe(
-          (itemValidationErrors: ItemValidationError[]) => {
-            this.itemValidationErrors = itemValidationErrors;
+          (itemValidationResults: ItemValidationResults) => {
+            this.itemValidationResults = itemValidationResults;
           }
         );
     }
