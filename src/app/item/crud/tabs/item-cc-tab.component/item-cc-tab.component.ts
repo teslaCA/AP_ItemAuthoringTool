@@ -28,13 +28,13 @@ export class ItemCcTabComponent implements OnInit, OnChanges {
   @Input() itemContext: ItemContext;
   @Output() itemCcChanged = new EventEmitter<ItemCc>();
   readonly fieldForm = this.fb.group({
-    isCcRequired: '',
+    ccRequired: '',
     isCcProvided: ''
   });
 
   get currentItemCc(): ItemCc {
     const cc = new ItemCc();
-    cc.isCcRequired = this.fieldForm.value.isCcRequired;
+    cc.ccRequired = this.fieldForm.value.ccRequired;
     cc.isCcProvided = this.fieldForm.value.isCcProvided;
     return cc;
   }
@@ -102,7 +102,7 @@ export class ItemCcTabComponent implements OnInit, OnChanges {
   ngOnChanges() {
     // Reset form data and flags
     this.fieldForm.reset({
-      isCcRequired: this.itemContext.item.cc.isCcRequired,
+      ccRequired: this.itemContext.item.cc.ccRequired,
       isCcProvided: this.itemContext.item.cc.isCcProvided
     });
 

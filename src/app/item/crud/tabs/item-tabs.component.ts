@@ -137,8 +137,8 @@ export class ItemTabsComponent {
 
     // Capture changes from cc tab
     if (this.itemCcTabComponent) {
-      this.itemContext.item.cc.isCcRequired =
-          this.itemCcTabComponent.currentItemCc.isCcRequired;
+      this.itemContext.item.cc.ccRequired =
+          this.itemCcTabComponent.currentItemCc.ccRequired;
       this.itemContext.item.cc.isCcProvided =
           this.itemCcTabComponent.currentItemCc.isCcProvided;
     }
