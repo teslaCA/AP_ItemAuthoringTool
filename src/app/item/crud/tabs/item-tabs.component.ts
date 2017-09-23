@@ -121,8 +121,8 @@ export class ItemTabsComponent {
 
     // Capture changes from asl tab
     if (this.itemAslTabComponent) {
-      this.itemContext.item.asl.isAslRequired =
-          this.itemAslTabComponent.currentItemAsl.isAslRequired;
+      this.itemContext.item.asl.aslRequired =
+          this.itemAslTabComponent.currentItemAsl.aslRequired;
       this.itemContext.item.asl.isAslProvided =
           this.itemAslTabComponent.currentItemAsl.isAslProvided;
     }

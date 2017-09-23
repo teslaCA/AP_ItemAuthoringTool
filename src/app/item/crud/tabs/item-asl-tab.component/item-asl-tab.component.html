@@ -1,7 +1,8 @@
 <div [formGroup]="fieldForm" class="form">
   <div class="form-group">
     <label>Does this item require American Sign Language (ASL)?</label>
-    <select class="form-control" formControlName="isAslRequired">
+    <select class="form-control" formControlName="aslRequired">
+      <option [value]="'undetermined'">Undetermined</option>
       <option [value]="true">Yes</option>
       <option [value]="false">No</option>
     </select>
