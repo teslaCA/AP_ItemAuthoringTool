@@ -131,8 +131,8 @@ export class ItemTabsComponent {
     if (this.itemBrailleTabComponent) {
       this.itemContext.item.braille.brailleRequired =
         this.itemBrailleTabComponent.currentItemBraille.brailleRequired;
-      this.itemContext.item.braille.brailleProvided =
-        this.itemBrailleTabComponent.currentItemBraille.brailleProvided;
+      this.itemContext.item.braille.isBrailleProvided =
+        this.itemBrailleTabComponent.currentItemBraille.isBrailleProvided;
     }
 
     // Capture changes from cc tab

@@ -29,13 +29,13 @@ export class ItemBrailleTabComponent implements OnInit, OnChanges {
   @Output() itemBrailleChanged = new EventEmitter<ItemBraille>();
   readonly fieldForm = this.fb.group({
     brailleRequired: '',
-    brailleProvided: ''
+    isBrailleProvided: '',
   });
 
   get currentItemBraille(): ItemBraille {
     const braille = new ItemBraille();
     braille.brailleRequired = this.fieldForm.value.brailleRequired;
-    braille.brailleProvided = this.fieldForm.value.brailleProvided;
+    braille.isBrailleProvided = this.fieldForm.value.isBrailleProvided;
     return braille;
   }
 
@@ -103,7 +103,7 @@ export class ItemBrailleTabComponent implements OnInit, OnChanges {
     // Reset form data and flags
     this.fieldForm.reset({
       brailleRequired: this.itemContext.item.braille.brailleRequired,
-      brailleProvided: this.itemContext.item.braille.brailleProvided
+      isBrailleProvided: this.itemContext.item.braille.isBrailleProvided
     });
 
     // Disable form if read-only
