@@ -1,7 +1,8 @@
 <div [formGroup]="fieldForm" class="form">
   <div class="form-group">
     <label>Does this item require Closed Captioning (CC)?</label>
-    <select class="form-control" formControlName="isCcRequired">
+    <select class="form-control" formControlName="ccRequired">
+      <option [value]="'undetermined'">Undetermined</option>
       <option [value]="true">Yes</option>
       <option [value]="false">No</option>
     </select>

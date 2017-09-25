@@ -12,9 +12,9 @@ export class ItemAsl {
     @JsonProperty("attachments", [ItemAttachment])
     attachments: ItemAttachment[] = undefined;
 
+    @JsonProperty("aslRequired", String)
+    aslRequired: string = undefined;          // Initialize to undefined so that field is mapped
+
     @JsonProperty("isAslProvided", Boolean)
     isAslProvided: boolean = undefined;          // Initialize to undefined so that field is mapped
-
-    @JsonProperty("isAslRequired", Boolean)
-    isAslRequired: boolean = undefined;          // Initialize to undefined so that field is mapped
 }
