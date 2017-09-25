@@ -48,6 +48,9 @@ a {
 .modal-open .modal{
   background: rgba(255,255,255,0.6);
 }
+.rotate90 {
+    transform: rotate(-90deg);
+}
 // Firefox ignores Flex %s
 .flex-children > *, .flex-children .flex-children {
     margin: 5px;
@@ -79,6 +82,12 @@ a {
     th.active, td.active {
       background: #ccc;
     }
+    > thead > tr > th {
+      vertical-align: middle;
+    }
+    > tbody > tr > td {
+      vertical-align: middle;
+    }
   }
   div.cke {
       background: transparent;
@@ -86,6 +95,9 @@ a {
       padding: 0;
       margin-left: -2px;
   }
+}
+.width-sm {
+  width: 1%;
 }
 .pull-buttons {
     float: right;
