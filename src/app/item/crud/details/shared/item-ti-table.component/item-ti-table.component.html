@@ -1,5 +1,5 @@
 <form [formGroup]="form">
-  <div class="form-group mb-sm">
+  <div class="form-group mb-sm hover-toolbar">
     <label class="h5 mt-sm">Table</label>
 
     <!-- Title -->
@@ -48,17 +48,8 @@
         <tr *ngFor="let rowControl of formRows.controls; let i=index" [formGroupName]="i">
           <td *ngFor="let cellControl of formRowCells(i).controls; let j=index" [formGroupName]="j">
             <div class="input-group input-group-sm">
-              <ckeditor
-                formControlName="value"
-                [config]="{
-                  toolbar: 'IATMATH',
-                  readOnly: isReadOnly,
-                  height: 50
-                }"
-                debounce="500">
-              </ckeditor>
-              <div class="input-group-btn ti-table-cell-align" data-toggle="buttons">
-                <label class="btn btn-default btn-sm"
+              <div class="ti-table-cell-align pull-buttons" data-toggle="buttons">
+                <label class="btn btn-default btn-xs"
                        [ngClass]="cellControl.value.type === 'label' ? 'active' : ''"
                        (click)="isReadOnly ? false : changeCellType(i, j, 'label')"
                        [class.disabled]="isReadOnly">
@@ -68,7 +59,7 @@
                          alt="Set as a label">
                   <i class="fa fa-tag" aria-hidden="true"></i>
                 </label>
-                <label class="btn btn-default btn-sm"
+                <label class="btn btn-default btn-xs"
                        [ngClass]="cellControl.value.type === 'answer' ? 'active' : ''"
                        (click)="isReadOnly ? false : changeCellType(i, j, 'answer')"
                        [class.disabled]="isReadOnly">
@@ -79,6 +70,15 @@
                   <i class="fa fa-lightbulb-o" aria-hidden="true"></i>
                 </label>
               </div>
+              <ckeditor
+                formControlName="value"
+                [config]="{
+                  toolbar: 'IATMATH',
+                  readOnly: isReadOnly,
+                  height: 50
+                }"
+                debounce="500">
+              </ckeditor>
             </div>
           </td>
           <td class="center">

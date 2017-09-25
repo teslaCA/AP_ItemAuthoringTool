@@ -41,8 +41,9 @@ a {
 .table-wrapper {
     width: 100%;
     overflow: scroll;
-    border: 1px @gray-lightest solid;
-    padding: 2px 2px 20px;
+    border-right: 1px @gray-lightest solid;
+    padding-top: 25px;
+    margin-top: -25px;
 }
 .modal-open .modal{
   background: rgba(255,255,255,0.6);
@@ -53,6 +54,7 @@ a {
 }
 
 // CKeditor overrides
+
 .cke_editable {
     font-family: Times New Roman, Times, serif;
     line-height: 1;
@@ -60,6 +62,37 @@ a {
       padding: 4px;
     }
 }
+.hover-toolbar {
+  .cke_top.cke_reset_all {
+    position: absolute;
+    min-width: 230px;
+    z-index: 9;
+    margin-top: -35px;
+    padding: 3px 0 0 5px;
+    border: none;
+    border-radius: 3px;
+    display: none;
+    background-color: #ccc;
+    margin-left: -5px;
+  }
+  .table {
+    th.active, td.active {
+      background: #ccc;
+    }
+  }
+  div.cke {
+      background: transparent;
+      border: none;
+      padding: 0;
+      margin-left: -2px;
+  }
+}
+.pull-buttons {
+    float: right;
+    width: 25px;
+    margin-left: 1px;
+}
+
 label {
   border-radius: 3px;
   padding: 2px 6px;
