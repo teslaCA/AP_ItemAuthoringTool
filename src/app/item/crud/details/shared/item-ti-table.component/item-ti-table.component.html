@@ -5,7 +5,15 @@
     <!-- Title -->
     <div class="input-group mb-sm">
       <span class="input-group-addon" id="sizing-addon2">Title</span>
-      <input class="form-control" formControlName="title" aria-describedby="sizing-addon2">
+      <ckeditor
+        formControlName="title"
+        [config]="{
+              toolbar: 'IATMATH',
+              readOnly: isReadOnly,
+              height: 50
+            }"
+        debounce="500">
+      </ckeditor>
     </div>
 
     <!-- Table -->
@@ -16,7 +24,15 @@
         <tr formArrayName="columns">
           <th *ngFor="let control of formColumns.controls; let i=index" [formGroupName]="i">
             <div class="input-group input-group-sm">
-              <input class="form-control" formControlName="label"/>
+              <ckeditor
+                formControlName="label"
+                [config]="{
+                  toolbar: 'IATMATH',
+                  readOnly: isReadOnly,
+                  height: 50
+                }"
+                debounce="500">
+              </ckeditor>
             </div>
           </th>
           <th class="center">
@@ -32,8 +48,16 @@
         <tr *ngFor="let rowControl of formRows.controls; let i=index" [formGroupName]="i">
           <td *ngFor="let cellControl of formRowCells(i).controls; let j=index" [formGroupName]="j">
             <div class="input-group input-group-sm">
-              <input class="form-control" formControlName="value">
-              <div class="input-group-btn" data-toggle="buttons">
+              <ckeditor
+                formControlName="value"
+                [config]="{
+                  toolbar: 'IATMATH',
+                  readOnly: isReadOnly,
+                  height: 50
+                }"
+                debounce="500">
+              </ckeditor>
+              <div class="input-group-btn ti-table-cell-align" data-toggle="buttons">
                 <label class="btn btn-default btn-sm"
                        [ngClass]="cellControl.value.type === 'label' ? 'active' : ''"
                        (click)="isReadOnly ? false : changeCellType(i, j, 'label')"
