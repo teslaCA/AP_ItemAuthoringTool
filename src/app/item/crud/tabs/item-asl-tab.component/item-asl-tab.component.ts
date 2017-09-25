@@ -9,7 +9,6 @@ import {AlertService} from "../../../../core/alert.service/alert.service";
 import {ModalDirective} from "ngx-bootstrap";
 import {BusyService} from "../../../../core/busy.service/busy.service";
 import {ItemContext} from "../../../services/item.service/models/base/item-context";
-import {User} from "../../../../core/user.service/user";
 
 @Component({
   selector: 'item-asl-tab',
@@ -29,13 +28,13 @@ export class ItemAslTabComponent implements OnInit, OnChanges {
   @Input() itemContext: ItemContext;
   @Output() itemAslChanged = new EventEmitter<ItemAsl>();
   readonly fieldForm = this.fb.group({
-    isAslRequired: '',
+    aslRequired: '',
     isAslProvided: ''
   });
 
   get currentItemAsl(): ItemAsl {
     const asl = new ItemAsl();
-    asl.isAslRequired = this.fieldForm.value.isAslRequired;
+    asl.aslRequired = this.fieldForm.value.aslRequired;
     asl.isAslProvided = this.fieldForm.value.isAslProvided;
     return asl;
   }
@@ -103,7 +102,7 @@ export class ItemAslTabComponent implements OnInit, OnChanges {
   ngOnChanges() {
     // Reset form data and flags
     this.fieldForm.reset({
-      isAslRequired: this.itemContext.item.asl.isAslRequired,
+      aslRequired: this.itemContext.item.asl.aslRequired,
       isAslProvided: this.itemContext.item.asl.isAslProvided
     });
 

@@ -26,6 +26,9 @@
 .table-striped > tbody > tr:nth-of-type(even) {
     background-color: @white;
 }
+.table-light td {
+    background: #F8F8F8;
+}
 .borderless {
   border: none !important;
 }
@@ -85,6 +88,20 @@ label {
     word-break: break-word;
 }
 
+.flyout {
+    background: #CCC;
+    height: 97.5%;
+    width: 20px;
+    position: absolute;
+    top: 0;
+    right: -10px;
+    color: #fff;
+    padding: 6px;
+}
+#slide-panel{
+  -webkit-transition: width .5s, height .5s, background-color .5s, -webkit-transform .5s;
+    transition: width .5s, height .5s, background-color .5s, transform .5s;
+}
 
 header {
   background-color: transparent;

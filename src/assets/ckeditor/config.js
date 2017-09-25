@@ -42,7 +42,6 @@ CKEDITOR.editorConfig = function( config ) {
       { name: 'paragraph', items : [ 'NumberedList','BulletedList' ] },
       { name: 'insert', items : [ 'Table' ] },
       { name: 'mathlatex', items : [ 'Mathjax' ] },
-      { name: 'mathml', items : [ 'texzilla' ] },
       { name: 'mathpaid', items : [ 'EqnEditor' ] }
     ];
 
@@ -59,12 +58,4 @@ CKEDITOR.editorConfig = function( config ) {
 
   config.autoParagraph = false;
   config.enterMode = CKEDITOR.ENTER_BR;
-  //config.allowedContent = true;
-  config.entities = false;
-
-
-  config.contentsCss = 'contents.css';
-
-  CKEDITOR.filter.disabled = true;
-
 };

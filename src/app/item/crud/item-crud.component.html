@@ -11,16 +11,6 @@
                         [debounceTimeMillis]="3000">
         </item-auto-save>
 
-        <!-- Preview -->
-        <span *ngIf="itemContext.item.core.supportsPreview">
-          <item-preview #itemPreview
-                        [itemId]="itemContext.item.id"
-                        [itemType]="itemContext.item.itemType.categoryName"
-                        [isBeingEditedByCurrentUser]="itemContext.isUserEditingAnySection(currentUser.userName)"
-                        [isBeingCreatedByCurrentUser]="itemContext.isUserCreatingItem(currentUser.userName)">
-          </item-preview>
-        </span>
-
       </div>
 
       <!-- Item title -->
@@ -36,7 +26,7 @@
       <div class="row">
 
         <!-- Left body -->
-        <div class="col-md-6">
+        <div id="slide-panel" class="col-md-6">
           <div class="well-group">
 
             <!-- Item management -->
@@ -44,6 +34,16 @@
               <div class="well-body pt-xs">
                 <div class="row">
                   <div class="col-md-12">
+
+                    <!-- Preview -->
+                    <span *ngIf="itemContext.item.core.supportsPreview">
+                      <item-preview #itemPreview
+                                    [itemId]="itemContext.item.id"
+                                    [itemType]="itemContext.item.itemType.categoryName"
+                                    [isBeingEditedByCurrentUser]="itemContext.isUserEditingAnySection(currentUser.userName)"
+                                    [isBeingCreatedByCurrentUser]="itemContext.isUserCreatingItem(currentUser.userName)">
+                      </item-preview>
+                    </span>
 
                     <div class="pull-right">
                       <!-- Create management -->
@@ -72,6 +72,7 @@
               </div>
             </div>
 
+
             <!-- Item details -->
             <item-details [itemContext]="itemContext"
                           [isReadOnly]="!itemContext.isUserCreatingItemOrEditingSection(currentUser.userName, 'core')"
@@ -79,10 +80,13 @@
             </item-details>
 
           </div>
+          <button id="opener" class="flyout btn btn-default btn-sm mr-xs">
+            <i id="chevi" class="fa fa-chevron-right"></i>
+          </button>
         </div>
 
         <!-- Right body -->
-        <div class="col-md-6 ">
+        <div id="flytabs" class="col-md-6">
 
           <!-- Item tabs -->
           <item-tabs [currentUser]="currentUser"
@@ -103,7 +107,7 @@
     <div class="well" *ngIf="isError">
       <div class="well-body">
         <alert>{{errorMessage}}</alert>
-        <button class="btn btn-primary" routerLink="/"><i class="fa fa-arrow-left"></i> Go Back</button>
+        <button class="btn btn-default btn" routerLink="/"><i class="fa fa-chevron-left"></i> Go Back</button>
       </div>
     </div>
 

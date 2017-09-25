@@ -9,7 +9,6 @@ import {AlertService} from "../../../../core/alert.service/alert.service";
 import {ModalDirective} from "ngx-bootstrap";
 import {BusyService} from "../../../../core/busy.service/busy.service";
 import {ItemContext} from "../../../services/item.service/models/base/item-context";
-import {User} from "../../../../core/user.service/user";
 
 @Component({
   selector: 'item-braille-tab',
@@ -21,21 +20,21 @@ export class ItemBrailleTabComponent implements OnInit, OnChanges {
   uploader: FileUploader;
   hasDropZoneOver = false;
   deleteIndex = -1;
-  deleteFileName = "";
+  deleteFileName = '';
   brailleAttachments: ItemAttachment[];
-  @ViewChild("fileDialog") fileDialog: ElementRef;
+  @ViewChild('fileDialog') fileDialog: ElementRef;
   @ViewChild('deleteModal') deleteModal: ModalDirective;
   @Input() isReadOnly: boolean;
   @Input() itemContext: ItemContext;
   @Output() itemBrailleChanged = new EventEmitter<ItemBraille>();
   readonly fieldForm = this.fb.group({
-    isBrailleRequired: '',
-    isBrailleProvided: ''
+    brailleRequired: '',
+    isBrailleProvided: '',
   });
 
   get currentItemBraille(): ItemBraille {
     const braille = new ItemBraille();
-    braille.isBrailleRequired = this.fieldForm.value.isBrailleRequired;
+    braille.brailleRequired = this.fieldForm.value.brailleRequired;
     braille.isBrailleProvided = this.fieldForm.value.isBrailleProvided;
     return braille;
   }
@@ -103,7 +102,7 @@ export class ItemBrailleTabComponent implements OnInit, OnChanges {
   ngOnChanges() {
     // Reset form data and flags
     this.fieldForm.reset({
-      isBrailleRequired: this.itemContext.item.braille.isBrailleRequired,
+      brailleRequired: this.itemContext.item.braille.brailleRequired,
       isBrailleProvided: this.itemContext.item.braille.isBrailleProvided
     });
 
@@ -116,8 +115,8 @@ export class ItemBrailleTabComponent implements OnInit, OnChanges {
     this.fieldForm.valueChanges.subscribe(
       () => {
         this.logger.debug(`Updating Braille flags to 
-        Requires Braille: '${this.fieldForm.value.isBrailleRequired}'
-        Braille Content Provided: '${this.fieldForm.value.isBrailleProvided}'
+        Requires Braille: '${this.fieldForm.value.brailleRequired}'
+        Braille Content Provided: '${this.fieldForm.value.brailleProvided}'
         `);
 
         this.itemBrailleChanged.emit(this.currentItemBraille);
