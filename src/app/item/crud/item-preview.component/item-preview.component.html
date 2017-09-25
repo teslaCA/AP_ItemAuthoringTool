@@ -19,7 +19,7 @@
         <h4 class="modal-title">Preview of {{itemId}}</h4>
 
         <div class="row">
-          <div *ngIf="showVersionList" class="col-sm-4">
+          <div *ngIf="showVersionList" class="col-md-8">
             <!-- Version selection dropdown -->
             <label>Showing Version: </label>
             <div class="btn-group btn-group-xs" dropdown>
@@ -48,11 +48,11 @@
 
             </div>
           </div>
-          <div *ngIf="!showVersionList" class="col-sm-4">
+          <div *ngIf="!showVersionList" class="col-md-8">
             <span class="gray-darker">Showing {{itemType | lowercase}} being created by you</span>
           </div>
 
-          <div class="col-sm-8 text-right">
+          <div class="col-md-4 text-right">
             <!-- Accessibility options -->
             <!-- TODO: Render options via configuration or service -->
             <label>Accessibility: </label>
