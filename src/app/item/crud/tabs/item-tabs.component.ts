@@ -121,15 +121,15 @@ export class ItemTabsComponent {
 
     // Capture changes from asl tab
     if (this.itemAslTabComponent) {
-      this.itemContext.item.asl.aslRequired =
-          this.itemAslTabComponent.currentItemAsl.aslRequired;
+      this.itemContext.item.asl.isAslRequired =
+          this.itemAslTabComponent.currentItemAsl.isAslRequired;
       this.itemContext.item.asl.isAslProvided =
           this.itemAslTabComponent.currentItemAsl.isAslProvided;
     }
 
     // Capture changes from braille tab
     if (this.itemBrailleTabComponent) {
-      this.itemContext.item.braille.brailleRequired =
+      this.itemContext.item.braille.isBrailleRequired =
         this.itemBrailleTabComponent.currentItemBraille.brailleRequired;
       this.itemContext.item.braille.isBrailleProvided =
         this.itemBrailleTabComponent.currentItemBraille.isBrailleProvided;
@@ -137,8 +137,8 @@ export class ItemTabsComponent {
 
     // Capture changes from cc tab
     if (this.itemCcTabComponent) {
-      this.itemContext.item.cc.ccRequired =
-          this.itemCcTabComponent.currentItemCc.ccRequired;
+      this.itemContext.item.cc.isCcRequired =
+          this.itemCcTabComponent.currentItemCc.isCcRequired;
       this.itemContext.item.cc.isCcProvided =
           this.itemCcTabComponent.currentItemCc.isCcProvided;
     }
