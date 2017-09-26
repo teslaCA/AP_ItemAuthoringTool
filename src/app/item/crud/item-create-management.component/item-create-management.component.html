@@ -1,16 +1,20 @@
-<!-- Cancel creating -->
-<span *ngIf="itemContext.isUserCreatingItem(currentUser.userName)">
-  <button class="btn btn-default btn-sm" (click)="cancelModal.show()">
-    <i class="fa fa-undo"></i> Cancel
-  </button>
-</span>
+<div class="pull-right">
 
-<!-- Finish creating -->
-<span *ngIf="itemContext.isUserCreatingItem(currentUser.userName)">
-  <button class="btn btn-success btn-sm" (click)="commitModal.show()">
-    <i class="fa fa-check-square"></i> Finish Creating {{itemContext.item.itemType.categoryName}}
-  </button>
-</span>
+  <!-- Cancel creating -->
+  <span *ngIf="itemContext.isUserCreatingItem(currentUser.userName)">
+    <button class="btn btn-default btn-sm" (click)="cancelModal.show()">
+      <i class="fa fa-undo"></i> Cancel
+    </button>
+  </span>
+
+  <!-- Finish creating -->
+  <span *ngIf="itemContext.isUserCreatingItem(currentUser.userName)">
+    <button class="btn btn-success btn-sm" (click)="commitModal.show()">
+      <i class="fa fa-check-square"></i> Finish Creating {{itemContext.item.itemType.categoryName}}
+    </button>
+  </span>
+  
+</div>
 
 <!-- Commit modal -->
 <div #commitModal="bs-modal"
