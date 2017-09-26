@@ -19,6 +19,13 @@
                  (itemChanged)="onItemChanged($event)">
 </item-mc-details>
 
+<!-- MI -->
+<item-mi-details *ngIf="itemContext.item.type=='mi'"
+                 [itemContext]="itemContext"
+                 [isReadOnly]="isReadOnly"
+                 (itemChanged)="onItemChanged($event)">
+</item-mi-details>
+
 <!-- MS -->
 <item-ms-details *ngIf="itemContext.item.type=='ms'"
                  [itemContext]="itemContext"

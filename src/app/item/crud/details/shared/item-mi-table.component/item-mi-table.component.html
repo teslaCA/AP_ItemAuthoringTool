@@ -1,0 +1,62 @@
+<form [formGroup]="form">
+  <div class="form-group mb-sm">
+    <label class="h5 mt-sm">Table</label>
+
+    <!-- Title -->
+    <div class="input-group mb-sm">
+      <span class="input-group-addon" id="sizing-addon2">Title</span>
+      <input class="form-control" formControlName="title" aria-describedby="sizing-addon2">
+    </div>
+
+    <!-- Table -->
+    <div class="table-wrapper">
+      <table class="table table-condensed table-hover table-light">
+        <thead>
+        <!-- Header -->
+        <tr formArrayName="columns">
+          <th *ngFor="let control of formColumns.controls; let i=index" [formGroupName]="i">
+            <div *ngIf="i != 0" class="input-group input-group-sm">
+              <input class="form-control" formControlName="label"/>
+            </div>
+          </th>
+          <th class="center">
+            <a *ngIf="!isReadOnly" (click)="addColumn()" class="btn btn-default btn-xs">
+              <i class="fa fa-plus"></i> <i class="fa fa-columns" aria-hidden="true"></i>
+            </a>
+          </th>
+        </tr>
+        </thead>
+
+        <!-- Body -->
+        <tbody formArrayName="rows">
+          <tr *ngFor="let rowControl of formRows.controls; let i=index" [formGroupName]="i">
+            <td *ngFor="let cellControl of formRowCells(i).controls; let j=index" [formGroupName]="j">
+              <input *ngIf="cellControl.value.type === 'label'" class="form-control" formControlName="value">
+              <input *ngIf="cellControl.value.type === 'answer'" class="checkbox center" formControlName="value"  type="checkbox" checked="value">
+            </td>
+            <td class="center">
+              <a *ngIf="!isReadOnly" (click)="removeRow(i)" class="gray-dark">
+                <i class="fa fa-minus-circle"></i>
+              </a>
+            </td>
+          </tr>
+
+          <!-- Footer -->
+          <tr>
+            <td *ngFor="let control of formColumns.controls; let i=index" class="center">
+              <a *ngIf="!isReadOnly && i != 0" (click)="removeColumn(i)" class="gray-dark">
+                <i class="fa fa-minus-circle"></i>
+              </a>
+            </td>
+            <td>&nbsp;</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Add row -->
+      <a *ngIf="!isReadOnly" (click)="addRow()" class="btn btn-default btn-xs">
+        <i class="fa fa-plus"> Row</i>
+      </a>
+    </div>
+  </div>
+</form>
