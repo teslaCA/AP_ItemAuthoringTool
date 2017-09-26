@@ -1,18 +1,20 @@
 <form [formGroup]="form">
-  <div class="form-group mb-sm hover-toolbar">
+  <div class="form-group mb-sm">
     <label class="h5 mt-sm">Table</label>
 
     <!-- Title -->
-    <div class="input-group mb-sm">
+    <div class="input-group mb-sm hover-toolbar">
       <span class="input-group-addon" id="sizing-addon2">Title</span>
       <ckeditor
-        formControlName="title"
         [config]="{
               toolbar: 'IATMATH',
               readOnly: isReadOnly,
               height: 50
             }"
-        debounce="500">
+        formControlName="title"
+        debounce="500"
+        (focus)="editorOnFocus($event)"
+        (blur)="editorOnBlur($event)">
       </ckeditor>
     </div>
 
@@ -23,15 +25,17 @@
         <!-- Header -->
         <tr formArrayName="columns">
           <th *ngFor="let control of formColumns.controls; let i=index" [formGroupName]="i">
-            <div class="input-group input-group-sm">
+            <div class="input-group input-group-sm hover-toolbar">
               <ckeditor
-                formControlName="label"
                 [config]="{
                   toolbar: 'IATMATH',
                   readOnly: isReadOnly,
                   height: 50
                 }"
-                debounce="500">
+                formControlName="label"
+                debounce="500"
+                (focus)="editorOnFocus($event)"
+                (blur)="editorOnBlur($event)">
               </ckeditor>
             </div>
           </th>
@@ -47,7 +51,7 @@
         <tbody formArrayName="rows">
         <tr *ngFor="let rowControl of formRows.controls; let i=index" [formGroupName]="i">
           <td *ngFor="let cellControl of formRowCells(i).controls; let j=index" [formGroupName]="j">
-            <div class="input-group input-group-sm">
+            <div class="input-group input-group-sm hover-toolbar">
               <div class="ti-table-cell-align pull-buttons" data-toggle="buttons">
                 <label class="btn btn-default btn-xs"
                        [ngClass]="cellControl.value.type === 'label' ? 'active' : ''"
@@ -71,12 +75,12 @@
                 </label>
               </div>
               <ckeditor
-                formControlName="value"
                 [config]="{
                   toolbar: 'IATMATH',
                   readOnly: isReadOnly,
                   height: 50
                 }"
+                formControlName="value"
                 debounce="500"
                 (focus)="editorOnFocus($event)"
                 (blur)="editorOnBlur($event)">

@@ -26,7 +26,7 @@
       <div class="row">
 
         <!-- Left body -->
-        <div id="slide-panel" class="col-md-6">
+        <div id="slide-panel" #slidePanel class="col-md-6">
           <div class="well-group">
 
             <!-- Item management -->
@@ -77,13 +77,13 @@
             </item-details>
 
           </div>
-          <button id="opener" class="flyout btn btn-default btn-sm mr-xs">
-            <i id="chevi" class="fa fa-chevron-right"></i>
+          <button id="opener" class="flyout btn btn-default btn-sm mr-xs" (click)="toggleFlyout(slidePanel, flytabs, chevi)">
+            <i id="chevi" #chevi class="fa fa-chevron-right"></i>
           </button>
         </div>
 
         <!-- Right body -->
-        <div id="flytabs" class="col-md-6">
+        <div id="flytabs" #flytabs class="col-md-6">
 
           <!-- Item tabs -->
           <item-tabs [currentUser]="currentUser"

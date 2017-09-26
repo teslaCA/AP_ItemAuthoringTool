@@ -145,12 +145,12 @@ export class ItemTiTableComponent implements OnInit {
   }
 
   editorOnFocus(event: any) {
-    console.log('The editor id ' + event.editor.id + ' is now focused');
+    //console.log('The editor id ' + event.editor.id + ' is now focused');
     eval('$("#' + event.editor.id + '_top").show();');
   }
 
   editorOnBlur(event: any) {
-    console.log('The editor id ' + event.editor.id + ' is now blurred');
+    //console.log('The editor id ' + event.editor.id + ' is now blurred');
     eval('$("#' + event.editor.id + '_top").hide();');
   }
 
