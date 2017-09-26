@@ -51,13 +51,20 @@ a {
 .rotate90 {
     transform: rotate(-90deg);
 }
+.inner-well {
+  margin-bottom: 10px;
+  border-radius: @border-radius-base;
+  padding: 20px;
+}
 // Firefox ignores Flex %s
 .flex-children > *, .flex-children .flex-children {
     margin: 5px;
 }
 
 // CKeditor overrides
-
+ckeditor, .cke {
+    max-width: 100% !important;
+}
 .cke_editable {
     font-family: Times New Roman, Times, serif;
     line-height: 1;
@@ -99,10 +106,14 @@ a {
 
 
 .calc-table {
-  div {
+  table {
+    box-shadow: 2px 2px 2px #ccc;
+    background: @gray-lighter;
+  }
+  .input-group {
     float: left;
     width: auto;
-    margin: 3px;
+    margin: 2px;
     .btn {
       min-width: 30px;
     }
@@ -110,8 +121,30 @@ a {
   button {
     float: right;
   }
+  .tr-close {
+    position: absolute;
+    z-index: 9;
+    margin: -16px 0 0 -25px;
+  }
+  .border {
+    border-top: @gray-lighter solid 1px;
+    padding: 2px 0;
+    border-bottom: @gray-lighter solid 1px;
+    &.mute label {
+      opacity: 0.3;
+    }
+  }
 }
 
+
+.mi-table {
+  th {
+    &:first-child{
+      background: #fff;
+      border-width: 0 !important;
+    }
+  }
+}
 
 .width-sm {
   width: 1%;
@@ -144,7 +177,7 @@ label {
   }
 }
 
-.center {text-align: center;}
+.center {text-align: center;display: table-cell;}
 // break up really long file names in small td
 .break {
     word-break: break-word;

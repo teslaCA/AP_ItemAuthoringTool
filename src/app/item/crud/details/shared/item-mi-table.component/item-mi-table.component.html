@@ -10,7 +10,7 @@
 
     <!-- Table -->
     <div class="table-wrapper">
-      <table class="table table-condensed table-hover table-light">
+      <table class="table table-condensed table-hover table-light mi-table">
         <thead>
         <!-- Header -->
         <tr formArrayName="columns">
@@ -30,7 +30,7 @@
         <!-- Body -->
         <tbody formArrayName="rows">
           <tr *ngFor="let rowControl of formRows.controls; let i=index" [formGroupName]="i">
-            <td *ngFor="let cellControl of formRowCells(i).controls; let j=index" [formGroupName]="j">
+            <td *ngFor="let cellControl of formRowCells(i).controls; let j=index" [formGroupName]="j" class="center">
               <input *ngIf="cellControl.value.type === 'label'" class="form-control" formControlName="value">
               <input *ngIf="cellControl.value.type === 'answer'" class="checkbox center" formControlName="value"  type="checkbox" checked="value">
             </td>
