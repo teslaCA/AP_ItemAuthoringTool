@@ -5,6 +5,13 @@
                    (itemChanged)="onItemChanged($event)">
 </item-ebsr-details>
 
+<!-- EQ -->
+<item-eq-details *ngIf="itemContext.item.type=='eq'"
+                 [itemContext]="itemContext"
+                 [isReadOnly]="isReadOnly"
+                 (itemChanged)="onItemChanged($event)">
+</item-eq-details>
+
 <!-- MC -->
 <item-mc-details *ngIf="itemContext.item.type=='mc'"
                  [itemContext]="itemContext"

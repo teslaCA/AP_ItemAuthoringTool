@@ -10,6 +10,7 @@ import {McItem, McItemContext, McItemCore} from "./models/type/mc-item";
 import {MsItem, MsItemContext, MsItemCore} from "./models/type/ms-item";
 import {TiItem, TiItemContext, TiItemCore} from "./models/type/ti-item";
 import {EbsrItem, EbsrItemContext, EbsrItemCore} from "./models/type/ebsr-item";
+import {EqItem, EqItemContext, EqItemCore} from "./models/type/eq-item";
 
 export class ItemContextFactory {
   /**
@@ -33,6 +34,12 @@ export class ItemContextFactory {
         itemContext = JsonConvert.deserializeObject(jsonObject, EbsrItemContext);
         itemContext.item = JsonConvert.deserializeObject(itemContext.item, EbsrItem);
         itemContext.item.core = JsonConvert.deserializeObject(itemContext.item.core, EbsrItemCore);
+        break;
+
+      case 'eq':
+        itemContext = JsonConvert.deserializeObject(jsonObject, EqItemContext);
+        itemContext.item = JsonConvert.deserializeObject(itemContext.item, EqItem);
+        itemContext.item.core = JsonConvert.deserializeObject(itemContext.item.core, EqItemCore);
         break;
 
       case 'mc':
