@@ -27,6 +27,7 @@ import {ItemPromptComponent} from "./crud/details/shared/item-prompt.component/i
 import {ItemWorkflowTabComponent} from "./crud/tabs/item-workflow-tab.component/item-workflow-tab.component";
 import {ItemWorkflowService} from "./services/item-workflow.service/item-workflow.service";
 import {ItemMcDetailsComponent} from "./crud/details/item-mc-details.component/item-mc-details.component";
+import {ItemMiDetailsComponent} from "./crud/details/item-mi-details.component/item-mi-details.component";
 import {ItemMsDetailsComponent} from "./crud/details/item-ms-details.component/item-ms-details.component";
 import {ItemMcOptionsComponent} from "./crud/details/shared/item-mc-options.component/item-mc-options.component";
 import {ItemMsOptionsComponent} from "./crud/details/shared/item-ms-options.component/item-ms-options.component";
@@ -43,6 +44,7 @@ import {ItemTiTableComponent} from "./crud/details/shared/item-ti-table.componen
 import {ItemEditManagementComponent} from './crud/item-edit-management.component/item-edit-management.component';
 import {ItemCreateManagementComponent} from "./crud/item-create-management.component/item-create-management.component";
 import {ItemCcTabComponent} from "./crud/tabs/item-cc-tab.component/item-cc-tab.component";
+import {ItemMiTableComponent} from "./crud/details/shared/item-mi-table.component/item-mi-table.component";
 import {ItemEqDetailsComponent} from "./crud/details/item-eq-details.component/item-eq-details.component";
 
 @NgModule({
@@ -59,6 +61,7 @@ import {ItemEqDetailsComponent} from "./crud/details/item-eq-details.component/i
   declarations: [
     ItemDashboardComponent,
     ItemMcDetailsComponent,
+    ItemMiDetailsComponent,
     ItemMsDetailsComponent,
     ItemSaDetailsComponent,
     ItemEqDetailsComponent,
@@ -78,6 +81,7 @@ import {ItemEqDetailsComponent} from "./crud/details/item-eq-details.component/i
     ItemPromptComponent,
     ItemTiTableComponent,
     ItemMcOptionsComponent,
+    ItemMiTableComponent,
     ItemMsOptionsComponent,
     ItemWorkflowTabComponent,
     ItemTutDetailsComponent,
@@ -92,6 +96,7 @@ import {ItemEqDetailsComponent} from "./crud/details/item-eq-details.component/i
   exports: [
     ItemDashboardComponent,
     ItemMcDetailsComponent,
+    ItemMiDetailsComponent,
     ItemSaDetailsComponent,
     ItemEqDetailsComponent,
     ItemTiDetailsComponent,
@@ -104,6 +109,7 @@ import {ItemEqDetailsComponent} from "./crud/details/item-eq-details.component/i
     ItemValidationTabComponent,
     ItemDetailsComponent,
     ItemPromptComponent,
+    ItemMiTableComponent,
     ItemTiTableComponent,
     ItemExemplarResponsesComponent,
     ItemMcOptionsComponent,
