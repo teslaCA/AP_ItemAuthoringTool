@@ -10,6 +10,8 @@ import {McItem, McItemContext, McItemCore} from "./models/type/mc-item";
 import {MsItem, MsItemContext, MsItemCore} from "./models/type/ms-item";
 import {TiItem, TiItemContext, TiItemCore} from "./models/type/ti-item";
 import {EbsrItem, EbsrItemContext, EbsrItemCore} from "./models/type/ebsr-item";
+import {EqItem, EqItemContext, EqItemCore} from "./models/type/eq-item";
+import {MiItem, MiItemContext, MiItemCore} from "./models/type/mi-item";
 
 export class ItemContextFactory {
   /**
@@ -35,11 +37,23 @@ export class ItemContextFactory {
         itemContext.item.core = JsonConvert.deserializeObject(itemContext.item.core, EbsrItemCore);
         break;
 
+      case 'eq':
+        itemContext = JsonConvert.deserializeObject(jsonObject, EqItemContext);
+        itemContext.item = JsonConvert.deserializeObject(itemContext.item, EqItem);
+        itemContext.item.core = JsonConvert.deserializeObject(itemContext.item.core, EqItemCore);
+        break;
+
       case 'mc':
         itemContext = JsonConvert.deserializeObject(jsonObject, McItemContext);
         itemContext.item = JsonConvert.deserializeObject(itemContext.item, McItem);
         itemContext.item.core = JsonConvert.deserializeObject(itemContext.item.core, McItemCore);
         break;
+
+      case 'mi':
+          itemContext = JsonConvert.deserializeObject(jsonObject, MiItemContext);
+          itemContext.item = JsonConvert.deserializeObject(itemContext.item, MiItem);
+          itemContext.item.core = JsonConvert.deserializeObject(itemContext.item.core, MiItemCore);
+          break;
 
       case 'ms':
         itemContext = JsonConvert.deserializeObject(jsonObject, MsItemContext);

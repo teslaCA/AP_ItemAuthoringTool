@@ -1,0 +1,256 @@
+<!-- Prompt -->
+<div class="well white not-first-child-well">
+  <div class="well-body">
+    <item-prompt [label]="'Prompt / Stem'"
+                 [rows]="6"
+                 [isFocused]="true"
+                 [isReadOnly]="isReadOnly"
+                 [text]="itemContext.item.core.prompt"
+                 (textChange)="onItemChange()">
+    </item-prompt>
+  </div>
+</div>
+
+<!-- Equation editor -->
+<div class="well white not-first-child-well">
+  <div class="well-body">
+    <label class="h5 mt-sm">Equation Editor</label>
+    <select class="form-control">
+      <option>Numpad only</option>
+      <option>Numpad only with negative</option>
+      <option>Grades 3 & 4</option>
+      <option>Grade 5</option>
+      <option>Grade 6</option>
+      <option>Grade 7</option>
+      <option>Grade 8</option>
+      <option>High school</option>
+    </select>
+  </div>
+</div>
+
+<!-- Equation editor configuration -->
+<div class="well white not-first-child-well">
+  <div class="well-body">
+    <label class="h5 mt-sm">Equation Editor Configuration</label>
+    <table width="100%" border="1">
+      <!-- Variable row -->
+      <tr>
+        <td>1</td>
+        <td>2</td>
+        <td>3</td>
+        <td>
+          <input value="x" size="2">
+          <a class="btn btn-default icon-only btn-borderless">
+            <i class="fa fa-minus-circle"></i>
+          </a>
+        </td>
+        <td>
+          <input value="y" size="2">
+          <a class="btn btn-default icon-only btn-borderless">
+            <i class="fa fa-minus-circle"></i>
+          </a>
+        </td>
+        <td>
+          <a class="btn btn-default icon-only btn-borderless">
+            <i class="fa fa-plus"></i>
+          </a>
+          Add variable
+        </td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td><a>Hide</a></td>
+      </tr>
+
+      <!-- Basic math row -->
+      <tr>
+        <td>4</td>
+        <td>5</td>
+        <td>6</td>
+        <td>
+          <input type="checkbox">+
+        </td>
+        <td>
+          <input type="checkbox">-
+        </td>
+        <td>
+          <input type="checkbox">*
+        </td>
+        <td>
+          <input type="checkbox">÷
+        </td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td><a>Hide</a></td>
+      </tr>
+
+      <!-- Comparison row -->
+      <tr>
+        <td>7</td>
+        <td>8</td>
+        <td>9</td>
+        <td>
+          <input type="checkbox"><
+        </td>
+        <td>
+          <input type="checkbox">≤
+        </td>
+        <td>
+          <input type="checkbox">=
+        </td>
+        <td>
+          <input type="checkbox">>
+        </td>
+        <td>
+          <input type="checkbox">≥
+        </td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td><a>Hide</a></td>
+      </tr>
+
+      <!-- Advanced math row -->
+      <tr>
+        <td>0</td>
+        <td>.</td>
+        <td>-</td>
+        <td>
+          <input type="checkbox">¼
+        </td>
+        <td>
+          <input type="checkbox">2^x
+        </td>
+        <td>
+          <input type="checkbox">2^-x
+        </td>
+        <td>
+          <input type="checkbox">( )
+        </td>
+        <td>
+          <input type="checkbox">| |
+        </td>
+        <td>
+          <input type="checkbox">√x
+        </td>
+        <td>
+          <input type="checkbox">n√x
+        </td>
+        <td>
+          <input type="checkbox">π
+        </td>
+        <td>
+          <input type="checkbox">i
+        </td>
+        <td><a>Hide</a></td>
+      </tr>
+
+      <!-- Trigonometry row -->
+      <tr>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>
+          <input type="checkbox">sin
+        </td>
+        <td>
+          <input type="checkbox">cos
+        </td>
+        <td>
+          <input type="checkbox">tan
+        </td>
+        <td>
+          <input type="checkbox">sin-1
+        </td>
+        <td>
+          <input type="checkbox">cos-1
+        </td>
+        <td>
+          <input type="checkbox">tan-1
+        </td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td><a>Hide</a></td>
+      </tr>
+
+    </table>
+  </div>
+</div>
+
+<!-- Parts -->
+<div class="well white not-first-child-well">
+  <div class="well-body">
+    <label class="h5 mt-sm">Parts</label>
+
+    <!-- Part A -->
+    <div class="well gray-light not-first-child-well">
+      <div class="well-body">
+        <label class="h5 mt-sm">Label</label>
+        <ckeditor
+          [config]="{
+            toolbar: 'IAT',
+            height: 40,
+            width: 450
+          }"
+          debounce="500">
+        </ckeditor>
+      </div>
+      <div class="well-body">
+        <input type="radio" name="labelPosition0"> Position label to <em>left</em> of answer input<br>
+        <input type="radio" name="labelPosition0"> Position label to <em>right</em> of answer input
+      </div>
+      <div class="well-body">
+        <item-exemplar-responses [isReadOnly]="isReadOnly"
+                                 [exemplarResponses]="[]"
+                                 (exemplarResponsesChange)="onItemChange()">
+        </item-exemplar-responses>
+      </div>
+    </div>
+    <a class="btn btn-default icon-only btn-borderless">
+      <i class="fa fa-minus-circle"></i>
+    </a>
+
+    <!-- Part B -->
+    <div class="well gray-light not-first-child-well">
+      <div class="well-body">
+        <label class="h5 mt-sm">Label</label>
+        <ckeditor
+          [config]="{
+            toolbar: 'IAT',
+            height: 40,
+            width: 450
+          }"
+          debounce="500">
+        </ckeditor>
+      </div>
+      <div class="well-body">
+        <input type="radio" name="labelPosition0"> Position label to <em>left</em> of answer input<br>
+        <input type="radio" name="labelPosition0"> Position label to <em>right</em> of answer input
+      </div>
+      <div class="well-body">
+        <item-exemplar-responses [isReadOnly]="isReadOnly"
+                                 [exemplarResponses]="[]"
+                                 (exemplarResponsesChange)="onItemChange()">
+        </item-exemplar-responses>
+      </div>
+    </div>
+    <a class="btn btn-default icon-only btn-borderless">
+      <i class="fa fa-minus-circle"></i>
+    </a>
+
+    <!-- Add part button -->
+    <div class="mt-sm">
+      <button class="btn btn-primary btn-xs">
+        <i class="fa fa-plus" aria-hidden="true"></i> Add Part
+      </button>
+    </div>
+  </div>
+</div>
