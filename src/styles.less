@@ -137,6 +137,15 @@ ckeditor, .cke {
 }
 
 
+.mi-table {
+  th {
+    &:first-child{
+      background: #fff;
+      border-width: 0 !important;
+    }
+  }
+}
+
 .width-sm {
   width: 1%;
 }
@@ -168,7 +177,7 @@ label {
   }
 }
 
-.center {text-align: center;}
+.center {text-align: center;display: table-cell;}
 // break up really long file names in small td
 .break {
     word-break: break-word;
