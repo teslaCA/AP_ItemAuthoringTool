@@ -5,6 +5,7 @@ import {ItemSaDetailsComponent} from "./item-sa-details.component/item-sa-detail
 import {ItemStimDetailsComponent} from "./item-stim-details.component/item-stim-details.component";
 import {ItemWerDetailsComponent} from "./item-wer-details.component/item-wer-details.component";
 import {ItemMcDetailsComponent} from "./item-mc-details.component/item-mc-details.component";
+import {ItemMiDetailsComponent} from "./item-mi-details.component/item-mi-details.component";
 import {ItemMsDetailsComponent} from "./item-ms-details.component/item-ms-details.component";
 import {ItemTutDetailsComponent} from "./item-tut-details.component/item-tut-details.component";
 import {ItemEbsrDetailsComponent} from "./item-ebsr-details/item-ebsr-details.component";
@@ -23,6 +24,7 @@ export class ItemDetailsComponent {
   @ViewChild(ItemEbsrDetailsComponent) itemEbsrDetailsComponent;
   @ViewChild(ItemTutDetailsComponent) itemTutDetailsComponent;
   @ViewChild(ItemMcDetailsComponent) itemMcDetailsComponent;
+  @ViewChild(ItemMiDetailsComponent) itemMiDetailsComponent;
   @ViewChild(ItemMsDetailsComponent) itemMsDetailsComponent;
   @ViewChild(ItemSaDetailsComponent) itemSaDetailsComponent;
   @ViewChild(ItemStimDetailsComponent) itemStimDetailsComponent;
@@ -37,6 +39,8 @@ export class ItemDetailsComponent {
         return this.itemTutDetailsComponent.itemContext.item;
       case 'mc':
         return this.itemMcDetailsComponent.itemContext.item;
+      case 'mi':
+          return this.itemMcDetailsComponent.itemContext.item;
       case 'ms':
         return this.itemMsDetailsComponent.itemContext.item;
       case 'sa':

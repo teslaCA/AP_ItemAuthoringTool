@@ -41,13 +41,13 @@ export const MC: ItemType = {
   code: 'mc'
 };
 
-// export const MI: ItemType = {
-//       category: ItemTypeCategory.Item,
-//       categoryName: 'Item',
-//       icon: 'fa-list-ul',
-//       name: 'Match Interaction',
-//       code: 'mi'
-// };
+export const MI: ItemType = {
+  category: ItemTypeCategory.Item,
+  categoryName: 'Item',
+  icon: 'fa-th',
+  name: 'Match Interaction',
+  code: 'mi'
+};
 
 export const MS: ItemType = {
   category: ItemTypeCategory.Item,
@@ -105,7 +105,7 @@ export const itemTypes: ItemType[] = [
   // HT,
   MC,
   MS,
-  // MI,
+  MI,
   SA,
   STIM,
   TI,
