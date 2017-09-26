@@ -45,6 +45,7 @@ import {ItemEditManagementComponent} from './crud/item-edit-management.component
 import {ItemCreateManagementComponent} from "./crud/item-create-management.component/item-create-management.component";
 import {ItemCcTabComponent} from "./crud/tabs/item-cc-tab.component/item-cc-tab.component";
 import {ItemMiTableComponent} from "./crud/details/shared/item-mi-table.component/item-mi-table.component";
+import {ItemEqDetailsComponent} from "./crud/details/item-eq-details.component/item-eq-details.component";
 
 @NgModule({
   imports: [
@@ -63,6 +64,7 @@ import {ItemMiTableComponent} from "./crud/details/shared/item-mi-table.componen
     ItemMiDetailsComponent,
     ItemMsDetailsComponent,
     ItemSaDetailsComponent,
+    ItemEqDetailsComponent,
     ItemTiDetailsComponent,
     ItemWerDetailsComponent,
     ItemStimDetailsComponent,
@@ -96,6 +98,7 @@ import {ItemMiTableComponent} from "./crud/details/shared/item-mi-table.componen
     ItemMcDetailsComponent,
     ItemMiDetailsComponent,
     ItemSaDetailsComponent,
+    ItemEqDetailsComponent,
     ItemTiDetailsComponent,
     ItemWerDetailsComponent,
     ItemStimDetailsComponent,

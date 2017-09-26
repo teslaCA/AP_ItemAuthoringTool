@@ -34,7 +34,7 @@ export class ItemAslTabComponent implements OnInit, OnChanges {
 
   get currentItemAsl(): ItemAsl {
     const asl = new ItemAsl();
-    asl.aslRequired = this.fieldForm.value.aslRequired;
+    asl.isAslRequired = this.fieldForm.value.isAslRequired;
     asl.isAslProvided = this.fieldForm.value.isAslProvided;
     return asl;
   }
@@ -102,7 +102,7 @@ export class ItemAslTabComponent implements OnInit, OnChanges {
   ngOnChanges() {
     // Reset form data and flags
     this.fieldForm.reset({
-      aslRequired: this.itemContext.item.asl.aslRequired,
+      aslRequired: this.itemContext.item.asl.isAslRequired,
       isAslProvided: this.itemContext.item.asl.isAslProvided
     });
 

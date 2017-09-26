@@ -9,13 +9,13 @@ export const EBSR: ItemType = {
   code: 'ebsr'
 };
 
-// export const EQ: ItemType = {
-//     category: ItemTypeCategory.Item,
-//     categoryName: 'Item',
-//     icon: 'fa-superscript',
-//     name: 'Equation',
-//     code: 'eq'
-// };
+export const EQ: ItemType = {
+    category: ItemTypeCategory.Item,
+    categoryName: 'Item',
+    icon: 'fa-superscript',
+    name: 'Equation',
+    code: 'eq'
+};
 
 // export const GI: ItemType = {
 //     category: ItemTypeCategory.Item,
@@ -100,7 +100,7 @@ export const WER: ItemType = {
 export const itemTypes: ItemType[] = [
   // TODO: Do not delete the commented-out item types; uncomment them as they are implemented
   EBSR,
-  // EQ,
+  EQ,
   // GI,
   // HT,
   MC,
