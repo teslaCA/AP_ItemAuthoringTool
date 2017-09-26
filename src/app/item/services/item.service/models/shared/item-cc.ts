@@ -12,8 +12,8 @@ export class ItemCc {
     @JsonProperty("attachments", [ItemAttachment])
     attachments: ItemAttachment[] = undefined;
 
-    @JsonProperty("isCcRequired", Boolean)
-    isCcRequired: boolean = undefined;          // Initialize to undefined so that field is mapped
+    @JsonProperty("ccRequired", String)
+    isCcRequired: string = undefined;          // Initialize to undefined so that field is mapped
 
     @JsonProperty("isCcProvided", Boolean)
     isCcProvided: boolean = undefined;          // Initialize to undefined so that field is mapped

@@ -80,7 +80,7 @@ export class ItemMiTableComponent implements OnInit {
     this.form.setControl(
       'rows',
       this.fb.array(this.table.rows.map(row =>
-        this.fb.array(row.cells.map(cell => this.fb.group(cell))))));
+         this.fb.array(row.cells.map(cell => this.fb.group(cell))))));
 
     // Disable form if read-only
     if (this.isReadOnly) {
@@ -107,12 +107,14 @@ export class ItemMiTableComponent implements OnInit {
   }
 
   removeColumn(index: number): void {
-    // Remove column header
-    this.formColumns.removeAt(index);
+    if(index != 0) {
+        // Remove column header
+        this.formColumns.removeAt(index);
 
-    // Remove cell from end of each row
-    for (let i = 0; i < this.formRows.length; ++i) {
-      this.formRowCells(i).removeAt(index);
+        // Remove cell from end of each row
+        for (let i = 0; i < this.formRows.length; ++i) {
+            this.formRowCells(i).removeAt(index);
+        }
     }
   }
 
@@ -120,8 +122,14 @@ export class ItemMiTableComponent implements OnInit {
     // Add row with one cell per column
     const cells = [];
     for (let i = 0; i < this.formColumns.length; ++i) {
-      cells.push(ItemMiTableComponent.createDefaultCell());
+      if(i === 0) {
+          cells.push(ItemMiTableComponent.createDefaultLabelCell());
+      } else {
+          cells.push(ItemMiTableComponent.createDefaultCell());
+      }
     }
+
+    cells.forEach(x => x.value = x.type === 'label' ? '' : false);
     this.formRows.push(this.fb.array(cells.map(cell => this.fb.group(cell))));
   }
 
@@ -132,8 +140,15 @@ export class ItemMiTableComponent implements OnInit {
 
   private static createDefaultCell(): MiItemTableRowCell {
     const cell = new MiItemTableRowCell();
-    cell.type = 'label';
+    cell.type = 'answer';
     cell.value = false;
     return cell;
+  }
+
+  private static createDefaultLabelCell(): MiItemTableRowCell {
+      const cell = new MiItemTableRowCell();
+      cell.type = 'label';
+      cell.value = false;
+      return cell;
   }
 }

@@ -40,7 +40,7 @@ export class ItemDetailsComponent {
       case 'mc':
         return this.itemMcDetailsComponent.itemContext.item;
       case 'mi':
-          return this.itemMcDetailsComponent.itemContext.item;
+          return this.itemMiDetailsComponent.itemContext.item;
       case 'ms':
         return this.itemMsDetailsComponent.itemContext.item;
       case 'sa':
