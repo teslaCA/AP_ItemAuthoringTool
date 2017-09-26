@@ -34,7 +34,7 @@ export class ItemCcTabComponent implements OnInit, OnChanges {
 
   get currentItemCc(): ItemCc {
     const cc = new ItemCc();
-    cc.ccRequired = this.fieldForm.value.ccRequired;
+    cc.isCcRequired = this.fieldForm.value.isCcRequired;
     cc.isCcProvided = this.fieldForm.value.isCcProvided;
     return cc;
   }
@@ -102,7 +102,7 @@ export class ItemCcTabComponent implements OnInit, OnChanges {
   ngOnChanges() {
     // Reset form data and flags
     this.fieldForm.reset({
-      ccRequired: this.itemContext.item.cc.ccRequired,
+      ccRequired: this.itemContext.item.cc.isCcRequired,
       isCcProvided: this.itemContext.item.cc.isCcProvided
     });
 

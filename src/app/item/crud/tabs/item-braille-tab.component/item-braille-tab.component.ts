@@ -34,7 +34,7 @@ export class ItemBrailleTabComponent implements OnInit, OnChanges {
 
   get currentItemBraille(): ItemBraille {
     const braille = new ItemBraille();
-    braille.brailleRequired = this.fieldForm.value.brailleRequired;
+    braille.isBrailleRequired = this.fieldForm.value.brailleRequired;
     braille.isBrailleProvided = this.fieldForm.value.isBrailleProvided;
     return braille;
   }
@@ -102,7 +102,7 @@ export class ItemBrailleTabComponent implements OnInit, OnChanges {
   ngOnChanges() {
     // Reset form data and flags
     this.fieldForm.reset({
-      brailleRequired: this.itemContext.item.braille.brailleRequired,
+      brailleRequired: this.itemContext.item.braille.isBrailleRequired,
       isBrailleProvided: this.itemContext.item.braille.isBrailleProvided
     });
 

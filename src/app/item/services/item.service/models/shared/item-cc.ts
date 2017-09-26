@@ -12,10 +12,9 @@ export class ItemCc {
     @JsonProperty("attachments", [ItemAttachment])
     attachments: ItemAttachment[] = undefined;
 
-    @JsonProperty("ccRequired", String)
-    ccRequired: string = undefined;          // Initialize to undefined so that field is mapped
+    @JsonProperty("isCcRequired", Boolean)
+    isCcRequired: boolean = undefined;          // Initialize to undefined so that field is mapped
 
     @JsonProperty("isCcProvided", Boolean)
     isCcProvided: boolean = undefined;          // Initialize to undefined so that field is mapped
-
 }
