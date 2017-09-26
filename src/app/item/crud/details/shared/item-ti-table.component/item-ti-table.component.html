@@ -3,9 +3,19 @@
     <label class="h5 mt-sm">Table</label>
 
     <!-- Title -->
-    <div class="input-group mb-sm">
+    <div class="input-group mb-sm hover-toolbar">
       <span class="input-group-addon" id="sizing-addon2">Title</span>
-      <input class="form-control" formControlName="title" aria-describedby="sizing-addon2">
+      <ckeditor
+        [config]="{
+              toolbar: 'IATMATH',
+              readOnly: isReadOnly,
+              height: 50
+            }"
+        formControlName="title"
+        debounce="500"
+        (focus)="editorOnFocus($event)"
+        (blur)="editorOnBlur($event)">
+      </ckeditor>
     </div>
 
     <!-- Table -->
@@ -15,8 +25,18 @@
         <!-- Header -->
         <tr formArrayName="columns">
           <th *ngFor="let control of formColumns.controls; let i=index" [formGroupName]="i">
-            <div class="input-group input-group-sm">
-              <input class="form-control" formControlName="label"/>
+            <div class="input-group input-group-sm hover-toolbar">
+              <ckeditor
+                [config]="{
+                  toolbar: 'IATMATH',
+                  readOnly: isReadOnly,
+                  height: 50
+                }"
+                formControlName="label"
+                debounce="500"
+                (focus)="editorOnFocus($event)"
+                (blur)="editorOnBlur($event)">
+              </ckeditor>
             </div>
           </th>
           <th class="center">
@@ -31,10 +51,9 @@
         <tbody formArrayName="rows">
         <tr *ngFor="let rowControl of formRows.controls; let i=index" [formGroupName]="i">
           <td *ngFor="let cellControl of formRowCells(i).controls; let j=index" [formGroupName]="j">
-            <div class="input-group input-group-sm">
-              <input class="form-control" formControlName="value">
-              <div class="input-group-btn" data-toggle="buttons">
-                <label class="btn btn-default btn-sm"
+            <div class="input-group input-group-sm hover-toolbar">
+              <div class="ti-table-cell-align pull-buttons" data-toggle="buttons">
+                <label class="btn btn-default btn-xs"
                        [ngClass]="cellControl.value.type === 'label' ? 'active' : ''"
                        (click)="isReadOnly ? false : changeCellType(i, j, 'label')"
                        [class.disabled]="isReadOnly">
@@ -44,7 +63,7 @@
                          alt="Set as a label">
                   <i class="fa fa-tag" aria-hidden="true"></i>
                 </label>
-                <label class="btn btn-default btn-sm"
+                <label class="btn btn-default btn-xs"
                        [ngClass]="cellControl.value.type === 'answer' ? 'active' : ''"
                        (click)="isReadOnly ? false : changeCellType(i, j, 'answer')"
                        [class.disabled]="isReadOnly">
@@ -55,9 +74,20 @@
                   <i class="fa fa-lightbulb-o" aria-hidden="true"></i>
                 </label>
               </div>
+              <ckeditor
+                [config]="{
+                  toolbar: 'IATMATH',
+                  readOnly: isReadOnly,
+                  height: 50
+                }"
+                formControlName="value"
+                debounce="500"
+                (focus)="editorOnFocus($event)"
+                (blur)="editorOnBlur($event)">
+              </ckeditor>
             </div>
           </td>
-          <td class="center">
+          <td class="center width-sm">
             <a *ngIf="!isReadOnly" (click)="removeRow(i)" class="gray-dark">
               <i class="fa fa-minus-circle"></i>
             </a>
@@ -78,7 +108,7 @@
 
       <!-- Add row -->
       <a *ngIf="!isReadOnly" (click)="addRow()" class="btn btn-default btn-xs">
-        <i class="fa fa-plus"> Row</i>
+        <i class="fa fa-plus"></i> <i class="fa fa-columns rotate90" aria-hidden="true"></i>
       </a>
     </div>
   </div>

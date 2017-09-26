@@ -96,5 +96,5 @@ export class MiItemTableRowCell {
   type: string = undefined;                         // Initialize to undefined so that field is mapped
 
   @JsonProperty("value", Boolean)
-  value: boolean = false;                           // Initialize to undefined so that field is mapped
+  value = false;                                    // Initialize to undefined so that field is mapped
 }

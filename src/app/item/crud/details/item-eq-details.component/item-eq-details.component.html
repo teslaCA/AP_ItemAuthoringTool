@@ -1,12 +1,7 @@
 <!-- Prompt -->
 <div class="well white not-first-child-well">
   <div class="well-body">
-    <item-prompt [label]="'Prompt / Stem'"
-                 [rows]="6"
-                 [isFocused]="true"
-                 [isReadOnly]="isReadOnly"
-                 [text]="itemContext.item.core.prompt"
-                 (textChange)="onItemChange()">
+    <item-prompt [label]="'Prompt / Stem'" [rows]="6" [isFocused]="true" [isReadOnly]="isReadOnly" [text]="itemContext.item.core.prompt" (textChange)="onItemChange()">
     </item-prompt>
   </div>
 </div>
@@ -32,124 +27,227 @@
 <div class="well white not-first-child-well">
   <div class="well-body">
     <label class="h5 mt-sm">Equation Editor Configuration</label>
-    <table width="100%" border="1">
+    <table width="100%" border="1" class="calc-table borderless">
       <!-- Variable row -->
       <tr>
-        <td>1</td>
-        <td>2</td>
-        <td>3</td>
+        <td>
+          <div class="input-group input-group-sm" data-toggle="buttons">
+            <label class="btn btn-default btn-xs">
+                <input type="checkbox" autocomplete="off" alt=""> 1
+            </label>
+          </div>
+        </td>
+        <td>
+          <div class="input-group input-group-sm" data-toggle="buttons">
+            <label class="btn btn-default btn-xs">
+                <input type="checkbox" autocomplete="off" alt="">  2
+            </label>
+          </div>
+        </td>
+        <td>
+          <div class="input-group input-group-sm" data-toggle="buttons">
+            <label class="btn btn-default btn-xs">
+                <input type="checkbox" autocomplete="off" alt="">  3
+            </label>
+          </div>
+        </td>
+        <td>&nbsp;</td>
         <td>
           <input value="x" size="2">
           <a class="btn btn-default icon-only btn-borderless">
             <i class="fa fa-minus-circle"></i>
           </a>
-        </td>
-        <td>
+
           <input value="y" size="2">
           <a class="btn btn-default icon-only btn-borderless">
             <i class="fa fa-minus-circle"></i>
           </a>
-        </td>
-        <td>
           <a class="btn btn-default icon-only btn-borderless">
             <i class="fa fa-plus"></i>
-          </a>
-          Add variable
+        </a> Add variable
+        <button  class="btn btn-default btn-xs">Hide</button>
+
         </td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td><a>Hide</a></td>
       </tr>
 
       <!-- Basic math row -->
       <tr>
-        <td>4</td>
-        <td>5</td>
-        <td>6</td>
         <td>
-          <input type="checkbox">+
+          <div class="input-group input-group-sm" data-toggle="buttons">
+            <label class="btn btn-default btn-xs">
+                <input type="checkbox" autocomplete="off" alt="">  4
+            </label>
+          </div>
         </td>
         <td>
-          <input type="checkbox">-
+          <div class="input-group input-group-sm" data-toggle="buttons">
+            <label class="btn btn-default btn-xs">
+                <input type="checkbox" autocomplete="off" alt=""> 5
+            </label>
+          </div>
         </td>
         <td>
-          <input type="checkbox">*
+          <div class="input-group input-group-sm" data-toggle="buttons">
+            <label class="btn btn-default btn-xs">
+                <input type="checkbox" autocomplete="off" alt="">  6
+            </label>
+          </div>
         </td>
+        <td>&nbsp;</td>
         <td>
-          <input type="checkbox">÷
+          <div class="input-group input-group-sm" data-toggle="buttons">
+            <label class="btn btn-default btn-xs">
+                <input type="checkbox" autocomplete="off" alt=""> +
+            </label>
+          </div>
+          <div class="input-group input-group-sm" data-toggle="buttons">
+            <label class="btn btn-default btn-xs">
+                <input type="checkbox" autocomplete="off" alt=""> -
+            </label>
+          </div>
+          <div class="input-group input-group-sm" data-toggle="buttons">
+            <label class="btn btn-default btn-xs">
+                <input type="checkbox" autocomplete="off" alt=""> *
+            </label>
+          </div>
+          <div class="input-group input-group-sm" data-toggle="buttons">
+            <label class="btn btn-default btn-xs">
+                <input type="checkbox" autocomplete="off" alt=""> ÷
+            </label>
+        </div>
+        <button  class="btn btn-default btn-xs">Hide</button>
+
         </td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td><a>Hide</a></td>
       </tr>
 
       <!-- Comparison row -->
       <tr>
-        <td>7</td>
-        <td>8</td>
-        <td>9</td>
         <td>
-          <input type="checkbox"><
+          <div class="input-group input-group-sm" data-toggle="buttons">
+            <label class="btn btn-default btn-xs">
+                <input type="checkbox" autocomplete="off" alt=""> 7
+            </label>
+          </div>
         </td>
         <td>
-          <input type="checkbox">≤
+          <div class="input-group input-group-sm" data-toggle="buttons">
+            <label class="btn btn-default btn-xs">
+                <input type="checkbox" autocomplete="off" alt=""> 8
+            </label>
+          </div>
         </td>
         <td>
-          <input type="checkbox">=
-        </td>
-        <td>
-          <input type="checkbox">>
-        </td>
-        <td>
-          <input type="checkbox">≥
+          <div class="input-group input-group-sm" data-toggle="buttons">
+            <label class="btn btn-default btn-xs">
+                <input type="checkbox" autocomplete="off" alt=""> 9
+            </label>
+          </div>
         </td>
         <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td><a>Hide</a></td>
+        <td>
+            <div class="input-group input-group-sm" data-toggle="buttons">
+              <label class="btn btn-default btn-xs">
+                  <input type="checkbox" autocomplete="off" alt=""> <
+              </label>
+            </div>
+          <div class="input-group input-group-sm" data-toggle="buttons">
+            <label class="btn btn-default btn-xs">
+                <input type="checkbox" autocomplete="off" alt=""> ≤
+              </label>
+            </div>
+          <div class="input-group input-group-sm" data-toggle="buttons">
+            <label class="btn btn-default btn-xs">
+                <input type="checkbox" autocomplete="off" alt=""> =
+              </label>
+            </div>
+          <div class="input-group input-group-sm" data-toggle="buttons">
+            <label class="btn btn-default btn-xs">
+                <input type="checkbox" autocomplete="off" alt=""> >
+              </label>
+            </div>
+          <div class="input-group input-group-sm" data-toggle="buttons">
+            <label class="btn btn-default btn-xs">
+                <input type="checkbox" autocomplete="off" alt=""> ≥
+              </label>
+          </div>
+          <button  class="btn btn-default btn-xs">Hide</button>
+
+        </td>
       </tr>
 
       <!-- Advanced math row -->
       <tr>
-        <td>0</td>
-        <td>.</td>
-        <td>-</td>
         <td>
-          <input type="checkbox">¼
+          <div class="input-group input-group-sm" data-toggle="buttons">
+            <label class="btn btn-default btn-xs">
+                <input type="checkbox" autocomplete="off" alt="">  0
+              </label>
+          </div>
         </td>
         <td>
-          <input type="checkbox">2^x
+          <div class="input-group input-group-sm" data-toggle="buttons">
+            <label class="btn btn-default btn-xs">
+                <input type="checkbox" autocomplete="off" alt="">  .
+              </label>
+          </div>
         </td>
         <td>
-          <input type="checkbox">2^-x
+          <div class="input-group input-group-sm" data-toggle="buttons">
+            <label class="btn btn-default btn-xs">
+                <input type="checkbox" autocomplete="off" alt="">  -
+              </label>
+          </div>
         </td>
+        <td>&nbsp;</td>
         <td>
-          <input type="checkbox">( )
-        </td>
-        <td>
-          <input type="checkbox">| |
-        </td>
-        <td>
-          <input type="checkbox">√x
-        </td>
-        <td>
-          <input type="checkbox">n√x
-        </td>
-        <td>
-          <input type="checkbox">π
-        </td>
-        <td>
-          <input type="checkbox">i
-        </td>
-        <td><a>Hide</a></td>
+          <div class="input-group input-group-sm" data-toggle="buttons">
+            <label class="btn btn-default btn-xs">
+                <input type="checkbox" autocomplete="off" alt="">  ¼
+              </label>
+          </div>
+          <div class="input-group input-group-sm" data-toggle="buttons">
+            <label class="btn btn-default btn-xs">
+                <input type="checkbox" autocomplete="off" alt=""> 2^x
+            </label>
+          </div>
+          <div class="input-group input-group-sm" data-toggle="buttons">
+            <label class="btn btn-default btn-xs">
+                <input type="checkbox" autocomplete="off" alt=""> 2^-x
+           </label>
+          </div>
+          <div class="input-group input-group-sm" data-toggle="buttons">
+            <label class="btn btn-default btn-xs">
+                <input type="checkbox" autocomplete="off" alt=""> ( )
+            </label>
+          </div>
+          <div class="input-group input-group-sm" data-toggle="buttons">
+            <label class="btn btn-default btn-xs">
+                <input type="checkbox" autocomplete="off" alt=""> | |
+            </label>
+          </div>
+          <div class="input-group input-group-sm" data-toggle="buttons">
+            <label class="btn btn-default btn-xs">
+                <input type="checkbox" autocomplete="off" alt=""> √x
+            </label>
+          </div>
+          <div class="input-group input-group-sm" data-toggle="buttons">
+            <label class="btn btn-default btn-xs">
+                <input type="checkbox" autocomplete="off" alt=""> n√x
+            </label>
+          </div>
+          <div class="input-group input-group-sm" data-toggle="buttons">
+            <label class="btn btn-default btn-xs">
+                <input type="checkbox" autocomplete="off" alt=""> π
+           </label>
+          </div>
+          <div class="input-group input-group-sm" data-toggle="buttons">
+            <label class="btn btn-default btn-xs">
+                <input type="checkbox" autocomplete="off" alt=""> i
+              </label>
+          </div>
+          <button  class="btn btn-default btn-xs">Hide</button>
+
+          </td>
       </tr>
 
       <!-- Trigonometry row -->
@@ -157,28 +255,41 @@
         <td>&nbsp;</td>
         <td>&nbsp;</td>
         <td>&nbsp;</td>
-        <td>
-          <input type="checkbox">sin
-        </td>
-        <td>
-          <input type="checkbox">cos
-        </td>
-        <td>
-          <input type="checkbox">tan
-        </td>
-        <td>
-          <input type="checkbox">sin-1
-        </td>
-        <td>
-          <input type="checkbox">cos-1
-        </td>
-        <td>
-          <input type="checkbox">tan-1
-        </td>
         <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td><a>Hide</a></td>
+        <td>
+          <div class="input-group input-group-sm" data-toggle="buttons">
+            <label class="btn btn-default btn-xs">
+                <input type="checkbox" autocomplete="off" alt=""> sin
+            </label>
+          </div>
+          <div class="input-group input-group-sm" data-toggle="buttons">
+            <label class="btn btn-default btn-xs">
+                <input type="checkbox" autocomplete="off" alt="">  cos
+            </label>
+          </div>
+          <div class="input-group input-group-sm" data-toggle="buttons">
+            <label class="btn btn-default btn-xs">
+                <input type="checkbox" autocomplete="off" alt="">  tan
+            </label>
+          </div>
+          <div class="input-group input-group-sm" data-toggle="buttons">
+            <label class="btn btn-default btn-xs">
+                <input type="checkbox" autocomplete="off" alt="">  sin-1
+            </label>
+          </div>
+          <div class="input-group input-group-sm" data-toggle="buttons">
+            <label class="btn btn-default btn-xs">
+                <input type="checkbox" autocomplete="off" alt="">  cos-1
+            </label>
+          </div>
+          <div class="input-group input-group-sm" data-toggle="buttons">
+            <label class="btn btn-default btn-xs">
+                <input type="checkbox" autocomplete="off" alt="">
+            tan-1
+          </label>
+        </div>
+        <button  class="btn btn-default btn-xs">Hide</button>
+        </td>
       </tr>
 
     </table>
@@ -194,13 +305,11 @@
     <div class="well gray-light not-first-child-well">
       <div class="well-body">
         <label class="h5 mt-sm">Label</label>
-        <ckeditor
-          [config]="{
+        <ckeditor [config]="{
             toolbar: 'IAT',
             height: 40,
             width: 450
-          }"
-          debounce="500">
+          }" debounce="500">
         </ckeditor>
       </div>
       <div class="well-body">
@@ -208,9 +317,7 @@
         <input type="radio" name="labelPosition0"> Position label to <em>right</em> of answer input
       </div>
       <div class="well-body">
-        <item-exemplar-responses [isReadOnly]="isReadOnly"
-                                 [exemplarResponses]="[]"
-                                 (exemplarResponsesChange)="onItemChange()">
+        <item-exemplar-responses [isReadOnly]="isReadOnly" [exemplarResponses]="[]" (exemplarResponsesChange)="onItemChange()">
         </item-exemplar-responses>
       </div>
     </div>
@@ -222,13 +329,11 @@
     <div class="well gray-light not-first-child-well">
       <div class="well-body">
         <label class="h5 mt-sm">Label</label>
-        <ckeditor
-          [config]="{
+        <ckeditor [config]="{
             toolbar: 'IAT',
             height: 40,
             width: 450
-          }"
-          debounce="500">
+          }" debounce="500">
         </ckeditor>
       </div>
       <div class="well-body">
@@ -236,9 +341,7 @@
         <input type="radio" name="labelPosition0"> Position label to <em>right</em> of answer input
       </div>
       <div class="well-body">
-        <item-exemplar-responses [isReadOnly]="isReadOnly"
-                                 [exemplarResponses]="[]"
-                                 (exemplarResponsesChange)="onItemChange()">
+        <item-exemplar-responses [isReadOnly]="isReadOnly" [exemplarResponses]="[]" (exemplarResponsesChange)="onItemChange()">
         </item-exemplar-responses>
       </div>
     </div>

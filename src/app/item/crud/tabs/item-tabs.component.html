@@ -1,56 +1,8 @@
 <div class="well-group">
   <div class="well gray-lightest">
     <div class="well-body pt-xs">
-      <!-- Tab selector dropdown -->
-      <div class="btn-group" dropdown>
-        <!-- Hamburger icon -->
-        <button dropdownToggle type="button" class="btn btn-primary btn-xs dropdown-toggle mr-xs">
-          <i class="fa fa-bars"></i><span class="sr-only">Item Menu</span>
-        </button>
-
-        <!-- Selected option -->
-        <span class="h2 mb-sm">
-          <span *ngIf="isSelected(tab.asl)">ASL</span>
-          <span *ngIf="isSelected(tab.braille)">Braille</span>
-          <span *ngIf="isSelected(tab.cc)">CC</span>
-          <span *ngIf="isSelected(tab.history)">History</span>
-          <span *ngIf="isSelected(tab.validation)">Validation</span>
-          <span *ngIf="isSelected(tab.stimulus)">Stimulus</span>
-          <span *ngIf="isSelected(tab.tutorial)">Tutorial</span>
-          <span *ngIf="isSelected(tab.workflow)">Workflow</span>
-        </span>
-
-        <!-- Dropdown options -->
-        <ul *dropdownMenu class="dropdown-menu" role="menu">
-          <li role="menuitem">
-            <a class="dropdown-item" (click)="select(tab.asl)">ASL</a>
-          </li>
-          <li role="menuitem">
-            <a class="dropdown-item" (click)="select(tab.braille)">Braille</a>
-          </li>
-          <li role="menuitem">
-            <a class="dropdown-item" (click)="select(tab.cc)">CC</a>
-          </li>
-          <li role="menuitem">
-            <a class="dropdown-item" (click)="select(tab.history)">History</a>
-          </li>
-          <li role="menuitem" *ngIf="itemContext.item.core.supportsStimulus">
-            <a class="dropdown-item" (click)="select(tab.stimulus)">Stimulus</a>
-          </li>
-          <li role="menuitem" *ngIf="itemContext.item.core.supportsTutorial">
-            <a class="dropdown-item" (click)="select(tab.tutorial)">Tutorial</a>
-          </li>
-          <li role="menuitem">
-            <a class="dropdown-item" (click)="select(tab.validation)">Validation</a>
-          </li>
-          <li role="menuitem" *ngIf="itemContext.item.core.supportsWorkflow">
-            <a class="dropdown-item" (click)="select(tab.workflow)">Workflow</a>
-          </li>
-        </ul>
-      </div>
 
       <!-- Edit management -->
-      <div class="pull-right">
 
         <!-- ASL -->
         <item-edit-management
@@ -123,7 +75,57 @@
           (cancelledEditing)="onCancelledEditing($event)"
           (finishedEditing)="onFinishedEditing($event)">
         </item-edit-management>
+
+
+
+      <!-- Tab selector dropdown -->
+      <div class="btn-group" dropdown>
+        <!-- Hamburger icon -->
+        <button dropdownToggle type="button" class="btn btn-primary btn-xs dropdown-toggle mr-xs">
+          <i class="fa fa-bars"></i><span class="sr-only">Item Menu</span>
+        </button>
+
+        <!-- Selected option -->
+        <span class="h2 mb-sm">
+          <span *ngIf="isSelected(tab.asl)">ASL</span>
+          <span *ngIf="isSelected(tab.braille)">Braille</span>
+          <span *ngIf="isSelected(tab.cc)">CC</span>
+          <span *ngIf="isSelected(tab.history)">History</span>
+          <span *ngIf="isSelected(tab.validation)">Validation</span>
+          <span *ngIf="isSelected(tab.stimulus)">Stimulus</span>
+          <span *ngIf="isSelected(tab.tutorial)">Tutorial</span>
+          <span *ngIf="isSelected(tab.workflow)">Workflow</span>
+        </span>
+
+        <!-- Dropdown options -->
+        <ul *dropdownMenu class="dropdown-menu" role="menu">
+          <li role="menuitem">
+            <a class="dropdown-item" (click)="select(tab.asl)">ASL</a>
+          </li>
+          <li role="menuitem">
+            <a class="dropdown-item" (click)="select(tab.braille)">Braille</a>
+          </li>
+          <li role="menuitem">
+            <a class="dropdown-item" (click)="select(tab.cc)">CC</a>
+          </li>
+          <li role="menuitem">
+            <a class="dropdown-item" (click)="select(tab.history)">History</a>
+          </li>
+          <li role="menuitem" *ngIf="itemContext.item.core.supportsStimulus">
+            <a class="dropdown-item" (click)="select(tab.stimulus)">Stimulus</a>
+          </li>
+          <li role="menuitem" *ngIf="itemContext.item.core.supportsTutorial">
+            <a class="dropdown-item" (click)="select(tab.tutorial)">Tutorial</a>
+          </li>
+          <li role="menuitem">
+            <a class="dropdown-item" (click)="select(tab.validation)">Validation</a>
+          </li>
+          <li role="menuitem" *ngIf="itemContext.item.core.supportsWorkflow">
+            <a class="dropdown-item" (click)="select(tab.workflow)">Workflow</a>
+          </li>
+        </ul>
       </div>
+
     </div>
   </div>
 

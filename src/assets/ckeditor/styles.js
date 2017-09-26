@@ -135,24 +135,3 @@ CKEDITOR.stylesSet.add( 'default', [
 
 ] );
 
-$('#opener').on('click', function() {
-		var panel = $('#slide-panel');
-		var flyt = $('#flytabs');
-		var chev = $('#chevi');
-		if (panel.hasClass("col-md-6")) {
-			panel.removeClass('col-md-6');
-			panel.addClass('col-md-12');
-			flyt.addClass ('hidden');
-			chev.removeClass ('fa-chevron-right');
-			chev.addClass ('fa-chevron-left');
-		} else {
-			panel.removeClass('col-md-12');
-			panel.addClass('col-md-6');
-			chev.removeClass ('fa-chevron-left');
-			chev.addClass ('fa-chevron-right');
-			setTimeout(function() {
-					flyt.removeClass("hidden");
-			}, 500);
-		}
-		return false;
-});

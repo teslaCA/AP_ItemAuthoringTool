@@ -107,7 +107,7 @@ export class ItemMiTableComponent implements OnInit {
   }
 
   removeColumn(index: number): void {
-    if(index != 0) {
+    if (index !== 0) {
         // Remove column header
         this.formColumns.removeAt(index);
 
@@ -122,7 +122,7 @@ export class ItemMiTableComponent implements OnInit {
     // Add row with one cell per column
     const cells = [];
     for (let i = 0; i < this.formColumns.length; ++i) {
-      if(i === 0) {
+      if (i === 0) {
           cells.push(ItemMiTableComponent.createDefaultLabelCell());
       } else {
           cells.push(ItemMiTableComponent.createDefaultCell());

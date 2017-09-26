@@ -26,7 +26,7 @@
       <div class="row">
 
         <!-- Left body -->
-        <div id="slide-panel" class="col-md-6">
+        <div id="slide-panel" #slidePanel class="col-md-6">
           <div class="well-group">
 
             <!-- Item management -->
@@ -35,17 +35,6 @@
                 <div class="row">
                   <div class="col-md-12">
 
-                    <!-- Preview -->
-                    <span *ngIf="itemContext.item.core.supportsPreview">
-                      <item-preview #itemPreview
-                                    [itemId]="itemContext.item.id"
-                                    [itemType]="itemContext.item.itemType.categoryName"
-                                    [isBeingEditedByCurrentUser]="itemContext.isUserEditingAnySection(currentUser.userName)"
-                                    [isBeingCreatedByCurrentUser]="itemContext.isUserCreatingItem(currentUser.userName)">
-                      </item-preview>
-                    </span>
-
-                    <div class="pull-right">
                       <!-- Create management -->
                       <item-create-management
                         [itemContext]="itemContext"
@@ -64,8 +53,16 @@
                         (cancelledEditing)="onCancelledEditing($event)"
                         (finishedEditing)="onFinishedEditing($event)">
                       </item-edit-management>
-                    </div>
 
+                      <!-- Preview -->
+                      <span *ngIf="itemContext.item.core.supportsPreview">
+                        <item-preview #itemPreview
+                                      [itemId]="itemContext.item.id"
+                                      [itemType]="itemContext.item.itemType.categoryName"
+                                      [isBeingEditedByCurrentUser]="itemContext.isUserEditingAnySection(currentUser.userName)"
+                                      [isBeingCreatedByCurrentUser]="itemContext.isUserCreatingItem(currentUser.userName)">
+                        </item-preview>
+                      </span>
 
                   </div>
                 </div>
@@ -80,13 +77,13 @@
             </item-details>
 
           </div>
-          <button id="opener" class="flyout btn btn-default btn-sm mr-xs">
-            <i id="chevi" class="fa fa-chevron-right"></i>
+          <button id="opener" class="flyout btn btn-default btn-sm mr-xs" (click)="toggleFlyout(slidePanel, flytabs, chevi)">
+            <i id="chevi" #chevi class="fa fa-chevron-right"></i>
           </button>
         </div>
 
         <!-- Right body -->
-        <div id="flytabs" class="col-md-6">
+        <div id="flytabs" #flytabs class="col-md-6">
 
           <!-- Item tabs -->
           <item-tabs [currentUser]="currentUser"

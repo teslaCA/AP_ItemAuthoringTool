@@ -91,6 +91,22 @@ export class ItemCrudComponent implements OnInit {
     this.router.navigateByUrl('/');
   }
 
+  toggleFlyout(panel: any, fly: any, chev: any): void {
+    if (panel.classList.contains('col-md-6')) {
+      panel.classList.remove('col-md-6');
+      panel.classList.add('col-md-12');
+      fly.classList.add('hidden');
+      chev.classList.remove('fa-chevron-right');
+      chev.classList.add('fa-chevron-left');
+    } else {
+      panel.classList.remove('col-md-12');
+      panel.classList.add('col-md-6');
+      fly.classList.remove('hidden');
+      chev.classList.remove('fa-chevron-left');
+      chev.classList.add('fa-chevron-right');
+    }
+  }
+
   private loadItem(itemId: string, selectTab: string) {
     // TODO: Use observable operators to chain / run-in-parallel these calls (also enhance busy service to handle parallel operations)
     // TODO: Add error handling for all calls (currently only findItem failure is handled)
