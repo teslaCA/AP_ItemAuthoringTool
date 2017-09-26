@@ -144,6 +144,16 @@ export class ItemTiTableComponent implements OnInit {
     this.formRows.removeAt(index);
   }
 
+  editorOnFocus(event: any) {
+    console.log('The editor id ' + event.editor.id + ' is now focused');
+    eval('$("#' + event.editor.id + '_top").show();');
+  }
+
+  editorOnBlur(event: any) {
+    console.log('The editor id ' + event.editor.id + ' is now blurred');
+    eval('$("#' + event.editor.id + '_top").hide();');
+  }
+
   private static createDefaultCell(): TiItemTableRowCell {
     const cell = new TiItemTableRowCell();
     cell.type = 'label';

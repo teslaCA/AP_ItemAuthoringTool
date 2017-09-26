@@ -32,6 +32,8 @@ CKEDITOR.editorConfig = function( config ) {
 	// Dialog windows are also simplified.
 	config.removeDialogTabs = 'link:advanced';
 
+/****************************************************************************************************/
+
   // IAT customizations
   // Lines below are IAT specific setting updates
   config.removeButtons = 'Cut,Copy,Paste,Undo,Redo,Link,Unlink,Anchor,Strike,Subscript,Superscript';
@@ -58,4 +60,30 @@ CKEDITOR.editorConfig = function( config ) {
 
   config.autoParagraph = false;
   config.enterMode = CKEDITOR.ENTER_BR;
+
+
+
+  // CKEDITOR.on('instanceReady', function(evt) {
+  //   var editor = evt.editor;
+  //   console.log('The editor named ' + editor.name + ' is now ready');
+  //
+  //   editor.on('focus', function(e) {
+  //     console.log('The editor named ' + e.editor.name + ' is now focused');
+  //   });
+  // });
+
+  // CKEDITOR.on( 'dialogDefinition', function( ev ) {
+  //   // Take the dialog name and its definition from the event data.
+  //   var dialogName = ev.data.name;
+  //   var dialogDefinition = ev.data.definition;
+  //   // Check if the definition is from the dialog we're
+  //   // interested in (the "Table" dialog).
+  //   if ( dialogName == 'table' ) {
+  //     // Get a reference to the "Table Info" tab.
+  //     var infoTab = dialogDefinition.getContents( 'info' );
+  //     var txtWidth = infoTab.get( 'txtWidth' );
+  //     txtWidth['default'] = '100%';
+  //   }
+  // });
+
 };

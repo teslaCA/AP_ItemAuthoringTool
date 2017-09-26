@@ -77,7 +77,9 @@
                   readOnly: isReadOnly,
                   height: 50
                 }"
-                debounce="500">
+                debounce="500"
+                (focus)="editorOnFocus($event)"
+                (blur)="editorOnBlur($event)">
               </ckeditor>
             </div>
           </td>
