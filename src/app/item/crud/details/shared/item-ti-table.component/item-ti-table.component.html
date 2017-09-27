@@ -13,8 +13,8 @@
             }"
         formControlName="title"
         debounce="500"
-        (focus)="editorOnFocus($event)"
-        (blur)="editorOnBlur($event)">
+        (focus)="editorOnFocus($event, null)"
+        (blur)="editorOnBlur($event, null)">
       </ckeditor>
     </div>
 
@@ -24,7 +24,10 @@
         <thead>
         <!-- Header -->
         <tr formArrayName="columns">
-          <th *ngFor="let control of formColumns.controls; let i=index" [formGroupName]="i">
+          <th *ngFor="let control of formColumns.controls; let i=index"
+              [formGroupName]="i"
+              [attr.id]="'header' + i"
+              class="ti-table-cell-width">
             <div class="input-group input-group-sm hover-toolbar">
               <ckeditor
                 [config]="{
@@ -34,8 +37,8 @@
                 }"
                 formControlName="label"
                 debounce="500"
-                (focus)="editorOnFocus($event)"
-                (blur)="editorOnBlur($event)">
+                (focus)="editorOnFocus($event, 'header' + i)"
+                (blur)="editorOnBlur($event, 'header' + i)">
               </ckeditor>
             </div>
           </th>
@@ -50,7 +53,9 @@
         <!-- Body -->
         <tbody formArrayName="rows">
         <tr *ngFor="let rowControl of formRows.controls; let i=index" [formGroupName]="i">
-          <td *ngFor="let cellControl of formRowCells(i).controls; let j=index" [formGroupName]="j">
+          <td *ngFor="let cellControl of formRowCells(i).controls; let j=index"
+              [formGroupName]="j"
+              [attr.id]="'cell' + i + j">
             <div class="input-group input-group-sm hover-toolbar">
               <div class="ti-table-cell-align pull-buttons" data-toggle="buttons">
                 <label class="btn btn-default btn-xs"
@@ -81,9 +86,8 @@
                   height: 50
                 }"
                 formControlName="value"
-                debounce="500"
-                (focus)="editorOnFocus($event)"
-                (blur)="editorOnBlur($event)">
+                (focus)="editorOnFocus($event, 'cell' + i + j)"
+                (blur)="editorOnBlur($event, 'cell' + i + j)">
               </ckeditor>
             </div>
           </td>

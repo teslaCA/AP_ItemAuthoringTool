@@ -144,14 +144,22 @@ export class ItemTiTableComponent implements OnInit {
     this.formRows.removeAt(index);
   }
 
-  editorOnFocus(event: any) {
-    //console.log('The editor id ' + event.editor.id + ' is now focused');
+  editorOnFocus(event: any, backgroundRow: string) {
     eval('$("#' + event.editor.id + '_top").show();');
+    if (backgroundRow != null) {
+      eval('$("#' + backgroundRow + '").css("background-color","#ccc");');
+    }
   }
 
-  editorOnBlur(event: any) {
-    //console.log('The editor id ' + event.editor.id + ' is now blurred');
+  editorOnBlur(event: any, backgroundRow: string) {
     eval('$("#' + event.editor.id + '_top").hide();');
+    if (backgroundRow != null) {
+      let bgcolor = '#f8f8f8';
+      if (backgroundRow.indexOf('header') == 0) {
+        bgcolor = '#e6e6e6';
+      }
+      eval('$("#' + backgroundRow + '").css("background-color","' + bgcolor + '");');
+    }
   }
 
   private static createDefaultCell(): TiItemTableRowCell {
