@@ -3,9 +3,19 @@
     <h4>Table</h4>
 
     <!-- Title -->
-    <div class="input-group mb-sm">
+    <div class="input-group mb-sm hover-toolbar">
       <span class="input-group-addon" id="sizing-addon2">Title</span>
-      <input class="form-control" formControlName="title" aria-describedby="sizing-addon2">
+      <ckeditor
+              [config]="{
+              toolbar: 'IATMATH',
+              readOnly: isReadOnly,
+              height: 50
+            }"
+              formControlName="title"
+              debounce="500"
+              (focus)="editorOnFocus($event, null)"
+              (blur)="editorOnBlur($event, null)">
+      </ckeditor>
     </div>
 
     <!-- Table -->
@@ -14,9 +24,24 @@
         <thead>
         <!-- Header -->
         <tr formArrayName="columns">
-          <th *ngFor="let control of formColumns.controls; let i=index" [formGroupName]="i">
+          <th *ngFor="let control of formColumns.controls; let i=index"
+              [formGroupName]="i"
+              [attr.id]="'header' + i"
+              class="ti-table-cell-width">
             <div *ngIf="i != 0" class="input-group input-group-sm">
-              <input class="form-control" formControlName="label"/>
+              <div class="input-group input-group-sm hover-toolbar">
+                <ckeditor
+                        [config]="{
+                  toolbar: 'IATMATH',
+                  readOnly: isReadOnly,
+                  height: 50
+                }"
+                        formControlName="label"
+                        debounce="500"
+                        (focus)="editorOnFocus($event, 'header' + i)"
+                        (blur)="editorOnBlur($event, 'header' + i)">
+                </ckeditor>
+              </div>
             </div>
           </th>
           <th class="center">
@@ -30,8 +55,22 @@
         <!-- Body -->
         <tbody formArrayName="rows">
           <tr *ngFor="let rowControl of formRows.controls; let i=index" [formGroupName]="i">
-            <td *ngFor="let cellControl of formRowCells(i).controls; let j=index" [formGroupName]="j" class="center">
-              <input *ngIf="cellControl.value.type === 'label'" class="form-control" formControlName="value">
+            <td *ngFor="let cellControl of formRowCells(i).controls; let j=index"
+                [formGroupName]="j"
+                [attr.id]="'cell' + i + j"
+                [ngClass]="{'center': j!==0}">
+              <div *ngIf="cellControl.value.type === 'label'" class="input-group input-group-sm hover-toolbar">
+                <ckeditor
+                        [config]="{
+                    toolbar: 'IATMATH',
+                    readOnly: isReadOnly,
+                    height: 50
+                  }"
+                        formControlName="value"
+                        (focus)="editorOnFocus($event, 'cell' + i + j)"
+                        (blur)="editorOnBlur($event, 'cell' + i + j)">
+                </ckeditor>
+              </div>
               <input *ngIf="cellControl.value.type === 'answer'" class="checkbox center" formControlName="value"  type="checkbox" checked="value">
             </td>
             <td class="center">
