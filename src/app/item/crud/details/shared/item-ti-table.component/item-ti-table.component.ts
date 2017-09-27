@@ -155,7 +155,7 @@ export class ItemTiTableComponent implements OnInit {
     eval('$("#' + event.editor.id + '_top").hide();');
     if (backgroundRow != null) {
       let bgcolor = '#f8f8f8';
-      if (backgroundRow.indexOf('header') == 0) {
+      if (backgroundRow.indexOf('header') === 0) {
         bgcolor = '#e6e6e6';
       }
       eval('$("#' + backgroundRow + '").css("background-color","' + bgcolor + '");');
