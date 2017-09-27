@@ -2,16 +2,22 @@
 
   <!-- Cancel creating -->
   <span *ngIf="itemContext.isUserCreatingItem(currentUser.userName)">
-    <button class="btn btn-default btn-sm" (click)="cancelModal.show()">
+    <button *ngIf="!isSavePending" class="btn btn-default btn-sm" (click)="cancelModal.show()">
       <i class="fa fa-undo"></i> Cancel
     </button>
+    <div *ngIf="isSavePending" class="btn btn-default btn-sm disabled">
+      <i class="fa fa-undo"></i> Cancel
+    </div>
   </span>
 
   <!-- Finish creating -->
   <span *ngIf="itemContext.isUserCreatingItem(currentUser.userName)">
-    <button class="btn btn-success btn-sm" (click)="commitModal.show()">
+    <button *ngIf="!isSavePending" class="btn btn-success btn-sm" (click)="commitModal.show()">
       <i class="fa fa-check-square"></i> Finish Creating {{itemContext.item.itemType.categoryName}}
     </button>
+    <div *ngIf="isSavePending" class="btn btn-success btn-sm disabled">
+      <i class="fa fa-check-square"></i> Finish Creating {{itemContext.item.itemType.categoryName}}
+    </div>
   </span>
 
 </div>

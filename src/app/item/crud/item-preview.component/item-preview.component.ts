@@ -14,6 +14,7 @@ import {ItemHistoryResponse} from "../../services/item-history.service/item-hist
   styleUrls: ['./item-preview.component.less'],
 })
 export class ItemPreviewComponent {
+  @Input() isSavePending: boolean;
   showIframe: boolean;
   isError = false;
   errorMessage: string;

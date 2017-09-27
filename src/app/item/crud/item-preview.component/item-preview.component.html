@@ -1,6 +1,9 @@
-<button class="btn btn-default btn-sm" (click)="show()">
+<button *ngIf="!isSavePending" class="btn btn-default btn-sm" (click)="show()">
   <i class="fa fa-eye"></i> Preview
 </button>
+<div *ngIf="isSavePending" class="btn btn-default btn-sm disabled">
+  <i class="fa fa-eye"></i> Preview
+</div>
 
 <div #previewModal="bs-modal"
      id="previewModal"
