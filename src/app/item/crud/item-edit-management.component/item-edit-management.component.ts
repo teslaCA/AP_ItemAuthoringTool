@@ -44,7 +44,9 @@ export class ItemEditManagementComponent {
     const value = this.form.get('commitMsg').value;
     return value && value.trim()
       ? value.trim()
-      : 'Made a change.';
+      : this.itemContext.getSectionBeingEditedByUser(this.currentUser.userName) === 'core'
+        ? 'Made a change.'
+        : `Made a change to '${this.section}'.`;
   }
 }
 
