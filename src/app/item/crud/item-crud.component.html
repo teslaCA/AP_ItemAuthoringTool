@@ -93,7 +93,8 @@
         <div id="flytabs" #flytabs class="col-md-6">
 
           <!-- Item tabs -->
-          <item-tabs [currentUser]="currentUser"
+          <item-tabs [isSavePending]="autoSave.isSavePending"
+                     [currentUser]="currentUser"
                      [itemContext]="itemContext"
                      [itemType]="itemContext.item.itemType"
                      [selected]="selectedTab"
