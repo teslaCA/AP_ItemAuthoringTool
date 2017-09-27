@@ -6,6 +6,7 @@
 
         <!-- ASL -->
         <item-edit-management
+          [isSavePending]="isSavePending"
           [showActionButtons]="true"
           *ngIf="isSelected(tab.asl)"
           [section]="'asl'"
@@ -18,6 +19,7 @@
 
         <!-- Braille -->
         <item-edit-management
+          [isSavePending]="isSavePending"
           [showActionButtons]="true"
           *ngIf="isSelected(tab.braille)"
           [section]="'braille'"
@@ -30,6 +32,7 @@
 
         <!-- CC -->
         <item-edit-management
+          [isSavePending]="isSavePending"
           [showActionButtons]="true"
           *ngIf="isSelected(tab.cc)"
           [section]="'cc'"
@@ -42,6 +45,7 @@
 
         <!-- Stimulus -->
         <item-edit-management
+          [isSavePending]="isSavePending"
           [showActionButtons]="false"
           *ngIf="isSelected(tab.stimulus)"
           [section]="'core'"
@@ -54,6 +58,7 @@
 
         <!-- Tutorial -->
         <item-edit-management
+          [isSavePending]="isSavePending"
           [showActionButtons]="false"
           *ngIf="isSelected(tab.tutorial)"
           [section]="'core'"
@@ -66,6 +71,7 @@
 
         <!-- Workflow -->
         <item-edit-management
+          [isSavePending]="isSavePending"
           [showActionButtons]="false"
           *ngIf="isSelected(tab.workflow)"
           [section]="'core'"

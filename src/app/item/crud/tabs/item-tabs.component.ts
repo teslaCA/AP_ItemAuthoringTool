@@ -43,6 +43,7 @@ export class ItemTabsComponent {
     this.tab.validation,
     this.tab.workflow
   ];
+  @Input() isSavePending: boolean;
   @Input() currentUser: User;
   @Input() itemContext: ItemContext;
   @Input() itemType: ItemType;
