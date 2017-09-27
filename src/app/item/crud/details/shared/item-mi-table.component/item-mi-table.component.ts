@@ -151,4 +151,22 @@ export class ItemMiTableComponent implements OnInit {
       cell.value = false;
       return cell;
   }
+
+    editorOnFocus(event: any, backgroundRow: string) {
+        eval('$("#' + event.editor.id + '_top").show();');
+        if (backgroundRow != null) {
+            eval('$("#' + backgroundRow + '").css("background-color","#ccc");');
+        }
+    }
+
+    editorOnBlur(event: any, backgroundRow: string) {
+        eval('$("#' + event.editor.id + '_top").hide();');
+        if (backgroundRow != null) {
+            let bgcolor = '#f8f8f8';
+            if (backgroundRow.indexOf('header') === 0) {
+                bgcolor = '#e6e6e6';
+            }
+            eval('$("#' + backgroundRow + '").css("background-color","' + bgcolor + '");');
+        }
+    }
 }
