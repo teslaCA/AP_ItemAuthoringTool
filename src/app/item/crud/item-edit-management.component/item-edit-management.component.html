@@ -21,16 +21,22 @@
 
   <!-- Cancel editing button -->
   <span *ngIf="showActionButtons && itemContext.isUserEditingSection(currentUser.userName, section)">
-    <button class="btn btn-default btn-sm" (click)="cancelModal.show()">
+    <button *ngIf="!isSavePending" class="btn btn-default btn-sm" (click)="cancelModal.show()">
       <i class="fa fa-undo"></i> Discard
     </button>
+    <div *ngIf="isSavePending" class="btn btn-default btn-sm disabled">
+      <i class="fa fa-undo"></i> Discard
+    </div>
   </span>
 
   <!-- Finish editing button -->
   <span *ngIf="showActionButtons && itemContext.isUserEditingSection(currentUser.userName, section)">
-    <button class="btn btn-success btn-sm" (click)="commitModal.show()">
+    <button *ngIf="!isSavePending" class="btn btn-success btn-sm" (click)="commitModal.show()">
       <i class="fa fa-check-square"></i> Finish Editing
     </button>
+    <div *ngIf="isSavePending" class="btn btn-success btn-sm disabled">
+      <i class="fa fa-check-square"></i> Finish Editing
+    </div>
   </span>
 </div>
 

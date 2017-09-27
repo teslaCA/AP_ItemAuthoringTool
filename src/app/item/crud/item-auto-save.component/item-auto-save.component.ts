@@ -24,9 +24,10 @@ enum AutoSaveMode {
   styleUrls: ['./item-auto-save.component.less']
 })
 export class ItemAutoSaveComponent implements OnInit, OnDestroy {
-  private mode = AutoSaveMode.Saved;
+  public isSavePending = false;
   private changesSubject = new Subject<Item>();
   private changesObservable: Observable<Item> = this.changesSubject.asObservable();
+  private mode = AutoSaveMode.Saved;
 
   /**
    * Will changes to the item be auto-saved?
@@ -97,6 +98,7 @@ export class ItemAutoSaveComponent implements OnInit, OnDestroy {
     if (this.enabled) {
       // Enqueue item to be saved after debounce period
       this.mode = AutoSaveMode.Changed;
+      this.isSavePending = true;
       this.changesSubject.next(item);
     }
   }
@@ -116,7 +118,10 @@ export class ItemAutoSaveComponent implements OnInit, OnDestroy {
       .subscribe(
         () => {
           // Item successfully saved
-          this.mode = AutoSaveMode.Saved;
+          if (this.mode !== AutoSaveMode.Changed) {
+            this.mode = AutoSaveMode.Saved;
+            this.isSavePending = false;
+          }
         },
         () => {
           // Re-enqueue for retry after debounce period

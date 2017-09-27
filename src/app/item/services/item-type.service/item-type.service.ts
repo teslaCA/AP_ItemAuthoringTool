@@ -11,7 +11,7 @@ export class ItemTypeService {
   constructor() {
   }
 
-  findNormalItemTypes(): Observable<ItemType[]> {
+  findAssessmentItems(): Observable<ItemType[]> {
     return Observable.of(itemTypes.filter(itemType =>
       itemType.category === ItemTypeCategory.Item)
     );

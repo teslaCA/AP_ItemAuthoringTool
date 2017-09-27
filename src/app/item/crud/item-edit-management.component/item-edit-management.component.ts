@@ -9,6 +9,7 @@ import {FormBuilder, FormGroup} from "@angular/forms";
   styleUrls: ['./item-edit-management.component.less']
 })
 export class ItemEditManagementComponent {
+  @Input() isSavePending: boolean;
   @Input() showActionButtons: boolean;
   @Input() section: string;
   @Input() itemContext: ItemContext;

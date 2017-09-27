@@ -9,6 +9,7 @@ import {FormBuilder, FormGroup} from "@angular/forms";
   styleUrls: ['./item-create-management.component.less']
 })
 export class ItemCreateManagementComponent {
+  @Input() isSavePending: boolean;
   @Input() itemContext: ItemContext;
   @Input() currentUser: User;
   @Output() finishedCreating = new EventEmitter<FinishedCreatingEvent>();
