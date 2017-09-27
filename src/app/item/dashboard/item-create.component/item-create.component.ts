@@ -22,7 +22,7 @@ export class ItemCreateComponent implements OnInit {
   ngOnInit() {
     // Load normal item types
     this.itemTypeService
-      .findNormalItemTypes()
+      .findAssessmentItems()
       .subscribe(
         (itemTypes: ItemType[]) => {
           this.normalItemTypes = itemTypes;
