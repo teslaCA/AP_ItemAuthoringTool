@@ -121,7 +121,7 @@ a {
     background: @gray-lighter;
     margin: auto;
     td {
-      padding: 2.8px 0;
+      padding: 2px;
     }
   }
   .input-group {
@@ -148,13 +148,20 @@ a {
     border-top: @gray-lighter solid 1px;
     padding: 2px 0;
     border-bottom: @gray-lighter solid 1px;
-    &.mute .btn {
+  }
+  .btn.disabled {
+    cursor: default;
+    opacity: .8;
+    &.muted {
       opacity: 0.3;
       cursor: default;
-
     }
   }
-
+  .eq-sprite {
+    background-image: url('/assets/image/eq-symbol.png');
+    height: 200px;
+    width: 200px;
+  }
 }
 
 
