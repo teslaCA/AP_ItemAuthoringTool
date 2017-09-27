@@ -158,8 +158,7 @@ export class ItemCrudComponent implements OnInit {
     this.commitTransaction(
       message,
       'Changes Committed',
-      `Your changes to the ${this.itemContext.item.itemType.categoryName} have been committed to the item bank.`,
-      `/?id=${this.itemDetailsComponent.currentItem.id}`);
+      `Your changes to the ${this.itemContext.item.itemType.categoryName} have been committed to the item bank.`);
   }
 
   private rollbackCreateTransaction(): void {
@@ -172,28 +171,35 @@ export class ItemCrudComponent implements OnInit {
   private rollbackEditTransaction(): void {
     this.rollbackTransaction(
       'Changes Discarded',
-      `Your changes to the ${this.itemContext.item.itemType.categoryName} have been discarded.`,
-      `/?id=${this.itemContext.item.id}`);
+      `Your changes to the ${this.itemContext.item.itemType.categoryName} have been discarded.`);
   }
 
-  private commitTransaction(commitMessage: string, alertTitle: string, alertMessage: string, successUrl: string) {
+  private commitTransaction(commitMessage: string, alertTitle: string, alertMessage: string, successUrl?: string) {
     this.itemService
       .commitTransaction(this.itemDetailsComponent.currentItem, commitMessage)
       .subscribe(
         () => {
           this.alertService.success(alertTitle, alertMessage);
-          this.router.navigateByUrl(successUrl);
+          if (successUrl) {
+            this.router.navigateByUrl(successUrl);
+          } else {
+            this.loadItem(this.itemContext.item.id, this.selectedTab);
+          }
         }
       );
   }
 
-  private rollbackTransaction(alertTitle: string, alertMessage: string, successUrl: string): void {
+  private rollbackTransaction(alertTitle: string, alertMessage: string, successUrl?: string): void {
     this.itemService
       .rollbackTransaction(this.itemContext.item.id)
       .subscribe(
         () => {
           this.alertService.success(alertTitle, alertMessage);
-          this.router.navigateByUrl(successUrl);
+          if (successUrl) {
+            this.router.navigateByUrl(successUrl);
+          } else {
+            this.loadItem(this.itemContext.item.id, this.selectedTab);
+          }
         }
       );
   }
