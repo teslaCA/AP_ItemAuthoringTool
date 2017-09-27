@@ -6,7 +6,7 @@
 <!-- Message indicating you are editing another section -->
 <div *ngIf="itemContext.isUserEditingDifferentSection(currentUser.userName, section)" class="alert-info small alerts">
   <!-- Editing core -->
-  <div *ngIf="itemContext.getSectionBeingEditedByUser(currentUser.userName) === 'core'"><i class="fa fa-warning"></i> Please save your changes to the item before editing this section</div>
+  <div *ngIf="itemContext.getSectionBeingEditedByUser(currentUser.userName) === 'core'"><i class="fa fa-warning"></i> Please save your changes to the {{itemContext.item.itemType.categoryName | lowercase}} before editing this section</div>
   <!-- Editing non-core -->
   <div *ngIf="itemContext.getSectionBeingEditedByUser(currentUser.userName) !== 'core'"><i class="fa fa-warning"></i> Please save your changes to '{{itemContext.getSectionBeingEditedByUser(currentUser.userName)}}' before editing this section</div>
 </div>
